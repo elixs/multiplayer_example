@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://c73h1at2t0bua"]
+
+[ext_resource type="PackedScene" uid="uid://o52u0d27mabd" path="res://scenes/cliente.tscn" id="1_vlu5k"]
+[ext_resource type="PackedScene" uid="uid://dyir1uqbqim4o" path="res://scenes/mesero.tscn" id="2_2t2rv"]
+[ext_resource type="PackedScene" uid="uid://dv8g6pyih6nhc" path="res://scenes/mesilla.tscn" id="3_qvdnj"]
+
+[node name="restaurante" type="Node2D"]
+
+[node name="cliente" parent="." instance=ExtResource("1_vlu5k")]
+position = Vector2(863, 63)
+
+[node name="mesero" parent="." instance=ExtResource("2_2t2rv")]
+scale = Vector2(1.2, 1.2)
+
+[node name="mesilla" parent="." instance=ExtResource("3_qvdnj")]
+position = Vector2(295, 479)
