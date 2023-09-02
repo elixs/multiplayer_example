@@ -9,8 +9,8 @@
 [node name="cliente" parent="." instance=ExtResource("1_vlu5k")]
 position = Vector2(863, 63)
 
-[node name="mesero" parent="." instance=ExtResource("2_2t2rv")]
-scale = Vector2(1.2, 1.2)
-
 [node name="mesilla" parent="." instance=ExtResource("3_qvdnj")]
 position = Vector2(295, 479)
+
+[node name="mesero" parent="." instance=ExtResource("2_2t2rv")]
+position = Vector2(101, 120)
