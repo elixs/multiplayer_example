@@ -1,16 +1,75 @@
-[gd_scene load_steps=4 format=3 uid="uid://c73h1at2t0bua"]
+[gd_scene load_steps=10 format=3 uid="uid://c73h1at2t0bua"]
 
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_i6r40"]
 [ext_resource type="PackedScene" uid="uid://o52u0d27mabd" path="res://scenes/cliente.tscn" id="1_vlu5k"]
 [ext_resource type="PackedScene" uid="uid://dyir1uqbqim4o" path="res://scenes/mesero.tscn" id="2_2t2rv"]
 [ext_resource type="PackedScene" uid="uid://dv8g6pyih6nhc" path="res://scenes/mesilla.tscn" id="3_qvdnj"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="5_dm7vu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kr5cm"]
+size = Vector2(1155, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgvi0"]
+size = Vector2(20, 668)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0bfba"]
+size = Vector2(19, 668)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wnics"]
+size = Vector2(92.5715, 927.143)
 
 [node name="restaurante" type="Node2D"]
+script = ExtResource("1_i6r40")
+player_scene = ExtResource("2_2t2rv")
+
+[node name="Players" type="Node2D" parent="."]
 
 [node name="cliente" parent="." instance=ExtResource("1_vlu5k")]
-position = Vector2(863, 63)
+position = Vector2(34, 49)
+scale = Vector2(0.6, 0.6)
+
+[node name="mesilla2" parent="." instance=ExtResource("3_qvdnj")]
+position = Vector2(367, 513)
+scale = Vector2(0.6, 0.6)
 
 [node name="mesilla" parent="." instance=ExtResource("3_qvdnj")]
-position = Vector2(295, 479)
+position = Vector2(177, 375)
+scale = Vector2(0.6, 0.6)
 
-[node name="mesero" parent="." instance=ExtResource("2_2t2rv")]
-position = Vector2(101, 120)
+[node name="muros" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="muros"]
+position = Vector2(573, 0)
+shape = SubResource("RectangleShape2D_kr5cm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="muros"]
+position = Vector2(573, 652)
+shape = SubResource("RectangleShape2D_kr5cm")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="muros"]
+position = Vector2(0, 324)
+shape = SubResource("RectangleShape2D_wgvi0")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="muros"]
+position = Vector2(1145.5, 324)
+shape = SubResource("RectangleShape2D_0bfba")
+
+[node name="meson" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="meson"]
+position = Vector2(580.5, 325)
+scale = Vector2(0.507813, 5.07813)
+texture = ExtResource("5_dm7vu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="meson"]
+position = Vector2(580, 324)
+scale = Vector2(0.7, 0.7)
+shape = SubResource("RectangleShape2D_wnics")
+
+[node name="Spawn" type="Node2D" parent="."]
+
+[node name="Marker2D2" type="Marker2D" parent="Spawn"]
+position = Vector2(871, 225)
+
+[node name="Marker2D" type="Marker2D" parent="Spawn"]
+position = Vector2(288, 220)
