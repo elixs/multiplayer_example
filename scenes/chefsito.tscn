@@ -8,7 +8,6 @@ radius = 23.0
 height = 88.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-position = Vector2(79, 63)
 script = ExtResource("1_nfli4")
 metadata/_edit_group_ = true
 

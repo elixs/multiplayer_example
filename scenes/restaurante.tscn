@@ -73,3 +73,6 @@ position = Vector2(871, 225)
 
 [node name="Marker2D" type="Marker2D" parent="Spawn"]
 position = Vector2(288, 220)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(571, 331)
