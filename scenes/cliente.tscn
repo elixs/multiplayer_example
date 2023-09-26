@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://o52u0d27mabd"]
+
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="1_frgf2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mg72u"]
+radius = 25.0
+height = 102.0
+
+[node name="cliente" type="Node2D"]
+
+[node name="cliente" type="RigidBody2D" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="cliente"]
+scale = Vector2(0.398437, 0.78125)
+texture = ExtResource("1_frgf2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cliente"]
+shape = SubResource("CapsuleShape2D_mg72u")
