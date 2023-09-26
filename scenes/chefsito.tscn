@@ -1,14 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://chl340foqglf4"]
+[gd_scene load_steps=5 format=3 uid="uid://chl340foqglf4"]
 
-[ext_resource type="Script" path="res://scenes/mesero.gd" id="1_nfli4"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_ndgfo"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_umr0k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2r8f1"]
 radius = 23.0
 height = 88.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kcefd"]
+properties/0/path = NodePath(".")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = true
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
-script = ExtResource("1_nfli4")
+script = ExtResource("1_ndgfo")
 metadata/_edit_group_ = true
 
 [node name="Icon" type="Sprite2D" parent="."]
@@ -18,3 +24,6 @@ texture = ExtResource("2_umr0k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_2r8f1")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_kcefd")
