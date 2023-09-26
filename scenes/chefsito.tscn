@@ -8,10 +8,6 @@ radius = 23.0
 height = 88.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kcefd"]
-properties/0/path = NodePath(".")
-properties/0/spawn = true
-properties/0/sync = true
-properties/0/watch = true
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_ndgfo")
