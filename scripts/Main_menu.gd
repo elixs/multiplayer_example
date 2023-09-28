@@ -1,4 +1,5 @@
 extends MarginContainer
+
 @onready var conn = $PanelContainer/MarginContainer/VBoxContainer/Conn
 @onready var exit = $PanelContainer/MarginContainer/VBoxContainer/exit
 
@@ -14,3 +15,4 @@ func _on_con():
 	
 func _on_exit():
 	get_tree().quit()
+

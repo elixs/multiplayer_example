@@ -10,7 +10,7 @@ size = Vector2(76, 74)
 
 [node name="mesilla" type="Node2D"]
 
-[node name="mesa" type="StaticBody2D" parent="."]
+[node name="mesa" type="Area2D" parent="."]
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="mesa"]
@@ -22,7 +22,7 @@ texture = ExtResource("1_2i5g6")
 position = Vector2(-1.5, -1.00003)
 shape = SubResource("RectangleShape2D_qwywt")
 
-[node name="silla" type="StaticBody2D" parent="."]
+[node name="silla" type="Area2D" parent="."]
 position = Vector2(-138, 0)
 metadata/_edit_group_ = true
 
@@ -33,7 +33,7 @@ texture = ExtResource("1_2i5g6")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="silla"]
 shape = SubResource("RectangleShape2D_n3g6h")
 
-[node name="silla2" type="StaticBody2D" parent="."]
+[node name="silla2" type="Area2D" parent="."]
 position = Vector2(133, 1)
 metadata/_edit_group_ = true
 
