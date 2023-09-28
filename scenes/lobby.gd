@@ -31,6 +31,7 @@ const PORT = 5409
 
 @onready var time_container: HBoxContainer = %TimeContainer
 @onready var time: Label = %Time
+@onready var back = $PanelContainer/Menus/StartMenu/HBoxContainer2/back
 
 
 @export var lobby_player_scene: PackedScene
@@ -57,6 +58,7 @@ func _ready():
 	
 	back_join.pressed.connect(_back_menu)
 	back_ready.pressed.connect(_back_menu)
+	back.pressed.connect(_back)
 	
 	role_a.pressed.connect(func(): Game.set_current_player_role(Game.Role.ROLE_A))
 	role_b.pressed.connect(func(): Game.set_current_player_role(Game.Role.ROLE_B))
@@ -276,6 +278,8 @@ func _back_menu() -> void:
 		menu.show()
 	_disconnect()
 
+func _back():
+	get_tree().change_scene_to_file("res://scenes/Main_menu.tscn")
 
 func _back_to_first_menu() -> void:
 	var first = _menu_stack.front()
