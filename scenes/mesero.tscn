@@ -15,6 +15,7 @@ properties/0/watch = true
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_eerq4")
+speed = null
 metadata/_edit_group_ = true
 
 [node name="Icon" type="Sprite2D" parent="."]

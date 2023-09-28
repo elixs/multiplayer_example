@@ -155,7 +155,7 @@ position = Vector2(169, 376)
 scale = Vector2(0.5, 0.5)
 
 [node name="mesilla" parent="." instance=ExtResource("3_qvdnj")]
-position = Vector2(396, 243)
+position = Vector2(420, 243)
 scale = Vector2(0.5, 0.5)
 
 [node name="muros" type="StaticBody2D" parent="."]
@@ -195,7 +195,7 @@ shape = SubResource("RectangleShape2D_wnics")
 position = Vector2(871, 225)
 
 [node name="Marker2D" type="Marker2D" parent="Spawn"]
-position = Vector2(288, 220)
+position = Vector2(240, 226)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(571, 331)
