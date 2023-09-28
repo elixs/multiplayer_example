@@ -61,6 +61,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Join"
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/Menus/StartMenu"]
+layout_mode = 2
+
+[node name="ret" type="Button" parent="PanelContainer/Menus/StartMenu/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(124, -200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+text = "Back Menu"
+icon_alignment = 2
+vertical_icon_alignment = 2
+
 [node name="JoinMenu" type="VBoxContainer" parent="PanelContainer/Menus"]
 unique_name_in_owner = true
 visible = false
