@@ -1,8 +1,16 @@
 class_name Cliente
 extends Node2D
 
+
 @onready var area_2d = $Area2D
 
+var selected = false
+
+func _on_area_2d_input_event(viewport, event, shape_idx):
+	if !Input.is_action_pressed("right_click"):
+		selected = false
+	else:
+		selected = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -10,5 +18,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
-	pass
+	if selected:
+		global_position = lerp(global_position, get_global_mouse_position(), 25 * delta)
+
