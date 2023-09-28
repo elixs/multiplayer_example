@@ -61,6 +61,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Join"
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/Menus/StartMenu"]
+layout_mode = 2
+
+[node name="back" type="Button" parent="PanelContainer/Menus/StartMenu/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back"
+
 [node name="JoinMenu" type="VBoxContainer" parent="PanelContainer/Menus"]
 unique_name_in_owner = true
 visible = false

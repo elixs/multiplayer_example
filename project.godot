@@ -10,13 +10,10 @@ config_version=5
 
 [application]
 
-<<<<<<< Updated upstream
-config/name="multiplayer_example"
-run/main_scene="res://scenes/lobby.tscn"
-=======
-config/name="Sturdust2"
+
+config/name="StardustNewGame"
 run/main_scene="res://scenes/Main_menu.tscn"
->>>>>>> Stashed changes
+
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
