@@ -7,6 +7,8 @@ const PORT = 5409
 @onready var user = %User
 @onready var host = %Host
 @onready var join = %Join
+@onready var ret = %ret
+
 
 
 @onready var ip = %IP
@@ -57,6 +59,7 @@ func _ready():
 	
 	back_join.pressed.connect(_back_menu)
 	back_ready.pressed.connect(_back_menu)
+	ret.pressed.connect(_return_menu)
 	
 	role_a.pressed.connect(func(): Game.set_current_player_role(Game.Role.ROLE_A))
 	role_b.pressed.connect(func(): Game.set_current_player_role(Game.Role.ROLE_B))
@@ -276,6 +279,8 @@ func _back_menu() -> void:
 		menu.show()
 	_disconnect()
 
+func _return_menu():
+	get_tree().change_scene_to_file("res://scenes/Main_menu.tscn")
 
 func _back_to_first_menu() -> void:
 	var first = _menu_stack.front()

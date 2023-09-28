@@ -11,7 +11,11 @@ config_version=5
 [application]
 
 config/name="Sturdust2"
+<<<<<<< Updated upstream
 run/main_scene="res://scenes/lobby.tscn"
+=======
+run/main_scene="res://scenes/Main_menu.tscn"
+>>>>>>> Stashed changes
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
