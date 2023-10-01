@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyir1uqbqim4o"]
+[gd_scene load_steps=6 format=3 uid="uid://dyir1uqbqim4o"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_eerq4"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="1_fgr22"]
+[ext_resource type="PackedScene" uid="uid://bgnbtw5pbv5y1" path="res://scenes/Pause_Menu.tscn" id="3_t0njq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2r8f1"]
 radius = 23.0
@@ -27,3 +28,7 @@ shape = SubResource("CapsuleShape2D_2r8f1")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_s6gxf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pause_Menu" parent="CanvasLayer" instance=ExtResource("3_t0njq")]

@@ -2,6 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 @export var speed = 400
+@onready var pause_menu = $CanvasLayer/Pause_Menu
 
 var target = position
 
@@ -33,7 +34,7 @@ func setup(player_data: Game.PlayerData):
 	name = str(player_data.id)
 	#Debug.dprint(player_data.name, 30)
 	#Debug.dprint(player_data.role, 30)
-
+	pause_menu.set_multiplayer_authority(player_data.id)
 
 	
 @rpc

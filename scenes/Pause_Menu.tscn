@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgnbtw5pbv5y1"]
+
+[ext_resource type="Script" path="res://scripts/Pause_Menu.gd" id="1_6jrs7"]
+[ext_resource type="Theme" uid="uid://do15armsdpvk4" path="res://resources/humble.tres" id="1_21jxh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0two0"]
+bg_color = Color(0.960784, 0.545098, 0.415686, 0.65098)
+
+[node name="Pause_Menu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 259.0
+offset_top = 108.0
+offset_right = -198.0
+offset_bottom = -129.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_6jrs7")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0two0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_21jxh")
+theme_override_constants/separation = 19
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Pause"
+
+[node name="resume" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Resume"
+
+[node name="Menu_p" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Main Menu"
+
+[node name="quit" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Exit"
