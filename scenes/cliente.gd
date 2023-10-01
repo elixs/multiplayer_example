@@ -13,6 +13,13 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		selected = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var id = multiplayer.get_unique_id()
+	var player = Game.get_player(id)
+	var role = player.role
+	
+	if role == 1:
+		get_node("Area2D/CollisionShape2D").disabled = true
+		
 	pass # Replace with function body.
 
 
