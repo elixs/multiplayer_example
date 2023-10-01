@@ -31,8 +31,8 @@ func _physics_process(delta):
 func setup(player_data: Game.PlayerData):
 	set_multiplayer_authority(player_data.id)
 	name = str(player_data.id)
-	Debug.dprint(player_data.name, 30)
-	Debug.dprint(player_data.role, 30)
+	#Debug.dprint(player_data.name, 30)
+	#Debug.dprint(player_data.role, 30)
 
 
 	

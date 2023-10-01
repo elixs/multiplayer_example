@@ -1,8 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://bslhrv3eo36wd"]
+[gd_scene load_steps=8 format=3 uid="uid://bslhrv3eo36wd"]
 
 [ext_resource type="Script" path="res://scenes/lobby.gd" id="1_g2fmt"]
 [ext_resource type="PackedScene" uid="uid://chbh4lxk8rmmd" path="res://scenes/ui/lobby_player.tscn" id="2_060bj"]
 [ext_resource type="Texture2D" uid="uid://pl7n1ifavxe0" path="res://assets/fondo1.jpg" id="3_ok7l3"]
+[ext_resource type="FontFile" uid="uid://cdrosoem78nqn" path="res://assets/fonts/hf-free-complete/matchup-pro-v1.1/MatchupPro.ttf" id="4_vd2cb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avn8i"]
+bg_color = Color(0.960784, 0.545098, 0.415686, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fel43"]
+bg_color = Color(0.941176, 0.415686, 0.27451, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.831373, 0, 1)
+
+[sub_resource type="Theme" id="Theme_dtgq4"]
+default_font = ExtResource("4_vd2cb")
+default_font_size = 25
 
 [node name="Lobby" type="MarginContainer"]
 clip_contents = true
@@ -11,14 +27,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -37.0
 offset_top = -319.0
-offset_right = 54.0
+offset_right = 49.0
 offset_bottom = 276.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g2fmt")
 lobby_player_scene = ExtResource("2_060bj")
 
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_avn8i")
+
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 2
 texture = ExtResource("3_ok7l3")
 
@@ -26,10 +47,14 @@ texture = ExtResource("3_ok7l3")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_fel43")
 
 [node name="Menus" type="MarginContainer" parent="PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_dtgq4")
 
 [node name="StartMenu" type="VBoxContainer" parent="PanelContainer/Menus"]
 unique_name_in_owner = true

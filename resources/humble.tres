@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://do15armsdpvk4"]
+
+[ext_resource type="FontFile" uid="uid://bjgkeka88chqq" path="res://assets/fonts/hf-free-complete/futile-pro-v1/FutilePro.ttf" id="1_k67hr"]
+
+[resource]
+default_font = ExtResource("1_k67hr")
+Label/colors/font_color = Color(1, 0.87451, 0.0666667, 1)
+Label/colors/font_shadow_color = Color(0.803922, 0, 0.443137, 1)

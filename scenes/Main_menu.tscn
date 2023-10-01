@@ -1,26 +1,43 @@
-[gd_scene load_steps=2 format=3 uid="uid://dp278cp34coil"]
+[gd_scene load_steps=7 format=3 uid="uid://dp278cp34coil"]
 
 [ext_resource type="Script" path="res://scripts/Main_menu.gd" id="1_ajwew"]
+[ext_resource type="Theme" uid="uid://do15armsdpvk4" path="res://resources/humble.tres" id="2_v13ur"]
+[ext_resource type="Texture2D" uid="uid://cer81o12ur84o" path="res://assets/tocomple.png" id="3_q1ucy"]
+[ext_resource type="Texture2D" uid="uid://dgh0c32k3a6ff" path="res://assets/star.png" id="4_l1tpl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5fct"]
+bg_color = Color(0.960784, 0.545098, 0.415686, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxmsb"]
+bg_color = Color(0.941176, 0.415686, 0.27451, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.831373, 0, 1)
 
 [node name="Main_menu" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 30.0
+offset_bottom = 34.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 script = ExtResource("1_ajwew")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_b5fct")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="PanelContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 40
-text = "Sardust: 2"
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_sxmsb")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 custom_minimum_size = Vector2(400, 0)
@@ -31,13 +48,37 @@ size_flags_vertical = 8
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(300, 140)
 layout_mode = 2
+theme = ExtResource("2_v13ur")
 theme_override_constants/separation = 19
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 46
+text = "Stardust: Cook & Serve"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Conn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Connect"
+theme_override_font_sizes/font_size = 25
+text = "START"
 
 [node name="exit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "Exit"
+theme_override_font_sizes/font_size = 25
+text = "EXIT
+"
+
+[node name="Tocomple" type="Sprite2D" parent="."]
+position = Vector2(875, 482)
+texture = ExtResource("3_q1ucy")
+
+[node name="Star" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.45098, 1)
+self_modulate = Color(1, 0.835294, 0.490196, 1)
+position = Vector2(314, 253)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_l1tpl")
