@@ -17,7 +17,7 @@ func _ready():
 	var id = multiplayer.get_unique_id()
 	var player = Game.get_player(id)
 	var role = player.role
-	
+	Debug.dprint(role)
 	if role == 1:
 		get_node("Area2D/CollisionShape2D").disabled = true
 		

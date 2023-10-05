@@ -191,10 +191,10 @@ shape = SubResource("RectangleShape2D_wnics")
 
 [node name="Spawn" type="Node2D" parent="."]
 
-[node name="Marker2D2" type="Marker2D" parent="Spawn"]
+[node name="chefspawn" type="Marker2D" parent="Spawn"]
 position = Vector2(871, 225)
 
-[node name="Marker2D" type="Marker2D" parent="Spawn"]
+[node name="meserospawn" type="Marker2D" parent="Spawn"]
 position = Vector2(240, 226)
 
 [node name="Camera2D" type="Camera2D" parent="."]

@@ -12,7 +12,10 @@ func _ready() -> void:
 		var player = player_scene.instantiate()
 		players.add_child(player)
 		player.setup(player_data)
-		player.global_position = spawn.get_child(i).global_position
+		if player_data.role == 1:
+			player.global_position = spawn.get_child(0).global_position
+		elif player_data.role == 2:
+			player.global_position = spawn.get_child(1).global_position
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
