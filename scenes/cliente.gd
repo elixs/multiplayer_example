@@ -3,6 +3,7 @@ extends Node2D
 
 
 @onready var area_2d = $Area2D
+signal dropped
 
 var selected = false
 
@@ -12,10 +13,12 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			if selected:
 				selected = false
 				send_position.rpc(position)
+				dropped.emit()
 		else:
 			selected = true
 
-@rpc("authority", "reliable")
+
+@rpc("call_local", "authority", "reliable")
 func send_position(pos):
 	position = pos
 	
