@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c73h1at2t0bua"]
+[gd_scene load_steps=14 format=3 uid="uid://c73h1at2t0bua"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_i6r40"]
 [ext_resource type="PackedScene" uid="uid://o52u0d27mabd" path="res://scenes/cliente.tscn" id="1_vlu5k"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://chl340foqglf4" path="res://scenes/chefsito.tscn" id="3_jj02r"]
 [ext_resource type="PackedScene" uid="uid://dv8g6pyih6nhc" path="res://scenes/mesilla.tscn" id="3_qvdnj"]
 [ext_resource type="TileSet" uid="uid://c0e8fpfuihyue" path="res://scenes/fondo.tres" id="4_gx0yw"]
+[ext_resource type="PackedScene" uid="uid://8t1w6uqshu4g" path="res://scenes/timer.tscn" id="7_r336b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kr5cm"]
 size = Vector2(1089.25, 17)
@@ -91,6 +92,9 @@ position = Vector2(240, 226)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(571, 331)
+
+[node name="countdown" parent="." instance=ExtResource("7_r336b")]
+position = Vector2(-3, 0)
 
 [node name="mesones" type="StaticBody2D" parent="."]
 
