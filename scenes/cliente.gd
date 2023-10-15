@@ -1,11 +1,15 @@
 class_name Cliente
 extends Node2D
 
-
+@onready var pensamiento = $pensamiento
+@onready var markp = $markp
 @onready var area_2d = $Area2D
 signal dropped
 
 var selected = false
+var atendido_fila =  false
+var atendido_mesa = false
+var me_jui = false
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
 	if is_multiplayer_authority():
@@ -14,6 +18,8 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 				selected = false
 				send_position.rpc(position)
 				dropped.emit()
+				atendido_fila = true
+				send_pensamiento.rpc()
 		else:
 			selected = true
 
@@ -21,9 +27,14 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 @rpc("call_local", "authority", "reliable")
 func send_position(pos):
 	position = pos
+
+@rpc("call_local", "authority", "reliable")
+func send_pensamiento():
+	pensamiento.visible = true
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	pensamiento.hide()
 	var id = multiplayer.get_unique_id()
 	var player = Game.get_player(id)
 	var role = player.role

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://o52u0d27mabd"]
+[gd_scene load_steps=6 format=3 uid="uid://o52u0d27mabd"]
 
 [ext_resource type="Script" path="res://scenes/cliente.gd" id="1_27m6i"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="1_frgf2"]
+[ext_resource type="PackedScene" uid="uid://ddwm3q5gptjeg" path="res://scenes/pensamiento.tscn" id="2_2eaby"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wbf4v"]
 size = Vector2(52, 99.5)
@@ -25,5 +26,12 @@ shape = SubResource("RectangleShape2D_wbf4v")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_n7vn5")
+
+[node name="pensamiento" parent="." instance=ExtResource("2_2eaby")]
+position = Vector2(0, -84)
+
+[node name="markp" type="Marker2D" parent="."]
+visible = false
+position = Vector2(0, -82)
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

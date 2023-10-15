@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c73h1at2t0bua"]
+[gd_scene load_steps=14 format=3 uid="uid://c73h1at2t0bua"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_i6r40"]
 [ext_resource type="PackedScene" uid="uid://o52u0d27mabd" path="res://scenes/cliente.tscn" id="1_vlu5k"]
 [ext_resource type="PackedScene" uid="uid://dyir1uqbqim4o" path="res://scenes/mesero.tscn" id="2_2t2rv"]
 [ext_resource type="Texture2D" uid="uid://b6yct3bjiypcg" path="res://assets/CosmicLilac_Tiles.png" id="3_7bov7"]
+[ext_resource type="PackedScene" uid="uid://chl340foqglf4" path="res://scenes/chefsito.tscn" id="3_jj02r"]
 [ext_resource type="PackedScene" uid="uid://dv8g6pyih6nhc" path="res://scenes/mesilla.tscn" id="3_qvdnj"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="5_dm7vu"]
 
@@ -131,7 +132,8 @@ size = Vector2(92.5715, 696.429)
 
 [node name="restaurante" type="Node2D"]
 script = ExtResource("1_i6r40")
-player_scene = ExtResource("2_2t2rv")
+mesero_scene = ExtResource("2_2t2rv")
+chef_scene = ExtResource("3_jj02r")
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(3, 3)
