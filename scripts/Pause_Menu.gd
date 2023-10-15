@@ -16,7 +16,7 @@ func _input(event):
 	if is_multiplayer_authority():
 		if event.is_action_pressed("pause"):
 			Game.pause.rpc(!get_tree().paused)
-
+			
 func _on_resume_pressed():
 	Game.pause.rpc(false)
 	
@@ -24,7 +24,7 @@ func _on_retry_pressed():
 	pass
 	
 func _on_main_menu_pressed():
-	pass
+	get_tree().change_scene_to_file("res://scenes/Main_menu.tscn")
 
 func _on_game_paused():
 	visible = get_tree().paused

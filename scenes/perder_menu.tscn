@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://b67dywls7nrik"]
+
+[ext_resource type="Script" path="res://scripts/Perder-menu.gd" id="1_ifguq"]
+[ext_resource type="Theme" uid="uid://do15armsdpvk4" path="res://resources/humble.tres" id="2_tnc7a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5fct"]
+bg_color = Color(0.960784, 0.545098, 0.415686, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxmsb"]
+bg_color = Color(0.941176, 0.415686, 0.27451, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.831373, 0, 1)
+
+[node name="Perder-menu" type="MarginContainer"]
+modulate = Color(0.988235, 0.87451, 0.847059, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 30.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("1_ifguq")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(0.862745, 0, 0.368627, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_b5fct")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+modulate = Color(0.992157, 0.901961, 0.894118, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_sxmsb")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(300, 140)
+layout_mode = 2
+theme = ExtResource("2_tnc7a")
+theme_override_constants/separation = 19
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 46
+text = "You Lose"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="m_menu" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Main Menu"
+
+[node name="exit" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 25
+text = "EXIT
+"
