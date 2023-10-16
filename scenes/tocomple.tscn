@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dltlvd8jv78je"]
+
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="1_c4txl"]
+[ext_resource type="Script" path="res://scenes/tocomple.gd" id="1_oa8qv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eyc3j"]
+size = Vector2(388, 127)
+
+[node name="tocomple" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_oa8qv")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = ExtResource("1_c4txl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(4, 0.5)
+shape = SubResource("RectangleShape2D_eyc3j")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
