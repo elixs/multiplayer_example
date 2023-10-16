@@ -26,7 +26,7 @@ func _physics_process(delta):
 		sec.set_text(str(seconds))
 	else:
 		sec.set_text("0"+str(seconds))
-		
+	
 
 func _on_timer_timeout():
 	dsec -= 1 
