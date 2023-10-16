@@ -23,6 +23,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ph6q5")
+minutes = 2
 seconds = 20
 
 [node name="min" type="RichTextLabel" parent="UI/Control"]
