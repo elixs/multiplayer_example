@@ -1,3 +1,4 @@
+class_name Mainn
 extends Node2D
 
 @export var mesero_scene: PackedScene
@@ -6,8 +7,10 @@ extends Node2D
 @onready var spawn: Node2D = $Spawn
 @onready var meta = $Meta/meta
 @export var meta_dia = 50
-@onready var countdown = $countdown
+@onready var countdown = $countdown 
 var ganancias = 0
+@onready var tocomple = $tocomple
+@onready var cliente = $cliente
 
 func _ready() -> void:
 	Game.players.sort_custom(func (a, b): return a.id < b.id)
@@ -30,8 +33,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	meta.text = "$"+str(ganancias)+" / $"+str(meta_dia)
 	var t = countdown.get_child(0).get_child(0)
-	if t.minutes == 0 and t.seconds == 0:
-		if ganancias < meta_dia:
-			get_tree().change_scene_to_file("res://scenes/perder_menu.tscn")
-		else:
-			get_tree().change_scene_to_file("res://scenes/Victoria-menu.tscn")
+	if tocomple.come == true:
+		ganancias = 50
+		if t.minutes == 0 and t.seconds == 0:
+			if ganancias < meta_dia:
+				get_tree().change_scene_to_file("res://scenes/perder_menu.tscn")
+			else:
+				get_tree().change_scene_to_file("res://scenes/Victoria-menu.tscn")

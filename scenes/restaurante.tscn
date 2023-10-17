@@ -57,7 +57,7 @@ position = Vector2(169, 376)
 scale = Vector2(0.5, 0.5)
 
 [node name="mesilla" parent="." instance=ExtResource("3_qvdnj")]
-position = Vector2(420, 243)
+position = Vector2(368, 216)
 scale = Vector2(0.5, 0.5)
 
 [node name="cliente" parent="." instance=ExtResource("1_vlu5k")]
@@ -94,6 +94,10 @@ position = Vector2(240, 226)
 position = Vector2(577, 336)
 zoom = Vector2(0.9, 0.9)
 
+[node name="meson" parent="." instance=ExtResource("8_jjjaq")]
+visible = true
+position = Vector2(575, 243)
+
 [node name="mesones" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mesones"]
@@ -107,8 +111,9 @@ shape = SubResource("RectangleShape2D_4e8mq")
 [node name="countdown" parent="." instance=ExtResource("7_r336b")]
 position = Vector2(-43, -10)
 
-[node name="meson" parent="." instance=ExtResource("8_jjjaq")]
-position = Vector2(575, 243)
+[node name="tocomple" parent="." instance=ExtResource("9_bsfxa")]
+visibility_layer = 2
+position = Vector2(1054, 194)
 
 [node name="Meta" type="MarginContainer" parent="."]
 anchors_preset = 2
@@ -129,7 +134,3 @@ size_flags_vertical = 8
 theme = ExtResource("8_gsg43")
 text = "$ 0"
 vertical_alignment = 3
-
-[node name="tocomple" parent="." instance=ExtResource("9_bsfxa")]
-visibility_layer = 2
-position = Vector2(1054, 184)

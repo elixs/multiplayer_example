@@ -18,7 +18,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 				selected = false
 				send_position.rpc(position)
 				dropped.emit()
-				atendido_fila = true
+				send_gan.rpc()
 				send_pensamiento.rpc()
 		else:
 			selected = true
@@ -27,6 +27,10 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 @rpc("call_local", "authority", "reliable")
 func send_position(pos):
 	position = pos
+
+@rpc("call_local", "reliable")
+func send_gan():
+	atendido_fila = true
 
 @rpc("call_local", "authority", "reliable")
 func send_pensamiento():

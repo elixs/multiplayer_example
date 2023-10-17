@@ -18,10 +18,10 @@ func _on_player_entered(body):
 	#if is_multiplayer_authority():
 	if player:
 		var tocomple = player.get_tree().get_nodes_in_group("tocomples")[0]
-		Debug.dprint(self)
+		#Debug.dprint(self)
 		if selected:
 			if tocomple != null:
-				#tocomple.get_parent().remove_child(tocomple)
+				tocomple.get_parent().remove_child(tocomple)
 				player.remove_child(tocomple)
 				self.add_child(tocomple)
 				tocomple.position = Vector2.ZERO

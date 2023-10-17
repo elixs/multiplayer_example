@@ -177,7 +177,6 @@ func _remove_player(id: int):
 
 
 
-
 @rpc("any_peer", "reliable")
 func send_info(info_dict: Dictionary) -> void:
 	var player = Game.PlayerData.new(info_dict.id, info_dict.name, info_dict.role)

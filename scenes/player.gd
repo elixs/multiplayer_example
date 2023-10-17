@@ -29,4 +29,5 @@ func setup(player_data: Game.PlayerData):
 @rpc
 func test():
 #	if is_multiplayer_authority():
-	Debug.dprint("test - player: %s" % name, 30)
+	#Debug.dprint("test - player: %s" % name, 30)
+	pass
