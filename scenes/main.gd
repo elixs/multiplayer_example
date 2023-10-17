@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 	var t = countdown.get_child(0).get_child(0)
 	if tocomple.come == true:
 		ganancias = 50
-		if t.minutes == 0 and t.seconds == 0:
+	if t.minutes == 0 and t.seconds == 0:
 			if ganancias < meta_dia:
 				get_tree().change_scene_to_file("res://scenes/perder_menu.tscn")
 			else:
