@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://scenes/tocomple.gd" id="1_oa8qv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eyc3j"]
-size = Vector2(388, 127)
+size = Vector2(244, 127)
 
-[node name="tocomple" type="Node2D"]
+[node name="tocomple" type="Node2D" groups=["tocomples"]]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_oa8qv")
 
@@ -16,7 +16,7 @@ script = ExtResource("1_oa8qv")
 texture = ExtResource("1_c4txl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(4, 0.5)
+position = Vector2(-68, 0.5)
 shape = SubResource("RectangleShape2D_eyc3j")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
