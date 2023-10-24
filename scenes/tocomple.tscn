@@ -1,16 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dltlvd8jv78je"]
+[gd_scene load_steps=4 format=3 uid="uid://dltlvd8jv78je"]
 
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="1_c4txl"]
 [ext_resource type="Script" path="res://scenes/tocomple.gd" id="1_oa8qv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eyc3j"]
 size = Vector2(225, 127)
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hxsq2"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/sync = true
-properties/0/watch = true
 
 [node name="tocomple" type="Node2D" groups=["tocomples"]]
 scale = Vector2(0.5, 0.5)
@@ -24,8 +18,5 @@ texture = ExtResource("1_c4txl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-51.5, 0)
 shape = SubResource("RectangleShape2D_eyc3j")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_hxsq2")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

@@ -13,7 +13,7 @@ func _ready() -> void:
 	ready_texture.hide()
 
 
-func setup(player: Game.PlayerData) -> void:
+func setup(player: Statics.PlayerData) -> void:
 	player_id = player.id
 	name = str(player_id)
 	_update(player)
@@ -25,7 +25,7 @@ func _on_player_updated(id: int) -> void:
 		_update(Game.get_player(player_id))
 
 
-func _update(player: Game.PlayerData):
+func _update(player: Statics.PlayerData):
 	_set_player_name(player.name)
 	_set_player_role(player.role)
 
@@ -34,12 +34,12 @@ func _set_player_name(value: String) -> void:
 	player_name.text = value
 
 
-func _set_player_role(value: Game.Role) -> void:
-	player_role.visible = value != Game.Role.NONE
+func _set_player_role(value: Statics.Role) -> void:
+	player_role.visible = value != Statics.Role.NONE
 	match value:
-		Game.Role.ROLE_A:
+		Statics.Role.ROLE_A:
 			player_role.text = "Chef"
-		Game.Role.ROLE_B:
+		Statics.Role.ROLE_B:
 			player_role.text = "Mesero"
 
 

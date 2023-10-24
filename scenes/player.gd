@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var pause_menu = $CanvasLayer/Pause_Menu
 
 var target = position
+var role
 
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
@@ -19,12 +20,17 @@ func _physics_process(delta):
 		if position.distance_to(target) > 10:
 			move_and_slide()
 		
-func setup(player_data: Game.PlayerData):
+func setup(player_data: Statics.PlayerData):
 	set_multiplayer_authority(player_data.id)
 	name = str(player_data.id)
 	Debug.dprint(player_data.name, 30)
 	Debug.dprint(player_data.role, 30)
 	pause_menu.set_multiplayer_authority(player_data.id)
+	role = player_data.role
+	for i in Game.players.size():
+		if Game.players[i].role == player_data.role:
+			Game.players[i].scene = self
+			break
 	
 @rpc
 func test():

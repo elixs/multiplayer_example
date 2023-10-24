@@ -1,4 +1,4 @@
-class_name Mainn
+class_name Main
 extends Node2D
 
 @export var mesero_scene: PackedScene

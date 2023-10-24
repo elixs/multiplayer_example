@@ -72,13 +72,26 @@ theme_override_font_sizes/font_size = 25
 text = "EXIT
 "
 
-[node name="Tocomple" type="Sprite2D" parent="."]
-position = Vector2(875, 482)
-texture = ExtResource("3_q1ucy")
+[node name="PanelContainer2" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="Star" type="Sprite2D" parent="."]
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer2"]
+layout_mode = 0
+offset_top = -146.0
+offset_right = 512.0
+offset_bottom = 366.0
+texture = ExtResource("3_q1ucy")
+stretch_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer2"]
 modulate = Color(1, 1, 0.45098, 1)
-self_modulate = Color(1, 0.835294, 0.490196, 1)
-position = Vector2(314, 253)
+layout_mode = 2
+offset_left = -350.0
+offset_top = -158.0
+offset_right = -15.0
+offset_bottom = 211.0
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_l1tpl")
+stretch_mode = 2

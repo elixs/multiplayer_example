@@ -13,6 +13,13 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 	if Input.is_action_just_pressed("left_click"):
 		selected = true
 
+@rpc("call_local", "reliable", "any_peer")
+func drop_completo(path):
+	var tocomple = get_node(path)
+	tocomple.get_parent().remove_child(tocomple)
+	add_child(tocomple)
+	tocomple.position = Vector2.ZERO
+	
 func _on_player_entered(body):
 	var player = body as Player
 	#if is_multiplayer_authority():
@@ -21,10 +28,9 @@ func _on_player_entered(body):
 		#Debug.dprint(self)
 		if selected:
 			if tocomple != null:
-				tocomple.get_parent().remove_child(tocomple)
-				player.remove_child(tocomple)
-				self.add_child(tocomple)
-				tocomple.position = Vector2.ZERO
+				drop_completo.rpc(tocomple.get_path())
+				selected = false
+			else:
 				selected = false
 				
 # Called every frame. 'delta' is the elapsed time since the previous frame.

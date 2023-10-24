@@ -95,7 +95,6 @@ position = Vector2(577, 336)
 zoom = Vector2(0.9, 0.9)
 
 [node name="meson" parent="." instance=ExtResource("8_jjjaq")]
-visible = true
 position = Vector2(575, 243)
 
 [node name="mesones" type="StaticBody2D" parent="."]
