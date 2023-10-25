@@ -15,6 +15,8 @@ func _ready():
 		)
 		Game.players.push_back(player)
 	
+	if Game.players.size() > 0:
+		Game.players[0].id = 1
 	
 	if is_multiplayer_authority():
 		multiplayer.peer_connected.connect(_on_peer_connected)
@@ -31,7 +33,6 @@ func try_host() -> bool:
 	var err = peer.create_server(Statics.PORT, Statics.MAX_CLIENTS)
 	if err == OK:
 		multiplayer.multiplayer_peer = peer
-		Game.players[0].id = 1
 	return err == OK
 
 

@@ -76,22 +76,26 @@ text = "EXIT
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 
 [node name="TextureRect2" type="TextureRect" parent="PanelContainer2"]
 layout_mode = 0
 offset_top = -146.0
 offset_right = 512.0
 offset_bottom = 366.0
+mouse_filter = 2
 texture = ExtResource("3_q1ucy")
 stretch_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer2"]
-modulate = Color(1, 1, 0.45098, 1)
+modulate = Color(1, 1, 0.203922, 1)
 layout_mode = 2
 offset_left = -350.0
 offset_top = -158.0
-offset_right = -15.0
-offset_bottom = 211.0
-scale = Vector2(0.3, 0.3)
+offset_right = -249.5
+offset_bottom = -47.3
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
 texture = ExtResource("4_l1tpl")
-stretch_mode = 2
+expand_mode = 1
