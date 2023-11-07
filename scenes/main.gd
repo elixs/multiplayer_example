@@ -9,8 +9,12 @@ extends Node2D
 @export var meta_dia = 50
 @onready var countdown = $countdown 
 var ganancias = 0
-@onready var tocomple = $tocomple
+@onready var mesa_ing = $mesaIng
+# @onready var tocomple = $mesaIng/tocomple
 @onready var cliente = $cliente
+var packed_tocomple = preload("res://scenes/tocomple.tscn")
+
+@onready var tocomple = mesa_ing.get_tocomple()[0]
 
 func _ready() -> void:
 	Game.players.sort_custom(func (a, b): return a.id < b.id)
@@ -33,6 +37,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	meta.text = "$"+str(ganancias)+" / $"+str(meta_dia)
 	var t = countdown.get_child(0).get_child(0)
+	
 	if tocomple.come == true:
 		ganancias = 50
 	if t.minutes == 0 and t.seconds == 0:
