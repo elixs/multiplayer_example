@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgnbtw5pbv5y1"]
+[gd_scene load_steps=5 format=3 uid="uid://bgnbtw5pbv5y1"]
 
 [ext_resource type="Script" path="res://scripts/Pause_Menu.gd" id="1_6jrs7"]
 [ext_resource type="Theme" uid="uid://do15armsdpvk4" path="res://resources/humble.tres" id="1_21jxh"]
+[ext_resource type="PackedScene" uid="uid://c28e2qfv3tmwv" path="res://scenes/volume-b.tscn" id="3_211ff"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0two0"]
 bg_color = Color(0.960784, 0.545098, 0.415686, 0.65098)
@@ -38,6 +39,18 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 40
 text = "Pause"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.972549, 0.964706, 1)
+theme_override_font_sizes/font_size = 27
+text = "Volume level"
+justification_flags = 162
+
+[node name="volume-b" parent="VBoxContainer" instance=ExtResource("3_211ff")]
+layout_mode = 2
+size_flags_horizontal = 1
 
 [node name="resume" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)

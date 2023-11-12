@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c73h1at2t0bua"]
+[gd_scene load_steps=17 format=3 uid="uid://c73h1at2t0bua"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_i6r40"]
 [ext_resource type="PackedScene" uid="uid://o52u0d27mabd" path="res://scenes/cliente.tscn" id="1_vlu5k"]
@@ -11,6 +11,7 @@
 [ext_resource type="Theme" uid="uid://do15armsdpvk4" path="res://resources/humble.tres" id="8_gsg43"]
 [ext_resource type="PackedScene" uid="uid://g2kc10467j26" path="res://scenes/meson.tscn" id="8_jjjaq"]
 [ext_resource type="PackedScene" uid="uid://cjccvc7gpf4dh" path="res://scenes/mesaIng.tscn" id="9_co5sh"]
+[ext_resource type="AudioStream" uid="uid://b16uxhjk58oxi" path="res://assets/music/lvl1-8-Bit-Arcade.mp3" id="12_3od81"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kr5cm"]
 size = Vector2(1089.25, 17)
@@ -141,3 +142,9 @@ size_flags_vertical = 8
 theme = ExtResource("8_gsg43")
 text = "$ 0"
 vertical_alignment = 3
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_3od81")
+volume_db = 5.571
+autoplay = true
+bus = &"Niveles"

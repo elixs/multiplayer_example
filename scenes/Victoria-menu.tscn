@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyvwsqndpvsp"]
+[gd_scene load_steps=6 format=3 uid="uid://cyvwsqndpvsp"]
 
 [ext_resource type="Script" path="res://scripts/Victoria-menu.gd" id="1_r142h"]
 [ext_resource type="Theme" uid="uid://do15armsdpvk4" path="res://resources/humble.tres" id="2_ore7p"]
+[ext_resource type="AudioStream" uid="uid://cwbi1o3dssbrd" path="res://assets/music/complete1.mp3" id="3_3k1cl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5fct"]
 bg_color = Color(0.960784, 0.545098, 0.415686, 1)
@@ -70,3 +71,9 @@ size_flags_vertical = 8
 theme_override_font_sizes/font_size = 25
 text = "EXIT
 "
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_3k1cl")
+volume_db = 8.357
+autoplay = true
+bus = &"Niveles"

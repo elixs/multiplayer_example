@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dp278cp34coil"]
+[gd_scene load_steps=9 format=3 uid="uid://dp278cp34coil"]
 
 [ext_resource type="Script" path="res://scripts/Main_menu.gd" id="1_ajwew"]
 [ext_resource type="Theme" uid="uid://do15armsdpvk4" path="res://resources/humble.tres" id="2_v13ur"]
 [ext_resource type="Texture2D" uid="uid://cer81o12ur84o" path="res://assets/tocomple.png" id="3_q1ucy"]
+[ext_resource type="PackedScene" uid="uid://c28e2qfv3tmwv" path="res://scenes/volume-b.tscn" id="3_us8tk"]
 [ext_resource type="Texture2D" uid="uid://dgh0c32k3a6ff" path="res://assets/star.png" id="4_l1tpl"]
+[ext_resource type="AudioStream" uid="uid://beogklt80kvtx" path="res://assets/music/menu.mp3" id="5_hyidl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5fct"]
 bg_color = Color(0.960784, 0.545098, 0.415686, 1)
@@ -60,6 +62,16 @@ text = "Stardust: Cook & Serve"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Level volume"
+
+[node name="volume-b" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_us8tk")]
+layout_mode = 2
+size_flags_horizontal = 1
+
 [node name="Conn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
@@ -99,3 +111,9 @@ grow_vertical = 0
 mouse_filter = 2
 texture = ExtResource("4_l1tpl")
 expand_mode = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_hyidl")
+volume_db = 10.69
+autoplay = true
+bus = &"Niveles"
