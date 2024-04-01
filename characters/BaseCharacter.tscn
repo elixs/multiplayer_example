@@ -1,18 +1,77 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt5ahf3uukx5o"]
+[gd_scene load_steps=7 format=3 uid="uid://dt5ahf3uukx5o"]
 
 [ext_resource type="Script" path="res://scripts/BaseCharacter.gd" id="1_00iuh"]
+[ext_resource type="Texture2D" uid="uid://cqqk0cyja4kwe" path="res://arrows.png" id="2_flqrq"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grm6b"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wfuat"]
+height = 0.5
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7o685"]
 radius = 0.4
 height = 1.8
 
+[sub_resource type="Animation" id="Animation_dly2n"]
+resource_name = "move_arrows"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arrows:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.01, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.5, 0.5, 0.5), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arrows:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0ajb3"]
+_data = {
+"move_arrows": SubResource("Animation_dly2n")
+}
+
 [node name="BaseCharacter" type="CharacterBody3D"]
 script = ExtResource("1_00iuh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_grm6b")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("CylinderShape3D_wfuat")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.907356, 0)
 mesh = SubResource("CapsuleMesh_7o685")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.684547, 0.728969, 0, -0.728969, 0.684547, 0, 7.79546, 6.5453)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0ajb3")
+}
+
+[node name="ArrowsTransform" type="RemoteTransform3D" parent="."]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+top_level = true
+remote_path = NodePath("../Arrows")
+
+[node name="Arrows" type="Sprite3D" parent="."]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+top_level = true
+texture = ExtResource("2_flqrq")
