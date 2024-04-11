@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dt5ahf3uukx5o"]
+[gd_scene load_steps=8 format=3 uid="uid://dt5ahf3uukx5o"]
 
 [ext_resource type="Script" path="res://scripts/BaseCharacter.gd" id="1_00iuh"]
 [ext_resource type="Texture2D" uid="uid://cqqk0cyja4kwe" path="res://arrows.png" id="2_flqrq"]
@@ -43,6 +43,13 @@ _data = {
 "move_arrows": SubResource("Animation_dly2n")
 }
 
+[sub_resource type="Curve3D" id="Curve3D_5vnbr"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 9.675, 7.545, 0, 1.455, 1.61, 0, 0, 0, 0, 3.515, 3.94),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
 [node name="BaseCharacter" type="CharacterBody3D"]
 script = ExtResource("1_00iuh")
 
@@ -55,9 +62,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.907356, 0)
 mesh = SubResource("CapsuleMesh_7o685")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.684547, 0.728969, 0, -0.728969, 0.684547, 0, 7.79546, 6.5453)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 
@@ -75,3 +79,17 @@ remote_path = NodePath("../Arrows")
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 top_level = true
 texture = ExtResource("2_flqrq")
+
+[node name="CameraTransform" type="RemoteTransform3D" parent="."]
+remote_path = NodePath("../Path3D")
+
+[node name="Path3D" type="Path3D" parent="."]
+top_level = true
+curve = SubResource("Curve3D_5vnbr")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(1, 0, 0, 0, 0.999984, 0, 0, 0, 0.999984, 0, 9.675, 7.545)
+rotation_mode = 0
+
+[node name="Camera3D" type="Camera3D" parent="Path3D/PathFollow3D"]
+transform = Transform3D(1, 0, 0, 0, 0.500002, 0.866029, 0, -0.866029, 0.500002, 0, -1.71661e-05, 0.000549316)
