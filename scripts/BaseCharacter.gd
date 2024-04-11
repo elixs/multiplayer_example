@@ -62,13 +62,22 @@ func _physics_process(delta):
 		else:
 			locked_camera = true
 			path_3d.top_level = false
-			# path_3d.global_position = global_transform.origin
 			camera_transform.global_position = global_transform.origin
 			camera_transform.update_position = true
 			camera_transform.top_level = false
-			# path_3d.top_level = false
-			print("Lock")
-		print("Pos difference:", global_transform.origin - path_3d.global_position)
+			
+	if Input.is_action_pressed("Center Camera") and !locked_camera:
+		print("Centering")
+		locked_camera = true
+		path_3d.top_level = false
+		camera_transform.global_position = global_transform.origin
+		camera_transform.update_position = true
+		camera_transform.top_level = false
+	
+		locked_camera = false
+		path_3d.top_level = true
+		camera_transform.update_position = false
+		camera_transform.top_level = true
 	
 	path_follow_3d.progress_ratio = lerp(path_follow_3d.progress_ratio, camera_target_pos, 0.2)
 	#move_and_slide()
@@ -82,7 +91,6 @@ func _input(event):
 			camera_target_pos = max(ratio - 0.1, 0.0)
 		   # Mouse in viewport coordinates.
 	elif event is InputEventMouseMotion:
-		print("Mouse Motion at: ", event.position)
 		moveCameraByCursor(event.position)
 	
 func screenPointToRay():
