@@ -45,7 +45,7 @@ _data = {
 
 [sub_resource type="Curve3D" id="Curve3D_5vnbr"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 9.675, 7.545, 0, 1.455, 1.61, 0, 0, 0, 0, 3.515, 3.94),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 9.675, 6.045, 0, 1.455, 1.61, 0, 0, 0, 0, 3.515, 2.44),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -88,8 +88,15 @@ top_level = true
 curve = SubResource("Curve3D_5vnbr")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(1, 0, 0, 0, 0.999984, 0, 0, 0, 0.999984, 0, 9.675, 7.545)
+transform = Transform3D(1, 0, 0, 0, 0.999984, 0, 0, 0, 0.999984, 0, 9.675, 6.045)
 rotation_mode = 0
 
 [node name="Camera3D" type="Camera3D" parent="Path3D/PathFollow3D"]
-transform = Transform3D(1, 0, 0, 0, 0.500002, 0.866029, 0, -0.866029, 0.500002, 0, -1.71661e-05, 0.000549316)
+transform = Transform3D(1, 0, 0, 0, 0.500008, 0.866039, 0, -0.866039, 0.500008, -0.0276399, 0.00410843, 0.0117126)
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.72297, 0)
+pixel_size = 0.001
+billboard = 1
+fixed_size = true
+text = "name"

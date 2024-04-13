@@ -22,6 +22,8 @@ var camera_target_pos = 0.0
 var locked_camera = true
 @onready var camera_transform = $CameraTransform
 
+@onready var label_3d = $Label3D
+
 var camera_follow_speed = 0.6
 # var screen_size: Vector2
 
@@ -32,27 +34,29 @@ func _ready():
 
 func _physics_process(delta):
 	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= gravity * delta
+	#if not is_on_floor():
+	#	velocity.y -= gravity * delta
 		
 		
 	# look_at(target)
-	rotation.x = 0
-	rotation.y = 0
-	if Input.is_action_pressed("Move"):
-		target = screenPointToRay()
-		if Input.is_action_just_pressed("Move"):
-			target.y = 0.1
-			arrows_transform.global_position = target
-			animation_player.play("move_arrows")
-		target.y = -0.5
-		updateTargetLocation(target)
-	if position.distance_to(target) > 0.5:
-		var current_position = global_transform.origin
-		var target_position = agent.get_next_path_position()
-		var new_velocity = (target_position - current_position).normalized() * SPEED
-		velocity = new_velocity
-		move_and_slide()
+	#rotation.x = 0
+	#rotation.y = 0
+	if is_multiplayer_authority():
+		if Input.is_action_pressed("Move"):
+			target = screenPointToRay()
+			if Input.is_action_just_pressed("Move"):
+				target.y = 0.1
+				arrows_transform.global_position = target
+				animation_player.play("move_arrows")
+			target.y = -0.5
+			updateTargetLocation(target)
+		if position.distance_to(target) > 0.5:
+			var current_position = global_transform.origin
+			var target_position = agent.get_next_path_position()
+			var new_velocity = (target_position - current_position).normalized() * SPEED
+			velocity = new_velocity
+			sendData.rpc(global_position, velocity)
+			move_and_slide()
 	if Input.is_action_just_pressed("Release Camera"):
 		if locked_camera:
 			locked_camera = false
@@ -83,15 +87,16 @@ func _physics_process(delta):
 	#move_and_slide()
 
 func _input(event):
-	if event is InputEventMouseButton:
-		var ratio = path_follow_3d.progress_ratio
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed and ratio < 1:
-			camera_target_pos = min(ratio + 0.1, 1.0)
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed and ratio > 0:
-			camera_target_pos = max(ratio - 0.1, 0.0)
-		   # Mouse in viewport coordinates.
-	elif event is InputEventMouseMotion:
-		moveCameraByCursor(event.position)
+	if is_multiplayer_authority():
+		if event is InputEventMouseButton:
+			var ratio = path_follow_3d.progress_ratio
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed and ratio < 1:
+				camera_target_pos = min(ratio + 0.1, 1.0)
+			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed and ratio > 0:
+				camera_target_pos = max(ratio - 0.1, 0.0)
+			   # Mouse in viewport coordinates.
+		elif event is InputEventMouseMotion:
+			moveCameraByCursor(event.position)
 	
 func screenPointToRay():
 	var space_state = get_world_3d().direct_space_state
@@ -115,14 +120,24 @@ func moveCameraByCursor(position: Vector2):
 		var dir = Vector2(0.0, 0.0)
 		if screenX - position.x < 11:
 			dir += Vector2(camera_follow_speed, 0.0)
-			print("Der")
 		elif position.x < 11:
 			dir += Vector2(-camera_follow_speed, 0.0)
-			print("Izq")
 		elif screenY - position.y < 11:
 			dir += Vector2(0.0, camera_follow_speed)
-			print("Up")
 		elif position.y < 11:
 			dir += Vector2(0.0, -camera_follow_speed)
-			print("Dwn")
 		path_3d.global_position += Vector3(dir.x, 0.0, dir.y)
+		
+# - - - - - Multiplayer - - - - - #
+
+func setup(player_data: Statics.PlayerData):
+	name = str(player_data.id)
+	label_3d.text = str(player_data.name) + "\nTeam" +str(player_data.role)
+	set_multiplayer_authority(player_data.id)
+	if is_multiplayer_authority():
+		camera_3d.current = true
+	
+@rpc
+func sendData(pos: Vector3, vel: Vector3):
+	global_position = lerp(global_position, pos, 0.75)
+	velocity = lerp(velocity, vel, 0.75)

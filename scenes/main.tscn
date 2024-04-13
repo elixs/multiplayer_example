@@ -1,10 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5hufqs7sbm01"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_ysfbh"]
-[ext_resource type="PackedScene" uid="uid://8d3ys4aw51lk" path="res://scenes/player.tscn" id="2_jyiyy"]
+[ext_resource type="PackedScene" uid="uid://dt5ahf3uukx5o" path="res://characters/BaseCharacter.tscn" id="2_i4y7d"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node3D"]
 script = ExtResource("1_ysfbh")
-player_scene = ExtResource("2_jyiyy")
+player_scene = ExtResource("2_i4y7d")
 
-[node name="Players" type="Node2D" parent="."]
+[node name="Players" type="Node3D" parent="."]
+
+[node name="Arenas" type="Node3D" parent="."]
