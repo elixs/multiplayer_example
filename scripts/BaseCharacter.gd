@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-const SPEED = 5.0
+const SPEED = 4.5
 const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -56,7 +56,7 @@ func _physics_process(delta):
 			var new_velocity = (target_position - current_position).normalized() * SPEED
 			velocity = new_velocity
 			sendData.rpc(global_position, velocity)
-			move_and_slide()
+	move_and_slide()
 	if Input.is_action_just_pressed("Release Camera"):
 		if locked_camera:
 			locked_camera = false
