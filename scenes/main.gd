@@ -22,4 +22,4 @@ func _ready() -> void:
 				player.global_position = spawn_point.global_position
 				break
 		players.add_child(player)
-		player.setup(player_data)
+		player.get_child(0).setup(player_data)

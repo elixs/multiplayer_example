@@ -1,5 +1,5 @@
+class_name BaseCharacter
 extends CharacterBody3D
-
 
 const SPEED = 4.5
 const JUMP_VELOCITY = 4.5
@@ -15,7 +15,7 @@ var target: Vector3
 @onready var path_3d = $Path3D
 
 var camera_target_pos = 0.0
-@onready var animation_player = $AnimationPlayer
+@onready var animation_player = $AllAnimationPlayer
 @onready var arrows = $PathArrows
 @onready var arrows_transform = $ArrowsTransform
 

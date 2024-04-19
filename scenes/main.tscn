@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5hufqs7sbm01"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_ysfbh"]
-[ext_resource type="PackedScene" uid="uid://dt5ahf3uukx5o" path="res://characters/BaseCharacter.tscn" id="2_i4y7d"]
+[ext_resource type="PackedScene" uid="uid://rksngjfvhni8" path="res://characters/ExampleCharacter.tscn" id="2_urqvw"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_ysfbh")
-player_scene = ExtResource("2_i4y7d")
+player_scene = ExtResource("2_urqvw")
 
 [node name="Players" type="Node3D" parent="."]
 
