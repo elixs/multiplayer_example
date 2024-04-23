@@ -1,22 +1,24 @@
 [gd_scene load_steps=4 format=3 uid="uid://875aj4ot3cg"]
 
 [ext_resource type="PackedScene" uid="uid://dt5ahf3uukx5o" path="res://characters/BaseCharacter.tscn" id="1_3egp1"]
+[ext_resource type="PackedScene" uid="uid://bp5dvc8a5q31a" path="res://characters/Imported/char_1.tscn" id="2_w0gxf"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_o7wtb"]
 height = 0.5
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_fkpt1"]
-radius = 0.4
-height = 1.8
-
 [node name="Xd" type="Node3D"]
 
-[node name="BaseCharacter" parent="." instance=ExtResource("1_3egp1")]
+[node name="BaseCharacter" parent="." node_paths=PackedStringArray("character_node") instance=ExtResource("1_3egp1")]
+character_node = NodePath("char1")
+
+[node name="char1" parent="BaseCharacter" instance=ExtResource("2_w0gxf")]
+
+[node name="Armature" parent="BaseCharacter/char1" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="BaseCharacter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("CylinderShape3D_o7wtb")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="BaseCharacter"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.907356, 0)
-mesh = SubResource("CapsuleMesh_fkpt1")
+[editable path="BaseCharacter"]
+[editable path="BaseCharacter/char1"]
