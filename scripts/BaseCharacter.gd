@@ -25,7 +25,7 @@ var locked_camera = true
 @onready var label_3d = $Label3D
 
 @export var character_node: Node3D
-var character_animations: AnimationPlayer
+var character_animations: AnimationTree
 var looking_at: Vector3
 
 var camera_follow_speed = 0.6
@@ -33,13 +33,16 @@ var camera_follow_speed = 0.6
 
 func _ready():
 	label_3d.global_transform = character_node.get_child(2).global_transform
-	character_animations = character_node.get_child(1)
+	character_animations = character_node.get_node("AnimationTree")
 	
 func _physics_process(delta):
 	# Add the gravity.
 	#if not is_on_floor():
 	#	velocity.y -= gravity * delta
 		
+	if character_animations:
+		var blend_val = min(velocity.length(), 1)
+		character_animations.set("parameters/IdleWalkBlend/blend_amount", blend_val)
 		
 	if target:
 		#look_at(target)

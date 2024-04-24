@@ -16,6 +16,18 @@ character_node = NodePath("char1")
 [node name="Armature" parent="BaseCharacter/char1" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
+[node name="Skeleton3D" parent="BaseCharacter/char1/Armature" index="0"]
+bones/0/position = Vector3(1.07974e-05, 1.30155, -0.0046623)
+bones/0/rotation = Quaternion(-0.0245761, 0.704394, -0.0202023, 0.709096)
+bones/1/rotation = Quaternion(3.104e-06, -5.62497e-06, 0.12548, 0.992096)
+bones/4/position = Vector3(0.0397943, 0.352378, -0.462954)
+bones/4/rotation = Quaternion(-0.727127, -0.139345, -0.00979493, 0.672141)
+bones/5/rotation = Quaternion(0.000262018, -7.71082e-05, -0.296943, 0.954895)
+bones/8/rotation = Quaternion(-0.137629, 0.663709, 0.690813, 0.251647)
+
+[node name="hammer_13" parent="BaseCharacter/char1/Armature/Skeleton3D" index="0"]
+transform = Transform3D(-0.00116665, 0.0116426, 0.0243003, 0.0192993, -0.0166131, 0.0088861, 0.0188041, 0.0177728, -0.00761243, 0.529449, 2.38557, -0.11611)
+
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="BaseCharacter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("CylinderShape3D_o7wtb")
