@@ -50,7 +50,9 @@ func _physics_process(delta):
 		# Look towards the velocity rotated
 		#looking_at = character_node.global_transform.basis.z
 		#character_node.look_at(lerp(looking_at, (global_transform.origin + velocity), 0.75), Vector3.UP)
-		character_node.look_at((global_transform.origin + velocity), Vector3.UP)
+		if (Vector3(global_transform.origin.x, 0.0, global_transform.origin.z) \
+		- Vector3(target.x, 0.0, target.z)).length() > 0.5 and velocity.length() != 0:
+			character_node.look_at((global_transform.origin + velocity), Vector3.UP)
 		#rotation.x = 0
 		#rotation.y = 0
 	#rotation.x = 0
@@ -64,12 +66,16 @@ func _physics_process(delta):
 				animation_player.play("move_arrows")
 			target.y = -0.5
 			updateTargetLocation(target)
-		if position.distance_to(target) > 0.5:
+		if velocity.length() > 0.0:
+			sendData.rpc(global_position, velocity, target)
+		if !agent.is_navigation_finished():
 			var current_position = global_transform.origin
 			var target_position = agent.get_next_path_position()
 			var new_velocity = (target_position - current_position).normalized() * SPEED
 			velocity = new_velocity
-			sendData.rpc(global_position, velocity)
+		else:
+			velocity = Vector3(0.0, 0.0, 0.0)
+			sendData.rpc(global_position, velocity, target)
 	move_and_slide()
 	if Input.is_action_just_pressed("Release Camera"):
 		if locked_camera:
@@ -152,6 +158,7 @@ func setup(player_data: Statics.PlayerData):
 		camera_3d.current = true
 	
 @rpc
-func sendData(pos: Vector3, vel: Vector3):
+func sendData(pos: Vector3, vel: Vector3, targ: Vector3):
 	global_position = lerp(global_position, pos, 0.75)
 	velocity = lerp(velocity, vel, 0.75)
+	target = targ

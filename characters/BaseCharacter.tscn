@@ -47,6 +47,7 @@ point_count = 2
 script = ExtResource("1_00iuh")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 1.5
 
 [node name="AllAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

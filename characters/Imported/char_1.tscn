@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp5dvc8a5q31a"]
+[gd_scene load_steps=7 format=3 uid="uid://bp5dvc8a5q31a"]
 
 [ext_resource type="PackedScene" uid="uid://82u308524ka6" path="res://resources/meshes/char1.glb" id="1_nx86f"]
 
@@ -7,39 +7,50 @@ animation = &"IdlePose"
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_6bno8"]
 
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_yf8am"]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p237c"]
 animation = &"Walk"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_2tk2s"]
-graph_offset = Vector2(-545.802, 52.7611)
+graph_offset = Vector2(-570.514, 99.5216)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_6qoej")
 nodes/Idle/position = Vector2(-140, 80)
 nodes/IdleWalkBlend/node = SubResource("AnimationNodeBlend2_6bno8")
 nodes/IdleWalkBlend/position = Vector2(120, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_yf8am")
+nodes/TimeScale/position = Vector2(-60, 240)
 nodes/Walk/node = SubResource("AnimationNodeAnimation_p237c")
-nodes/Walk/position = Vector2(-60, 200)
-node_connections = [&"IdleWalkBlend", 0, &"Idle", &"IdleWalkBlend", 1, &"Walk", &"output", 0, &"IdleWalkBlend"]
+nodes/Walk/position = Vector2(-220, 240)
+node_connections = [&"IdleWalkBlend", 0, &"Idle", &"IdleWalkBlend", 1, &"TimeScale", &"TimeScale", 0, &"Walk", &"output", 0, &"IdleWalkBlend"]
 
 [node name="char1" instance=ExtResource("1_nx86f")]
 
 [node name="Skeleton3D" parent="Armature" index="0"]
-bones/0/position = Vector3(2.15539e-05, 1.3031, -0.00930698)
-bones/0/rotation = Quaternion(-0.029329, 0.704242, -0.0249457, 0.708915)
-bones/1/rotation = Quaternion(5.94307e-05, -0.000105728, 0.140433, 0.99009)
+bones/0/position = Vector3(7.4664e-06, 1.30107, -0.003224)
+bones/0/rotation = Quaternion(-0.0231196, 0.704434, -0.0187487, 0.709145)
+bones/1/rotation = Quaternion(2.55637e-06, -4.65168e-06, 0.125335, 0.992115)
 bones/2/rotation = Quaternion(-0.706641, 0.151086, -0.144507, 0.67598)
-bones/4/position = Vector3(0.0267486, 0.377709, -0.434229)
-bones/4/rotation = Quaternion(-0.715865, -0.140251, -0.00676001, 0.683975)
-bones/5/rotation = Quaternion(0.000209525, -1.71911e-05, -0.307115, 0.951672)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/rotation = Quaternion(0.0428388, 0.0111374, -0.0901663, 0.994943)
+bones/4/position = Vector3(0.0438485, 0.344506, -0.47188)
+bones/4/rotation = Quaternion(-0.730587, -0.139056, -0.0107379, 0.668424)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/rotation = Quaternion(0.000242269, -5.45633e-05, -0.300775, 0.953695)
 bones/6/rotation = Quaternion(0.144471, 0.675696, 0.706913, 0.15112)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/rotation = Quaternion(0.0428388, -0.0111373, 0.0901664, 0.994943)
 bones/8/position = Vector3(-0.195774, 0.343267, -0.569978)
-bones/8/rotation = Quaternion(-0.131603, 0.667366, 0.686768, 0.256228)
+bones/8/rotation = Quaternion(-0.142911, 0.66045, 0.694315, 0.247607)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(1.13725e-07, 0.16082, 0.986984, 2.18664e-08)
 bones/10/position = Vector3(-0.304441, 0.0863808, -0.00408576)
 bones/10/rotation = Quaternion(0.506592, -0.49332, 0.506591, -0.49332)
 bones/11/position = Vector3(0.326416, 0.046454, 0.196609)
 bones/11/rotation = Quaternion(0.506592, 0.49332, -0.506591, -0.49332)
 
 [node name="hammer_13" parent="Armature/Skeleton3D" index="0"]
-transform = Transform3D(-0.00147181, 0.0112805, 0.0244541, 0.0189336, -0.0169827, 0.00897356, 0.0191513, 0.0176566, -0.00699225, 0.532126, 2.38828, -0.117366)
+transform = Transform3D(-0.000900059, 0.0119586, 0.0241578, 0.0192697, -0.0166166, 0.00894349, 0.0188491, 0.0175584, -0.00798952, 0.527086, 2.38521, -0.110589)
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Walk"
@@ -51,3 +62,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.74876, 0)
 tree_root = SubResource("AnimationNodeBlendTree_2tk2s")
 anim_player = NodePath("../AnimationPlayer")
 parameters/IdleWalkBlend/blend_amount = 0.0
+parameters/TimeScale/scale = 3.0
