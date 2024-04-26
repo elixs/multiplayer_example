@@ -98,7 +98,8 @@ func _physics_process(delta):
 		camera_transform.top_level = true
 	
 	path_follow_3d.progress_ratio = lerp(path_follow_3d.progress_ratio, camera_target_pos, 0.2)
-	#move_and_slide()
+	
+	executeAbilities()
 
 func _input(event):
 	if is_multiplayer_authority():
@@ -141,8 +142,41 @@ func moveCameraByCursor(position: Vector2):
 		elif position.y < 11:
 			dir += Vector2(0.0, -camera_follow_speed)
 		path_3d.global_position += Vector3(dir.x, 0.0, dir.y)
+
+
+# ========== ABILITIES ========== #
+
+@onready var abilities: Dictionary = {
+	"Q": null, 
+	"W": null, 
+	"E": null,
+	"R": null,
+	"1": null, 
+	"2": null, 
+	"3": null, 
+	"4": null,
+}
+
+# Adds the ability assigned to a certain key as a child of the character
+func loadAbility(key: String):
+	if abilities.has(key) and abilities[key] != null:
+		var scene = load("res://scenes/abilities/" + abilities[key] + "/" + abilities[key] + ".tscn")
+		var sceneNode = scene.instance()
+		add_child(sceneNode)
 		
-# - - - - - Multiplayer - - - - - #
+# Adds a new ability to the character and loads it
+func addAbility(ability_name: String, key: String):
+	abilities[key] = ability_name
+	loadAbility(key)
+
+# Executes abilities based on the input
+func executeAbilities():
+	for key in abilities.keys():
+		if Input.is_action_just_pressed(key) and abilities[key] != null:
+			abilities[key].execute()
+
+
+# ========== MULTIPLAYER ========== #
 
 func setup(player_data: Statics.PlayerData):
 	name = str(player_data.id)
