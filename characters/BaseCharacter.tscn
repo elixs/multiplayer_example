@@ -83,3 +83,5 @@ pixel_size = 0.001
 billboard = 1
 fixed_size = true
 text = "name"
+
+[node name="Abilities" type="Node" parent="."]

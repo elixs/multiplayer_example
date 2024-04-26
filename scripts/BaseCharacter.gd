@@ -35,6 +35,9 @@ func _ready():
 	label_3d.global_transform = character_node.get_child(2).global_transform
 	character_animations = character_node.get_node("AnimationTree")
 	
+	for key in abilities.keys():
+		loadAbility(key)
+	
 func _physics_process(delta):
 	# Add the gravity.
 	#if not is_on_floor():
@@ -146,26 +149,34 @@ func moveCameraByCursor(position: Vector2):
 
 # ========== ABILITIES ========== #
 
+# Key: String | Value: Node or String
+# An ability can be added by changing a null value for the name of the ability.
+# When the ability is loaded, its value in the dictionary will change to the 
+# node of the ability instead of its name.
 @onready var abilities: Dictionary = {
-	"Q": null, 
-	"W": null, 
+	"Q": "base_ability",
+	"W": null,
 	"E": null,
 	"R": null,
-	"1": null, 
+	"1": null,
 	"2": null, 
-	"3": null, 
+	"3": null,
 	"4": null,
 }
 
-# Adds the ability assigned to a certain key as a child of the character
+# Adds the ability assigned to a certain key as a child of the character and
+# adds the node to the dictionary
 func loadAbility(key: String):
 	if abilities.has(key) and abilities[key] != null:
 		var scene = load("res://scenes/abilities/" + abilities[key] + "/" + abilities[key] + ".tscn")
-		var sceneNode = scene.instance()
-		add_child(sceneNode)
+		var sceneNode = scene.instantiate()
+		abilities[key] = sceneNode
+		$Abilities.add_child(sceneNode)
 		
 # Adds a new ability to the character and loads it
 func addAbility(ability_name: String, key: String):
+	if abilities[key] != null:
+		abilities[key].queue_free()
 	abilities[key] = ability_name
 	loadAbility(key)
 
@@ -173,7 +184,7 @@ func addAbility(ability_name: String, key: String):
 func executeAbilities():
 	for key in abilities.keys():
 		if Input.is_action_just_pressed(key) and abilities[key] != null:
-			abilities[key].execute()
+			abilities[key].execute(self, screenPointToRay())
 
 
 # ========== MULTIPLAYER ========== #
