@@ -2,9 +2,8 @@ extends Node
 
 var is_passive_active: bool = false
 
-# note: no se como va a implementarse lo del target xd
 func execute(user: BaseCharacter, target: Vector3):
-	print("executing base ability")
+	print("executing " + name)
 	# [Insert the ability here]
 	pass
 

@@ -31,6 +31,9 @@ var looking_at: Vector3
 var camera_follow_speed = 0.6
 # var screen_size: Vector2
 
+@onready var projectile_ray: RayCast3D = $ProjectileRay
+@onready var projectile_spawn: Node3D = $ProjectileRay/SpawnPoint
+
 func _ready():
 	label_3d.global_transform = character_node.get_child(2).global_transform
 	character_animations = character_node.get_node("AnimationTree")
@@ -102,6 +105,9 @@ func _physics_process(delta):
 	
 	path_follow_3d.progress_ratio = lerp(path_follow_3d.progress_ratio, camera_target_pos, 0.2)
 	
+	var projectile_ray_target = screenPointToRay()
+	projectile_ray.look_at(projectile_ray_target, Vector3(0,2,0))
+	projectile_ray.rotation.x = 0
 	executeAbilities()
 
 func _input(event):
@@ -154,8 +160,8 @@ func moveCameraByCursor(position: Vector2):
 # When the ability is loaded, its value in the dictionary will change to the 
 # node of the ability instead of its name.
 @onready var abilities: Dictionary = {
-	"Q": "base_ability",
-	"W": null,
+	"Q": "skillshot_test",
+	"W": "base_ability",
 	"E": null,
 	"R": null,
 	"1": null,
@@ -184,7 +190,8 @@ func addAbility(ability_name: String, key: String):
 func executeAbilities():
 	for key in abilities.keys():
 		if Input.is_action_just_pressed(key) and abilities[key] != null:
-			abilities[key].execute(self, screenPointToRay())
+			var dir = screenPointToRay()
+			abilities[key].execute(self, dir)
 
 
 # ========== MULTIPLAYER ========== #
