@@ -24,6 +24,11 @@ var locked_camera = true
 
 @onready var label_3d = $Label3D
 
+# variables para ataque
+var is_attacking = false
+var attack_range = 1.0
+var target_player: CharacterBody3D = null
+
 var camera_follow_speed = 0.6
 # var screen_size: Vector2
 
@@ -50,6 +55,13 @@ func _physics_process(delta):
 				animation_player.play("move_arrows")
 			target.y = -0.5
 			updateTargetLocation(target)
+			if is_target_player(target):
+				target_player = get_target_player(target)
+				start_attack(target_player)
+				while is_attacking:
+					updateTargetLocation(target)
+					if Input.is_action_just_pressed("Move"):
+						stop_attack()
 		if position.distance_to(target) > 0.5:
 			var current_position = global_transform.origin
 			var target_position = agent.get_next_path_position()
@@ -141,3 +153,27 @@ func setup(player_data: Statics.PlayerData):
 func sendData(pos: Vector3, vel: Vector3):
 	global_position = lerp(global_position, pos, 0.75)
 	velocity = lerp(velocity, vel, 0.75)
+
+#funciones ataque
+func is_target_player(position: Vector3) -> bool:
+	var target_players = get_tree().get_nodes_in_group("players")
+	for player in target_players:
+		var distance = position.distance_to(player.global_transform.origin)
+		if distance < attack_range:
+			return true
+	return false
+
+func get_target_player(position: Vector3) -> CharacterBody3D:
+	var target_players = get_tree().get_nodes_in_group("players")
+	for player in target_players:
+		var distance = position.distance_to(player.global_transform.origin)
+		if distance < attack_range:
+			return player
+	return null
+
+func start_attack(player: CharacterBody3D):
+	is_attacking = true
+	print("Ataque")
+
+func stop_attack():
+	is_attacking = false 
