@@ -140,19 +140,6 @@ func moveCameraByCursor(position: Vector2):
 			dir += Vector2(0.0, -camera_follow_speed)
 		path_3d.global_position += Vector3(dir.x, 0.0, dir.y)
 		
-# - - - - - Multiplayer - - - - - #
-
-func setup(player_data: Statics.PlayerData):
-	name = str(player_data.id)
-	label_3d.text = str(player_data.name) + "\nTeam" +str(player_data.role)
-	set_multiplayer_authority(player_data.id)
-	if is_multiplayer_authority():
-		camera_3d.current = true
-	
-@rpc
-func sendData(pos: Vector3, vel: Vector3):
-	global_position = lerp(global_position, pos, 0.75)
-	velocity = lerp(velocity, vel, 0.75)
 
 #funciones ataque
 func is_target_player(position: Vector3) -> bool:
@@ -177,3 +164,17 @@ func start_attack(player: CharacterBody3D):
 
 func stop_attack():
 	is_attacking = false 
+
+# - - - - - Multiplayer - - - - - #
+
+func setup(player_data: Statics.PlayerData):
+	name = str(player_data.id)
+	label_3d.text = str(player_data.name) + "\nTeam" +str(player_data.role)
+	set_multiplayer_authority(player_data.id)
+	if is_multiplayer_authority():
+		camera_3d.current = true
+	
+@rpc
+func sendData(pos: Vector3, vel: Vector3):
+	global_position = lerp(global_position, pos, 0.75)
+	velocity = lerp(velocity, vel, 0.75)
