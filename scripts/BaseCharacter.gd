@@ -32,7 +32,7 @@ var camera_follow_speed = 0.6
 # var screen_size: Vector2
 
 func _ready():
-	label_3d.global_transform = character_node.get_child(2).global_transform
+	label_3d.global_transform = character_node.get_node("HealthMarker").global_transform
 	character_animations = character_node.get_node("AnimationTree")
 	
 func _physics_process(delta):
