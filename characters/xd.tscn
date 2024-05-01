@@ -17,16 +17,16 @@ character_node = NodePath("char1v2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="BaseCharacter/char1v2/Armature" index="0"]
-bones/0/position = Vector3(1.12675e-05, 1.30162, -0.0048653)
-bones/0/rotation = Quaternion(-0.0247893, 0.704388, -0.0204151, 0.709089)
-bones/1/rotation = Quaternion(3.47793e-06, -6.28954e-06, 0.12558, 0.992084)
-bones/4/position = Vector3(0.0392025, 0.353527, -0.46165)
-bones/4/rotation = Quaternion(-0.72662, -0.139387, -0.00965725, 0.672682)
-bones/5/rotation = Quaternion(0.000264901, -8.03996e-05, -0.296383, 0.955069)
-bones/8/rotation = Quaternion(-0.136857, 0.664181, 0.690298, 0.252235)
+bones/0/position = Vector3(1.20668e-05, 1.30174, -0.00521046)
+bones/0/rotation = Quaternion(-0.0251347, 0.704378, -0.0207598, 0.709077)
+bones/1/rotation = Quaternion(3.32928e-05, -5.92762e-05, 0.133498, 0.991049)
+bones/4/position = Vector3(0.0382782, 0.355322, -0.459616)
+bones/4/rotation = Quaternion(-0.725808, -0.139454, -0.00943692, 0.673547)
+bones/5/rotation = Quaternion(0.000202624, -9.31595e-06, -0.308449, 0.951241)
+bones/8/rotation = Quaternion(-0.142218, 0.66088, 0.693858, 0.248138)
 
 [node name="hammer_13" parent="BaseCharacter/char1v2/Armature/Skeleton3D" index="0"]
-transform = Transform3D(-0.00120562, 0.0115963, 0.0243206, 0.0193007, -0.0166152, 0.00887904, 0.0188002, 0.0178011, -0.00755577, 0.529794, 2.38563, -0.116816)
+transform = Transform3D(-0.000935527, 0.0119177, 0.0241767, 0.0190599, -0.016813, 0.0090254, 0.0190594, 0.0173985, -0.00783895, 0.527391, 2.38655, -0.109088)
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="BaseCharacter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)

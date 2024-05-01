@@ -26,7 +26,7 @@ var locked_camera = true
 
 @export var character_node: Node3D
 var character_animations: AnimationTree
-var looking_at: Vector3
+var prev_lookat = global_transform.basis.z
 
 var camera_follow_speed = 0.6
 # var screen_size: Vector2
@@ -45,14 +45,11 @@ func _physics_process(delta):
 		character_animations.set("parameters/IdleWalkBlend/blend_amount", blend_val)
 		
 	if target:
-		#look_at(target)
-		#character_node.look_at(target)
-		# Look towards the velocity rotated
-		#looking_at = character_node.global_transform.basis.z
-		#character_node.look_at(lerp(looking_at, (global_transform.origin + velocity), 0.75), Vector3.UP)
 		if (Vector3(global_transform.origin.x, 0.0, global_transform.origin.z) \
 		- Vector3(target.x, 0.0, target.z)).length() > 0.5 and velocity.length() != 0:
-			character_node.look_at((global_transform.origin + velocity), Vector3.UP)
+			var new_look = lerp(prev_lookat, (global_transform.origin + velocity), 0.3)
+			prev_lookat = new_look
+			character_node.look_at(new_look, Vector3.UP)
 		#rotation.x = 0
 		#rotation.y = 0
 	#rotation.x = 0

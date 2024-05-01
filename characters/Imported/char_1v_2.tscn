@@ -27,23 +27,23 @@ node_connections = [&"IdleWalkBlend", 0, &"Idle", &"IdleWalkBlend", 1, &"TimeSca
 [node name="char1v2" instance=ExtResource("1_qttob")]
 
 [node name="Skeleton3D" parent="Armature" index="0"]
-bones/0/position = Vector3(4.52894e-05, 1.30652, -0.019556)
-bones/0/rotation = Quaternion(-0.0401865, 0.703777, -0.0357823, 0.70838)
-bones/1/rotation = Quaternion(0.000130656, -0.00023231, 0.159299, 0.98723)
+bones/0/position = Vector3(7.11302e-06, 1.30102, -0.00307141)
+bones/0/rotation = Quaternion(-0.0229432, 0.704438, -0.0185727, 0.709151)
+bones/1/rotation = Quaternion(2.7291e-06, -4.95868e-06, 0.125381, 0.992109)
 bones/2/rotation = Quaternion(-0.706641, 0.151086, -0.144507, 0.67598)
-bones/4/position = Vector3(-0.00477722, 0.438922, -0.364818)
-bones/4/rotation = Quaternion(-0.687812, -0.142282, 0.000586843, 0.711808)
-bones/5/rotation = Quaternion(0.000280472, -9.81785e-05, -0.293357, 0.956003)
+bones/4/position = Vector3(0.0442636, 0.3437, -0.472794)
+bones/4/rotation = Quaternion(-0.73094, -0.139026, -0.0108344, 0.668043)
+bones/5/rotation = Quaternion(0.000240247, -5.22548e-05, -0.301167, 0.953572)
 bones/6/rotation = Quaternion(0.144471, 0.675696, 0.706913, 0.15112)
 bones/8/position = Vector3(-0.195774, 0.343267, -0.569978)
-bones/8/rotation = Quaternion(-0.0933758, 0.689069, 0.659913, 0.28457)
+bones/8/rotation = Quaternion(-0.143451, 0.660113, 0.694671, 0.247192)
 bones/10/position = Vector3(-0.304441, 0.0863808, -0.00408576)
 bones/10/rotation = Quaternion(0.506592, -0.49332, 0.506591, -0.49332)
 bones/11/position = Vector3(0.326416, 0.046454, 0.196609)
 bones/11/rotation = Quaternion(0.506592, 0.49332, -0.506591, -0.49332)
 
 [node name="hammer_13" parent="Armature/Skeleton3D" index="0"]
-transform = Transform3D(-0.00339929, 0.0089277, 0.0252222, 0.0185023, -0.0175813, 0.00871671, 0.0193268, 0.0184015, -0.00390866, 0.54887, 2.39283, -0.13555)
+transform = Transform3D(-0.000872814, 0.0119908, 0.0241428, 0.0192629, -0.0166203, 0.00895108, 0.0188573, 0.0175329, -0.00802619, 0.526844, 2.38518, -0.109861)
 
 [node name="HealthMarker" type="Marker3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.74876, 0)
