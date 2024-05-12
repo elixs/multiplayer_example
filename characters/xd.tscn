@@ -17,16 +17,25 @@ character_node = NodePath("char1v2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="BaseCharacter/char1v2/Armature" index="0"]
-bones/0/position = Vector3(1.20668e-05, 1.30174, -0.00521046)
-bones/0/rotation = Quaternion(-0.0251347, 0.704378, -0.0207598, 0.709077)
-bones/1/rotation = Quaternion(3.32928e-05, -5.92762e-05, 0.133498, 0.991049)
-bones/4/position = Vector3(0.0382782, 0.355322, -0.459616)
-bones/4/rotation = Quaternion(-0.725808, -0.139454, -0.00943692, 0.673547)
-bones/5/rotation = Quaternion(0.000202624, -9.31595e-06, -0.308449, 0.951241)
-bones/8/rotation = Quaternion(-0.142218, 0.66088, 0.693858, 0.248138)
+bones/0/position = Vector3(2.97904e-05, 1.30429, -0.0128635)
+bones/0/rotation = Quaternion(-0.0330282, 0.704103, -0.0286377, 0.708751)
+bones/1/rotation = Quaternion(1.06297e-05, -1.89995e-05, 0.12748, 0.991841)
+bones/2/rotation = Quaternion(-0.706641, 0.151086, -0.144507, 0.67598)
+bones/3/rotation = Quaternion(0.0428388, 0.0111374, -0.0901663, 0.994943)
+bones/4/position = Vector3(0.0166117, 0.397392, -0.411911)
+bones/4/rotation = Quaternion(-0.70696, -0.14093, -0.00439585, 0.693057)
+bones/5/rotation = Quaternion(0.000374889, -0.000206028, -0.274937, 0.961462)
+bones/6/rotation = Quaternion(0.144471, 0.675696, 0.706913, 0.15112)
+bones/7/rotation = Quaternion(0.0428388, -0.0111373, 0.0901664, 0.994943)
+bones/8/position = Vector3(-0.195774, 0.343267, -0.569978)
+bones/8/rotation = Quaternion(-0.107226, 0.681502, 0.66988, 0.274443)
+bones/10/position = Vector3(-0.304441, 0.0863808, -0.00408576)
+bones/10/rotation = Quaternion(0.506592, -0.49332, 0.506591, -0.49332)
+bones/11/position = Vector3(0.326416, 0.046454, 0.196609)
+bones/11/rotation = Quaternion(0.506592, 0.49332, -0.506591, -0.49332)
 
 [node name="hammer_13" parent="BaseCharacter/char1v2/Armature/Skeleton3D" index="0"]
-transform = Transform3D(-0.000935527, 0.0119177, 0.0241767, 0.0190599, -0.016813, 0.0090254, 0.0190594, 0.0173985, -0.00783895, 0.527391, 2.38655, -0.109088)
+transform = Transform3D(-0.00270048, 0.00978811, 0.0249864, 0.0194368, -0.0166012, 0.008604, 0.0185023, 0.0188683, -0.00539172, 0.542898, 2.38745, -0.145939)
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="BaseCharacter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
