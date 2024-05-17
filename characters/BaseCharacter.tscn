@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dt5ahf3uukx5o"]
+[gd_scene load_steps=7 format=3 uid="uid://dt5ahf3uukx5o"]
 
 [ext_resource type="Script" path="res://scripts/BaseCharacter.gd" id="1_00iuh"]
 [ext_resource type="Texture2D" uid="uid://cqqk0cyja4kwe" path="res://resources/arrows.png" id="2_55k2c"]
@@ -43,6 +43,10 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kvtkm"]
+radius = 0.1
+height = 0.2
+
 [node name="BaseCharacter" type="CharacterBody3D"]
 script = ExtResource("1_00iuh")
 
@@ -84,3 +88,17 @@ pixel_size = 0.001
 billboard = 1
 fixed_size = true
 text = "name"
+
+[node name="ProjectileRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, 0, -1)
+collide_with_bodies = false
+
+[node name="SpawnPoint" type="Node3D" parent="ProjectileRay"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ProjectileRay/SpawnPoint"]
+visible = false
+mesh = SubResource("CapsuleMesh_kvtkm")
+
+[node name="Abilities" type="Node" parent="."]

@@ -31,9 +31,15 @@ var prev_lookat = global_transform.basis.z
 var camera_follow_speed = 0.6
 # var screen_size: Vector2
 
+@onready var projectile_ray: RayCast3D = $ProjectileRay
+@onready var projectile_spawn: Node3D = $ProjectileRay/SpawnPoint
+
 func _ready():
 	label_3d.global_transform = character_node.get_node("HealthMarker").global_transform
 	character_animations = character_node.get_node("AnimationTree")
+	
+	for key in abilities.keys():
+		loadAbility(key)
 	
 func _physics_process(delta):
 	# Add the gravity.
@@ -101,7 +107,11 @@ func _physics_process(delta):
 		camera_transform.top_level = true
 	
 	path_follow_3d.progress_ratio = lerp(path_follow_3d.progress_ratio, camera_target_pos, 0.2)
-	#move_and_slide()
+	
+	var projectile_ray_target = screenPointToRay()
+	projectile_ray.look_at(projectile_ray_target, Vector3(0,2,0))
+	projectile_ray.rotation.x = 0
+	executeAbilities()
 
 func _input(event):
 	if is_multiplayer_authority():
@@ -144,8 +154,50 @@ func moveCameraByCursor(position: Vector2):
 		elif position.y < 11:
 			dir += Vector2(0.0, -camera_follow_speed)
 		path_3d.global_position += Vector3(dir.x, 0.0, dir.y)
+
+
+# ========== ABILITIES ========== #
+
+# Key: String | Value: Node or String
+# An ability can be added by changing a null value for the name of the ability.
+# When the ability is loaded, its value in the dictionary will change to the 
+# node of the ability instead of its name.
+@onready var abilities: Dictionary = {
+	"Q": "skillshot_test",
+	"W": "base_ability",
+	"E": null,
+	"R": null,
+	"1": null,
+	"2": null, 
+	"3": null,
+	"4": null,
+}
+
+# Adds the ability assigned to a certain key as a child of the character and
+# adds the node to the dictionary
+func loadAbility(key: String):
+	if abilities.has(key) and abilities[key] != null:
+		var scene = load("res://scenes/abilities/" + abilities[key] + "/" + abilities[key] + ".tscn")
+		var sceneNode = scene.instantiate()
+		abilities[key] = sceneNode
+		$Abilities.add_child(sceneNode)
 		
-# - - - - - Multiplayer - - - - - #
+# Adds a new ability to the character and loads it
+func addAbility(ability_name: String, key: String):
+	if abilities[key] != null:
+		abilities[key].queue_free()
+	abilities[key] = ability_name
+	loadAbility(key)
+
+# Executes abilities based on the input
+func executeAbilities():
+	for key in abilities.keys():
+		if Input.is_action_just_pressed(key) and abilities[key] != null:
+			var dir = screenPointToRay()
+			abilities[key].execute(self, dir)
+
+
+# ========== MULTIPLAYER ========== #
 
 func setup(player_data: Statics.PlayerData):
 	name = str(player_data.id)
