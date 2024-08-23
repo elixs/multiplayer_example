@@ -4,5 +4,6 @@ extends Node2D
 
 func _ready() -> void:
 	for player_data in Game.players:
-		pass
+		var player_inst = player_scene.instantiate()
+		player_inst.setpu(player_data)
 		
