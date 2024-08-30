@@ -12,11 +12,12 @@ script = ExtResource("1_eilxh")
 potato_scene = ExtResource("2_gy4wm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
+position = Vector2(0, 6)
+scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_o57ol")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1, 1.056)
+scale = Vector2(1.5, 1.584)
 texture = ExtResource("1_3rbwx")
 hframes = 6
 vframes = 12
