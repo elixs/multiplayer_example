@@ -4,16 +4,15 @@
 [ext_resource type="Script" path="res://scenes/player_1.gd" id="1_eilxh"]
 [ext_resource type="PackedScene" uid="uid://bo6wcby584shn" path="res://scenes/potato.tscn" id="2_gy4wm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o57ol"]
-size = Vector2(17, 22)
+[sub_resource type="CircleShape2D" id="CircleShape2D_wwjkx"]
+radius = 15.0
 
 [node name="Player1" type="CharacterBody2D"]
 script = ExtResource("1_eilxh")
 potato_scene = ExtResource("2_gy4wm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
-shape = SubResource("RectangleShape2D_o57ol")
+shape = SubResource("CircleShape2D_wwjkx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(1, 1.056)
