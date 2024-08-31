@@ -9,6 +9,10 @@ extends CharacterBody3D
 var target_velocity = Vector3.ZERO
 var direction = Vector3.FORWARD
 
+func setup(player_data: Statics.PlayerData) -> void:
+	name = str(player_data.id)
+	set_multiplayer_authority(player_data.id)
+
 func _physics_process(delta):
 	# Rotación del personaje
 	if Input.is_action_pressed("move_left"):
