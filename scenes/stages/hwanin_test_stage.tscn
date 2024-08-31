@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwr3stekvs1mr"]
+
+[ext_resource type="PackedScene" uid="uid://cq41bh3fd1hky" path="res://scenes/characters/base_character.tscn" id="2_gu5i3"]
+[ext_resource type="PackedScene" uid="uid://dre5tuujlrq8j" path="res://scenes/stages/basic_floor.tscn" id="3_vqklv"]
+
+[node name="HwaninTestStage" type="Node2D"]
+
+[node name="RigidBody2D" parent="." instance=ExtResource("2_gu5i3")]
+position = Vector2(77, 187)
+
+[node name="BasicFloor" parent="." instance=ExtResource("3_vqklv")]
+position = Vector2(134, 287)
+
+[node name="BasicFloor2" parent="." instance=ExtResource("3_vqklv")]
+position = Vector2(354, 220)
+
+[node name="BasicFloor3" parent="." instance=ExtResource("3_vqklv")]
+position = Vector2(538, 146)
