@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://3v6q7v5ihpij"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_n3x0n"]
+[ext_resource type="PackedScene" uid="uid://7wv3mim4fcii" path="res://resources/barquito2.glb" id="2_afbkn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r38p0"]
+radius = 2.22406
+height = 18.9973
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_n3x0n")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Character" parent="Pivot" instance=ExtResource("2_afbkn")]
+transform = Transform3D(0.000364775, 0, -0.0999993, 0, 0.1, 0, 0.0999993, 0, 0.000364775, 2.00878, -0.0215285, -0.0166739)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(9.23435e-06, -0.00410154, -0.999992, -0.999997, -0.00225143, 0, -0.00225141, 0.999989, -0.00410155, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_r38p0")
