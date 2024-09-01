@@ -12,13 +12,15 @@ var direction = Vector3.FORWARD
 func _physics_process(delta):
 	if is_multiplayer_authority():
 		## Rotación del personaje
-		#if Input.is_action_pressed("move_left"):
-			#$Pivot.rotate_y(rotation_speed * delta)
-		#if Input.is_action_pressed("move_right"):
-			#$Pivot.rotate_y(-rotation_speed * delta)
-
+		if Input.is_action_pressed("move_left"):
+			$Pivot.rotate_y(rotation_speed * delta)
+			
+		if Input.is_action_pressed("move_right"):
+			$Pivot.rotate_y(-rotation_speed * delta)
+		sync_rotation.rpc($Pivot.rotation)
+		
 		# Actualizar la dirección del personaje según su orientación
-		#direction = -$Pivot.basis.z.normalized()
+		direction = -$Pivot.basis.z.normalized()
 
 		# Movimiento hacia adelante y atrás
 		if Input.is_action_pressed("move_forward"):
@@ -35,6 +37,7 @@ func _physics_process(delta):
 		# Mover al personaje
 		velocity = target_velocity
 		send_position.rpc(velocity, direction)
+		
 	move_and_slide()
 	# Actualizar la posición de la cámara
 	#update_camera()
@@ -43,6 +46,10 @@ func _physics_process(delta):
 func send_position(vel : Vector3, dir : Vector3) -> void:
 	velocity = vel
 	direction = dir
+
+@rpc("call_remote", "unreliable")
+func sync_rotation(new_rotation: Vector3) -> void:
+	$Pivot.rotation = new_rotation
 
 #func update_camera():
 	# Colocar la cámara detrás del personaje, ajustando la posición según el offset
@@ -60,4 +67,7 @@ func send_position(vel : Vector3, dir : Vector3) -> void:
 
 func setup(player_data: Statics.PlayerData) -> void:
 	name = str(player_data.id)
+	
 	set_multiplayer_authority(player_data.id)
+	Debug.log("admin")
+	Debug.log(player_data.id)
