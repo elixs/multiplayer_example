@@ -22,4 +22,14 @@ texture = ExtResource("1_skg2y")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tjwvx")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="WeaponSpawn" type="Marker2D" parent="."]
+position = Vector2(0, -56)
+
+[node name="WeaponSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/weapons/base_weapon.tscn")
+spawn_path = NodePath("../Node")
+spawn_limit = 1
+
+[node name="Node" type="Node" parent="."]
+
+[editable path="DragArea"]

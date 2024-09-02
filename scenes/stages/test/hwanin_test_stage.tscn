@@ -1,14 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwr3stekvs1mr"]
+[gd_scene load_steps=3 format=3 uid="uid://dwr3stekvs1mr"]
 
 [ext_resource type="Script" path="res://scenes/stages/test/hwanin_test_stage.gd" id="1_hcl52"]
-[ext_resource type="PackedScene" uid="uid://cq41bh3fd1hky" path="res://scenes/characters/base_character.tscn" id="2_kt8hc"]
 [ext_resource type="PackedScene" uid="uid://dre5tuujlrq8j" path="res://scenes/stages/basic_floor.tscn" id="3_umo6f"]
 
 [node name="HwaninTestStage" type="Node2D"]
 script = ExtResource("1_hcl52")
-
-[node name="RigidBody2D" parent="." instance=ExtResource("2_kt8hc")]
-position = Vector2(77, 187)
 
 [node name="BasicFloor" parent="." instance=ExtResource("3_umo6f")]
 position = Vector2(134, 287)
@@ -20,3 +16,11 @@ position = Vector2(354, 220)
 position = Vector2(538, 146)
 
 [node name="Players" type="Node2D" parent="."]
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="P1" type="Marker2D" parent="Markers"]
+position = Vector2(135, 234)
+
+[node name="P2" type="Marker2D" parent="Markers"]
+position = Vector2(531, 62)
