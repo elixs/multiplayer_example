@@ -4,6 +4,7 @@ extends State
 
 @export var moving_state:State
 @export var jump_state: State
+@export var crouch_state: State
 
 
 
@@ -16,6 +17,8 @@ func update(event: InputEvent) -> State:
 		#Transicion
 	if event.is_action_pressed("jump") and jumps<2:
 		return jump_state
+	if event.is_action_pressed("crouch"):
+		return crouch_state	
 	return null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -2,7 +2,6 @@ extends State
 class_name Stunned
 
 @export var moving_state:State
-@export var timer:Timer
 @export var state_machine: Node
 
 # Called when the node enters the scene tree for the first time.

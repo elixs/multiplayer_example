@@ -5,10 +5,14 @@ var ACCELERATION = 1000.0
 
 @export var idle_state: State
 @export var jump_state: State
+@export var crouch_state: State
+
+func enter() -> void:
+	parent.update_sprite(6)
 # Called when the node enters the scene tree for the first time.
 func update(event: InputEvent) -> State:
-	#if event.is_action_released("move_left") or event.is_action_released("move_right"):
-	#	return idle_state
+	if event.is_action_pressed("crouch"):
+		return crouch_state
 	if event.is_action_pressed("jump") and jumps<2:
 		return jump_state
 	return null	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cwst36spixodp"]
+[gd_scene load_steps=16 format=3 uid="uid://cwst36spixodp"]
 
 [ext_resource type="Texture2D" uid="uid://bsyqjp7k5i3dq" path="res://assets/player.png" id="1_3rbwx"]
 [ext_resource type="Script" path="res://scenes/player_1.gd" id="1_eilxh"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://states/jumping.gd" id="9_lnxhe"]
 [ext_resource type="Script" path="res://states/stunned.gd" id="10_sb540"]
 [ext_resource type="Script" path="res://scenes/timer.gd" id="11_03cgj"]
+[ext_resource type="Script" path="res://states/crouch.gd" id="11_ysea3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o57ol"]
 size = Vector2(17, 22)
@@ -62,15 +63,17 @@ shape = SubResource("RectangleShape2D_4lk75")
 script = ExtResource("6_psiu2")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("moving_state", "jump_state")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("moving_state", "jump_state", "crouch_state")]
 script = ExtResource("7_2kw1b")
 moving_state = NodePath("../Moving")
 jump_state = NodePath("../Jumping")
+crouch_state = NodePath("../Crouched")
 
-[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state")]
+[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state", "crouch_state")]
 script = ExtResource("8_xidus")
 idle_state = NodePath("../Idle")
 jump_state = NodePath("../Jumping")
+crouch_state = NodePath("../Crouched")
 
 [node name="Jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "moving_state")]
 script = ExtResource("9_lnxhe")
@@ -81,6 +84,11 @@ moving_state = NodePath("../Moving")
 script = ExtResource("10_sb540")
 moving_state = NodePath("../Moving")
 state_machine = NodePath("..")
+
+[node name="Crouched" type="Node" parent="StateMachine" node_paths=PackedStringArray("moving_state", "idle_state")]
+script = ExtResource("11_ysea3")
+moving_state = NodePath("../Moving")
+idle_state = NodePath("../Idle")
 
 [node name="Timer" type="Timer" parent="."]
 script = ExtResource("11_03cgj")
