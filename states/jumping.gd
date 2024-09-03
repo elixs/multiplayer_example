@@ -3,6 +3,7 @@ class_name Jumping
 
 @export var idle_state: State
 @export var moving_state: State
+@export var jumping_animation: AnimationPlayer
 # Called when the node enters the scene tree for the first time.
 var JUMP_VELOCITY = -400.0
 var SPEED = 300.0
@@ -11,6 +12,8 @@ var ACCELERATION = 1000.0
 func enter() -> void:
 	parent.velocity.y = JUMP_VELOCITY
 	jumps+=1
+	jumping_animation.play("jumping")
+	parent.rpc("send_animation","jumping")
 
 func exit() -> void:
 	pass

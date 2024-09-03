@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cwst36spixodp"]
+[gd_scene load_steps=21 format=3 uid="uid://cwst36spixodp"]
 
 [ext_resource type="Texture2D" uid="uid://bsyqjp7k5i3dq" path="res://assets/player.png" id="1_3rbwx"]
 [ext_resource type="Script" path="res://scenes/player_1.gd" id="1_eilxh"]
@@ -35,23 +35,6 @@ tracks/0/keys = {
 "values": [6]
 }
 
-[sub_resource type="Animation" id="Animation_jomaj"]
-resource_name = "walking"
-length = 0.7
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [6, 7, 8, 9, 10, 11]
-}
-
 [sub_resource type="Animation" id="Animation_6sk5i"]
 resource_name = "stunned"
 length = 0.12
@@ -69,9 +52,43 @@ tracks/0/keys = {
 "values": [24, 25]
 }
 
+[sub_resource type="Animation" id="Animation_jomaj"]
+resource_name = "walking"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_gyunh"]
+resource_name = "jumping"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [30, 31]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wfebw"]
 _data = {
 "RESET": SubResource("Animation_wpaf6"),
+"jumping": SubResource("Animation_gyunh"),
 "stunned": SubResource("Animation_6sk5i"),
 "walking": SubResource("Animation_jomaj")
 }
@@ -133,10 +150,11 @@ jump_state = NodePath("../Jumping")
 crouch_state = NodePath("../Crouched")
 moving_animation = NodePath("../../AnimationPlayer")
 
-[node name="Jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "moving_state")]
+[node name="Jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "moving_state", "jumping_animation")]
 script = ExtResource("9_lnxhe")
 idle_state = NodePath("../Idle")
 moving_state = NodePath("../Moving")
+jumping_animation = NodePath("../../AnimationPlayer")
 
 [node name="Stunned" type="Node" parent="StateMachine" node_paths=PackedStringArray("moving_state", "state_machine", "stunned_animation")]
 script = ExtResource("10_sb540")

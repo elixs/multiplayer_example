@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var state_machine = $StateMachine
 @export var potato_scene: PackedScene
 @onready var animations: AnimationPlayer = $AnimationPlayer
+@onready var timer: Timer = $Timer
 
 
 var JUMP_VELOCITY = 400.0
@@ -48,7 +49,6 @@ func _physics_process(delta: float) -> void:
 			
 @rpc("reliable")		
 func send_animation(animation: StringName)	-> void:
-	Debug.log("hola")
 	animations.play(animation)
 
 @rpc()
@@ -79,3 +79,6 @@ func stun() -> void:
 @rpc("any_peer","call_local","reliable")	
 func notify_stun() -> void:
 	state_machine.is_frozen = true
+	state_machine.change_state(state_machine.current_state,state_machine.states["stunned"])
+	timer.start()
+	
