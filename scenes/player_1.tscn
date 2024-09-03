@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bsyqjp7k5i3dq" path="res://assets/player.png" id="1_3rbwx"]
 [ext_resource type="Script" path="res://scenes/player_1.gd" id="1_eilxh"]
 [ext_resource type="PackedScene" uid="uid://bo6wcby584shn" path="res://scenes/potato.tscn" id="2_gy4wm"]
-[ext_resource type="Script" path="res://components/hitbox.gd" id="4_wlbmr"]
+[ext_resource type="Script" path="res://scenes/reach.gd" id="4_shymn"]
 [ext_resource type="Script" path="res://components/hurtbox.gd" id="5_bje53"]
 [ext_resource type="Script" path="res://scenes/StateMachine.gd" id="6_psiu2"]
 [ext_resource type="Script" path="res://states/idle.gd" id="7_2kw1b"]
@@ -20,6 +20,21 @@ size = Vector2(17, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4lk75"]
 
+[sub_resource type="Animation" id="Animation_wpaf6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
 [sub_resource type="Animation" id="Animation_jomaj"]
 resource_name = "walking"
 length = 0.7
@@ -35,21 +50,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [6, 7, 8, 9, 10, 11]
-}
-
-[sub_resource type="Animation" id="Animation_wpaf6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [6]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wfebw"]
@@ -81,7 +81,7 @@ spawn_path = NodePath(".")
 [node name="Reach" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 9
-script = ExtResource("4_wlbmr")
+script = ExtResource("4_shymn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Reach"]
 position = Vector2(0, 5)

@@ -71,5 +71,4 @@ func stun() -> void:
 
 @rpc("any_peer","call_local","reliable")	
 func notify_stun() -> void:
-	Debug.log("me stunearon")
 	state_machine.is_frozen = true
