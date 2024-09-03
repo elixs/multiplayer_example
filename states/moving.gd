@@ -6,9 +6,10 @@ var ACCELERATION = 1000.0
 @export var idle_state: State
 @export var jump_state: State
 @export var crouch_state: State
+@export var moving_animation: AnimationPlayer
 
 func enter() -> void:
-	parent.update_sprite(6)
+	moving_animation.play("walking")
 # Called when the node enters the scene tree for the first time.
 func update(event: InputEvent) -> State:
 	if event.is_action_pressed("crouch"):
