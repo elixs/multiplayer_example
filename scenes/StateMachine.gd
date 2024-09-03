@@ -29,7 +29,6 @@ func handle_inputs(event):
 	elif new_state != current_state && new_state:
 		change_state(current_state, new_state)
 		
-		
 func change_state(state, new_state):
 	if state != current_state:
 		return

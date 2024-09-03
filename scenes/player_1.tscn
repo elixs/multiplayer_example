@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cwst36spixodp"]
+[gd_scene load_steps=20 format=3 uid="uid://cwst36spixodp"]
 
 [ext_resource type="Texture2D" uid="uid://bsyqjp7k5i3dq" path="res://assets/player.png" id="1_3rbwx"]
 [ext_resource type="Script" path="res://scenes/player_1.gd" id="1_eilxh"]
@@ -52,9 +52,27 @@ tracks/0/keys = {
 "values": [6, 7, 8, 9, 10, 11]
 }
 
+[sub_resource type="Animation" id="Animation_6sk5i"]
+resource_name = "stunned"
+length = 0.12
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [24, 25]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wfebw"]
 _data = {
 "RESET": SubResource("Animation_wpaf6"),
+"stunned": SubResource("Animation_6sk5i"),
 "walking": SubResource("Animation_jomaj")
 }
 
@@ -120,10 +138,11 @@ script = ExtResource("9_lnxhe")
 idle_state = NodePath("../Idle")
 moving_state = NodePath("../Moving")
 
-[node name="Stunned" type="Node" parent="StateMachine" node_paths=PackedStringArray("moving_state", "state_machine")]
+[node name="Stunned" type="Node" parent="StateMachine" node_paths=PackedStringArray("moving_state", "state_machine", "stunned_animation")]
 script = ExtResource("10_sb540")
 moving_state = NodePath("../Moving")
 state_machine = NodePath("..")
+stunned_animation = NodePath("../../AnimationPlayer")
 
 [node name="Crouched" type="Node" parent="StateMachine" node_paths=PackedStringArray("moving_state", "idle_state")]
 script = ExtResource("11_ysea3")

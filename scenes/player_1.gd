@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var reach: CollisionShape2D = $Reach/CollisionShape2D
 @onready var state_machine = $StateMachine
 @export var potato_scene: PackedScene
+@onready var animations: AnimationPlayer = $AnimationPlayer
 
 
 var JUMP_VELOCITY = 400.0
@@ -43,6 +44,12 @@ func _physics_process(delta: float) -> void:
 		state_machine.handle_physics(delta) 
 		move_and_slide()
 		send_position.rpc(position,velocity)
+		
+			
+@rpc("reliable")		
+func send_animation(animation: StringName)	-> void:
+	Debug.log("hola")
+	animations.play(animation)
 
 @rpc()
 func send_position(pos:Vector2, vel: Vector2) -> void:

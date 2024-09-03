@@ -10,6 +10,7 @@ var ACCELERATION = 1000.0
 
 func enter() -> void:
 	moving_animation.play("walking")
+	parent.rpc("send_animation","walking")
 # Called when the node enters the scene tree for the first time.
 func update(event: InputEvent) -> State:
 	if event.is_action_pressed("crouch"):
@@ -17,6 +18,7 @@ func update(event: InputEvent) -> State:
 	if event.is_action_pressed("jump") and jumps<2:
 		return jump_state
 	return null	
+	
 func Physics_update(delta:float) -> void:
 	var move_input = Input.get_axis("move_left","move_right")
 	parent.velocity.x = move_toward(parent.velocity.x, SPEED* move_input, ACCELERATION * delta)
@@ -24,3 +26,5 @@ func Physics_update(delta:float) -> void:
 		parent.velocity.y += gravity * delta
 	else:
 		jumps = 0	
+		
+			
