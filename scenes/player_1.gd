@@ -65,6 +65,11 @@ func throw_Potato() -> void:
 func update_sprite(frame: int) -> void:
 	sprite.frame = frame
 	
-@rpc("any_peer","reliable")	
-func stun() -> void:a
+	
+func stun() -> void:
+	rpc_id(get_multiplayer_authority(),"notify_stun")
+
+@rpc("any_peer","call_local","reliable")	
+func notify_stun() -> void:
+	Debug.log("me stunearon")
 	state_machine.is_frozen = true

@@ -3,6 +3,7 @@ extends Node
 var states: Dictionary = {}
 var current_state: State
 var is_frozen: bool = false
+@onready var timer: Timer = $"../Timer"
 # Called when the node enters the scene tree for the first time.
 func init(parent: CharacterBody2D):
 	for child in get_children():
@@ -22,8 +23,8 @@ func handle_physics(delta):
 		
 func handle_inputs(event):
 	var new_state = current_state.update(event)		
-	if is_frozen:
-		Debug.log("fui stuneado")
+	if is_frozen and timer.is_stopped():
+		timer.start()
 		change_state(current_state,states["stunned"])
 	elif new_state != current_state && new_state:
 		change_state(current_state, new_state)

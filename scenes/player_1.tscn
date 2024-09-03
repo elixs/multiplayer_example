@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwst36spixodp"]
+[gd_scene load_steps=15 format=3 uid="uid://cwst36spixodp"]
 
 [ext_resource type="Texture2D" uid="uid://bsyqjp7k5i3dq" path="res://assets/player.png" id="1_3rbwx"]
 [ext_resource type="Script" path="res://scenes/player_1.gd" id="1_eilxh"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://states/moving.gd" id="8_xidus"]
 [ext_resource type="Script" path="res://states/jumping.gd" id="9_lnxhe"]
 [ext_resource type="Script" path="res://states/stunned.gd" id="10_sb540"]
+[ext_resource type="Script" path="res://scenes/timer.gd" id="11_03cgj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o57ol"]
 size = Vector2(17, 22)
@@ -48,8 +49,8 @@ scale = Vector2(5, 5)
 shape = SubResource("CircleShape2D_ijd3t")
 
 [node name="Caught" type="Area2D" parent="."]
-collision_layer = 9
-collision_mask = 3
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("5_bje53")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Caught"]
@@ -76,5 +77,10 @@ script = ExtResource("9_lnxhe")
 idle_state = NodePath("../Idle")
 moving_state = NodePath("../Moving")
 
-[node name="Stunned" type="Node" parent="StateMachine"]
+[node name="Stunned" type="Node" parent="StateMachine" node_paths=PackedStringArray("moving_state", "state_machine")]
 script = ExtResource("10_sb540")
+moving_state = NodePath("../Moving")
+state_machine = NodePath("..")
+
+[node name="Timer" type="Timer" parent="."]
+script = ExtResource("11_03cgj")

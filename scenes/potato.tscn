@@ -12,8 +12,8 @@ properties/0/replication_mode = 1
 
 [node name="Potato" type="Area2D"]
 scale = Vector2(1.11465, 1)
-collision_layer = 4
-collision_mask = 4
+collision_layer = 6
+collision_mask = 6
 script = ExtResource("1_lixhe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
