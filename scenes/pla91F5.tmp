@@ -1,15 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwst36spixodp"]
+[gd_scene load_steps=9 format=3 uid="uid://cwst36spixodp"]
 
 [ext_resource type="Texture2D" uid="uid://bsyqjp7k5i3dq" path="res://assets/player.png" id="1_3rbwx"]
 [ext_resource type="Script" path="res://scenes/player_1.gd" id="1_eilxh"]
 [ext_resource type="PackedScene" uid="uid://bo6wcby584shn" path="res://scenes/potato.tscn" id="2_gy4wm"]
 [ext_resource type="Script" path="res://components/hitbox.gd" id="4_wlbmr"]
 [ext_resource type="Script" path="res://components/hurtbox.gd" id="5_bje53"]
-[ext_resource type="Script" path="res://scenes/StateMachine.gd" id="6_psiu2"]
-[ext_resource type="Script" path="res://states/idle.gd" id="7_2kw1b"]
-[ext_resource type="Script" path="res://states/moving.gd" id="8_xidus"]
-[ext_resource type="Script" path="res://states/jumping.gd" id="9_lnxhe"]
-[ext_resource type="Script" path="res://states/stunned.gd" id="10_sb540"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o57ol"]
 size = Vector2(17, 22)
@@ -38,43 +33,20 @@ _spawnable_scenes = PackedStringArray("res://scenes/potato.tscn")
 spawn_path = NodePath(".")
 
 [node name="Reach" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 9
+collision_layer = 3
+collision_mask = 0
 script = ExtResource("4_wlbmr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Reach"]
 position = Vector2(0, 5)
-scale = Vector2(5, 5)
+scale = Vector2(1.75, 1.75)
 shape = SubResource("CircleShape2D_ijd3t")
 
 [node name="Caught" type="Area2D" parent="."]
-collision_layer = 9
-collision_mask = 3
+collision_layer = 3
 script = ExtResource("5_bje53")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Caught"]
 position = Vector2(0, 6)
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_4lk75")
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("6_psiu2")
-initial_state = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("moving_state", "jump_state")]
-script = ExtResource("7_2kw1b")
-moving_state = NodePath("../Moving")
-jump_state = NodePath("../Jumping")
-
-[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state")]
-script = ExtResource("8_xidus")
-idle_state = NodePath("../Idle")
-jump_state = NodePath("../Jumping")
-
-[node name="Jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "moving_state")]
-script = ExtResource("9_lnxhe")
-idle_state = NodePath("../Idle")
-moving_state = NodePath("../Moving")
-
-[node name="Stunned" type="Node" parent="StateMachine"]
-script = ExtResource("10_sb540")

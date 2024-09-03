@@ -7,6 +7,7 @@ var velocity: Vector2
 
 
 
+
 func _ready() -> void:
 	set_multiplayer_authority(id)
 	# Initialize velocity for horizontal and vertical motion

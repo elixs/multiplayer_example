@@ -3,16 +3,16 @@ extends CharacterBody2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var potato_spawner: MultiplayerSpawner = $MultiplayerSpawner
-
+@onready var reach: CollisionShape2D = $Reach/CollisionShape2D
+@onready var state_machine = $StateMachine
 @export var potato_scene: PackedScene
 
 
-var SPEED = 300.0
 var JUMP_VELOCITY = 400.0
 var ACCELERATION = 1000
 var jumps = 0
-
 var player
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 
 var gravity = 1000
@@ -21,34 +21,26 @@ func setup(player_data: Statics.PlayerData) -> void:
 	name = str(player_data.id)
 	set_multiplayer_authority(player_data.id)
 
-
+func _ready():
+	reach.disabled = true
+	state_machine.init(self)
+	
 func _input(event:InputEvent) -> void:
 	if is_multiplayer_authority():
-		if event.is_action_pressed("crouch"):
-			rpc("update_sprite",20)
-			update_sprite(20)
-		if event.is_action_released("crouch"):
-			rpc("update_sprite",0)
-			update_sprite(0)
+		state_machine.handle_inputs(event)
 		if event.is_action_pressed("lanzar"):
 			throw_Potato()
-		if event.is_action_pressed("move_left"):
-			sprite.frame=0
+		if event.is_action_pressed("pintar"):
+			reach.disabled = false	
+		if event.is_action_released("pintar"):
+			reach.disabled = true	
 					
 			
 		
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
-		var move_input = Input.get_axis("move_left","move_right")
-		velocity.x = move_toward(velocity.x, SPEED* move_input, ACCELERATION * delta)
-		if Input.is_action_just_pressed("jump") and jumps <2:
-			velocity.y= -JUMP_VELOCITY
-			jumps+=1
-		if not is_on_floor():
-			velocity.y += gravity * delta
-		else:
-			jumps = 0	 
+		state_machine.handle_physics(delta) 
 		move_and_slide()
 		send_position.rpc(position,velocity)
 
@@ -73,3 +65,6 @@ func throw_Potato() -> void:
 func update_sprite(frame: int) -> void:
 	sprite.frame = frame
 	
+@rpc("any_peer","reliable")	
+func stun() -> void:a
+	state_machine.is_frozen = true
