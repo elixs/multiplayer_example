@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
+
 @export var speed = 0.3
 @export var friction = 0.995
 @export var rotation_speed = 0.3 # Controla qué tan rápido gira el personaje
@@ -11,7 +13,9 @@ var rotation_velocity = 0
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
-		## Rotación del personaje
+		# Disparo
+		if Input.is_action_just_pressed("fire"):
+			_shoot_cannon_ball()
 		# Movimiento hacia adelante
 		if Input.is_action_pressed("move_forward"):
 			velocity += direction * speed * delta
@@ -48,3 +52,9 @@ func setup(player_data: Statics.PlayerData) -> void:
 	set_multiplayer_authority(player_data.id)
 	Debug.log("admin")
 	Debug.log(player_data.id)
+
+func _shoot_cannon_ball() -> void:
+	var cannon_ball_node = CANNON_BALL.instantiate()
+	cannon_ball_node._set_direction(direction.rotated(axis, 0.5 * PI))
+	get_parent().add_child(cannon_ball_node)
+	cannon_ball_node.global_position = position
