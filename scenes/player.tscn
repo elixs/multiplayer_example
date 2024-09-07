@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://3v6q7v5ihpij"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_n3x0n"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_785fi"]
 [ext_resource type="PackedScene" uid="uid://7wv3mim4fcii" path="res://resources/barquito2.glb" id="2_afbkn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r38p0"]
@@ -8,7 +8,7 @@ radius = 2.22406
 height = 18.9973
 
 [node name="Player" type="CharacterBody3D"]
-script = ExtResource("1_n3x0n")
+script = ExtResource("1_785fi")
 
 [node name="Pivot" type="Node3D" parent="."]
 

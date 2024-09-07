@@ -1,73 +1,50 @@
 extends CharacterBody3D
 
-@export var speed = 4
-@export var friction = 0.1
-@export var acceleration = 0.1
-@export var rotation_speed = 0.5 # Controla qué tan rápido gira el personaje
-@export var camera_offset = Vector3(0, 2, -5) # Posición relativa de la cámara
+@export var speed = 0.3
+@export var friction = 0.995
+@export var rotation_speed = 0.3 # Controla qué tan rápido gira el personaje
+@export var max_velocity = 0.2
 
-var target_velocity = Vector3.ZERO
-var direction = Vector3.FORWARD
+var direction = Vector3.FORWARD # Vector (0,0,-1)
+var axis = Vector3.UP 
+var rotation_velocity = 0
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
 		## Rotación del personaje
-		if Input.is_action_pressed("move_left"):
-			$Pivot.rotate_y(rotation_speed * delta)
-			
-		if Input.is_action_pressed("move_right"):
-			$Pivot.rotate_y(-rotation_speed * delta)
-		sync_rotation.rpc($Pivot.rotation)
-		
-		# Actualizar la dirección del personaje según su orientación
-		direction = -$Pivot.basis.z.normalized()
-
-		# Movimiento hacia adelante y atrás
+		# Movimiento hacia adelante
 		if Input.is_action_pressed("move_forward"):
-			target_velocity.x = move_toward(target_velocity.x, direction.x * speed, acceleration)
-			target_velocity.z = move_toward(target_velocity.z, direction.z * speed, acceleration)
-		elif Input.is_action_pressed("move_back"):
-			target_velocity.x = move_toward(target_velocity.x, -direction.x * speed, acceleration)
-			target_velocity.z = move_toward(target_velocity.z, -direction.z * speed, acceleration)
-		else:
-			# Frenado gradual si no se presionan las teclas de mover adelante/atrás
-			target_velocity.x = move_toward(target_velocity.x, 0, friction)
-			target_velocity.z = move_toward(target_velocity.z, 0, friction)
+			velocity += direction * speed * delta
+		# Movimiento hacia y atrás
+		if Input.is_action_pressed("move_back"):
+			velocity += -direction * speed * delta * 0.5
 
-		# Mover al personaje
-		velocity = target_velocity
-		send_position.rpc(velocity, direction)
-		
+		# Movimiento hacia adelante
+		if Input.is_action_pressed("move_right"):
+			direction = direction.rotated(-axis, rotation_speed * delta).normalized()
+		# Movimiento hacia y atrás
+		if Input.is_action_pressed("move_left"):
+			direction = direction.rotated(axis, rotation_speed * delta).normalized()
+	
+	# Friccion
+	velocity = velocity * friction
+	
+	velocity.x = clamp(velocity.x, -max_velocity, max_velocity)
+	velocity.z = clamp(velocity.z, -max_velocity, max_velocity)
+	
+	position += velocity
+	look_at(global_transform.origin + direction, axis)
+	
+	send_position.rpc(position, direction)
 	move_and_slide()
-	# Actualizar la posición de la cámara
-	#update_camera()
 	
 @rpc
-func send_position(vel : Vector3, dir : Vector3) -> void:
-	velocity = vel
+func send_position(pos : Vector3, dir : Vector3) -> void:
+	position = pos
 	direction = dir
-
-@rpc("call_remote", "unreliable")
-func sync_rotation(new_rotation: Vector3) -> void:
-	$Pivot.rotation = new_rotation
-
-#func update_camera():
-	# Colocar la cámara detrás del personaje, ajustando la posición según el offset
-	#var camera_global_transform = $Pivot.global_transform
-	#$Camera3D.global_transform.origin = camera_global_transform.origin + (camera_global_transform.basis * camera_offset)
-
-#func _input(event: InputEvent) -> void:
-	#if is_multiplayer_authority():
-		#if event.is_action_pressed("test"):
-			#test.rpc()
-#
-#@rpc("authority", "call_local", "unreliable")
-#func test():
-	#Debug.log("test")
 
 func setup(player_data: Statics.PlayerData) -> void:
 	name = str(player_data.id)
-	
 	set_multiplayer_authority(player_data.id)
 	Debug.log("admin")
 	Debug.log(player_data.id)
