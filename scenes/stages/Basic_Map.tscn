@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqmdrh1fc43on"]
+
+[ext_resource type="PackedScene" uid="uid://ca7v3ygiopcus" path="res://scenes/stages/Building1.tscn" id="1_a24b2"]
+[ext_resource type="PackedScene" uid="uid://b46dcn6nhsqd" path="res://scenes/stages/Building2.tscn" id="2_gpex4"]
+[ext_resource type="PackedScene" uid="uid://dd304yvm11jdh" path="res://scenes/stages/Araña.tscn" id="3_g2418"]
+
+[node name="BasicMap" type="Node2D"]
+
+[node name="Building" parent="." instance=ExtResource("1_a24b2")]
+position = Vector2(-2, 192)
+
+[node name="Building4" parent="." instance=ExtResource("2_gpex4")]
+position = Vector2(770, 191)
+
+[node name="Araña" parent="." instance=ExtResource("3_g2418")]
+position = Vector2(320, 514)
