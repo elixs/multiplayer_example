@@ -13,7 +13,8 @@ var weapon_instance: BaseWeapon = null
 @onready var node: Node = $Node
 
 # Visual properties
-@onready var drag_area: DragArea = $DragArea
+@onready var drag_area: DragAreaNode = $DragArea
+
 
 # multiplayer setup
 func setup(player_data: Statics.PlayerData) -> void:
@@ -21,12 +22,12 @@ func setup(player_data: Statics.PlayerData) -> void:
 	set_multiplayer_authority(player_data.id)
 
 func _ready() -> void:
-	pass
+	throw_power = 10
 
 # Input management
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
-		drag_area.input_action(event, self)
+		drag_area.input_action(event)
 		
 		if event.is_action_released("number_1"):
 			_on_weapon_instance()
@@ -39,8 +40,8 @@ func _physics_process(delta: float) -> void:
 		_send_position.rpc(position)
 
 @rpc
-func _send_position(position: Vector2):
-	self.position = position 
+func _send_position(pos: Vector2):
+	self.position = pos 
 
 func _on_weapon_instance():
 	if weapon_instance:
@@ -48,6 +49,4 @@ func _on_weapon_instance():
 	weapon_instance = weapon_scene.instantiate()
 	node.add_child(weapon_instance, true)
 	weapon_instance.global_position = weapon_spawn.global_position
-	weapon_instance.setup.rpc(get_multiplayer_authority())
-	#weapon_instance.set_multiplayer_authority(name.to_int())
-	
+	weapon_instance.setup.rpc(get_multiplayer_authority())	

@@ -13,14 +13,15 @@ collision_mask = 3
 lock_rotation = true
 script = ExtResource("1_ic8vr")
 
-[node name="DragArea" parent="." instance=ExtResource("3_oixy1")]
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_skg2y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tjwvx")
+
+[node name="DragArea" parent="." node_paths=PackedStringArray("body") instance=ExtResource("3_oixy1")]
+body = NodePath("..")
 
 [node name="WeaponSpawn" type="Marker2D" parent="."]
 position = Vector2(0, -56)
@@ -31,5 +32,3 @@ spawn_path = NodePath("../Node")
 spawn_limit = 1
 
 [node name="Node" type="Node" parent="."]
-
-[editable path="DragArea"]

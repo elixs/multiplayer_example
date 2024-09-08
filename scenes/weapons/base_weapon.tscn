@@ -10,7 +10,7 @@ radius = 6.0
 [node name="BaseWeapon" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 7
-mass = 0.5
+mass = 4.0
 freeze = true
 script = ExtResource("1_pm8t8")
 
@@ -21,7 +21,5 @@ texture = ExtResource("1_vcx5b")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_iydso")
 
-[node name="DragArea" parent="." instance=ExtResource("3_oroys")]
-drag_radius = 60.0
-
-[editable path="DragArea"]
+[node name="DragArea" parent="." node_paths=PackedStringArray("body") instance=ExtResource("3_oroys")]
+body = NodePath("..")

@@ -7,20 +7,22 @@
 script = ExtResource("1_hcl52")
 
 [node name="BasicFloor" parent="." instance=ExtResource("3_umo6f")]
-position = Vector2(134, 287)
+position = Vector2(34, 218)
+rotation = 0.268244
 
 [node name="BasicFloor2" parent="." instance=ExtResource("3_umo6f")]
-position = Vector2(354, 220)
+position = Vector2(332, 256)
 
 [node name="BasicFloor3" parent="." instance=ExtResource("3_umo6f")]
-position = Vector2(538, 146)
+position = Vector2(615, 212)
+rotation = -0.336949
 
 [node name="Players" type="Node2D" parent="."]
 
 [node name="Markers" type="Node2D" parent="."]
 
 [node name="P1" type="Marker2D" parent="Markers"]
-position = Vector2(135, 234)
+position = Vector2(114, 86)
 
 [node name="P2" type="Marker2D" parent="Markers"]
-position = Vector2(531, 62)
+position = Vector2(564, 93)

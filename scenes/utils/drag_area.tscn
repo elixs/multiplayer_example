@@ -4,25 +4,42 @@
 [ext_resource type="Texture2D" uid="uid://dkggfp2aqdryp" path="res://assets/fx/dotted_line.png" id="2_v87kq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7afv7"]
-radius = 16.0
+radius = 80.0
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_2t4b2"]
-diffuse_texture = ExtResource("2_v87kq")
-normal_texture = ExtResource("2_v87kq")
-specular_texture = ExtResource("2_v87kq")
-texture_filter = 1
-texture_repeat = 2
+[sub_resource type="CircleShape2D" id="CircleShape2D_vmqxo"]
+radius = 20.0
 
-[node name="DragArea" type="Area2D"]
-monitoring = false
-monitorable = false
+[node name="DragAreaNode" type="Node2D"]
 script = ExtResource("1_fnbjh")
 
-[node name="ShapeArea" type="CollisionShape2D" parent="."]
+[node name="DragArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+
+[node name="DragAreaShape" type="CollisionShape2D" parent="DragArea"]
 shape = SubResource("CircleShape2D_7afv7")
+debug_color = Color(0.656039, 0.516746, 0, 0.42)
+
+[node name="ClickArea" type="Area2D" parent="."]
+
+[node name="ClickAreaShape" type="CollisionShape2D" parent="ClickArea"]
+shape = SubResource("CircleShape2D_vmqxo")
+debug_color = Color(0.270347, 0.632742, 7.70092e-07, 0.42)
 
 [node name="Circle" type="Line2D" parent="."]
-texture = SubResource("CanvasTexture_2t4b2")
+texture_repeat = 2
+width = 20.0
+default_color = Color(1, 1, 1, 0.490196)
+texture = ExtResource("2_v87kq")
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Trajectory" type="Line2D" parent="."]
+texture_repeat = 2
+default_color = Color(0.772549, 0, 0, 0.705882)
+texture = ExtResource("2_v87kq")
 texture_mode = 1
 joint_mode = 2
 begin_cap_mode = 2
