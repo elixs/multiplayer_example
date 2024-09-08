@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dar2npa0ing71"]
+[gd_scene load_steps=3 format=3 uid="uid://2xvj3vuiusso"]
 
-[ext_resource type="PackedScene" uid="uid://dqmdrh1fc43on" path="res://scenes/stages/Basic_Map.tscn" id="1_4esim"]
+[ext_resource type="PackedScene" path="res://scenes/stages/Basic_Map.tscn" id="1_4esim"]
+[ext_resource type="Script" path="res://scenes/stages/test/test_with_map.gd" id="1_wqodi"]
 
 [node name="Test-with-map" type="Node2D"]
+script = ExtResource("1_wqodi")
 
 [node name="Markers" type="Node2D" parent="."]
 
