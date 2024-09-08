@@ -124,3 +124,10 @@ func _exit_tree():
 	# Wait for thread finish here to handle game exit while the thread is running.
 	if _thread:
 		_thread.wait_to_finish()
+
+# Images of the cursors
+const POINTER_CURSOR = preload("res://assets/fx/pointer_cursor.png")
+const HAND_OPEN_POINTER = preload("res://assets/fx/hand_open_pointer.png")
+const HAND_CLOSE_POINTER = preload("res://assets/fx/hand_close_pointer.png")
+
+const GRAVITY = Vector2(0, 980)

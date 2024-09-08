@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnweasraqadnr"]
+
+[ext_resource type="Script" path="res://scenes/weapons/base_weapon.gd" id="1_pm8t8"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="1_vcx5b"]
+[ext_resource type="PackedScene" uid="uid://bvyl75y3qnq35" path="res://scenes/utils/drag_area.tscn" id="3_oroys"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iydso"]
+radius = 6.0
+
+[node name="BaseWeapon" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 7
+mass = 4.0
+freeze = true
+script = ExtResource("1_pm8t8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.094, 0.094)
+texture = ExtResource("1_vcx5b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_iydso")
+
+[node name="DragArea" parent="." node_paths=PackedStringArray("body") instance=ExtResource("3_oroys")]
+body = NodePath("..")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwr3stekvs1mr"]
+
+[ext_resource type="Script" path="res://scenes/stages/test/hwanin_test_stage.gd" id="1_hcl52"]
+[ext_resource type="PackedScene" uid="uid://dre5tuujlrq8j" path="res://scenes/stages/basic_floor.tscn" id="3_umo6f"]
+
+[node name="HwaninTestStage" type="Node2D"]
+script = ExtResource("1_hcl52")
+
+[node name="BasicFloor" parent="." instance=ExtResource("3_umo6f")]
+position = Vector2(34, 218)
+rotation = 0.268244
+
+[node name="BasicFloor2" parent="." instance=ExtResource("3_umo6f")]
+position = Vector2(332, 256)
+
+[node name="BasicFloor3" parent="." instance=ExtResource("3_umo6f")]
+position = Vector2(615, 212)
+rotation = -0.336949
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="P1" type="Marker2D" parent="Markers"]
+position = Vector2(114, 86)
+
+[node name="P2" type="Marker2D" parent="Markers"]
+position = Vector2(564, 93)
