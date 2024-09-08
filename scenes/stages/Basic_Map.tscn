@@ -10,7 +10,8 @@
 position = Vector2(-2, 192)
 
 [node name="Building4" parent="." instance=ExtResource("2_gpex4")]
-position = Vector2(770, 191)
+position = Vector2(1152, 192)
 
 [node name="Araña" parent="." instance=ExtResource("3_g2418")]
-position = Vector2(320, 514)
+position = Vector2(320, 320)
+scale = Vector2(2, 2)
