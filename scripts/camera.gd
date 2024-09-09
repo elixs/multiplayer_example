@@ -1,29 +1,27 @@
-extends Camera3D
+extends Node3D
+@export var cameratarget: Node3D
+@export var pitch_max = 50
+@export var pitch_min =-50
 
-@export var sensitivity = 0.2 # Sensibilidad del mouse
-@export var vertical_limit = 85.0 # Límite de rotación vertical (para evitar voltear la cámara)
-var rotation_x = 0.0
-var rotation_y = 0.0
+var yaw = float()
+var pitch = float()
+var yaw_sensitivity = .002
+var pitch_sensitivity = .002
 
-func _ready():
-	# Ocultar el cursor y capturar el mouse
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
-	# Detectar movimiento del mouse
-	if event is InputEventMouseMotion:
-		# Actualizar la rotación horizontal y vertical con la sensibilidad
-		rotation_x -= event.relative.y * sensitivity
-		rotation_y -= event.relative.x * sensitivity
+	if event is InputEventMouseMotion and Input.get_mouse_mode() != 0:
+		yaw += -event.relative.x * yaw_sensitivity
+		pitch += event.relative.y * pitch_sensitivity
 
-		# Limitar la rotación vertical para evitar que la cámara dé vueltas completas
-		rotation_x = clamp(rotation_x, -vertical_limit, vertical_limit)
 
-		# Aplicar las rotaciones a la cámara
-		rotation_degrees.x = rotation_x
-		rotation_degrees.y = rotation_y
-
-func _unhandled_input(event):
-	# Liberar el mouse al presionar ESC para salir del modo de captura
-	if  Input.is_key_pressed(KEY_ESCAPE):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+func _physics_process(delta: float) -> void:
+	cameratarget.rotation.y = lerpf(cameratarget.rotation.y,yaw,delta*10)
+	cameratarget.rotation.x = lerpf(cameratarget.rotation.x,pitch,delta*10)
+	pitch = clamp(pitch, deg_to_rad(pitch_min),deg_to_rad(pitch_max))
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass

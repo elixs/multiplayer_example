@@ -27,9 +27,6 @@ mesh = SubResource("BoxMesh_qrgkt")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.426837, 0.904329, 0, -0.904329, 0.426837, 24.3608, 34.1769, 37.4995)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.0181144, 0.430558, -0.902381, -0.0086413, 0.902563, 0.430472, 0.999799, 0, 0.02007, -35.9184, 26.489, 0)
-
 [node name="SpawnPoint" type="Node3D" parent="."]
 
 [node name="sp1" type="Marker3D" parent="SpawnPoint"]
