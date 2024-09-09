@@ -1,0 +1,24 @@
+extends State
+class_name Rolling
+
+@export var idle_state: State
+@export var jump_state: State
+@export var rolling_animation: AnimationPlayer
+
+var friction = 300
+
+func enter() -> void:
+	rolling_animation.play("rolling")
+	parent.rpc("send_animation","rolling")
+
+func update(event:InputEvent) -> State:
+	if event.is_action_released("move_left") or event.is_action_released("move_right"):
+		return idle_state
+	if event.is_action_pressed("jump"):
+		return jump_state
+	return null	
+	
+func Physics_update(delta: float) -> void:
+	var move_input = Input.get_axis("move_left","move_right")
+	if not parent.is_on_floor():
+		parent.velocity.y += gravity * delta
