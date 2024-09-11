@@ -31,6 +31,8 @@ func update(event: InputEvent) -> State:
 	return null
 
 func autoUpdate() -> State:
+	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_right"):
+		return null
 	if Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left"):
 		return moving_state
 	return null		
