@@ -41,5 +41,7 @@ func change_state(state, new_state):
 	#var new_state_name = states.get(new_state.name.to_lower())
 	if current_state:
 		current_state.exit()
+	#if is_multiplayer_authority():
+		#Debug.log(new_state)	
 	current_state = new_state	
 	new_state.enter() 

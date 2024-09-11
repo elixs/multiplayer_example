@@ -23,6 +23,5 @@ func update(event:InputEvent) -> State:
 	return null	
 	
 func Physics_update(delta: float) -> void:
-	var move_input = Input.get_axis("move_left","move_right")
 	if not parent.is_on_floor():
 		parent.velocity.y += gravity * delta

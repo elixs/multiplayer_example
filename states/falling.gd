@@ -16,6 +16,8 @@ func update(event: InputEvent) -> State:
 	return null	
 
 func autoUpdate() -> State:
+	if parent.is_on_floor():
+		return idle_state
 	return null	
 func Physics_update(delta:float) -> void:
 	parent.velocity.y = 600
