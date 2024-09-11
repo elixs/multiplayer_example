@@ -7,14 +7,16 @@ extends State
 
 # Called when the node enters the scene tree for the first time.
 func enter() -> void:
+	parent.velocity.x = 0
 	crouch_animation.play("crouch")
 	parent.rpc("send_animation","crouch")
 	
 func update(event:InputEvent) -> State:
-	if event.is_action_pressed("move_left") or event.is_action_pressed("move_right"):
-		return moving_state	
-	if event.is_action_released("crouch"):
-		return idle_state	
+	if event != null:
+		if event.is_action_pressed("move_left") or event.is_action_pressed("move_right"):
+			return moving_state	
+		if event.is_action_released("crouch"):
+			return idle_state	
 	return null
 	
 func Physics_update(delta:float) -> void:

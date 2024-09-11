@@ -13,6 +13,7 @@ extends CharacterBody2D
 var JUMP_VELOCITY = 400.0
 var ACCELERATION = 1000
 var jumps = 0
+var potatos = 0
 var player
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -36,9 +37,11 @@ func _input(event:InputEvent) -> void:
 			reach.disabled = false	
 		if event.is_action_released("pintar"):
 			reach.disabled = true	
+
+func _process(delta) -> void:
+	if is_multiplayer_authority():
+		state_machine.handle_animations()	
 					
-			
-		
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
@@ -50,6 +53,10 @@ func _physics_process(delta: float) -> void:
 @rpc("reliable")		
 func send_animation(animation: StringName)	-> void:
 	animations.play(animation)
+	
+@rpc("reliable")
+func stop_animation() -> void:
+	animations.stop()
 
 @rpc()
 func send_position(pos:Vector2, vel: Vector2) -> void:
@@ -62,11 +69,13 @@ func throw_Potato() -> void:
 	if not potato_scene:
 		Debug.log("Cant throw potato")
 		return
-	var potato_inst = potato_scene.instantiate()
-	potato_inst.global_position = global_position	
-	potato_inst.global_rotation = global_rotation
-	potato_spawner.add_child(potato_inst, true)
-	potato_inst.setup.rpc(get_tree().get_multiplayer().get_unique_id())
+	if potatos<1:	
+		var potato_inst = potato_scene.instantiate()
+		potato_inst.global_position = global_position	
+		potato_inst.global_rotation = global_rotation
+		potato_spawner.add_child(potato_inst, true)
+		potato_inst.setup.rpc(get_tree().get_multiplayer().get_unique_id())
+		potatos+=1
 
 @rpc()
 func update_sprite(frame: int) -> void:

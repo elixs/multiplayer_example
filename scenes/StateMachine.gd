@@ -18,14 +18,22 @@ func init(parent: CharacterBody2D):
 		
 func handle_physics(delta):
 	if current_state:
-		current_state.Physics_update(delta)		
+		current_state.Physics_update(delta)			
 		
 func handle_inputs(event):
-	var new_state = current_state.update(event)		
+	var new_state = null
+	new_state = current_state.update(event)	
 	if is_frozen:
 		return
-	elif new_state != current_state && new_state:
+	if new_state != current_state && new_state:
 		change_state(current_state, new_state)
+
+func handle_animations():
+	var new_state = current_state.autoUpdate()
+	if is_frozen:
+		return
+	if new_state != current_state && new_state:
+		change_state(current_state, new_state)	
 		
 func change_state(state, new_state):
 	if state != current_state:
@@ -33,5 +41,5 @@ func change_state(state, new_state):
 	#var new_state_name = states.get(new_state.name.to_lower())
 	if current_state:
 		current_state.exit()
+	current_state = new_state	
 	new_state.enter() 
-	current_state = new_state

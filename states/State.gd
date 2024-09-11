@@ -17,6 +17,9 @@ func exit() -> void:
 
 func update(event: InputEvent) -> State:
 	return self
-
+	
+func autoUpdate() -> State:
+	return null
+	
 func Physics_update(delta:float) -> void:
 	pass

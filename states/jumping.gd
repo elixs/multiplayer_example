@@ -3,7 +3,11 @@ class_name Jumping
 
 @export var idle_state: State
 @export var moving_state: State
+@export var falling_state: State
+@export var fallJump_state :State
 @export var jumping_animation: AnimationPlayer
+@export var sprite: Sprite2D
+@export var state_machine: Node
 # Called when the node enters the scene tree for the first time.
 var JUMP_VELOCITY = -400.0
 var SPEED = 300.0
@@ -14,23 +18,34 @@ func enter() -> void:
 	jumps+=1
 	jumping_animation.play("jumping")
 	parent.rpc("send_animation","jumping")
-
-func exit() -> void:
-	pass
+	
 
 func update(event: InputEvent) -> State:
-	if event.is_action_pressed("jump"):
-		if jumps<2:
-			jumps+=1
-			parent.velocity.y += JUMP_VELOCITY
-	if(parent.is_on_floor()):
-		jumps=0
-		return moving_state	
-	return null
-		
+	if event != null:	
+		if event.is_action_pressed("jump"):
+			if jumps<2:
+				jumps+=1
+				parent.velocity.y = JUMP_VELOCITY
+		if not parent.is_on_floor() and event.is_action_pressed("crouch"):
+			return falling_state			
+	return null	
+
+func autoUpdate() -> State:
+	if not parent.is_on_floor() and parent.velocity.y>0:
+		return fallJump_state
+	if parent.is_on_floor():
+		if parent.velocity.x != 0:
+			return moving_state
+		else:
+			return idle_state
+	return null		
+
 
 func Physics_update(delta:float) -> void:
 	var move_input = Input.get_axis("move_left","move_right")
 	parent.velocity.x = move_toward(parent.velocity.x, SPEED* move_input, ACCELERATION * delta)
 	if not parent.is_on_floor():
 			parent.velocity.y += gravity * delta
+			
+func exit():
+	jumps = 0		
