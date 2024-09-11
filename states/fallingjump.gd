@@ -2,6 +2,7 @@ extends State
 class_name FallingJump
 
 @export var fall_animation: AnimationPlayer
+@export var sprite: Sprite2D
 @export var idle_state: State
 @export var jump_state: State
 @export var falling_state: State
@@ -28,6 +29,10 @@ func autoUpdate() -> State:
 func Physics_update(delta:float) -> void:
 	var move_input = Input.get_axis("move_left","move_right")
 	parent.velocity.x = move_toward(parent.velocity.x, SPEED* move_input, ACCELERATION * delta)
+	if parent.velocity.x>0:
+		sprite.scale.x = 1.5
+	if parent.velocity.x<0:
+		sprite.scale.x = -1.5	
 	if not parent.is_on_floor():
 			parent.velocity.y += gravity * delta
 				

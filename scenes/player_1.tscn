@@ -237,13 +237,14 @@ crouch_state = NodePath("../Crouched")
 idle_animation = NodePath("../../AnimationPlayer")
 state_machine = NodePath("..")
 
-[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state", "rolling_state", "falling_state", "moving_animation")]
+[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state", "rolling_state", "falling_state", "moving_animation", "sprite")]
 script = ExtResource("8_xidus")
 idle_state = NodePath("../Idle")
 jump_state = NodePath("../Jumping")
 rolling_state = NodePath("../Rolling")
 falling_state = NodePath("../ForceDown")
 moving_animation = NodePath("../../AnimationPlayer")
+sprite = NodePath("../../Sprite2D")
 
 [node name="Jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "moving_state", "falling_state", "fallJump_state", "jumping_animation", "sprite", "state_machine")]
 script = ExtResource("9_lnxhe")
@@ -280,9 +281,10 @@ idle_state = NodePath("../Idle")
 moving_state = NodePath("../Moving")
 forceDown_animation = NodePath("../../AnimationPlayer")
 
-[node name="FallingJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_animation", "idle_state", "jump_state", "falling_state")]
+[node name="FallingJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_animation", "sprite", "idle_state", "jump_state", "falling_state")]
 script = ExtResource("14_1roxm")
 fall_animation = NodePath("../../AnimationPlayer")
+sprite = NodePath("../../Sprite2D")
 idle_state = NodePath("../Idle")
 jump_state = NodePath("../Jumping")
 falling_state = NodePath("../ForceDown")
