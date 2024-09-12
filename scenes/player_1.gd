@@ -59,6 +59,10 @@ func stop_animation() -> void:
 	animations.stop()
 
 @rpc()
+func send_sprite(scale: float) -> void:
+	sprite.scale.x = scale
+	
+@rpc()
 func send_position(pos:Vector2, vel: Vector2) -> void:
 	position = lerp(position,pos,0.5)
 	velocity = lerp(velocity,vel,0.5)
@@ -69,13 +73,11 @@ func throw_Potato() -> void:
 	if not potato_scene:
 		Debug.log("Cant throw potato")
 		return
-	if potatos<1:	
-		var potato_inst = potato_scene.instantiate()
-		potato_inst.global_position = global_position	
-		potato_inst.global_rotation = global_rotation
-		potato_spawner.add_child(potato_inst, true)
-		potato_inst.setup.rpc(get_tree().get_multiplayer().get_unique_id())
-		potatos+=1
+	var potato_inst = potato_scene.instantiate()
+	potato_inst.global_position = global_position	
+	potato_inst.global_rotation = global_rotation
+	potato_spawner.add_child(potato_inst, true)
+	potato_inst.setup.rpc(get_tree().get_multiplayer().get_unique_id())
 
 @rpc()
 func update_sprite(frame: int) -> void:

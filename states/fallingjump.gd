@@ -31,8 +31,10 @@ func Physics_update(delta:float) -> void:
 	parent.velocity.x = move_toward(parent.velocity.x, SPEED* move_input, ACCELERATION * delta)
 	if move_input>0:
 		sprite.scale.x = 1.5
+		parent.rpc("send_sprite",1.5)
 	if move_input<0:
 		sprite.scale.x = -1.5	
+		parent.rpc("send_sprite",-1.5)
 	if not parent.is_on_floor():
 			parent.velocity.y += gravity * delta
 				

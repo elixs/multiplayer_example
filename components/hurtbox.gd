@@ -12,5 +12,6 @@ func _on_area_entered(area: Area2D) -> void:
 		if hitbox==null:
 			return
 		if hitbox.owner != owner and hitbox.id != owner.get_multiplayer_authority():
+			area.queue_free()
 			if owner.has_method("stun"):
 				owner.stun()
