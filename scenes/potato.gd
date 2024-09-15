@@ -23,6 +23,5 @@ func setup(id_: int) -> void:
 func _physics_process(delta: float) -> void:
 	# Apply gravity to the vertical velocity
 	velocity.y += gravity * delta
-	
 	# Update position based on the velocity
 	position += velocity * delta
