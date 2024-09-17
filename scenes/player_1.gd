@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var potato_spawner: MultiplayerSpawner = $MultiplayerSpawner
 @onready var reach: CollisionShape2D = $Reach/CollisionShape2D
+@onready var caught: Hurtbox = $Caught
 @onready var state_machine = $StateMachine
 @export var potato_scene: PackedScene
 @onready var animations: AnimationPlayer = $AnimationPlayer
@@ -14,15 +15,20 @@ var JUMP_VELOCITY = 400.0
 var ACCELERATION = 1000
 var jumps = 0
 var potatos = 0
+var has_potato = false
 var player
+var pos
+var main_ref
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 
 var gravity = 1000
 
-func setup(player_data: Statics.PlayerData) -> void:
+func setup(player_data: Statics.PlayerData,pos_:int,main: Node2D) -> void:
 	name = str(player_data.id)
 	set_multiplayer_authority(player_data.id)
+	pos= pos_
+	#main_ref = main
 
 func _ready():
 	reach.disabled = true
@@ -31,16 +37,18 @@ func _ready():
 func _input(event:InputEvent) -> void:
 	if is_multiplayer_authority():
 		state_machine.handle_inputs(event)
-		if event.is_action_pressed("lanzar"):
-			throw_Potato()
-		if event.is_action_pressed("pintar"):
-			reach.disabled = false	
+		if has_potato && not state_machine.is_frozen:
+			if event.is_action_pressed("lanzar"):
+				throw_Potato()
+			if event.is_action_pressed("pintar"):
+				reach.disabled = false	
 		if event.is_action_released("pintar"):
 			reach.disabled = true	
 
 func _process(delta) -> void:
 	if is_multiplayer_authority():
 		state_machine.handle_animations()	
+		#has_potato = Main.papas[pos]
 					
 
 func _physics_process(delta: float) -> void:
@@ -74,6 +82,7 @@ func throw_Potato() -> void:
 		Debug.log("Cant throw potato")
 		return
 	var potato_inst = potato_scene.instantiate()
+	potato_inst.add_to_group("potato")
 	potato_inst.global_position = global_position	
 	potato_inst.global_rotation = global_rotation
 	potato_spawner.add_child(potato_inst, true)
@@ -83,6 +92,20 @@ func throw_Potato() -> void:
 func update_sprite(frame: int) -> void:
 	sprite.frame = frame
 	
+func potato_changed() -> void:
+	Debug.log("xd")
+	Main.rpc("swap_potato",pos)
+	rpc_id(get_multiplayer_authority(),"notify_passed_potato")
+
+@rpc("any_peer","call_local","reliable")
+func notify_passed_potato()->void:
+	Main.rpc("swap_potato",pos)
+	has_potato = main_ref.papas[pos]	
+	
+@rpc("any_peer","reliable")	
+func set_potato_state(state:bool) -> void:
+	has_potato = state
+	#has_potato = Main.papas[pos]
 	
 func stun() -> void:
 	rpc_id(get_multiplayer_authority(),"notify_stun")
