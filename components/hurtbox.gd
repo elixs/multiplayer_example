@@ -15,6 +15,10 @@ func _on_area_entered(area: Area2D) -> void:
 		if hitbox.id != owner.get_multiplayer_authority():
 			if owner.has_method("stun"):
 				owner.stun()
-				owner.potato_changed()
+				var pos_otro = 0
+				if owner.pos == 0:
+					pos_otro = 1
+				Main.players.get_child(pos_otro).set_potato_state(false)	
+				owner.potato_changed(hitbox.id)
 				if area.is_in_group("potato"):
 					area.queue_free()

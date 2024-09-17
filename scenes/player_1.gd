@@ -18,7 +18,6 @@ var potatos = 0
 var has_potato = false
 var player
 var pos
-var main_ref
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 
@@ -28,7 +27,6 @@ func setup(player_data: Statics.PlayerData,pos_:int,main: Node2D) -> void:
 	name = str(player_data.id)
 	set_multiplayer_authority(player_data.id)
 	pos= pos_
-	#main_ref = main
 
 func _ready():
 	reach.disabled = true
@@ -49,6 +47,7 @@ func _process(delta) -> void:
 	if is_multiplayer_authority():
 		state_machine.handle_animations()	
 		#has_potato = Main.papas[pos]
+		#Debug.log(Main.papas[pos])
 					
 
 func _physics_process(delta: float) -> void:
@@ -92,17 +91,18 @@ func throw_Potato() -> void:
 func update_sprite(frame: int) -> void:
 	sprite.frame = frame
 	
-func potato_changed() -> void:
+func potato_changed(id_: int) -> void:
 	Debug.log("xd")
-	Main.rpc("swap_potato",pos)
-	rpc_id(get_multiplayer_authority(),"notify_passed_potato")
+	set_potato_state(false)
+	rpc_id(get_multiplayer_authority(),"set_potato_state",true)
+	#rpc_id(id_,"set_potato_state",false)
 
 @rpc("any_peer","call_local","reliable")
 func notify_passed_potato()->void:
 	Main.rpc("swap_potato",pos)
-	has_potato = main_ref.papas[pos]	
-	
-@rpc("any_peer","reliable")	
+	has_potato = Main.papas[pos]	
+		
+@rpc("any_peer","reliable")		
 func set_potato_state(state:bool) -> void:
 	has_potato = state
 	#has_potato = Main.papas[pos]
