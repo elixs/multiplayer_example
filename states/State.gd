@@ -4,7 +4,6 @@ class_name State
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 
 var gravity = 1000
-var jumps = 0
 var stunned: bool = false
 var parent: CharacterBody2D
 signal state_transition

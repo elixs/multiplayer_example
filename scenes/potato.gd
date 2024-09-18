@@ -15,7 +15,7 @@ func _ready() -> void:
 	
 @rpc("any_peer","call_local","reliable")	
 func setup(id_: int) -> void:
-	id = id_
+	#id = id_
 	set_multiplayer_authority(id)
 	
 

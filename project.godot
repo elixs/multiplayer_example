@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 Debug="*res://autoloads/debug.gd"
 Game="*res://autoloads/game.tscn"
-Main="*res://scenes/main.tscn"
 
 [display]
 

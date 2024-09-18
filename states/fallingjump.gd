@@ -23,7 +23,6 @@ func update(event:InputEvent) -> State:
 	return null	
 func autoUpdate() -> State:
 	if parent.is_on_floor():
-		jumps = 0
 		return idle_state
 	return null	
 func Physics_update(delta:float) -> void:
@@ -38,3 +37,5 @@ func Physics_update(delta:float) -> void:
 	if not parent.is_on_floor():
 			parent.velocity.y += gravity * delta
 				
+func exit() -> void:
+	parent.jumps = 0

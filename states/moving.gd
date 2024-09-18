@@ -20,7 +20,7 @@ func update(event: InputEvent) -> State:
 			return falling_state	
 		if event.is_action_pressed("crouch"):
 			return rolling_state
-		if event.is_action_pressed("jump") and jumps<2:
+		if event.is_action_pressed("jump") and parent.jumps<2:
 			return jump_state	
 	return null		
 	
@@ -40,5 +40,5 @@ func Physics_update(delta:float) -> void:
 	if not parent.is_on_floor():
 		parent.velocity.y += gravity * delta
 	else:
-		jumps = 0	
+		parent.jumps = 0	
 				

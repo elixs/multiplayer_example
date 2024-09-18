@@ -15,7 +15,7 @@ var ACCELERATION = 1000.0
 
 func enter() -> void:
 	parent.velocity.y = JUMP_VELOCITY
-	jumps+=1
+	parent.jumps+=1
 	jumping_animation.play("jumping")
 	parent.rpc("send_animation","jumping")
 	
@@ -23,8 +23,8 @@ func enter() -> void:
 func update(event: InputEvent) -> State:
 	if event != null:	
 		if event.is_action_pressed("jump"):
-			if jumps<2:
-				jumps+=1
+			if parent.jumps<2:
+				parent.jumps+=1
 				parent.velocity.y = JUMP_VELOCITY
 		if not parent.is_on_floor() and event.is_action_pressed("crouch"):
 			return falling_state			
@@ -52,6 +52,4 @@ func Physics_update(delta:float) -> void:
 		parent.rpc("send_sprite",-1.5)
 	if not parent.is_on_floor():
 			parent.velocity.y += gravity * delta
-			
-func exit():
-	jumps = 0		
+				
