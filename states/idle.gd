@@ -17,6 +17,8 @@ func enter():
 	parent.rpc("send_animation","idle")
 	if parent.velocity.x != 0:
 		state_machine.change_state(state_machine.current_state,moving_state)
+	parent.change_collision_shape(RectangleShape2D.new(),1.5,1.5,6)
+	parent.rpc("send_collision_shape",RectangleShape2D.new(),1.5,1.5,6)
 # Called when the node enters the scene tree for the first time.
 func update(event: InputEvent) -> State:
 	if event != null:

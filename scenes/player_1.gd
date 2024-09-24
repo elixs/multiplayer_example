@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var reach: Area2D = $Reach
 @onready var reach_collision: CollisionShape2D = $Reach/CollisionShape2D
 @onready var caught: Hurtbox = $Caught
+@onready var caught_collision: CollisionShape2D = $Caught/CollisionShape2D
 @onready var state_machine = $StateMachine
 @export var potato_scene: PackedScene
 @onready var animations: AnimationPlayer = $AnimationPlayer
@@ -49,7 +50,27 @@ func _input(event:InputEvent) -> void:
 @rpc("call_local", "reliable")
 func disable_reach(disabled: bool) -> void:
 	reach_collision.set_deferred("disabled", disabled)
-
+	
+func change_collision_shape(shape:Shape2D,scale_x: float, scale_y:float,position_y: float)-> void:
+	caught_collision.shape = shape
+	caught_collision.scale.x = scale_x
+	caught_collision.scale.y= scale_y	
+	caught_collision.position.y = position_y
+	collision_shape.shape = shape
+	collision_shape.scale.x = scale_x
+	collision_shape.scale.y= scale_y	
+	collision_shape.position.y = position_y
+	
+@rpc()
+func send_collision_shape(shape:Shape2D,scale_x: float, scale_y:float,position_y: float)-> void:	
+	caught_collision.shape = shape
+	caught_collision.scale.x = scale_x
+	caught_collision.scale.y= scale_y
+	caught_collision.position.y = position_y
+	collision_shape.shape = shape
+	collision_shape.scale.x = scale_x
+	collision_shape.scale.y= scale_y	
+	collision_shape.position.y = position_y
 
 func _process(delta) -> void:
 	if is_multiplayer_authority():

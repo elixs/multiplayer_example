@@ -11,6 +11,8 @@ var friction = 300
 func enter() -> void:
 	rolling_animation.play("rolling")
 	parent.rpc("send_animation","rolling")
+	parent.change_collision_shape(CircleShape2D.new(),1.5,1.5,10)
+	parent.rpc("send_collision_shape",CircleShape2D.new(),1.5,1.5,10)
 
 func update(event:InputEvent) -> State:
 	if event != null:
