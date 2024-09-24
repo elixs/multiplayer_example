@@ -1,6 +1,6 @@
 extends Hitbox
 
-@export var speed = 600
+@export var speed = 0
 @export var initial_vertical_velocity: float = -200.0
 var velocity: Vector2
 
@@ -10,8 +10,11 @@ var velocity: Vector2
 func _ready() -> void:
 	#set_multiplayer_authority(id)
 	# Initialize velocity for horizontal and vertical motion
-	velocity.x = speed
+	#velocity.x = speed
 	velocity.y = initial_vertical_velocity
+	
+func setup_(speed_: int) -> void:
+	velocity.x = speed_	
 	
 @rpc("any_peer","call_local","reliable")	
 func setup(id_: int) -> void:
