@@ -16,13 +16,15 @@ func enter():
 
 func update(event:InputEvent) -> State:
 	if event != null:	
-		if event.is_action_pressed("jump") and jumps<2:
+		if event.is_action_pressed("jump") and parent.jumps<2:
+			parent.jumps+=1
 			return jump_state	
 		if event.is_action_pressed("crouch"):
 			return falling_state	
 	return null	
 func autoUpdate() -> State:
 	if parent.is_on_floor():
+		parent.jumps = 0
 		return idle_state
 	return null	
 func Physics_update(delta:float) -> void:
@@ -37,5 +39,4 @@ func Physics_update(delta:float) -> void:
 	if not parent.is_on_floor():
 			parent.velocity.y += gravity * delta
 				
-func exit() -> void:
-	parent.jumps = 0
+

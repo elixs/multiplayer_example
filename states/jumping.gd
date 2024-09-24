@@ -34,6 +34,7 @@ func autoUpdate() -> State:
 	if not parent.is_on_floor() and parent.velocity.y>0:
 		return fallJump_state
 	if parent.is_on_floor():
+		parent.jumps= 0
 		if parent.velocity.x != 0:
 			return moving_state
 		else:
