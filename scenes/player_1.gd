@@ -18,6 +18,8 @@ var ACCELERATION = 1000
 var jumps = 0
 var potatos = 0
 var has_potato = false
+var has_thrown_potato: bool = false
+var ignore_potato: bool = false
 var player
 var pos
 
@@ -107,15 +109,27 @@ func throw_Potato() -> void:
 	if not potato_scene:
 		Debug.log("Cant throw potato")
 		return
+	if has_thrown_potato:
+		return
+			
 	var potato_inst = potato_scene.instantiate()
 	var direction = sprite.scale.x
 	potato_inst.velocity.x = 400 * direction
 	potato_inst.add_to_group("potato")
 	potato_inst.global_position = global_position
 	potato_inst.global_rotation = global_rotation
-	potato_inst.id = get_multiplayer_authority()
+	potato_inst.id = get_multiplayer_authority()	
+	# Añadir lógica de colisiones: el jugador que lanza no colisiona con la papa
+	potato_inst.collision_layer = 0
+	potato_inst.collision_mask = ~(1 << self.collision_layer)  # Desactivar colisión con el jugador que la lanza
+	
 	potato_spawner.add_child(potato_inst, true)
-
+	await _ignore_potato_temporarily(0.5) # ignore por 0.5 segundos la colisiones
+	has_thrown_potato = true  # Marcar que se ha lanzado una papa
+	
+func take_potato() -> void:
+	has_thrown_potato = false
+	
 @rpc()
 func update_sprite(frame: int) -> void:
 	sprite.frame = frame
@@ -140,4 +154,10 @@ func notify_stun() -> void:
 	state_machine.is_frozen = true
 	state_machine.change_state(state_machine.current_state,state_machine.states["stunned"])
 	timer.start()
+	
+# Función para ignorar la papa temporalmente después de lanzarla
+func _ignore_potato_temporarily(duration: float) -> void:
+	ignore_potato = true
+	await get_tree().create_timer(duration).timeout
+	ignore_potato = false
 	
