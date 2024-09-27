@@ -1,6 +1,11 @@
 extends CharacterBody3D
 
+
 const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
+
+
+@onready var label = $Label3D
+@onready var camera = $Camera/CameraTarget/SpringArm3D/Camera3D  # Asumiendo que tu cámara está directamente bajo el nodo de jugador
 
 @export var speed = 0.3
 @export var friction = 0.995
@@ -10,6 +15,7 @@ const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 var direction = Vector3.FORWARD # Vector (0,0,-1)
 var axis = Vector3.UP 
 var rotation_velocity = 0
+
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
@@ -47,9 +53,18 @@ func send_position(pos : Vector3, dir : Vector3) -> void:
 	position = pos
 	direction = dir
 
+
+
 func setup(player_data: Statics.PlayerData) -> void:
 	name = str(player_data.id)
 	set_multiplayer_authority(player_data.id)
+	label.text = player_data.name
+
+	if is_multiplayer_authority():
+		camera.current = true
+	else:
+		# Desactiva la cámara si es un jugador remoto
+		camera.current = false
 	Debug.log("admin")
 	Debug.log(player_data.id)
 
