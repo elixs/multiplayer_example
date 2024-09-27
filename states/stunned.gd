@@ -8,6 +8,7 @@ class_name Stunned
 # Called when the node enters the scene tree for the first time.
 func enter() -> void:
 	parent.velocity.x = 0
+	parent.velocity.y = 0
 	stunned_animation.play("stunned")
 	parent.rpc("send_animation","stunned")
 	
