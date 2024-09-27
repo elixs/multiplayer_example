@@ -34,3 +34,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8886, 0, 15.8119)
 
 [node name="sp2" type="Marker3D" parent="SpawnPoint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0083, 0, -21.3588)
+
+[node name="sp3" type="Marker3D" parent="SpawnPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.138, 0, 15.8119)
+
+[node name="sp4" type="Marker3D" parent="SpawnPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9636, 0, -21.3588)
