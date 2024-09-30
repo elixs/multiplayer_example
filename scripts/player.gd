@@ -1,7 +1,12 @@
 extends CharacterBody3D
 
+
+const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
+
+
 @onready var label = $Label3D
 @onready var camera = $Camera/CameraTarget/SpringArm3D/Camera3D  # Asumiendo que tu cámara está directamente bajo el nodo de jugador
+
 @export var speed = 0.3
 @export var friction = 0.995
 @export var rotation_speed = 0.3 # Controla qué tan rápido gira el personaje
@@ -14,7 +19,9 @@ var rotation_velocity = 0
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
-		## Rotación del personaje
+		# Disparo
+		if Input.is_action_just_pressed("fire"):
+			shoot_cannon_ball()
 		# Movimiento hacia adelante
 		if Input.is_action_pressed("move_forward"):
 			velocity += direction * speed * delta
@@ -47,7 +54,27 @@ func send_position(pos : Vector3, dir : Vector3) -> void:
 	direction = dir
 
 
+func shoot_cannon_ball() -> void:
+	if multiplayer.is_server():
+		spawn_cannon_ball(global_position, direction.rotated(axis, 0.5 * PI))
+		rpc_id(0, "spawn_cannon_ball", global_position, direction.rotated(axis, 0.5 * PI))
+	else:
+		rpc_id(1, "request_shoot", global_position, direction.rotated(axis, 0.5 * PI))
 
+@rpc("call_local", "reliable")
+func request_shoot(spawn_position: Vector3, spawn_direction: Vector3) -> void:
+	if multiplayer.is_server():
+		spawn_cannon_ball(spawn_position, spawn_direction)
+		rpc_id(0, "spawn_cannon_ball", spawn_position, spawn_direction)
+
+@rpc("any_peer", "call_local", "reliable")
+func spawn_cannon_ball(spawn_position: Vector3, spawn_direction: Vector3) -> void:
+	var cannon_ball_node = CANNON_BALL.instantiate()
+	cannon_ball_node._set_direction(spawn_direction)
+	get_parent().add_child(cannon_ball_node)
+	cannon_ball_node.global_position = spawn_position
+
+	
 func setup(player_data: Statics.PlayerData) -> void:
 	name = str(player_data.id)
 	set_multiplayer_authority(player_data.id)
