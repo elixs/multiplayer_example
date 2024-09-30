@@ -21,7 +21,7 @@ func _physics_process(delta):
 	if is_multiplayer_authority():
 		# Disparo
 		if Input.is_action_just_pressed("fire"):
-			_shoot_cannon_ball()
+			shoot_cannon_ball()
 		# Movimiento hacia adelante
 		if Input.is_action_pressed("move_forward"):
 			velocity += direction * speed * delta
@@ -54,7 +54,27 @@ func send_position(pos : Vector3, dir : Vector3) -> void:
 	direction = dir
 
 
+func shoot_cannon_ball() -> void:
+	if multiplayer.is_server():
+		spawn_cannon_ball(global_position, direction.rotated(axis, 0.5 * PI))
+		rpc_id(0, "spawn_cannon_ball", global_position, direction.rotated(axis, 0.5 * PI))
+	else:
+		rpc_id(1, "request_shoot", global_position, direction.rotated(axis, 0.5 * PI))
 
+@rpc("call_local", "reliable")
+func request_shoot(spawn_position: Vector3, spawn_direction: Vector3) -> void:
+	if multiplayer.is_server():
+		spawn_cannon_ball(spawn_position, spawn_direction)
+		rpc_id(0, "spawn_cannon_ball", spawn_position, spawn_direction)
+
+@rpc("any_peer", "call_local", "reliable")
+func spawn_cannon_ball(spawn_position: Vector3, spawn_direction: Vector3) -> void:
+	var cannon_ball_node = CANNON_BALL.instantiate()
+	cannon_ball_node._set_direction(spawn_direction)
+	get_parent().add_child(cannon_ball_node)
+	cannon_ball_node.global_position = spawn_position
+
+	
 func setup(player_data: Statics.PlayerData) -> void:
 	name = str(player_data.id)
 	set_multiplayer_authority(player_data.id)
@@ -67,9 +87,3 @@ func setup(player_data: Statics.PlayerData) -> void:
 		camera.current = false
 	Debug.log("admin")
 	Debug.log(player_data.id)
-
-func _shoot_cannon_ball() -> void:
-	var cannon_ball_node = CANNON_BALL.instantiate()
-	cannon_ball_node._set_direction(direction.rotated(axis, 0.5 * PI))
-	get_parent().add_child(cannon_ball_node)
-	cannon_ball_node.global_position = position
