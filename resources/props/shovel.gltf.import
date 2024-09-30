@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://7wv3mim4fcii"
-path="res://.godot/imported/barquito2.glb-a7bc380f5f1e97f594fa30dc3a6e3a74.scn"
+uid="uid://d2dnopplxhdty"
+path="res://.godot/imported/shovel.gltf-7c67078d72e58825d8253be22f0bed6f.scn"
 
 [deps]
 
-source_file="res://resources/barquito2.glb"
-dest_files=["res://.godot/imported/barquito2.glb-a7bc380f5f1e97f594fa30dc3a6e3a74.scn"]
+source_file="res://resources/props/shovel.gltf"
+dest_files=["res://.godot/imported/shovel.gltf-7c67078d72e58825d8253be22f0bed6f.scn"]
 
 [params]
 
