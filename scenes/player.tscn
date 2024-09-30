@@ -1,28 +1,26 @@
 [gd_scene load_steps=7 format=3 uid="uid://3v6q7v5ihpij"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_785fi"]
-[ext_resource type="PackedScene" uid="uid://7wv3mim4fcii" path="res://resources/barquito2.glb" id="2_afbkn"]
+[ext_resource type="PackedScene" uid="uid://cmhqp0474y0te" path="res://resources/ships/ship_light.gltf" id="2_5uhm7"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_c1pj5"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r38p0"]
-radius = 2.22406
-height = 18.9973
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_yhukr"]
+points = PackedVector3Array(0.0527006, 6.61938, 2.41113, -0.315996, 0.106965, -2.01935, 0.29362, 0.102797, -2.02096, -0.689874, 0.0682677, 2.1608, 1.41651, 1.16749, 2.7995, 1.46686, 1.60665, -2.47086, -1.48937, 1.47842, -2.47086, -1.3606, 3.14933, 3.31217, -0.203973, 1.73553, -4.91387, -0.0754914, 5.97627, -0.928073, 1.46686, 3.14933, 3.31217, 0.438145, 5.20493, -1.18494, -0.0754914, 6.61938, 3.31217, -1.48937, 1.60665, 2.92647, 0.773614, 0.136872, 2.09749, -0.460936, 5.20493, -1.18494, 0.181182, 1.73553, -4.91387, 1.12619, 0.643179, -2.11668, -1.15865, 0.6201, -2.00788, 1.46686, 2.89287, 0.869962, -1.40986, 1.08924, 2.60408, -0.203973, 1.47842, -4.91387, 0.0527006, 4.56182, -2.59889, -1.3606, 2.89287, 0.869962, 0.181182, 1.47842, -4.91387, 1.36465, 1.0048, -2.23545, 0.773614, 0.136872, -1.2829, -0.0754914, 6.61938, 2.41113, 1.1462, 0.596836, 2.12292, -0.676878, 0.129724, -1.52595, -1.40671, 1.09418, -2.37747, -0.0754914, 4.56182, -2.59889)
 
 [sub_resource type="SystemFont" id="SystemFont_agdyx"]
+subpixel_positioning = 0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6lmdb"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_785fi")
 
-[node name="Pivot" type="Node3D" parent="."]
+[node name="ship_light" parent="." instance=ExtResource("2_5uhm7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.724272, 2.14769e-14, 0.0144567)
 
-[node name="Character" parent="Pivot" instance=ExtResource("2_afbkn")]
-transform = Transform3D(0.000364775, 0, -0.0999993, 0, 0.1, 0, 0.0999993, 0, 0.000364775, 2.08631, 0.235581, -0.46861)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(9.23435e-06, -0.00410154, -0.999992, -0.999997, -0.00225143, 0, -0.00225141, 0.999989, -0.00410155, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_r38p0")
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00041759, 2.14769e-14, 0.0144567)
+shape = SubResource("ConvexPolygonShape3D_yhukr")
 
 [node name="CannonBall" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
@@ -40,7 +38,7 @@ spring_length = 20.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.98529, 0)
 pixel_size = 0.05
 billboard = 1
 text = "
