@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://jy1115ay0hng"]
+
+[ext_resource type="Script" path="res://scenes/map/map.gd" id="1_d5nro"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sj0ry"]
+size = Vector2(250, 250)
+
+[node name="Map" type="Node3D"]
+script = ExtResource("1_d5nro")
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+
+[node name="sp1" type="Marker3D" parent="SpawnPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 100)
+
+[node name="sp2" type="Marker3D" parent="SpawnPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, -100)
+
+[node name="sp3" type="Marker3D" parent="SpawnPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 100)
+
+[node name="sp4" type="Marker3D" parent="SpawnPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, -100)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_sj0ry")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.426837, 0.904329, 0, -0.904329, 0.426837, 24.3608, 135.234, 37.4995)
