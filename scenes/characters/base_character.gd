@@ -35,9 +35,6 @@ func _input(event: InputEvent) -> void:
 # Phisics
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	# Only if is autority can grab and throw the character
-	if is_multiplayer_authority():
-		_send_position.rpc(position)
 
 @rpc
 func _send_position(pos: Vector2):
@@ -47,6 +44,7 @@ func _on_weapon_instance():
 	if weapon_instance:
 		weapon_instance.queue_free()
 	weapon_instance = weapon_scene.instantiate()
-	node.add_child(weapon_instance, true)
 	weapon_instance.global_position = weapon_spawn.global_position
+	node.add_child(weapon_instance, true)
 	weapon_instance.setup.rpc(get_multiplayer_authority())	
+	weapon_instance.init_pos.rpc(weapon_spawn.global_position)

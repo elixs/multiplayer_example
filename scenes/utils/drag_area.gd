@@ -62,7 +62,7 @@ func input_action(event: InputEvent):
 		if event.is_action_released("click"):
 			Input.set_custom_mouse_cursor(Game.POINTER_CURSOR, Input.CURSOR_ARROW, Vector2(16, 16))
 			_clear()
-			_throw()
+			_throw.rpc(impulse)
 
 # Function to check if the mouse is over the drag area
 # return true if is over, false otherwise
@@ -70,7 +70,8 @@ func _mouse_over() -> bool:
 	return on_click_area
 
 # Function to execute the throw of the body
-func _throw() -> void:
+@rpc("any_peer", "call_local", "reliable")
+func _throw(impulse: Vector2) -> void:
 	if body.freeze:
 		body.freeze = false
 	body.state = Throwable.State.MOVING_STATE

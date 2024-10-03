@@ -19,11 +19,11 @@ func _input(event: InputEvent) -> void:
 # Phisics
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	# Only if is autority can grab and throw the character
-	if is_multiplayer_authority():
-		_send_position.rpc(position, rotation)
+
+@rpc("any_peer", "call_local", "reliable")
+func init_pos(pos: Vector2):
+	self.position = pos
 
 @rpc
-func _send_position(pos: Vector2, rot: float):
-	self.position = pos 
+func _send_rotation(rot: float):
 	self.rotation = rot
