@@ -5,7 +5,10 @@ const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 
 
 @onready var label = $Label3D
-@onready var camera = $Camera/CameraTarget/SpringArm3D/Camera3D  # Asumiendo que tu cámara está directamente bajo el nodo de jugador
+@onready var camera = $Camera/CameraTarget/SpringArm3D/Camera3D 
+@onready var cannon_camera: Camera3D = $CannonCamera
+
+ # Asumiendo que tu cámara está directamente bajo el nodo de jugador
 
 @export var speed = 0.3
 @export var friction = 0.995
@@ -15,10 +18,15 @@ const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 var direction = Vector3.FORWARD # Vector (0,0,-1)
 var axis = Vector3.UP 
 var rotation_velocity = 0
+var sailing_camera = true
 
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
+		# Cambio de cámara
+		if Input.is_action_just_pressed("change_camera"):
+			camera.current =  not camera.current
+
 		# Disparo
 		if Input.is_action_just_pressed("fire"):
 			shoot_cannon_ball()
