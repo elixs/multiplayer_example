@@ -29,7 +29,13 @@ func _physics_process(delta):
 	if is_multiplayer_authority():
 		# Cambio de cámara
 		if Input.is_action_just_pressed("change_camera"):
-			camera.current =  not camera.current
+			if (camera.current):
+				cannon_camera.current = true
+				camera.current = false
+			else:
+				camera.current = true
+				cannon_camera.current = false
+			#camera.current =  not camera.current
 			sailing_camera = not sailing_camera
 		# Disparo
 		if Input.is_action_just_pressed("fire"):
@@ -40,28 +46,24 @@ func _physics_process(delta):
 				velocity += direction * speed * delta
 			else:
 				cannon.rotate_x(delta)
-				print(cannon.global_rotation)
 		# Movimiento hacia y atrás
 		if Input.is_action_pressed("move_back"):
 			if (sailing_camera):
 				velocity += -direction * speed * delta * 0.5
 			else:
 				cannon.rotate_x(-delta)
-				print(cannon.global_rotation)
 		# Movimiento hacia adelante
 		if Input.is_action_pressed("move_right"):
 			if (sailing_camera):
 				direction = direction.rotated(-axis, rotation_speed * delta).normalized()
 			else:
 				cannon_base.rotate_y(-delta)
-				print(cannon.global_rotation)
 		# Movimiento hacia y atrás
 		if Input.is_action_pressed("move_left"):
 			if (sailing_camera):
 				direction = direction.rotated(axis, rotation_speed * delta).normalized()
 			else:
 				cannon_base.rotate_y(delta)
-				print(cannon.global_rotation)
 	
 	# Friccion
 	velocity = velocity * friction
