@@ -599,6 +599,9 @@ transform = Transform3D(1, -1.26218e-29, -2.01085e-28, -6.00653e-30, 0.995725, -
 mesh = SubResource("ArrayMesh_wc88f")
 skeleton = NodePath("")
 
+[node name="cannon_exit" type="Marker3D" parent="cannon/cannon/cannon_right 12"]
+transform = Transform3D(1, -2.25695e-36, -3.61112e-35, 0, 1, 0, 0, 2.23517e-08, 1, 0, 0.00307393, -0.362816)
+
 [node name="cannon_right 13" type="MeshInstance3D" parent="cannon/cannon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.217236, 0.1284, 0.262179)
 mesh = SubResource("ArrayMesh_4jjmw")

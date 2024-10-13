@@ -7,6 +7,10 @@ const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 @onready var label = $Label3D
 @onready var camera = $Camera/CameraTarget/SpringArm3D/Camera3D 
 @onready var cannon_camera: Camera3D = $CannonCamera
+@onready var cannon: MeshInstance3D = $"cannon/cannon/cannon_right 12"
+@onready var cannon_base: MeshInstance3D = $"cannon/cannon"
+@onready var cannonBall_location = $cannon/CannonBall
+@onready var cannon_exit: Marker3D = $"cannon/cannon/cannon_right 12/cannon_exit"
 
  # Asumiendo que tu cámara está directamente bajo el nodo de jugador
 
@@ -26,23 +30,38 @@ func _physics_process(delta):
 		# Cambio de cámara
 		if Input.is_action_just_pressed("change_camera"):
 			camera.current =  not camera.current
-
+			sailing_camera = not sailing_camera
 		# Disparo
 		if Input.is_action_just_pressed("fire"):
 			shoot_cannon_ball()
 		# Movimiento hacia adelante
 		if Input.is_action_pressed("move_forward"):
-			velocity += direction * speed * delta
+			if (sailing_camera):
+				velocity += direction * speed * delta
+			else:
+				cannon.rotate_x(delta)
+				print(cannon.global_rotation)
 		# Movimiento hacia y atrás
 		if Input.is_action_pressed("move_back"):
-			velocity += -direction * speed * delta * 0.5
-
+			if (sailing_camera):
+				velocity += -direction * speed * delta * 0.5
+			else:
+				cannon.rotate_x(-delta)
+				print(cannon.global_rotation)
 		# Movimiento hacia adelante
 		if Input.is_action_pressed("move_right"):
-			direction = direction.rotated(-axis, rotation_speed * delta).normalized()
+			if (sailing_camera):
+				direction = direction.rotated(-axis, rotation_speed * delta).normalized()
+			else:
+				cannon_base.rotate_y(-delta)
+				print(cannon.global_rotation)
 		# Movimiento hacia y atrás
 		if Input.is_action_pressed("move_left"):
-			direction = direction.rotated(axis, rotation_speed * delta).normalized()
+			if (sailing_camera):
+				direction = direction.rotated(axis, rotation_speed * delta).normalized()
+			else:
+				cannon_base.rotate_y(delta)
+				print(cannon.global_rotation)
 	
 	# Friccion
 	velocity = velocity * friction
@@ -64,10 +83,12 @@ func send_position(pos : Vector3, dir : Vector3) -> void:
 
 func shoot_cannon_ball() -> void:
 	if multiplayer.is_server():
-		spawn_cannon_ball(global_position, direction.rotated(axis, 0.5 * PI))
-		rpc_id(0, "spawn_cannon_ball", global_position, direction.rotated(axis, 0.5 * PI))
+		spawn_cannon_ball(cannonBall_location.global_position, cannon_exit.global_position - cannonBall_location.global_position)
+		#rpc_id(0, "spawn_cannon_ball", global_position, direction.rotated(axis, 0.5 * PI))
+		rpc_id(0, "spawn_cannon_ball", cannonBall_location.global_position, cannon_exit.global_position - cannonBall_location.global_position)
 	else:
-		rpc_id(1, "request_shoot", global_position, direction.rotated(axis, 0.5 * PI))
+		#rpc_id(1, "request_shoot", global_position, direction.rotated(axis, 0.5 * PI))
+		rpc_id(1, "request_shoot", cannonBall_location.global_position, cannon_exit.global_position - cannonBall_location.global_position)
 
 @rpc("call_local", "reliable")
 func request_shoot(spawn_position: Vector3, spawn_direction: Vector3) -> void:
