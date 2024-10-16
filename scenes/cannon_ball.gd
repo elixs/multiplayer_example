@@ -17,6 +17,8 @@ func _process(delta: float) -> void:
 	vertical_speed -= gravity * delta
 
 	global_position += (speed * delta * direction) + Vector3(0, vertical_speed * delta, 0)
+	if (position.y < -5) :
+		queue_free()
 
 
 func _set_direction(dir: Vector3):
@@ -25,3 +27,4 @@ func _set_direction(dir: Vector3):
 # a futuro para colision
 func _on_body_entered(body: Node3D) -> void:
 	pass # Replace with function body.
+	
