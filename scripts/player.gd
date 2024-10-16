@@ -23,7 +23,10 @@ var direction = Vector3.FORWARD # Vector (0,0,-1)
 var axis = Vector3.UP 
 var rotation_velocity = 0
 var sailing_camera = true
-
+@export var rotation_min_x = 0
+@export var rotation_max_x = 89
+@export var rotation_min_y = -135
+@export var rotation_max_y = -45
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
@@ -64,7 +67,8 @@ func _physics_process(delta):
 				direction = direction.rotated(axis, rotation_speed * delta).normalized()
 			else:
 				cannon_base.rotate_y(delta)
-	
+	cannon.rotation.x = clamp(cannon.rotation.x, deg_to_rad(rotation_min_x),deg_to_rad(rotation_max_x))
+	cannon_base.rotation.y = clamp(cannon_base.rotation.y, deg_to_rad(rotation_min_y),deg_to_rad(rotation_max_y))
 	# Friccion
 	velocity = velocity * friction
 	
