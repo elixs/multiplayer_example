@@ -1,10 +1,10 @@
 extends Area3D
 
-@export var speed = 20
+@export var speed = 45
 @export var damage = 1
 @export var direction = Vector3()
 
-var vertical_speed = 8
+var vertical_speed = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

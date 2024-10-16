@@ -85,12 +85,12 @@ func send_position(pos : Vector3, dir : Vector3) -> void:
 
 func shoot_cannon_ball() -> void:
 	if multiplayer.is_server():
-		spawn_cannon_ball(cannonBall_location.global_position, cannon_exit.global_position - cannonBall_location.global_position)
+		#spawn_cannon_ball(cannon_exit.global_position, cannon_exit.global_position - cannonBall_location.global_position + velocity)
 		#rpc_id(0, "spawn_cannon_ball", global_position, direction.rotated(axis, 0.5 * PI))
-		rpc_id(0, "spawn_cannon_ball", cannonBall_location.global_position, cannon_exit.global_position - cannonBall_location.global_position)
+		rpc_id(0, "spawn_cannon_ball", cannon_exit.global_position, cannon_exit.global_position - cannonBall_location.global_position+ velocity)
 	else:
 		#rpc_id(1, "request_shoot", global_position, direction.rotated(axis, 0.5 * PI))
-		rpc_id(1, "request_shoot", cannonBall_location.global_position, cannon_exit.global_position - cannonBall_location.global_position)
+		rpc_id(1, "request_shoot",cannon_exit.global_position, cannon_exit.global_position - cannonBall_location.global_position+ velocity)
 
 @rpc("call_local", "reliable")
 func request_shoot(spawn_position: Vector3, spawn_direction: Vector3) -> void:

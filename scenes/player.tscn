@@ -587,7 +587,7 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 0.999128, 0.0417536, 0, -0.0417536, 0.999128, 6, 0, 0)
 
 [node name="CannonBall" type="Node3D" parent="cannon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.32721, 1.51503, -1.59047)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.32721, 1.77158, -1.61348)
 
 [node name="cannon" type="MeshInstance3D" parent="cannon"]
 transform = Transform3D(0, 0, -1, -0.0417536, 0.999128, 0, 0.999128, 0.0417536, 0, -5.2396, 1.34648, -1.62626)
@@ -640,7 +640,8 @@ spring_length = 20.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
 
 [node name="CannonCamera" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.8666, -1.81859)
+transform = Transform3D(-4.31536e-08, -0.159244, -0.987239, -6.96076e-09, 0.987239, -0.159244, 1, 0, -4.37114e-08, 0.442645, 1.96913, -1.70431)
+fov = 72.8
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.98529, 0)
