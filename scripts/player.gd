@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 
-
+@onready var HUD: Node2D = $CanvasLayer/Hud
 @onready var label = $Label3D
 @onready var camera = $Camera/CameraTarget/SpringArm3D/Camera3D 
 @onready var cannon_camera: Camera3D = $CannonCamera
@@ -11,6 +11,7 @@ const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 @onready var cannon_base: MeshInstance3D = $"cannon/cannon"
 @onready var cannonBall_location = $cannon/CannonBall
 @onready var cannon_exit: Marker3D = $"cannon/cannon/cannon_right 12/cannon_exit"
+
 
  # Asumiendo que tu cámara está directamente bajo el nodo de jugador
 
@@ -27,6 +28,9 @@ var sailing_camera = true
 @export var rotation_max_x = 89
 @export var rotation_min_y = -135
 @export var rotation_max_y = -45
+var max_health:int = 3
+
+@onready var current_health:int
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
@@ -86,7 +90,11 @@ func send_position(pos : Vector3, dir : Vector3) -> void:
 	position = pos
 	direction = dir
 
-
+@rpc("any_peer", "call_local", "reliable")
+func take_damage(damage):
+	current_health -= damage
+	print(current_health)
+	
 func shoot_cannon_ball() -> void:
 	if multiplayer.is_server():
 		#spawn_cannon_ball(cannon_exit.global_position, cannon_exit.global_position - cannonBall_location.global_position + velocity)
@@ -105,13 +113,28 @@ func request_shoot(spawn_position: Vector3, spawn_direction: Vector3) -> void:
 @rpc("any_peer", "call_local", "reliable")
 func spawn_cannon_ball(spawn_position: Vector3, spawn_direction: Vector3) -> void:
 	var cannon_ball_node = CANNON_BALL.instantiate()
+	cannon_ball_node.set_parent_player(self)
 	cannon_ball_node._set_direction(spawn_direction)
 	get_parent().add_child(cannon_ball_node)
 	cannon_ball_node.global_position = spawn_position
 
+func get_current_health():
+	return current_health
+
+func end_game() -> void:
+	get_tree().change_scene_to_file("res://scenes/ui/menus/end_game.tscn")
+
+func die():
+	self.visible=false
+	self.position=Vector3(0,position.y + 10,0)
+	Global.restantes -=1
+	if Global.restantes <=1:
+		end_game()
+		
 	
 func setup(player_data: Statics.PlayerData) -> void:
 	name = str(player_data.id)
+	current_health=max_health
 	set_multiplayer_authority(player_data.id)
 	label.text = player_data.name
 

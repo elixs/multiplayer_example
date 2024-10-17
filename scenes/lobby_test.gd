@@ -68,13 +68,15 @@ func _on_start_game_timeout() -> void:
 func start_game() -> void:
 	get_tree().change_scene_to_file("res://scenes/map/map.tscn")
 
-
 func is_end_game_question_mark():
+	print("omero")
+	var count = 0
 	for player in Game.players:
-		if player.vida > 0:
-			return
-	
-	end_game()
+		if player.current_health > 0:
+			count+=1
+	if count<=1:
+		end_game()
 
 func end_game() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_tree().change_scene_to_file("res://scenes/ui/menus/end_game.tscn")
