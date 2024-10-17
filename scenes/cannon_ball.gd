@@ -6,6 +6,7 @@ extends Area3D
 
 var vertical_speed = 0
 var parent_player = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.body_entered.connect(Callable(self, "_on_body_entered"))
@@ -27,12 +28,15 @@ func set_parent_player(player):
 func _set_direction(dir: Vector3):
 	direction = dir
 
-# a futuro para colision
+
 func _on_body_entered(body):
 	if body.is_in_group("player") and body!= parent_player:  # Asegúrate de que el jugador esté en el grupo "Player"
 		var player = body
 		queue_free()
-		player.take_damage(1) # Aquí llamas a una función del jugador para restarle una vida
+		
+		player.take_damage(damage)
+		damage = 0
+		print(damage) # Aquí llamas a una función del jugador para restarle una vida
 		  # Elimina la cannonball después de la colisión
 		if player.current_health <=0:
 			player.current_health=0

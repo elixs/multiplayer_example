@@ -29,8 +29,10 @@ var sailing_camera = true
 @export var rotation_min_y = -135
 @export var rotation_max_y = -45
 var max_health:int = 3
-
 @onready var current_health:int
+var last_damage = -1.0
+var invulnerability = 2000.0
+
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
@@ -90,10 +92,17 @@ func send_position(pos : Vector3, dir : Vector3) -> void:
 	position = pos
 	direction = dir
 
-@rpc("any_peer", "call_local", "reliable")
+# a futuro para colision
+@rpc("authority")
 func take_damage(damage):
-	current_health -= damage
-	print(current_health)
+	print("time :"+str(Time.get_ticks_msec()) + ", last damage=" + str(last_damage) + " involnerability =" + str(invulnerability))
+	
+	if Time.get_ticks_msec() - last_damage >= invulnerability:
+		current_health -= damage
+		print(current_health)
+		last_damage = Time.get_ticks_msec()
+	else:
+		print("no se rian")
 	
 func shoot_cannon_ball() -> void:
 	if multiplayer.is_server():
