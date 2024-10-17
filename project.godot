@@ -17,8 +17,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Global="*res://global.gd"
 Debug="*res://autoloads/debug.gd"
 Game="*res://autoloads/game.tscn"
+
+[global_group]
+
+player=""
 
 [input]
 

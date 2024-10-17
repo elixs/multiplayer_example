@@ -555,7 +555,7 @@ subpixel_positioning = 0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6lmdb"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_785fi")
 
 [node name="ship" type="MeshInstance3D" parent="."]
