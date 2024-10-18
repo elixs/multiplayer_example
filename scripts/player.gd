@@ -12,7 +12,7 @@ const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 @onready var cannonBall_location = $cannon/CannonBall
 @onready var cannon_exit: Marker3D = $"cannon/cannon/cannon_right 12/cannon_exit"
 
-
+@onready var labelName
  # Asumiendo que tu cámara está directamente bajo el nodo de jugador
 
 @export var speed = 0.3
@@ -31,7 +31,7 @@ var sailing_camera = true
 var max_health:int = 3
 @onready var current_health:int
 var last_damage = -1.0
-var invulnerability = 2000.0
+var invulnerability = 50.0
 
 
 func _physics_process(delta):
@@ -52,12 +52,14 @@ func _physics_process(delta):
 		# Movimiento hacia adelante
 		if Input.is_action_pressed("move_forward"):
 			if (sailing_camera):
+				
 				velocity += direction * speed * delta
 			else:
 				cannon.rotate_x(delta)
 		# Movimiento hacia y atrás
 		if Input.is_action_pressed("move_back"):
 			if (sailing_camera):
+				print(labelName)
 				velocity += -direction * speed * delta * 0.5
 			else:
 				cannon.rotate_x(-delta)
@@ -137,6 +139,7 @@ func die():
 	self.visible=false
 	self.position=Vector3(0,position.y + 10,0)
 	Global.restantes -=1
+	Global.nombres.erase(labelName)
 	if Global.restantes <=1:
 		end_game()
 		
@@ -146,6 +149,9 @@ func setup(player_data: Statics.PlayerData) -> void:
 	current_health=max_health
 	set_multiplayer_authority(player_data.id)
 	label.text = player_data.name
+	labelName = player_data.name
+	Global.nombres.append(player_data.name)
+	print(Global.nombres)
 
 	if is_multiplayer_authority():
 		camera.current = true

@@ -1,7 +1,7 @@
 extends Node
 
 var restantes:int = 1
-# Called when the node enters the scene tree for the first time.
+var nombres = []
 func _ready() -> void:
 	pass # Replace with function body.
 
