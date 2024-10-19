@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 
+@onready var cannon_sfx: AudioStreamPlayer3D = $CannonSFX
 @onready var HUD: Node2D = $CanvasLayer/Hud
 @onready var label = $Label3D
 @onready var camera = $Camera/CameraTarget/SpringArm3D/Camera3D 
@@ -49,6 +50,7 @@ func _physics_process(delta):
 		# Disparo
 		if Input.is_action_just_pressed("fire"):
 			shoot_cannon_ball()
+			
 		# Movimiento hacia adelante
 		if Input.is_action_pressed("move_forward"):
 			if (sailing_camera):
@@ -114,7 +116,6 @@ func shoot_cannon_ball() -> void:
 	else:
 		#rpc_id(1, "request_shoot", global_position, direction.rotated(axis, 0.5 * PI))
 		rpc_id(1, "request_shoot",cannon_exit.global_position, cannon_exit.global_position - cannonBall_location.global_position+ velocity)
-
 @rpc("call_local", "reliable")
 func request_shoot(spawn_position: Vector3, spawn_direction: Vector3) -> void:
 	if multiplayer.is_server():
@@ -128,6 +129,7 @@ func spawn_cannon_ball(spawn_position: Vector3, spawn_direction: Vector3) -> voi
 	cannon_ball_node._set_direction(spawn_direction)
 	get_parent().add_child(cannon_ball_node)
 	cannon_ball_node.global_position = spawn_position
+	cannon_sfx.play()
 
 func get_current_health():
 	return current_health

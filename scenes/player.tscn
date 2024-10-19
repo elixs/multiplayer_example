@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=4 uid="uid://3v6q7v5ihpij"]
+[gd_scene load_steps=31 format=4 uid="uid://3v6q7v5ihpij"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_785fi"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_c1pj5"]
+[ext_resource type="AudioStream" uid="uid://c3ocltrkhtrec" path="res://resources/audio/cannon_sfx.mp3" id="3_qxt1p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62mw6"]
 resource_name = "wood"
@@ -653,3 +654,10 @@ font = SubResource("SystemFont_agdyx")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_6lmdb")
+
+[node name="CannonSFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_qxt1p")
+volume_db = 11.684
+max_db = 6.0
+max_distance = 187.6
+doppler_tracking = 2
