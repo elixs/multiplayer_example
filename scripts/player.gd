@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 
+@onready var damage_sfx: AudioStreamPlayer3D = $DamageSFX
 @onready var cannon_sfx: AudioStreamPlayer3D = $CannonSFX
 @onready var HUD: Node2D = $CanvasLayer/Hud
 @onready var label = $Label3D
@@ -20,6 +21,9 @@ const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 @export var friction = 0.995
 @export var rotation_speed = 0.3 # Controla qué tan rápido gira el personaje
 @export var max_velocity = 0.2
+@export var wave_amplitude = 0.5 
+@export var wave_frequency = 1.0
+var wave_time = 0.0 
 
 var direction = Vector3.FORWARD # Vector (0,0,-1)
 var axis = Vector3.UP 
@@ -37,6 +41,7 @@ var invulnerability = 50.0
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
+		
 		# Cambio de cámara
 		if Input.is_action_just_pressed("change_camera"):
 			if (camera.current):
@@ -82,6 +87,10 @@ func _physics_process(delta):
 	# Friccion
 	velocity = velocity * friction
 	
+	wave_time += delta
+	var wave = wave_amplitude * sin(wave_frequency * wave_time)
+	position.y = wave
+	
 	velocity.x = clamp(velocity.x, -max_velocity, max_velocity)
 	velocity.z = clamp(velocity.z, -max_velocity, max_velocity)
 	
@@ -105,6 +114,7 @@ func take_damage(damage):
 		current_health -= damage
 		print(current_health)
 		last_damage = Time.get_ticks_msec()
+		damage_sfx.play()
 	else:
 		print("no se rian")
 	
