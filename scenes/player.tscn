@@ -1,7 +1,9 @@
-[gd_scene load_steps=30 format=4 uid="uid://3v6q7v5ihpij"]
+[gd_scene load_steps=33 format=4 uid="uid://3v6q7v5ihpij"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_785fi"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_c1pj5"]
+[ext_resource type="AudioStream" uid="uid://co5d2m3hyxhq5" path="res://resources/audio/cannon-shoot.mp3" id="3_ldonj"]
+[ext_resource type="AudioStream" uid="uid://bipl2qhf4g6ux" path="res://resources/audio/ship-damage-sfx.mp3" id="4_qc3c3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62mw6"]
 resource_name = "wood"
@@ -395,6 +397,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_osh4e")
 
+[sub_resource type="QuadMesh" id="QuadMesh_fi3vu"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2b8a8"]
 resource_name = "iron"
 albedo_color = Color(0.647221, 0.647221, 0.647221, 1)
@@ -583,6 +587,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.88765e-15, 2.77592, 1.0505
 mesh = SubResource("ArrayMesh_is36s")
 skeleton = NodePath("")
 
+[node name="plank" type="MeshInstance3D" parent="ship"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.28453, 0)
+mesh = SubResource("QuadMesh_fi3vu")
+
 [node name="cannon" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.999128, 0.0417536, 0, -0.0417536, 0.999128, 6, 0, 0)
 
@@ -653,3 +661,14 @@ font = SubResource("SystemFont_agdyx")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_6lmdb")
+
+[node name="CannonSFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_ldonj")
+volume_db = 11.684
+max_db = 6.0
+max_distance = 187.6
+doppler_tracking = 2
+
+[node name="DamageSFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_qc3c3")
+max_distance = 437.74

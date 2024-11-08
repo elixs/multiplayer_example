@@ -3,6 +3,8 @@ extends CharacterBody3D
 
 const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 
+@onready var damage_sfx: AudioStreamPlayer3D = $DamageSFX
+@onready var cannon_sfx: AudioStreamPlayer3D = $CannonSFX
 @onready var HUD: Node2D = $CanvasLayer/Hud
 @onready var label = $Label3D
 @onready var camera = $Camera/CameraTarget/SpringArm3D/Camera3D 
@@ -19,6 +21,9 @@ const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 @export var friction = 0.995
 @export var rotation_speed = 0.3 # Controla qué tan rápido gira el personaje
 @export var max_velocity = 0.2
+@export var wave_amplitude = 0.5 
+@export var wave_frequency = 1.0
+var wave_time = 0.0 
 
 var direction = Vector3.FORWARD # Vector (0,0,-1)
 var axis = Vector3.UP 
@@ -36,6 +41,7 @@ var invulnerability = 50.0
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
+		
 		# Cambio de cámara
 		if Input.is_action_just_pressed("change_camera"):
 			if (camera.current):
@@ -49,6 +55,7 @@ func _physics_process(delta):
 		# Disparo
 		if Input.is_action_just_pressed("fire"):
 			shoot_cannon_ball()
+			
 		# Movimiento hacia adelante
 		if Input.is_action_pressed("move_forward"):
 			if (sailing_camera):
@@ -80,6 +87,10 @@ func _physics_process(delta):
 	# Friccion
 	velocity = velocity * friction
 	
+	wave_time += delta
+	var wave = wave_amplitude * sin(wave_frequency * wave_time)
+	position.y = wave
+	
 	velocity.x = clamp(velocity.x, -max_velocity, max_velocity)
 	velocity.z = clamp(velocity.z, -max_velocity, max_velocity)
 	
@@ -103,6 +114,7 @@ func take_damage(damage):
 		current_health -= damage
 		print(current_health)
 		last_damage = Time.get_ticks_msec()
+		damage_sfx.play()
 	else:
 		print("no se rian")
 	
@@ -114,7 +126,6 @@ func shoot_cannon_ball() -> void:
 	else:
 		#rpc_id(1, "request_shoot", global_position, direction.rotated(axis, 0.5 * PI))
 		rpc_id(1, "request_shoot",cannon_exit.global_position, cannon_exit.global_position - cannonBall_location.global_position+ velocity)
-
 @rpc("call_local", "reliable")
 func request_shoot(spawn_position: Vector3, spawn_direction: Vector3) -> void:
 	if multiplayer.is_server():
@@ -128,6 +139,7 @@ func spawn_cannon_ball(spawn_position: Vector3, spawn_direction: Vector3) -> voi
 	cannon_ball_node._set_direction(spawn_direction)
 	get_parent().add_child(cannon_ball_node)
 	cannon_ball_node.global_position = spawn_position
+	cannon_sfx.play()
 
 func get_current_health():
 	return current_health

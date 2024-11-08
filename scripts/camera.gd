@@ -23,5 +23,3 @@ func _physics_process(delta: float) -> void:
 	cameratarget.rotation.x = lerpf(cameratarget.rotation.x,pitch,delta*10)
 	pitch = clamp(pitch, deg_to_rad(pitch_min),deg_to_rad(pitch_max))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
