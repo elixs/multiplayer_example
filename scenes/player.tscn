@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://3v6q7v5ihpij"]
+[gd_scene load_steps=34 format=4 uid="uid://3v6q7v5ihpij"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_785fi"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_c1pj5"]
@@ -399,6 +399,9 @@ shadow_mesh = SubResource("ArrayMesh_osh4e")
 
 [sub_resource type="QuadMesh" id="QuadMesh_fi3vu"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pifhv"]
+albedo_color = Color(0.298039, 0.254902, 0.219608, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2b8a8"]
 resource_name = "iron"
 albedo_color = Color(0.647221, 0.647221, 0.647221, 1)
@@ -560,6 +563,7 @@ subpixel_positioning = 0
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6lmdb"]
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 script = ExtResource("1_785fi")
 
 [node name="ship" type="MeshInstance3D" parent="."]
@@ -590,6 +594,7 @@ skeleton = NodePath("")
 [node name="plank" type="MeshInstance3D" parent="ship"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.28453, 0)
 mesh = SubResource("QuadMesh_fi3vu")
+surface_material_override/0 = SubResource("StandardMaterial3D_pifhv")
 
 [node name="cannon" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.999128, 0.0417536, 0, -0.0417536, 0.999128, 6, 0, 0)
