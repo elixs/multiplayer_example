@@ -50,7 +50,6 @@ func _physics_process(delta):
 			else:
 				camera.current = true
 				cannon_camera.current = false
-			#camera.current =  not camera.current
 			sailing_camera = not sailing_camera
 		# Disparo
 		if Input.is_action_just_pressed("fire"):
@@ -66,7 +65,7 @@ func _physics_process(delta):
 		# Movimiento hacia y atrás
 		if Input.is_action_pressed("move_back"):
 			if (sailing_camera):
-				print(labelName)
+				print("atras "+labelName)
 				velocity += -direction * speed * delta * 0.5
 			else:
 				cannon.rotate_x(-delta)
@@ -82,22 +81,22 @@ func _physics_process(delta):
 				direction = direction.rotated(axis, rotation_speed * delta).normalized()
 			else:
 				cannon_base.rotate_y(delta)
-	cannon.rotation.x = clamp(cannon.rotation.x, deg_to_rad(rotation_min_x),deg_to_rad(rotation_max_x))
-	cannon_base.rotation.y = clamp(cannon_base.rotation.y, deg_to_rad(rotation_min_y),deg_to_rad(rotation_max_y))
-	# Friccion
-	velocity = velocity * friction
-	
-	wave_time += delta
-	var wave = wave_amplitude * sin(wave_frequency * wave_time)
-	position.y = wave
-	
-	velocity.x = clamp(velocity.x, -max_velocity, max_velocity)
-	velocity.z = clamp(velocity.z, -max_velocity, max_velocity)
-	
-	position += velocity
-	look_at(global_transform.origin + direction, axis)
-	
-	send_position.rpc(position, direction)
+		cannon.rotation.x = clamp(cannon.rotation.x, deg_to_rad(rotation_min_x),deg_to_rad(rotation_max_x))
+		cannon_base.rotation.y = clamp(cannon_base.rotation.y, deg_to_rad(rotation_min_y),deg_to_rad(rotation_max_y))
+		# Friccion
+		velocity = velocity * friction
+		
+		wave_time += delta
+		var wave = wave_amplitude * sin(wave_frequency * wave_time)
+		position.y = wave
+		
+		velocity.x = clamp(velocity.x, -max_velocity, max_velocity)
+		velocity.z = clamp(velocity.z, -max_velocity, max_velocity)
+		
+		position += velocity
+		look_at(global_transform.origin + direction, axis)
+		
+		send_position.rpc(position, direction)
 	move_and_slide()
 	
 @rpc
