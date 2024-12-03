@@ -13,9 +13,8 @@ const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 @onready var cannon_base: MeshInstance3D = $"cannon/cannon"
 @onready var cannonBall_location = $cannon/CannonBall
 @onready var cannon_exit: Marker3D = $"cannon/cannon/cannon_right 12/cannon_exit"
-
 @onready var labelName
- # Asumiendo que tu cámara está directamente bajo el nodo de jugador
+@onready var timer = $Timer
 
 @export var speed = 0.3
 @export var friction = 0.995
@@ -38,8 +37,15 @@ var max_health:int = 3
 var last_damage = -1.0
 var invulnerability = 50.0
 
+enum state {normal, slow, freeze, confused, inked}
+var actual_state = state.normal
 
 func _physics_process(delta):
+	
+	#if Input.is_action_just_pressed("quit") && Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+		#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#if Input.is_action_just_pressed("quit") && Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if is_multiplayer_authority():
 		
 		# Cambio de cámara
@@ -66,7 +72,7 @@ func _physics_process(delta):
 		# Movimiento hacia y atrás
 		if Input.is_action_pressed("move_back"):
 			if (sailing_camera):
-				print(labelName)
+				#print(labelName)
 				velocity += -direction * speed * delta * 0.5
 			else:
 				cannon.rotate_x(-delta)
@@ -97,8 +103,17 @@ func _physics_process(delta):
 	position += velocity
 	look_at(global_transform.origin + direction, axis)
 	
+	#check player state
+	
 	send_position.rpc(position, direction)
 	move_and_slide()
+
+func _on_timer_timeout():
+	print("termino timer")
+	if actual_state == state.freeze:
+		max_velocity = 0.2
+	actual_state = state.normal
+	return
 	
 @rpc
 func send_position(pos : Vector3, dir : Vector3) -> void:
@@ -115,8 +130,6 @@ func take_damage(damage):
 		print(current_health)
 		last_damage = Time.get_ticks_msec()
 		damage_sfx.play()
-	else:
-		print("no se rian")
 	
 func shoot_cannon_ball() -> void:
 	if multiplayer.is_server():
@@ -154,7 +167,27 @@ func die():
 	Global.nombres.erase(labelName)
 	if Global.restantes <=1:
 		end_game()
-		
+
+func slow(velocity_penalty: int):
+	# velocity_penalty: porcentaje entre 0 y 100 de penalty en la velocidad del enemigo
+	var current_speed = self.speed
+	#disminuir la velocidad del barco por un tiempo y luego devolverla a la normalidad
+	self.speed = current_speed
+	return
+
+func freeze():
+	#disminuir la velocidad del barco por un tiempo y luego devolverla a la normalidad
+	print("congelao")
+	max_velocity = 0
+	actual_state = state.freeze
+	timer.start(10)
+	return
+	
+func opposite_direction():
+	return
+	
+func low_visibility():
+	return
 	
 func setup(player_data: Statics.PlayerData) -> void:
 	name = str(player_data.id)
@@ -163,7 +196,7 @@ func setup(player_data: Statics.PlayerData) -> void:
 	label.text = player_data.name
 	labelName = player_data.name
 	Global.nombres.append(player_data.name)
-	print(Global.nombres)
+	#print(Global.nombres)
 
 	if is_multiplayer_authority():
 		camera.current = true
