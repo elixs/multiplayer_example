@@ -108,7 +108,7 @@ func send_position(pos : Vector3, dir : Vector3) -> void:
 @rpc("authority")
 func _on_area_3d_area_entered(area: Area3D) -> void:
 	var collision_normal = (global_transform.origin - area.global_transform.origin).normalized()
-	velocity += collision_normal * speed  	
+	velocity += collision_normal * speed * 0.4  	
 	
 func _on_timer_timeout():
 	print("termino timer")
