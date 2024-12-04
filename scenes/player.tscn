@@ -635,8 +635,14 @@ transform = Transform3D(-1, 0, -1.49012e-08, 0, 1, 0, 1.49012e-08, 0, -1, 0.2172
 mesh = SubResource("ArrayMesh_4jjmw")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00041759, 2.14769e-14, 0.0144567)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00041759, 0, 0.0144567)
+shape = SubResource("ConvexPolygonShape3D_yhukr")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00041759, 0, 0.0144567)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("ConvexPolygonShape3D_yhukr")
 
 [node name="Camera" type="Node3D" parent="." node_paths=PackedStringArray("cameratarget")]
@@ -681,4 +687,5 @@ max_distance = 437.74
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0
 
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
