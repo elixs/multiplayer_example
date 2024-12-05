@@ -24,9 +24,9 @@ layout_mode = 1
 [node name="Credits" type="Label" parent="."]
 layout_mode = 2
 offset_left = 509.0
-offset_top = 4.0
+offset_top = 46.0
 offset_right = 646.0
-offset_bottom = 59.0
+offset_bottom = 101.0
 theme_override_font_sizes/font_size = 40
 text = "Credits"
 
@@ -55,6 +55,15 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_hq1wh")
 text = "Back"
 flat = true
 
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/Control2"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 3
+anchors_preset = 0
+
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
@@ -68,17 +77,21 @@ fit_content = true
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="Assets" type="Label" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Assets"
-horizontal_alignment = 1
-
 [node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[center][b]Models:[/b] [url=https://kenney.itch.io/kenney-game-assets]Kenney Game Assets[/url]  
-[b]Ocean Shader:[/b] [url=https://godotshaders.com/shader/wind-waker-2d-water-shader-canvas_item/]Wind Waker 2D Water Shader[/url]  
-[b]Sky Shader:[/b] [url=https://godotshaders.com/shader/stylized-sky/]Stylized Sky[/url]
+text = "[center][b]Models:[/b]
+[url=https://kenney.itch.io/kenney-game-assets]Kenney Game Assets[/url] by Kenney  
+
+[b]Shaders:[/b]
+[url=https://godotshaders.com/shader/wind-waker-2d-water-shader-canvas_item/]Wind Waker 2D Water Shader[/url] by GeistDev
+[url=https://godotshaders.com/shader/stylized-sky/]Stylized Sky[/url] by Gotibo
+
+[b]Audio:[/b]  
+- [url=https://www.looperman.com/loops/detail/364613/hyphen-iv-angelic-choir-free-98bpm-orchestral-vocal-loop]Hyphen IV Angelic Choir[/url] by KingKawng  
+- [url=https://freesound.org/people/emainta/sounds/648859/]Sea Water[/url] by emainta  
+- [url=https://freesound.org/people/HMTSCCSound/sounds/554651/]Wood Planks Sounds[/url] by HMTSCCSound  
+- [url=https://uppbeat.io/sfx/cannon-fired/1613/3889]Cannon fired (1)[/url] by Gamemaster Audio  
+- [url=https://pixabay.com/sound-effects/wooden-ship-break-85277/]Ship Damage[/url] by freesound_community
 "
 fit_content = true
