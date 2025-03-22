@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw7l5aicbt644"]
+
+[ext_resource type="Texture2D" uid="uid://wg2joi08oek0" path="res://assets/players/player.svg" id="1_plyga"]
+
+[node name="Player" type="Node2D"]
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(71, 67)
+texture = ExtResource("1_plyga")
