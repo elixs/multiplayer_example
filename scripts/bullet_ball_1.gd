@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 
 @rpc("authority","call_local","reliable")
 func explode():
-	animation.animation = "explode"
+	animation.animation = "Explotion"
 	velocity = Vector2(0,0)
 	
 

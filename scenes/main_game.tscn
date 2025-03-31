@@ -28,4 +28,5 @@ position = Vector2(0, -0.752945)
 shape = SubResource("RectangleShape2D_0rdsr")
 
 [node name="Sprite2D" type="Sprite2D" parent="wall"]
+modulate = Color(1, 0, 1, 1)
 texture = ExtResource("3_d2op2")
