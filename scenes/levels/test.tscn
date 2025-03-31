@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7ka6jyww1txb"]
+
+[ext_resource type="PackedScene" uid="uid://bao31fg0iuauf" path="res://scenes/hero/hero.tscn" id="1_52kye"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_yp2xm"]
+[ext_resource type="PackedScene" uid="uid://dnhtqy88efs1i" path="res://scenes/enemies/enemy.tscn" id="3_yp2xm"]
+[ext_resource type="Script" uid="uid://dho83ix5wcc8i" path="res://scripts/camera.gd" id="4_uyl1e"]
+
+[node name="World" type="Node2D"]
+
+[node name="Hero" parent="." instance=ExtResource("1_52kye")]
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+script = ExtResource("4_uyl1e")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(-405, -298)
+texture = ExtResource("2_yp2xm")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(137, -406)
+texture = ExtResource("2_yp2xm")
+
+[node name="Icon3" type="Sprite2D" parent="."]
+position = Vector2(-273, 333)
+texture = ExtResource("2_yp2xm")
+
+[node name="Icon4" type="Sprite2D" parent="."]
+position = Vector2(587, 198)
+texture = ExtResource("2_yp2xm")
+
+[node name="Icon5" type="Sprite2D" parent="."]
+position = Vector2(434, -188)
+texture = ExtResource("2_yp2xm")
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("3_yp2xm")]
+position = Vector2(567, -296)

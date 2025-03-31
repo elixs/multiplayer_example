@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://dnhtqy88efs1i"]
+
+[ext_resource type="Script" uid="uid://dr0mda1wj4xbw" path="res://scenes/enemies/enemy.gd" id="1_luycg"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_pvwrt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_luycg"]
+size = Vector2(108, 111)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pvwrt"]
+radius = 79.0569
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_luycg"]
+bg_color = Color(0.0595984, 0.452479, 0.116303, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_luycg")
+
+[node name="Skin" type="Sprite2D" parent="."]
+modulate = Color(0.839433, 0.110566, 0.110566, 1)
+texture = ExtResource("2_pvwrt")
+
+[node name="Body" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_luycg")
+
+[node name="Collision" type="Area2D" parent="."]
+
+[node name="Collision_body" type="CollisionShape2D" parent="Collision"]
+shape = SubResource("CircleShape2D_pvwrt")
+
+[node name="Life" type="ProgressBar" parent="."]
+offset_left = -55.0
+offset_top = -92.0
+offset_right = 54.0
+offset_bottom = -65.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_styles/background = SubResource("StyleBoxFlat_luycg")
+value = 100.0

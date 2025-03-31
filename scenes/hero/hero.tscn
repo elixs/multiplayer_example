@@ -1,0 +1,73 @@
+[gd_scene load_steps=13 format=3 uid="uid://bao31fg0iuauf"]
+
+[ext_resource type="Script" uid="uid://dbb5lq6vtvcwg" path="res://scenes/hero/hero.gd" id="1_1cpic"]
+[ext_resource type="Texture2D" uid="uid://cmp5eu13a5v2w" path="res://hero/sprites/hit--001.png" id="2_jrc8l"]
+[ext_resource type="Texture2D" uid="uid://clkq82pluubdu" path="res://hero/sprites/idle-001.png" id="3_qijae"]
+[ext_resource type="Texture2D" uid="uid://pkx5dmy7hnnh" path="res://hero/sprites/idle--002.png" id="4_82ej0"]
+[ext_resource type="Texture2D" uid="uid://bdhkvwpstchdn" path="res://hero/sprites/idle--003.png" id="5_cmhvm"]
+[ext_resource type="Texture2D" uid="uid://vgu17pkqi00i" path="res://hero/sprites/idle--004.png" id="6_u2cdm"]
+[ext_resource type="Texture2D" uid="uid://5ejapql6nh2p" path="res://hero/sprites/run--001.png" id="7_skxai"]
+[ext_resource type="Texture2D" uid="uid://bs05bdn04et2p" path="res://hero/sprites/run--002.png" id="8_yjh3g"]
+[ext_resource type="Texture2D" uid="uid://drsucgegptpbq" path="res://hero/sprites/run--003.png" id="9_m6s4m"]
+[ext_resource type="Texture2D" uid="uid://dyy5h3wdcnwe7" path="res://hero/sprites/run--004.png" id="10_urt1w"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_81ec3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jrc8l")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qijae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_82ej0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cmhvm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_u2cdm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_skxai")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_yjh3g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_m6s4m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_urt1w")
+}],
+"loop": true,
+"name": &"run",
+"speed": 16.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hokxd"]
+radius = 3.0
+height = 12.0
+
+[node name="Hero" type="CharacterBody2D"]
+script = ExtResource("1_1cpic")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_81ec3")
+animation = &"hit"
+frame_progress = 0.23438
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_hokxd")
