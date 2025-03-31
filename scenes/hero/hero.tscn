@@ -1,17 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://bao31fg0iuauf"]
+[gd_scene load_steps=9 format=3 uid="uid://bao31fg0iuauf"]
 
 [ext_resource type="Script" uid="uid://dbb5lq6vtvcwg" path="res://scenes/hero/hero.gd" id="1_1cpic"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_3pgml"]
+[ext_resource type="Texture2D" uid="uid://clkq82pluubdu" path="res://scenes/hero/sprites/idle-001.png" id="2_tqfqc"]
 [ext_resource type="Script" path="res://scenes/hero/weapon.gd" id="3_tqfqc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qjjdy"]
-size = Vector2(107, 105)
+size = Vector2(8.5, 17.5)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_knktw"]
-radius = 64.002
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g48mx"]
+radius = 4.0
+height = 11.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vriq7"]
-size = Vector2(101, 20)
+size = Vector2(21.75, 7)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjjdy"]
 bg_color = Color(0.0604907, 0.404959, 0, 1)
@@ -24,28 +26,29 @@ corner_radius_bottom_left = 7
 script = ExtResource("1_1cpic")
 
 [node name="Skin" type="Sprite2D" parent="."]
-texture = ExtResource("2_3pgml")
+position = Vector2(0, -7)
+texture = ExtResource("2_tqfqc")
 
 [node name="Body" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -0.5)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_qjjdy")
 
 [node name="Area_daño" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area_daño"]
 position = Vector2(0, -0.5)
-shape = SubResource("CircleShape2D_knktw")
+shape = SubResource("CapsuleShape2D_g48mx")
 
 [node name="Arma" type="Area2D" parent="." groups=["hero"]]
 script = ExtResource("3_tqfqc")
 
 [node name="body" type="CollisionShape2D" parent="Arma"]
-position = Vector2(131.5, 0)
+position = Vector2(24.125, -0.5)
 shape = SubResource("RectangleShape2D_vriq7")
 
 [node name="skin" type="Sprite2D" parent="Arma"]
-position = Vector2(131.5, 0)
-scale = Vector2(0.804688, 0.15625)
+position = Vector2(24, -1)
+scale = Vector2(0.160156, 0.0546875)
 texture = ExtResource("2_3pgml")
 
 [node name="Life" type="ProgressBar" parent="."]
