@@ -12,14 +12,15 @@ var is_destroyed_timer: float
 func _ready():
 	global_position = pos_spawn
 	global_rotation = rotacion_spawn
+	dir = global_rotation
 	zona_colision = $CollisionShape2D
 	animation = $AnimatedSprite2D
 	is_destroyed_timer = -1
 func _physics_process(delta: float) -> void:
 	if not is_destroyed_timer < -0.5:
-		print('Explosion timer +=' + str(delta) )
+		#print('Explosion timer +=' + str(delta) )
 		is_destroyed_timer = is_destroyed_timer + delta
-		print('timer actual = ' + str(is_destroyed_timer))
+		#print('timer actual = ' + str(is_destroyed_timer))
 		if is_destroyed_timer > destroy_time:
 			queue_free()
 	velocity = Vector2(speed,0).rotated(dir)

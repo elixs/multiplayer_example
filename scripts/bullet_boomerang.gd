@@ -1,5 +1,6 @@
 class_name bullet_boomerang extends proyectile
 var rotation_dir:float
+var rotation_power: float = 0.01
 
 
 
@@ -9,8 +10,10 @@ func _ready() -> void:
 	$".".destroy_time = 0.8
 	super()
 	
-	##temporal deberia llegar como variable al disparar por ahora es fijo
-	rotation_dir = 0.01
+	if rotacion_spawn > 0:
+		rotation_dir = rotation_power
+	else:
+		rotation_dir = -rotation_power
 
 func _physics_process(delta: float) -> void:
 	

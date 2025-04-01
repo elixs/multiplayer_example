@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://07ag0qlqh4jq"]
+
+[ext_resource type="Texture2D" uid="uid://ctsax4ilmbfoc" path="res://assets/crosshair/Arrows/Arrow_Crosshair2.png" id="1_aa18j"]
+[ext_resource type="Script" uid="uid://btlk1a0swt7u7" path="res://scripts/abstract_weapon.gd" id="1_x2wt2"]
+[ext_resource type="Texture2D" uid="uid://iw4hwoc6uj2f" path="res://assets/crosshair/Arrows/Arrow_Crosshair1.png" id="2_x2wt2"]
+[ext_resource type="Texture2D" uid="uid://blov5djxhmnsc" path="res://assets/crosshair/Arrows/Arrow_Crosshair3.png" id="3_3wve1"]
+[ext_resource type="Texture2D" uid="uid://eisf02dpxqes" path="res://assets/crosshair/Arrows/Arrow_Crosshair4.png" id="4_nxmc6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mxgmv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_aa18j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_x2wt2")
+}],
+"loop": true,
+"name": &"pow1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3wve1")
+}],
+"loop": true,
+"name": &"pow2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": ExtResource("3_3wve1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nxmc6")
+}],
+"loop": true,
+"name": &"pow2-3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_nxmc6")
+}],
+"loop": true,
+"name": &"pow3",
+"speed": 5.0
+}]
+
+[node name="AbstractWeapon" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_x2wt2")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -50)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_mxgmv")
+animation = &"pow3"
+frame_progress = 0.0537009
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
