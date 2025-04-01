@@ -6,7 +6,8 @@ extends CharacterBody2D
 @onready var playback = animation_tree["parameters/playback"]
 @onready var label: Label = $Label
 @onready var pivot: Node2D = $pivot
-
+@onready var weapon_container = $WeaponContainer
+@onready var weapon = $WeaponContainer/AbstractWeapon
 func setup(player_data: Statics.PlayerData):
 	label.text = player_data.name
 	name = str(player_data.id)
@@ -17,6 +18,10 @@ func _physics_process(delta: float) -> void:
 		var move_input = Input.get_vector("move_left", "move_right","move_up","move_down")
 		velocity= velocity.move_toward(move_input * max_speed, acceleration * delta)
 		send_data.rpc(position, velocity)
+		
+		weapon_container.look_at(get_global_mouse_position())
+		if Input.is_action_just_pressed('fire'):
+			weapon.shoot()
 	
 	move_and_slide()
 

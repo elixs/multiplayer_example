@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cl3yb3i1s8ujy"]
+[gd_scene load_steps=17 format=3 uid="uid://cl3yb3i1s8ujy"]
 
 [ext_resource type="Texture2D" uid="uid://dxt3lpctm3ytt" path="res://assets/players/2 Owlet_Monster/Owlet_Monster_Walk_6.png" id="1_4p73j"]
 [ext_resource type="Script" uid="uid://dctdav0gsoopg" path="res://scenes/players/player.gd" id="1_d33cm"]
 [ext_resource type="Texture2D" uid="uid://bu54y2q1u683r" path="res://assets/players/2 Owlet_Monster/Owlet_Monster_Idle_4.png" id="3_811ll"]
+[ext_resource type="PackedScene" uid="uid://07ag0qlqh4jq" path="res://scenes/weapons/abstract_weapon.tscn" id="4_edvpf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 radius = 22.0
@@ -157,6 +158,11 @@ states/walk/node = SubResource("AnimationNodeAnimation_hnj63")
 states/walk/position = Vector2(485, 94)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_d33cm"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_811ll"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_g8qrm")]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_edvpf"]
+properties/0/path = NodePath("WeaponContainer:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_d33cm")
 
@@ -188,3 +194,12 @@ offset_right = 22.0
 offset_bottom = -12.0
 text = "name"
 horizontal_alignment = 1
+
+[node name="WeaponContainer" type="Node2D" parent="."]
+
+[node name="AbstractWeapon" parent="WeaponContainer" instance=ExtResource("4_edvpf")]
+position = Vector2(43, 0)
+rotation = 1.5708
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_edvpf")
