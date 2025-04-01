@@ -3,6 +3,7 @@ var bullet_path:String
 @export var type_bullet:String = 'boomerang'
 @onready var bullet_scene = load("res://scenes/projectiles/bullet_"+type_bullet+".tscn")
 
+@rpc("authority","call_local","reliable")
 func shoot():
 	var bullet = bullet_scene.instantiate() 
 	bullet.pos_spawn = $Marker2D.global_position

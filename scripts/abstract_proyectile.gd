@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 	velocity = Vector2(speed,0).rotated(dir)
 	var collision = move_and_collide(velocity*delta)
 	if collision:
-		explode()
+		explode.rpc()
 
 @rpc("authority","call_local","reliable")
 func explode(): 

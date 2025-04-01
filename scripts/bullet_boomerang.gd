@@ -1,7 +1,7 @@
 class_name bullet_boomerang extends proyectile
-var rotation_dir:float
-var rotation_power: float = 0.01
-
+var rotation_dir:int # 1 / -1 girar izquiera o derecha la trayectoria curva
+var rotation_power: float = -0.01
+var rotation_change:float = 0
 
 
 func _ready() -> void:
@@ -9,14 +9,10 @@ func _ready() -> void:
 	$".".speed = 350
 	$".".destroy_time = 0.8
 	super()
-	
-	if rotacion_spawn > 0:
-		rotation_dir = rotation_power
-	else:
-		rotation_dir = -rotation_power
-
+	rotation_dir = -1 #cambiar para que se pueda modificar
+	rotation_change = float(rotation_dir) * rotation_power
 func _physics_process(delta: float) -> void:
 	
-	$".".dir = $".".dir + rotation_dir
+	$".".dir = $".".dir + rotation_change
 	super(delta)
 	

@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 		
 		weapon_container.look_at(get_global_mouse_position())
 		if Input.is_action_just_pressed('fire'):
-			weapon.shoot()
+			weapon.shoot.rpc()
 	
 	move_and_slide()
 
