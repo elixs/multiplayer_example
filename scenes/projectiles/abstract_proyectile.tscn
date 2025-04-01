@@ -1,7 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://b43n3as84savb"]
+[gd_scene load_steps=21 format=3 uid="uid://dwwxbclp0pt55"]
 
 [ext_resource type="Texture2D" uid="uid://bxa56pr210m7f" path="res://assets/projectiles/All_Fire_Bullet_Pixel_16x16_00.png" id="1_4emhk"]
-[ext_resource type="Script" uid="uid://b3nhd6085ky2k" path="res://scripts/bullet_ball_1.gd" id="1_4psn1"]
+[ext_resource type="Script" uid="uid://dbcew71amnb8w" path="res://scripts/abstract_proyectile.gd" id="1_ctouo"]
 [ext_resource type="Texture2D" uid="uid://bo68fshcoodr8" path="res://assets/efectos/Free/Part 2/77.png" id="2_8ytdj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_umn88"]
@@ -125,16 +125,17 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_4psn1"]
 radius = 5.0
 
-[node name="bullet_ball_1" type="CharacterBody2D"]
+[node name="abstract_proyectile" type="CharacterBody2D"]
 self_modulate = Color(1, 0, 0, 1)
 scale = Vector2(1.5, 1.5)
-script = ExtResource("1_4psn1")
+script = ExtResource("1_ctouo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(17, 9)
 sprite_frames = SubResource("SpriteFrames_c6uyj")
+animation = &"Explotion"
 autoplay = "default"
-frame_progress = 0.617071
+speed_scale = 3.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(21, 9)
