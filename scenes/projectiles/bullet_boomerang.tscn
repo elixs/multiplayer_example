@@ -1,0 +1,138 @@
+[gd_scene load_steps=21 format=3 uid="uid://4iujh3f3ois"]
+
+[ext_resource type="Script" uid="uid://dtsda64iwqwlm" path="res://scripts/bullet_boomerang.gd" id="1_ytakm"]
+[ext_resource type="Texture2D" uid="uid://cp716hm1owyw8" path="res://assets/efectos/Free/Part 5/232.png" id="2_0t3sd"]
+[ext_resource type="Texture2D" uid="uid://d2sqhhjgs7f7d" path="res://assets/projectiles/All_Fire_Bullet_Pixel_16x16_02.png" id="3_ve0jg"]
+[ext_resource type="Texture2D" uid="uid://dqardli8gcl22" path="res://assets/efectos/Free/Part 5/223.png" id="3_wtrcs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4g2xw"]
+atlas = ExtResource("2_0t3sd")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f038"]
+atlas = ExtResource("2_0t3sd")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rb1er"]
+atlas = ExtResource("2_0t3sd")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngukq"]
+atlas = ExtResource("2_0t3sd")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srt2g"]
+atlas = ExtResource("2_0t3sd")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klh2m"]
+atlas = ExtResource("2_0t3sd")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cd1ci"]
+atlas = ExtResource("2_0t3sd")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k85r8"]
+atlas = ExtResource("2_0t3sd")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkj2v"]
+atlas = ExtResource("2_0t3sd")
+region = Rect2(512, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7a0y2"]
+atlas = ExtResource("3_wtrcs")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytakm"]
+atlas = ExtResource("3_ve0jg")
+region = Rect2(448, 224, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0t3sd"]
+atlas = ExtResource("3_ve0jg")
+region = Rect2(480, 224, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtrcs"]
+atlas = ExtResource("3_ve0jg")
+region = Rect2(512, 224, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftg61"]
+atlas = ExtResource("3_ve0jg")
+region = Rect2(544, 224, 32, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c6uyj"]
+animations = [{
+"frames": [{
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_4g2xw")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_6f038")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_rb1er")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_ngukq")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_srt2g")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_klh2m")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_cd1ci")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_k85r8")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_nkj2v")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_7a0y2")
+}],
+"loop": false,
+"name": &"Explotion",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytakm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0t3sd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtrcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftg61")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4g2xw"]
+radius = 6.0
+height = 22.6667
+
+[node name="bullet_boomerang" type="CharacterBody2D"]
+self_modulate = Color(1, 0, 0, 1)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_ytakm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(16.3333, 7.66667)
+sprite_frames = SubResource("SpriteFrames_c6uyj")
+autoplay = "default"
+frame_progress = 0.824913
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16.6667, 10)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4g2xw")
+debug_color = Color(0.996078, 0, 0, 0.419608)
