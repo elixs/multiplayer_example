@@ -1,9 +1,190 @@
-[gd_scene load_steps=2 format=3 uid="uid://dw7l5aicbt644"]
+[gd_scene load_steps=15 format=3 uid="uid://cl3yb3i1s8ujy"]
 
-[ext_resource type="Texture2D" uid="uid://wg2joi08oek0" path="res://assets/players/player.svg" id="1_plyga"]
+[ext_resource type="Texture2D" uid="uid://dxt3lpctm3ytt" path="res://assets/players/2 Owlet_Monster/Owlet_Monster_Walk_6.png" id="1_4p73j"]
+[ext_resource type="Script" uid="uid://dctdav0gsoopg" path="res://scenes/players/player.gd" id="1_d33cm"]
+[ext_resource type="Texture2D" uid="uid://bu54y2q1u683r" path="res://assets/players/2 Owlet_Monster/Owlet_Monster_Idle_4.png" id="3_811ll"]
 
-[node name="Player" type="Node2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+radius = 22.0
+height = 70.0
 
-[node name="Player" type="Sprite2D" parent="."]
-position = Vector2(71, 67)
-texture = ExtResource("1_plyga")
+[sub_resource type="Animation" id="Animation_hqtel"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot/Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_4p73j")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivot/Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_i3pqv"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot/Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_811ll")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivot/Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_hnj63"]
+resource_name = "walk"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot/Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_4p73j")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivot/Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sweqy"]
+_data = {
+&"RESET": SubResource("Animation_hqtel"),
+&"idle": SubResource("Animation_i3pqv"),
+&"walk": SubResource("Animation_hnj63")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4p73j"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hnj63"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d33cm"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_811ll"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g8qrm"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pxyh6"]
+states/Start/position = Vector2(153, 94)
+states/idle/node = SubResource("AnimationNodeAnimation_4p73j")
+states/idle/position = Vector2(305, 94)
+states/walk/node = SubResource("AnimationNodeAnimation_hnj63")
+states/walk/position = Vector2(485, 94)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_d33cm"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_811ll"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_g8qrm")]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_d33cm")
+
+[node name="pivot" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="pivot"]
+position = Vector2(1, -2)
+scale = Vector2(3, 3)
+texture = ExtResource("1_4p73j")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 12)
+shape = SubResource("CapsuleShape2D_onrkg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_sweqy")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_pxyh6")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -22.0
+offset_top = -35.0
+offset_right = 22.0
+offset_bottom = -12.0
+text = "name"
+horizontal_alignment = 1

@@ -1,0 +1,142 @@
+[gd_scene load_steps=21 format=3 uid="uid://b43n3as84savb"]
+
+[ext_resource type="Texture2D" uid="uid://bxa56pr210m7f" path="res://assets/projectiles/All_Fire_Bullet_Pixel_16x16_00.png" id="1_4emhk"]
+[ext_resource type="Script" uid="uid://b3nhd6085ky2k" path="res://scripts/bullet_ball_1.gd" id="1_4psn1"]
+[ext_resource type="Texture2D" uid="uid://bo68fshcoodr8" path="res://assets/efectos/Free/Part 2/77.png" id="2_8ytdj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umn88"]
+atlas = ExtResource("2_8ytdj")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmdkk"]
+atlas = ExtResource("2_8ytdj")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5bdx"]
+atlas = ExtResource("2_8ytdj")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gdm5"]
+atlas = ExtResource("2_8ytdj")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olxc5"]
+atlas = ExtResource("2_8ytdj")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_krqfa"]
+atlas = ExtResource("2_8ytdj")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wliys"]
+atlas = ExtResource("2_8ytdj")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3jwc"]
+atlas = ExtResource("2_8ytdj")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uuti4"]
+atlas = ExtResource("2_8ytdj")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_842ge"]
+atlas = ExtResource("2_8ytdj")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rlog"]
+atlas = ExtResource("2_8ytdj")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fogva"]
+atlas = ExtResource("1_4emhk")
+region = Rect2(256, 240, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdkk8"]
+atlas = ExtResource("1_4emhk")
+region = Rect2(288, 240, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xljpm"]
+atlas = ExtResource("1_4emhk")
+region = Rect2(320, 240, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kb04j"]
+atlas = ExtResource("1_4emhk")
+region = Rect2(352, 240, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c6uyj"]
+animations = [{
+"frames": [{
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_umn88")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_fmdkk")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_k5bdx")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_4gdm5")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_olxc5")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_krqfa")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_wliys")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_u3jwc")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_uuti4")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_842ge")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_8rlog")
+}],
+"loop": false,
+"name": &"Explotion",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fogva")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdkk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xljpm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kb04j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4psn1"]
+radius = 5.0
+
+[node name="bullet_ball_1" type="CharacterBody2D"]
+self_modulate = Color(1, 0, 0, 1)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_4psn1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(17, 9)
+sprite_frames = SubResource("SpriteFrames_c6uyj")
+autoplay = "default"
+frame_progress = 0.617071
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(21, 9)
+shape = SubResource("CircleShape2D_4psn1")
+debug_color = Color(0.996078, 0, 0, 0.419608)

@@ -1,0 +1,1 @@
+class_name bullet_ball extends proyectile
