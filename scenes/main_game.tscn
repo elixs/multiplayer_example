@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c818bfdxycp45"]
+[gd_scene load_steps=4 format=3 uid="uid://c818bfdxycp45"]
 
 [ext_resource type="Script" path="res://scenes/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://cl3yb3i1s8ujy" path="res://scenes/players/player.tscn" id="1_s3esy"]
+[ext_resource type="PackedScene" uid="uid://d30to1ipjnmdl" path="res://scenes/planet.tscn" id="3_d2op2"]
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_72e8q")
@@ -19,3 +20,12 @@ position = Vector2(925, 330)
 
 [node name="Marker2D3" type="Marker2D" parent="Markers"]
 position = Vector2(636, 152)
+
+[node name="Planet" parent="." instance=ExtResource("3_d2op2")]
+position = Vector2(290, 407)
+
+[node name="Planet2" parent="." instance=ExtResource("3_d2op2")]
+position = Vector2(930, 407)
+
+[node name="Planet3" parent="." instance=ExtResource("3_d2op2")]
+position = Vector2(633, 74)
