@@ -130,6 +130,7 @@ self_modulate = Color(1, 0, 0, 1)
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_4psn1")
+speed = 200
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(17, 9)
