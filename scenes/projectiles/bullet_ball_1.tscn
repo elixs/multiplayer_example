@@ -125,9 +125,10 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_4psn1"]
 radius = 5.0
 
-[node name="bullet_ball_1" type="CharacterBody2D"]
+[node name="bullet_ball_1" type="RigidBody2D"]
 self_modulate = Color(1, 0, 0, 1)
-scale = Vector2(1.5, 1.5)
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_4psn1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -140,3 +141,5 @@ frame_progress = 0.617071
 position = Vector2(21, 9)
 shape = SubResource("CircleShape2D_4psn1")
 debug_color = Color(0.996078, 0, 0, 0.419608)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

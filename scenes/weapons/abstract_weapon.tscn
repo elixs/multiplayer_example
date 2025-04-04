@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://07ag0qlqh4jq"]
 
 [ext_resource type="Texture2D" uid="uid://ctsax4ilmbfoc" path="res://assets/crosshair/Arrows/Arrow_Crosshair2.png" id="1_aa18j"]
-[ext_resource type="Script" path="res://scripts/abstract_weapon.gd" id="1_x2wt2"]
+[ext_resource type="Script" uid="uid://btlk1a0swt7u7" path="res://scripts/abstract_weapon.gd" id="1_x2wt2"]
 [ext_resource type="Texture2D" uid="uid://iw4hwoc6uj2f" path="res://assets/crosshair/Arrows/Arrow_Crosshair1.png" id="2_x2wt2"]
 [ext_resource type="Texture2D" uid="uid://blov5djxhmnsc" path="res://assets/crosshair/Arrows/Arrow_Crosshair3.png" id="3_3wve1"]
 [ext_resource type="Texture2D" uid="uid://eisf02dpxqes" path="res://assets/crosshair/Arrows/Arrow_Crosshair4.png" id="4_nxmc6"]

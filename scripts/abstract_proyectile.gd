@@ -1,5 +1,5 @@
 class_name proyectile
-extends CharacterBody2D
+extends RigidBody2D
 @export var speed = 100
 @export var destroy_time = 0.8
 
@@ -13,6 +13,7 @@ func _ready():
 	global_position = pos_spawn
 	global_rotation = rotacion_spawn
 	dir = global_rotation
+	linear_velocity = Vector2(speed,0)
 	zona_colision = $CollisionShape2D
 	animation = $AnimatedSprite2D
 	is_destroyed_timer = -1
@@ -23,10 +24,8 @@ func _physics_process(delta: float) -> void:
 		#print('timer actual = ' + str(is_destroyed_timer))
 		if is_destroyed_timer > destroy_time:
 			queue_free()
-	velocity = Vector2(speed,0).rotated(dir)
-	var collision = move_and_collide(velocity*delta)
-	if collision:
-		explode.rpc()
+func _on_body_entered(body):
+	explode.rpc()
 
 @rpc("authority","call_local","reliable")
 func explode(): 
@@ -34,7 +33,8 @@ func explode():
 		print('Explosion')
 		is_destroyed_timer = 0
 		animation.animation = "Explotion"
-		velocity = Vector2(0,0)
+		$".".sleeping = true
+		$".".mass = 0
 	
 
 	

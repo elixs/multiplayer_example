@@ -15,4 +15,5 @@ func _physics_process(delta: float) -> void:
 	
 	$".".dir = $".".dir + rotation_change
 	super(delta)
-	
+func _on_body_entered(body):
+	super(body)
