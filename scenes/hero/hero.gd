@@ -10,15 +10,14 @@ extends CharacterBody2D
 @export var speed: int = 350 
 @export var acceleration: int = 10
 
-@export var dash_speed: int = 8000
+@export var dash_speed: int = 5000
 var dash_time = 0.2
 var dash_cooldown: bool = false
 var is_dashing: bool = false
 var dash_direction = Vector2()
 
 var knock_back = false
-var knock_back_force = 1000
-
+var knock_back_force = 50000
 var enemy_direction = Vector2()
 
 func _ready() -> void:
@@ -26,12 +25,14 @@ func _ready() -> void:
 	area_daño.connect("body_entered", _on_area_daño_body_entered)
 
 func _physics_process(delta: float) -> void:
-	if !knock_back:
-		_move_player(delta)
-	else:
-		global_position -= (enemy_direction - global_position).normalized() * knock_back_force * delta
+	if knock_back:
+		var knockback_direction = (global_position - enemy_direction).normalized()
+		velocity = knockback_direction * knock_back_force * delta
+		move_and_slide()
 		await get_tree().create_timer(0.5).timeout
 		knock_back = false
+	else:
+		_move_player(delta)
 
 func _move_player(delta):
 	var direction = Vector2(
@@ -39,14 +40,18 @@ func _move_player(delta):
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	).normalized()
 	
-	if direction:
+	if direction.x > 0:
+		skin.flip_h = false
+	elif direction.x < 0:
+		skin.flip_h = true
+	
+	if velocity.x > 0:
 		if is_dashing:
 			#animation.play("dash")
 			pass
 		else:
 			#animation.play("walk")
 			pass
-		skin.flip_h = Input.get_action_strength("right") - Input.get_action_strength("left")
 	else:
 		#animation.play("idle")
 		pass

@@ -1,39 +1,106 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7ka6jyww1txb"]
+[gd_scene load_steps=7 format=3 uid="uid://c7ka6jyww1txb"]
 
 [ext_resource type="PackedScene" uid="uid://bao31fg0iuauf" path="res://scenes/hero/hero.tscn" id="1_52kye"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_yp2xm"]
 [ext_resource type="PackedScene" uid="uid://dnhtqy88efs1i" path="res://scenes/enemies/enemy.tscn" id="3_yp2xm"]
-[ext_resource type="Script" uid="uid://dho83ix5wcc8i" path="res://scripts/camera/camera.gd" id="4_uyl1e"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_yp2xm"]
+vertices = PackedVector2Array(555, -234, 555, 927.031, 273.352, 342.5, 263.727, 306.57, 263.727, 378.43, 237.43, 404.727, -697.5, 931.906, 202.82, 414, -337.82, 414, -372.43, 404.727, 237.43, 280.273, -696.133, -234, 202.82, 271, -337.82, 271, -697.5, -98.2813, -372.43, 280.273, -398.727, 306.57, -408.352, 342.5, -398.727, 378.43)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 2, 1), PackedInt32Array(5, 4, 1), PackedInt32Array(5, 1, 6, 7), PackedInt32Array(8, 7, 6), PackedInt32Array(9, 8, 6), PackedInt32Array(0, 3, 10), PackedInt32Array(11, 0, 10, 12), PackedInt32Array(11, 12, 13, 14), PackedInt32Array(14, 13, 15), PackedInt32Array(14, 15, 16), PackedInt32Array(6, 14, 16, 17), PackedInt32Array(6, 17, 18), PackedInt32Array(9, 6, 18)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-706, -247, -718, 942, 565, 937, 565, -262)])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uyl1e"]
+size = Vector2(352.453, 701)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yp2xm"]
+radius = 61.5
+height = 661.0
 
 [node name="World" type="Node2D"]
 
 [node name="Hero" parent="." instance=ExtResource("1_52kye")]
+position = Vector2(-320, 601)
 
 [node name="Camera" type="Camera2D" parent="."]
+visible = false
 zoom = Vector2(0.5, 0.5)
-script = ExtResource("4_uyl1e")
-
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(-405, -298)
-texture = ExtResource("2_yp2xm")
-
-[node name="Icon2" type="Sprite2D" parent="."]
-position = Vector2(137, -406)
-texture = ExtResource("2_yp2xm")
-
-[node name="Icon3" type="Sprite2D" parent="."]
-position = Vector2(-273, 333)
-texture = ExtResource("2_yp2xm")
-
-[node name="Icon4" type="Sprite2D" parent="."]
-position = Vector2(587, 198)
-texture = ExtResource("2_yp2xm")
-
-[node name="Icon5" type="Sprite2D" parent="."]
-position = Vector2(434, -188)
-texture = ExtResource("2_yp2xm")
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("3_yp2xm")]
-position = Vector2(567, -296)
+position = Vector2(88, -77)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(88, -77)
+navigation_polygon = SubResource("NavigationPolygon_yp2xm")
+
+[node name="Muro" type="StaticBody2D" parent="NavigationRegion2D"]
+position = Vector2(-88, -2)
+
+[node name="Icon" type="Sprite2D" parent="NavigationRegion2D/Muro"]
+modulate = Color(0.125911, 0.125911, 0.125911, 1)
+position = Vector2(-11.5, -309)
+scale = Vector2(10.5859, 1)
+texture = ExtResource("2_yp2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Muro"]
+position = Vector2(-14.5, -592.5)
+scale = Vector2(3.86719, 1)
+shape = SubResource("RectangleShape2D_uyl1e")
+
+[node name="Muro2" type="StaticBody2D" parent="NavigationRegion2D"]
+position = Vector2(-74, 1317)
+
+[node name="Icon" type="Sprite2D" parent="NavigationRegion2D/Muro2"]
+modulate = Color(0.125911, 0.125911, 0.125911, 1)
+position = Vector2(-11.5, -309)
+scale = Vector2(10.5859, 1)
+texture = ExtResource("2_yp2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Muro2"]
+position = Vector2(-11, -21)
+scale = Vector2(3.86719, 1)
+shape = SubResource("RectangleShape2D_uyl1e")
+
+[node name="Muro3" type="StaticBody2D" parent="NavigationRegion2D"]
+position = Vector2(329, 371)
+rotation = 1.5708
+
+[node name="Icon" type="Sprite2D" parent="NavigationRegion2D/Muro3"]
+modulate = Color(0.125911, 0.125911, 0.125911, 1)
+position = Vector2(-11.5, -309)
+scale = Vector2(10.5859, 1)
+texture = ExtResource("2_yp2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Muro3"]
+position = Vector2(-14, -594)
+scale = Vector2(3.86719, 1)
+shape = SubResource("RectangleShape2D_uyl1e")
+
+[node name="Muro4" type="StaticBody2D" parent="NavigationRegion2D"]
+position = Vector2(-466, 301)
+rotation = -1.5708
+
+[node name="Icon" type="Sprite2D" parent="NavigationRegion2D/Muro4"]
+modulate = Color(0.125911, 0.125911, 0.125911, 1)
+position = Vector2(-11.5, -309)
+scale = Vector2(10.5859, 1)
+texture = ExtResource("2_yp2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Muro4"]
+position = Vector2(-12, -592)
+scale = Vector2(3.86719, 1)
+shape = SubResource("RectangleShape2D_uyl1e")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="NavigationRegion2D"]
+position = Vector2(-333, 342)
+
+[node name="Sprite2D" type="Sprite2D" parent="NavigationRegion2D/StaticBody2D"]
+position = Vector2(267, 0)
+scale = Vector2(5.17188, 1)
+texture = ExtResource("2_yp2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/StaticBody2D"]
+position = Vector2(265.5, 0.5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_yp2xm")
