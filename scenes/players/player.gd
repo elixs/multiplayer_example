@@ -27,7 +27,7 @@ var AttractedBy = []
 func _physics_process(delta: float) -> void:
 	
 	for gravity in AttractedBy:
-		velocity += gravity.get_global_position() - get_global_position() 
+		velocity += (gravity.get_global_position() - get_global_position()) * 0.35
 		
 	if is_multiplayer_authority():
 		var move_input = Input.get_vector("move_left", "move_right","move_up","move_down")

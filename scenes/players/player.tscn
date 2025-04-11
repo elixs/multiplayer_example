@@ -215,8 +215,8 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GravityArea"]
 shape = SubResource("CapsuleShape2D_edvpf")
 
-[connection signal="area_entered" from="GravityArea" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="GravityArea" to="." method="_on_area_2d_area_exited"]
-
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.939, 0.939)
+
+[connection signal="area_entered" from="GravityArea" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="GravityArea" to="." method="_on_area_2d_area_exited"]
