@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var weapon = $WeaponContainer/AbstractWeapon
 
 
+@onready var camera_2d: Camera2D = $Camera2D
 
 @onready var gravityArea = $GravityArea
 @onready var area: Area2D = $Area2D
@@ -20,7 +21,7 @@ func setup(player_data: Statics.PlayerData):
 	name = str(player_data.id)
 	set_multiplayer_authority(player_data.id)
 	if is_multiplayer_authority():
-			$Camera2D.make_current()
+			camera_2d.make_current()
 
 var AttractedBy = []
 
@@ -30,7 +31,7 @@ func _physics_process(delta: float) -> void:
 		velocity += (gravity.get_global_position() - get_global_position()) * 0.35
 		
 	if is_multiplayer_authority():
-		var move_input = Input.get_vector("move_left", "move_right","move_up","move_down")
+		var move_input = Input.get_vector("move_left", "move_right","move_up","move_down").rotated(get_global_rotation())
 		velocity= velocity.move_toward(move_input * max_speed, acceleration * delta)
 		send_data.rpc(position, velocity)
 		
@@ -43,6 +44,7 @@ func _physics_process(delta: float) -> void:
 	if not AttractedBy.is_empty():
 		look_at(AttractedBy[0].get_global_position())
 		rotate(-PI/2)
+	
 
 
 	if velocity.x:
