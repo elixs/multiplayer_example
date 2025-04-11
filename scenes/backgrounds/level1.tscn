@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://e25nydlgje2l"]
+
+[ext_resource type="Script" uid="uid://c2nfu8du1p8gs" path="res://scripts/parallax_background.gd" id="1_cr2lm"]
+[ext_resource type="Texture2D" uid="uid://p680bppyepqc" path="res://assets/backgrounds/Space Background stars new.png" id="2_27yox"]
+[ext_resource type="Texture2D" uid="uid://dvpavu2ki3d22" path="res://assets/backgrounds/Space Background nebulae new.png" id="3_hc30p"]
+[ext_resource type="Texture2D" uid="uid://bokna0pumhfsu" path="res://assets/backgrounds/Space Background planets new.png" id="4_lmu5l"]
+[ext_resource type="Texture2D" uid="uid://jl8fuvlywwvt" path="res://assets/backgrounds/Space Background dust2.png" id="5_huyw6"]
+
+[node name="Level1" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+offset = Vector2(620, 360)
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 620, 360)
+script = ExtResource("1_cr2lm")
+
+[node name="StarLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(2560, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/StarLayer"]
+texture = ExtResource("2_27yox")
+
+[node name="NebuloseLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.4, 0.4)
+motion_mirroring = Vector2(2560, 0)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/NebuloseLayer"]
+modulate = Color(1, 1, 1, 0.537255)
+rotation = 1.5708
+texture = ExtResource("3_hc30p")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/NebuloseLayer"]
+modulate = Color(1, 1, 1, 0.494118)
+texture = ExtResource("3_hc30p")
+
+[node name="PlanetLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/PlanetLayer"]
+modulate = Color(1, 1, 1, 0.164706)
+scale = Vector2(1, 1.02017)
+texture = ExtResource("4_lmu5l")
+
+[node name="DustLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+scale = Vector2(0.99618, 1.01289)
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(2560, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/DustLayer"]
+modulate = Color(1, 1, 1, 0.494118)
+texture = ExtResource("5_huyw6")
