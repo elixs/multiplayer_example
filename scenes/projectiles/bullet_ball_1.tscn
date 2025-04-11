@@ -139,11 +139,12 @@ properties/2/replication_mode = 0
 [node name="bullet_ball_1" type="RigidBody2D"]
 self_modulate = Color(1, 0, 0, 1)
 collision_layer = 2
+mass = 2.512
 gravity_scale = 2.0
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_4psn1")
-speed = 200
+speed = 400
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(17, 9)

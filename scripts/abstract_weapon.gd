@@ -8,6 +8,6 @@ func shoot():
 	var bullet = bullet_scene.instantiate() 
 	bullet.pos_spawn = $Marker2D.global_position
 	#print(get_parent().rotation)
-	bullet.rotacion_spawn = get_parent().rotation
+	bullet.rotacion_spawn = get_parent().global_rotation
 	get_parent().get_parent().get_parent().add_child(bullet,true)
 	
