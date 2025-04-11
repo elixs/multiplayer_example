@@ -15,6 +15,7 @@ scale = Vector2(5.76139, 0.221901)
 [node name="Players" type="Node2D" parent="."]
 
 [node name="Markers" type="Node2D" parent="."]
+position = Vector2(-208, 31)
 
 [node name="Marker2D" type="Marker2D" parent="Markers"]
 position = Vector2(289, 340)
@@ -26,10 +27,16 @@ position = Vector2(925, 330)
 position = Vector2(636, 152)
 
 [node name="Planet" parent="." instance=ExtResource("3_d2op2")]
-position = Vector2(290, 407)
+position = Vector2(334, 793)
+collision_layer = 1
+collision_mask = 1
 
 [node name="Planet2" parent="." instance=ExtResource("3_d2op2")]
-position = Vector2(930, 407)
+position = Vector2(2113, 740)
+collision_layer = 1
+collision_mask = 1
 
 [node name="Planet3" parent="." instance=ExtResource("3_d2op2")]
-position = Vector2(633, 74)
+position = Vector2(1280, -43)
+collision_layer = 1
+collision_mask = 1

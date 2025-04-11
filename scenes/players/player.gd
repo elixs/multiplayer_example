@@ -8,10 +8,15 @@ extends CharacterBody2D
 @onready var pivot: Node2D = $pivot
 @onready var weapon_container = $WeaponContainer
 @onready var weapon = $WeaponContainer/AbstractWeapon
+
+
+
 func setup(player_data: Statics.PlayerData):
 	label.text = player_data.name
 	name = str(player_data.id)
 	set_multiplayer_authority(player_data.id)
+	if is_multiplayer_authority():
+			$Camera2D.make_current()
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():

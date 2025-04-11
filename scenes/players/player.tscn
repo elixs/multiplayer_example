@@ -203,3 +203,6 @@ rotation = 1.5708
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_edvpf")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.939, 0.939)
