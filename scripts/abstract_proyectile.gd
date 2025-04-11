@@ -27,8 +27,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	$".".linear_velocity = linear_velocity.clamp(Vector2(-max_vel,-max_vel),Vector2(max_vel,max_vel))
 func _physics_process(delta: float) -> void:
 	despawn_timer -= delta
-	print(despawn_timer)
-	if despawn_timer < 0:
+	#print(despawn_timer)
+	if despawn_timer < 0 and is_multiplayer_authority():
 		explode.rpc()
 	$AnimatedSprite2D.rotation = lerp($AnimatedSprite2D.rotation,$".".linear_velocity.angle(),0.8)
 	
@@ -41,12 +41,14 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body):
 	if is_multiplayer_authority():
 		explode.rpc()
+	else:
+		explode()
 		
 
 @rpc("authority","call_local","reliable")
 func explode(): 
 	if is_destroyed_timer < -0.5 :
-		print('Explosion')
+		#print('Explosion')
 		is_destroyed_timer = 0
 		animation.animation = "Explotion"
 		$".".set_sleeping(true)
