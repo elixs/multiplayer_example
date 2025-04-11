@@ -21,10 +21,10 @@ position = Vector2(-208, 31)
 position = Vector2(289, 340)
 
 [node name="Marker2D2" type="Marker2D" parent="Markers"]
-position = Vector2(925, 330)
+position = Vector2(1132, 70)
 
 [node name="Marker2D3" type="Marker2D" parent="Markers"]
-position = Vector2(636, 152)
+position = Vector2(2007, 673)
 
 [node name="Planet" parent="." instance=ExtResource("3_d2op2")]
 position = Vector2(334, 793)
