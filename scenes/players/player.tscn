@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cl3yb3i1s8ujy"]
+[gd_scene load_steps=18 format=3 uid="uid://cl3yb3i1s8ujy"]
 
 [ext_resource type="Texture2D" uid="uid://dxt3lpctm3ytt" path="res://assets/players/2 Owlet_Monster/Owlet_Monster_Walk_6.png" id="1_4p73j"]
 [ext_resource type="Script" uid="uid://dctdav0gsoopg" path="res://scenes/players/player.gd" id="1_d33cm"]
@@ -163,6 +163,10 @@ properties/0/path = NodePath("WeaponContainer:rotation")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_edvpf"]
+radius = 40.0
+height = 118.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_d33cm")
 
@@ -203,3 +207,13 @@ rotation = 1.5708
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_edvpf")
+
+[node name="GravityArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravityArea"]
+shape = SubResource("CapsuleShape2D_edvpf")
+
+[connection signal="area_entered" from="GravityArea" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="GravityArea" to="." method="_on_area_2d_area_exited"]
