@@ -11,6 +11,10 @@ extends CharacterBody2D
 
 
 
+@onready var gravityArea = $GravityArea
+@onready var area: Area2D = $Area2D
+@onready var sprite_2d: Sprite2D = $pivot/Sprite2D
+
 func setup(player_data: Statics.PlayerData):
 	label.text = player_data.name
 	name = str(player_data.id)
@@ -18,7 +22,13 @@ func setup(player_data: Statics.PlayerData):
 	if is_multiplayer_authority():
 			$Camera2D.make_current()
 
+var AttractedBy = []
+
 func _physics_process(delta: float) -> void:
+	
+	for gravity in AttractedBy:
+		velocity += gravity.get_global_position() - get_global_position() 
+		
 	if is_multiplayer_authority():
 		var move_input = Input.get_vector("move_left", "move_right","move_up","move_down")
 		velocity= velocity.move_toward(move_input * max_speed, acceleration * delta)
@@ -30,6 +40,11 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
+	if not AttractedBy.is_empty():
+		look_at(AttractedBy[0].get_global_position())
+		rotate(-PI/2)
+
+
 	if velocity.x:
 		playback.travel("walk")
 		pivot.scale.x = sign(velocity.x)
@@ -40,3 +55,9 @@ func _physics_process(delta: float) -> void:
 func send_data(pos: Vector2, vel: Vector2) -> void:
 	position = lerp(position, pos, 0.3)
 	velocity = vel
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	AttractedBy.append(area)
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	AttractedBy.erase(area)
