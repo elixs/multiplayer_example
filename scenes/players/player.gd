@@ -28,10 +28,11 @@ var AttractedBy = []
 func _physics_process(delta: float) -> void:
 	
 	for gravity in AttractedBy:
-		velocity += (gravity.get_global_position() - get_global_position()) * 0.35
+		if not is_on_floor():
+			velocity += (gravity.get_global_position() - get_global_position()) * 0.4
 		
 	if is_multiplayer_authority():
-		var move_input = Input.get_vector("move_left", "move_right","move_up","move_down").rotated(get_global_rotation())
+		var move_input = Vector2(Input.get_axis("move_left", "move_right"),0).rotated(get_global_rotation())
 		velocity= velocity.move_toward(move_input * max_speed, acceleration * delta)
 		send_data.rpc(position, velocity)
 		
@@ -39,14 +40,15 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed('fire'):
 			weapon.shoot.rpc()
 	
-	move_and_slide()
+	
 
 	if not AttractedBy.is_empty():
 		look_at(AttractedBy[0].get_global_position())
 		rotate(-PI/2)
-	
-
-
+		#up_direction = Vector2.UP.rotated(get_global_rotation() - PI/2) 
+		up_direction = -global_transform.y
+	move_and_slide()
+	Debug.log(is_on_floor())
 	if velocity.x:
 		playback.travel("walk")
 		pivot.scale.x = sign(velocity.x)
