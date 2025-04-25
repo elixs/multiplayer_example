@@ -7,7 +7,7 @@ extends Resource
 
 
 func _get_input():
-
+	pass
 	
 func _ready():
-	null
+	pass

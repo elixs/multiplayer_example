@@ -11,7 +11,7 @@ signal player_index_received()
 @export var all_roles = true # won't start if all roles aren't selected
 @export var min_players = 2 # won't start if there are at least these players
 @export var fill_screen = true
-
+@export var test_players: Array[PlayerDataResource] = [] # first one is server
 @export var main_scene: PackedScene
 
 var players: Array[Statics.PlayerData] = []

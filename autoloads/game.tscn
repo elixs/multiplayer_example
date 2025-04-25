@@ -1,11 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6cfq0qe7ynw6"]
+[gd_scene load_steps=6 format=3 uid="uid://b6cfq0qe7ynw6"]
 
 [ext_resource type="Script" uid="uid://c8lsyb801m532" path="res://autoloads/game.gd" id="1_fmbhi"]
-[ext_resource type="PackedScene" uid="uid://c7ka6jyww1txb" path="res://scenes/levels/test.tscn" id="2_hihc8"]
+[ext_resource type="Script" uid="uid://bnqpng0o60r43" path="res://scripts/player data/player_data_resource.gd" id="2_du0e2"]
+[ext_resource type="PackedScene" uid="uid://c3n5kl6haw45t" path="res://scenes/levels/test.tscn" id="2_hihc8"]
+
+[sub_resource type="Resource" id="Resource_4v8jd"]
+script = ExtResource("2_du0e2")
+name = "Hero"
+role = 1
+metadata/_custom_type_script = "uid://bnqpng0o60r43"
+
+[sub_resource type="Resource" id="Resource_7vqsd"]
+script = ExtResource("2_du0e2")
+name = "Villian"
+role = 2
+metadata/_custom_type_script = "uid://bnqpng0o60r43"
 
 [node name="Game" type="Node"]
 script = ExtResource("1_fmbhi")
+multiplayer_test = true
+use_roles = null
+unique_roles = null
 all_roles = false
+min_players = null
+test_players = Array[ExtResource("2_du0e2")]([SubResource("Resource_4v8jd"), SubResource("Resource_7vqsd")])
 main_scene = ExtResource("2_hihc8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

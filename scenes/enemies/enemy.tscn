@@ -1,16 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://dnhtqy88efs1i"]
 
 [ext_resource type="Script" uid="uid://dr0mda1wj4xbw" path="res://scenes/enemies/enemy.gd" id="1_luycg"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_pvwrt"]
+[ext_resource type="Texture2D" uid="uid://g7xilv6mbgyn" path="res://assets/slime.png" id="2_8e3ao"]
 
-<<<<<<< Updated upstream
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8e3ao"]
-radius = 47.0
-height = 131.0
-=======
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e3ao"]
 radius = 42.003
->>>>>>> Stashed changes
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pvwrt"]
 radius = 43.0029
@@ -23,19 +17,6 @@ corner_radius_bottom_right = 7
 corner_radius_bottom_left = 7
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
-<<<<<<< Updated upstream
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("1_luycg")
-
-[node name="Skin" type="Sprite2D" parent="."]
-modulate = Color(0.839433, 0.110566, 0.110566, 1)
-texture = ExtResource("2_pvwrt")
-
-[node name="Body" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
-shape = SubResource("CapsuleShape2D_8e3ao")
-=======
 collision_layer = 18
 collision_mask = 6
 motion_mode = 1
@@ -50,7 +31,6 @@ texture = ExtResource("2_8e3ao")
 [node name="Body" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2.5)
 shape = SubResource("CircleShape2D_8e3ao")
->>>>>>> Stashed changes
 
 [node name="Collision" type="Area2D" parent="."]
 collision_layer = 2
@@ -73,18 +53,6 @@ value = 100.0
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 3.0
 target_desired_distance = 3.0
-<<<<<<< Updated upstream
-navigation_layers = 3
-path_postprocessing = 1
-debug_enabled = true
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-=======
 path_max_distance = 10.0
 simplify_path = true
 simplify_epsilon = 5.0
@@ -94,4 +62,3 @@ debug_enabled = true
 wait_time = 0.5
 one_shot = true
 autostart = true
->>>>>>> Stashed changes
