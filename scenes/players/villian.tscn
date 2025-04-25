@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://blqxos8twrgxl"]
+
+[ext_resource type="Script" uid="uid://c4ksskqufau7s" path="res://scenes/players/villian.gd" id="1_066ng"]
+[ext_resource type="PackedScene" uid="uid://d1t5g8dnwohl4" path="res://scenes/cards_test/card_test.tscn" id="1_b36k6"]
+[ext_resource type="Resource" uid="uid://ot1eouv6ob73" path="res://scenes/cards_test/types/box.tres" id="3_2g2jx"]
+[ext_resource type="Resource" uid="uid://c44ghllqlx8iw" path="res://scenes/cards_test/types/beast.tres" id="5_h636d"]
+[ext_resource type="Resource" uid="uid://flbcvih1vnd5" path="res://scenes/cards_test/types/slime.tres" id="6_uncdc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02s2a"]
+bg_color = Color(0, 0, 0, 0.741176)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.952727, 0.77195, 0.407196, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_right = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4233"]
+bg_color = Color(0.650087, 0.618026, 7.70092e-07, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_bottom = 3
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Villian" type="Node2D"]
+script = ExtResource("1_066ng")
+
+[node name="Deck" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -47.0
+offset_top = -50.0
+offset_right = 433.0
+offset_bottom = 221.0
+scale = Vector2(1.2, 1.2)
+
+[node name="card" parent="Deck" instance=ExtResource("1_b36k6")]
+position = Vector2(107.5, 176.667)
+scale = Vector2(0.5, 0.5)
+datos = ExtResource("3_2g2jx")
+
+[node name="card2" parent="Deck" instance=ExtResource("1_b36k6")]
+position = Vector2(173.333, 176.667)
+scale = Vector2(0.5, 0.5)
+datos = ExtResource("5_h636d")
+
+[node name="card3" parent="Deck" instance=ExtResource("1_b36k6")]
+position = Vector2(240, 176.667)
+scale = Vector2(0.5, 0.5)
+datos = ExtResource("6_uncdc")
+
+[node name="card4" parent="Deck" instance=ExtResource("1_b36k6")]
+position = Vector2(306.667, 176.667)
+scale = Vector2(0.5, 0.5)
+datos = ExtResource("6_uncdc")
+
+[node name="card5" parent="Deck" instance=ExtResource("1_b36k6")]
+position = Vector2(373.333, 176.667)
+scale = Vector2(0.5, 0.5)
+datos = ExtResource("5_h636d")
+
+[node name="TextureProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(350, 0)
+offset_left = 65.0
+offset_top = 240.0
+offset_right = 415.0
+offset_bottom = 271.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_styles/background = SubResource("StyleBoxFlat_02s2a")
+theme_override_styles/fill = SubResource("StyleBoxFlat_o4233")
+value = 40.0

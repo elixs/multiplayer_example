@@ -1,0 +1,130 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7ka6jyww1txb"]
+
+[ext_resource type="PackedScene" uid="uid://bao31fg0iuauf" path="res://scenes/players/hero.tscn" id="1_52kye"]
+[ext_resource type="Script" uid="uid://dthoxyvq2ytej" path="res://scenes/levels/test.gd" id="1_uyl1e"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_yp2xm"]
+[ext_resource type="PackedScene" uid="uid://dnhtqy88efs1i" path="res://scenes/enemies/enemy.tscn" id="3_yp2xm"]
+[ext_resource type="PackedScene" uid="uid://blqxos8twrgxl" path="res://scenes/players/villian.tscn" id="4_7115g"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_uyl1e"]
+vertices = PackedVector2Array(630, 14.8828, 625.109, 421, 196.906, 126.203, 196.906, -130.523, 630, -391, -686.133, 421.992, -222.617, 126.203, -222.617, -130.523, -695, -249.539, -695, -391)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(2, 1, 5, 6), PackedInt32Array(7, 6, 5, 8, 9), PackedInt32Array(9, 4, 3, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-707, -401, -696, 432, 635, 431, 645, -401)])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7115g"]
+size = Vector2(1346, 117)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_koekj"]
+size = Vector2(579, 445)
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_uyl1e")
+player_scene = ExtResource("1_52kye")
+enemy_scene = ExtResource("3_yp2xm")
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("3_yp2xm")]
+position = Vector2(333, -196)
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Hero" parent="Players" instance=ExtResource("1_52kye")]
+position = Vector2(-409, -21)
+
+[node name="Villian" parent="Players" instance=ExtResource("4_7115g")]
+visible = false
+position = Vector2(-264, 153)
+
+[node name="MultiplayerSpawner" parent="Players/Villian" index="2"]
+spawn_path = NodePath("../../../Enemies")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_uyl1e")
+
+[node name="Wall1" type="StaticBody2D" parent="NavigationRegion2D"]
+position = Vector2(2, -464)
+collision_layer = 6
+collision_mask = 6
+
+[node name="Icon" type="Sprite2D" parent="NavigationRegion2D/Wall1"]
+position = Vector2(-35, 0)
+scale = Vector2(10.5469, 1)
+texture = ExtResource("2_yp2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Wall1"]
+position = Vector2(-32.5, -9.5)
+shape = SubResource("RectangleShape2D_7115g")
+
+[node name="Wall2" type="StaticBody2D" parent="NavigationRegion2D"]
+position = Vector2(689, 420)
+rotation = 1.5708
+collision_layer = 5
+collision_mask = 5
+
+[node name="Icon" type="Sprite2D" parent="NavigationRegion2D/Wall2"]
+position = Vector2(-172.656, 0)
+scale = Vector2(10.5679, 1)
+texture = ExtResource("2_yp2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Wall2"]
+position = Vector2(-171, -9.5)
+shape = SubResource("RectangleShape2D_7115g")
+
+[node name="Wall3" type="StaticBody2D" parent="NavigationRegion2D"]
+position = Vector2(-754, 219)
+rotation = -1.5708
+collision_layer = 5
+collision_mask = 5
+
+[node name="Icon" type="Sprite2D" parent="NavigationRegion2D/Wall3"]
+position = Vector2(-37.0739, 0)
+scale = Vector2(10.5126, 1)
+texture = ExtResource("2_yp2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Wall3"]
+position = Vector2(-32.5, -9.5)
+shape = SubResource("RectangleShape2D_7115g")
+
+[node name="Wall4" type="StaticBody2D" parent="NavigationRegion2D"]
+position = Vector2(-62, 490)
+rotation = -3.14159
+collision_layer = 5
+collision_mask = 5
+
+[node name="Icon" type="Sprite2D" parent="NavigationRegion2D/Wall4"]
+position = Vector2(-34.716, 0)
+scale = Vector2(10.4758, 1)
+texture = ExtResource("2_yp2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Wall4"]
+position = Vector2(-32.5, -9.5)
+shape = SubResource("RectangleShape2D_7115g")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="NavigationRegion2D" groups=["muro"]]
+position = Vector2(-27, 13)
+scale = Vector2(0.690017, 0.531965)
+collision_layer = 5
+collision_mask = 5
+
+[node name="Icon" type="Sprite2D" parent="NavigationRegion2D/StaticBody2D"]
+position = Vector2(22.4632, -25.3776)
+scale = Vector2(4.60813, 3.5981)
+texture = ExtResource("2_yp2xm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/StaticBody2D"]
+position = Vector2(20.5, -28.5)
+shape = SubResource("RectangleShape2D_koekj")
+
+[node name="Spawns" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Spawns"]
+position = Vector2(-563, 388)
+
+[node name="Marker2D2" type="Marker2D" parent="Spawns"]
+position = Vector2(491, 372)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.3, 0.3)
+
+[editable path="Players/Villian"]

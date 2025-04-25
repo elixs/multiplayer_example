@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://cys2kto4ormdp"]
+
+[ext_resource type="Script" uid="uid://dr0mda1wj4xbw" path="res://scenes/enemies/enemy.gd" id="1_ot470"]
+[ext_resource type="Texture2D" uid="uid://1mftfestkety" path="res://assets/pinchos.png" id="2_ot470"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aikwk"]
+size = Vector2(112, 116)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pvwrt"]
+radius = 43.0029
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_luycg"]
+bg_color = Color(0.0595984, 0.452479, 0.116303, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 18
+collision_mask = 6
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_ot470")
+
+[node name="Skin" type="Sprite2D" parent="."]
+position = Vector2(0, -19)
+scale = Vector2(4, 4.09524)
+texture = ExtResource("2_ot470")
+
+[node name="Body" type="CollisionShape2D" parent="."]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_aikwk")
+
+[node name="Collision" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Collision_body" type="CollisionShape2D" parent="Collision"]
+position = Vector2(0, -2.5)
+shape = SubResource("CircleShape2D_pvwrt")
+
+[node name="Life" type="ProgressBar" parent="."]
+offset_left = -49.0
+offset_top = -147.0
+offset_right = 60.0
+offset_bottom = -120.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_styles/background = SubResource("StyleBoxFlat_luycg")
+value = 100.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 3.0
+target_desired_distance = 3.0
+path_max_distance = 10.0
+simplify_path = true
+simplify_epsilon = 5.0
+debug_enabled = true
+
+[node name="Navigation_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true

@@ -1,0 +1,107 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1t5g8dnwohl4"]
+
+[ext_resource type="Script" uid="uid://uh01divimnq3" path="res://scenes/cards_test/card.gd" id="1_cab6s"]
+[ext_resource type="Texture2D" uid="uid://d30gvrwtcrtgi" path="res://assets/card_container.png" id="1_jdc34"]
+[ext_resource type="Texture2D" uid="uid://btwglum7cspd3" path="res://assets/Damage.png" id="2_qbkp2"]
+[ext_resource type="Texture2D" uid="uid://c824glfn78ksk" path="res://assets/life.png" id="3_cab6s"]
+[ext_resource type="Texture2D" uid="uid://by7ucvsh7mokx" path="res://assets/box.png" id="4_43fd8"]
+[ext_resource type="Texture2D" uid="uid://b17md32arf7h2" path="res://assets/monedas.png" id="5_qbkp2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02s2a"]
+size = Vector2(39, 55)
+
+[node name="card" type="Node2D"]
+script = ExtResource("1_cab6s")
+
+[node name="Skin" type="Node2D" parent="."]
+position = Vector2(0, -6)
+scale = Vector2(3.09682, 3.39768)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Skin"]
+offset_left = -19.0
+offset_top = -21.0
+offset_right = 20.0
+offset_bottom = 34.0
+texture = ExtResource("1_jdc34")
+region_rect = Rect2(26, 0, 26, 26)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Skin" type="Sprite2D" parent="Skin"]
+position = Vector2(0, 4)
+texture = ExtResource("4_43fd8")
+
+[node name="Top_of_card" type="Sprite2D" parent="Skin"]
+position = Vector2(0.5, -9.7)
+scale = Vector2(1.46154, 0.730769)
+texture = ExtResource("1_jdc34")
+hframes = 3
+vframes = 3
+frame = 6
+
+[node name="Damage" type="Sprite2D" parent="Skin"]
+position = Vector2(14.8539, -14.4216)
+scale = Vector2(0.330728, 0.299053)
+texture = ExtResource("2_qbkp2")
+
+[node name="Life" type="Sprite2D" parent="Skin"]
+position = Vector2(-13.2394, -14.4216)
+scale = Vector2(0.375803, 0.352841)
+texture = ExtResource("3_cab6s")
+
+[node name="Bottom_of_card" type="Sprite2D" parent="Skin"]
+position = Vector2(0.5, 22.5)
+scale = Vector2(1.46154, 0.884615)
+texture = ExtResource("1_jdc34")
+hframes = 3
+vframes = 3
+frame = 7
+
+[node name="Coste" type="Sprite2D" parent="Skin"]
+position = Vector2(-1.19209e-07, 34.1409)
+scale = Vector2(1.83526, 1.4753)
+texture = ExtResource("5_qbkp2")
+
+[node name="Name" type="Label" parent="."]
+offset_left = -53.0
+offset_top = 72.0
+offset_right = 56.0
+offset_bottom = 95.0
+text = "Just a box"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="Damage" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -66.0
+offset_right = 40.0
+offset_bottom = -43.0
+text = "10"
+horizontal_alignment = 2
+
+[node name="Life" type="Label" parent="."]
+offset_left = -31.0
+offset_top = -67.0
+offset_right = -21.0
+offset_bottom = -44.0
+text = "∞"
+
+[node name="Coste" type="Label" parent="."]
+offset_left = -5.0
+offset_top = 97.0
+offset_right = 5.0
+offset_bottom = 120.0
+theme_override_constants/outline_size = 4
+text = "3"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -6)
+scale = Vector2(3.09682, 3.39768)
+collision_layer = 9
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.5, 6.5)
+shape = SubResource("RectangleShape2D_02s2a")

@@ -1,6 +1,5 @@
 extends Node
 
-
 var player_index = 1
 
 @onready var start_game_timer: Timer = $StartGameTimer

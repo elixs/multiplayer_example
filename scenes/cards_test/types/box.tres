@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://ot1eouv6ob73"]
+
+[ext_resource type="Script" uid="uid://c2hncbjlpblkv" path="res://scenes/cards_test/types/cardData.gd" id="2_k0cub"]
+[ext_resource type="Texture2D" uid="uid://d30gvrwtcrtgi" path="res://assets/card_container.png" id="3_k0cub"]
+
+[resource]
+script = ExtResource("2_k0cub")
+nombre = "Box"
+tipo = 0
+costo = 3
+hp = 100000000
+"daño" = 0
+velocidad = 0
+icono = "res://assets/box.png"
+escala = Vector2(0.5, 0.5)
+textura = ExtResource("3_k0cub")
+x = 26.0
+y = 0.0
+w = 26.0
+h = 26.0
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+colision = 2
+radio = 0.0
+altura = 0.0
+"tamaño" = Vector2(56, 82)
+posicion_colision = Vector2(0, -19)
+metadata/_custom_type_script = "uid://c2hncbjlpblkv"

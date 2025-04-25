@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6cfq0qe7ynw6"]
+[gd_scene load_steps=3 format=3 uid="uid://b6cfq0qe7ynw6"]
 
 [ext_resource type="Script" uid="uid://c8lsyb801m532" path="res://autoloads/game.gd" id="1_fmbhi"]
+[ext_resource type="PackedScene" uid="uid://c7ka6jyww1txb" path="res://scenes/levels/test.tscn" id="2_hihc8"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_fmbhi")
 all_roles = false
+main_scene = ExtResource("2_hihc8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 127

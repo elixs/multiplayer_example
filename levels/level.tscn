@@ -1,6 +1,11 @@
 [gd_scene load_steps=4 format=4 uid="uid://cfbh38jckga8g"]
 
+<<<<<<< Updated upstream
 [ext_resource type="Texture2D" uid="uid://c3c750hxvcp34" path="res://assets/Free Dungeon - Fantasy Dreamland/Free Dungeon - Fantasy Dreamland/16x16/FD_Dungeon_Free.png" id="1_e0t7h"]
+=======
+[ext_resource type="Texture2D" uid="uid://c3c750hxvcp34" path="res://assets/Free Dungeon - Fantasy Dreamland/16x16/FD_Dungeon_Free.png" id="1_80vhd"]
+[ext_resource type="PackedScene" uid="uid://bao31fg0iuauf" path="res://scenes/players/hero.tscn" id="2_hjsbj"]
+>>>>>>> Stashed changes
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4c5vn"]
 texture = ExtResource("1_e0t7h")

@@ -44,7 +44,7 @@ func _ready() -> void:
 			role_button.text = "Role?"
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	game_start_counter.text = str(int(ceil(start_timer.time_left)))
 
 
