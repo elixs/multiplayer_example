@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://07ag0qlqh4jq"]
+[gd_scene load_steps=20 format=3 uid="uid://07ag0qlqh4jq"]
 
 [ext_resource type="Texture2D" uid="uid://ctsax4ilmbfoc" path="res://assets/crosshair/Arrows/Arrow_Crosshair2.png" id="1_aa18j"]
 [ext_resource type="Script" uid="uid://btlk1a0swt7u7" path="res://scripts/abstract_weapon.gd" id="1_x2wt2"]
 [ext_resource type="Texture2D" uid="uid://iw4hwoc6uj2f" path="res://assets/crosshair/Arrows/Arrow_Crosshair1.png" id="2_x2wt2"]
 [ext_resource type="Texture2D" uid="uid://blov5djxhmnsc" path="res://assets/crosshair/Arrows/Arrow_Crosshair3.png" id="3_3wve1"]
 [ext_resource type="Texture2D" uid="uid://eisf02dpxqes" path="res://assets/crosshair/Arrows/Arrow_Crosshair4.png" id="4_nxmc6"]
+[ext_resource type="Texture2D" uid="uid://dp61hisbucsip" path="res://assets/crosshair/Pixel UI pack 3/06.png" id="6_3wve1"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_x2wt2"]
 
@@ -54,23 +55,121 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxmc6"]
+atlas = ExtResource("6_3wve1")
+region = Rect2(0, 16, 240, 96)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3wve1"]
+animation = &"charge"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mxgmv"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fgwf2"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nxmc6"]
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3wve1"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_sl4rf"]
+states/Start/position = Vector2(212, 98.7654)
+states/charge/node = SubResource("AnimationNodeAnimation_3wve1")
+states/charge/position = Vector2(546.667, 103.909)
+states/idle/node = SubResource("AnimationNodeAnimation_mxgmv")
+states/idle/position = Vector2(325.333, 99.8272)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_fgwf2"), "idle", "charge", SubResource("AnimationNodeStateMachineTransition_nxmc6"), "charge", "idle", SubResource("AnimationNodeStateMachineTransition_3wve1")]
+
+[sub_resource type="Animation" id="Animation_ujfp1"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBase:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_8ofuj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBase:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_3piou"]
+resource_name = "charge"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBase:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 3, 12, 21, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q1stw"]
+_data = {
+&"RESET": SubResource("Animation_8ofuj"),
+&"charge": SubResource("Animation_3piou"),
+&"idle": SubResource("Animation_ujfp1")
+}
+
 [node name="AbstractWeapon" type="Node2D"]
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_x2wt2")
 type_bullet = "ball_1"
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(0, -50)
+position = Vector2(0, -68)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="SpriteTemporalBlanco" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.802517, 0.772752, 0.759922, 1)
 position = Vector2(-4.76837e-07, 4.76837e-07)
 scale = Vector2(28, 28)
 texture = SubResource("CanvasTexture_x2wt2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 texture_filter = 1
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_mxgmv")
 animation = &"pow3"
-frame_progress = 0.942809
+
+[node name="SpriteBase" type="Sprite2D" parent="."]
+position = Vector2(-14.7698, 6)
+rotation = -1.5708
+scale = Vector2(1.69895, 1.66859)
+texture = SubResource("AtlasTexture_nxmc6")
+centered = false
+hframes = 5
+vframes = 6
+frame = 4
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_sl4rf")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_q1stw")
+}
