@@ -31,8 +31,10 @@ func _physics_process(delta: float) -> void:
 		if not is_on_floor():
 			velocity += (gravity.get_global_position() - get_global_position()) * 0.4
 		
+	var initial_move_input=Vector2.ZERO
 	if is_multiplayer_authority():
-		var move_input = Vector2(Input.get_axis("move_left", "move_right"),0).rotated(get_global_rotation())
+		initial_move_input = Input.get_axis("move_left", "move_right")
+		var move_input = Vector2(initial_move_input,0).rotated(get_global_rotation())
 		velocity= velocity.move_toward(move_input * max_speed, acceleration * delta)
 		send_data.rpc(position, velocity)
 		
@@ -48,10 +50,10 @@ func _physics_process(delta: float) -> void:
 		#up_direction = Vector2.UP.rotated(get_global_rotation() - PI/2) 
 		up_direction = -global_transform.y
 	move_and_slide()
-	Debug.log(is_on_floor())
-	if velocity.x:
+	
+	if initial_move_input:
 		playback.travel("walk")
-		pivot.scale.x = sign(velocity.x)
+		pivot.scale.x = sign(initial_move_input)
 	else:
 		playback.travel("idle")
 
