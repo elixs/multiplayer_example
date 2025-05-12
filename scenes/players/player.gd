@@ -10,6 +10,9 @@ extends CharacterBody2D
 @onready var weapon_container = $WeaponContainer
 @onready var weapon = $WeaponContainer/AbstractWeapon
 @onready var shoot_timer: Timer = $shootTimer
+@onready var charge_power: float = 0
+@onready var is_charging_weapon = false
+
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var gravityArea = $GravityArea
 
@@ -76,10 +79,22 @@ func _physics_process(delta: float) -> void:
 				velocity -= gravity_direction * jump_velocity
 			
 		weapon_container.look_at(get_global_mouse_position())
+		if is_charging_weapon:
+			charge_power = min(charge_power + delta ,5)
+			if charge_power > 4.0:
+				weapon.overcharge()
 		if Input.is_action_just_pressed('fire') and can_shoot:
-			weapon.shoot.rpc()
-			can_shoot = false
+			#weapon.shoot.rpc()
+			weapon.begin_charge()
+			is_charging_weapon = true
+		if Input.is_action_just_released('fire') and can_shoot and is_charging_weapon:
+			weapon.shoot.rpc(min(charge_power,2))
 			shoot_timer.start()
+			can_shoot = false
+			charge_power = 0.2
+			is_charging_weapon = false
+
+
 
 
 	if not AttractedBy.is_empty():
