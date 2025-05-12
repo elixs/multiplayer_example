@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbxdualumejet"]
+
+[ext_resource type="Script" uid="uid://dpng3i7c3x485" path="res://scenes/levels/round_manager.gd" id="1_enb7h"]
+
+[node name="RoundManager" type="CanvasLayer"]
+script = ExtResource("1_enb7h")
+
+[node name="RoundMessage" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+horizontal_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+horizontal_alignment = 1
+
+[node name="RoundTimer" type="Timer" parent="."]
