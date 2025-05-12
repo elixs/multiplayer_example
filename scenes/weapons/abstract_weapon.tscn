@@ -1,60 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://07ag0qlqh4jq"]
+[gd_scene load_steps=16 format=3 uid="uid://07ag0qlqh4jq"]
 
-[ext_resource type="Texture2D" uid="uid://ctsax4ilmbfoc" path="res://assets/crosshair/Arrows/Arrow_Crosshair2.png" id="1_aa18j"]
 [ext_resource type="Script" uid="uid://btlk1a0swt7u7" path="res://scripts/abstract_weapon.gd" id="1_x2wt2"]
-[ext_resource type="Texture2D" uid="uid://iw4hwoc6uj2f" path="res://assets/crosshair/Arrows/Arrow_Crosshair1.png" id="2_x2wt2"]
-[ext_resource type="Texture2D" uid="uid://blov5djxhmnsc" path="res://assets/crosshair/Arrows/Arrow_Crosshair3.png" id="3_3wve1"]
-[ext_resource type="Texture2D" uid="uid://eisf02dpxqes" path="res://assets/crosshair/Arrows/Arrow_Crosshair4.png" id="4_nxmc6"]
 [ext_resource type="Texture2D" uid="uid://dp61hisbucsip" path="res://assets/crosshair/Pixel UI pack 3/06.png" id="6_3wve1"]
 [ext_resource type="Texture2D" uid="uid://cco4bl3hv1siq" path="res://assets/atlas_animacion_overcharge.tres" id="7_nxmc6"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_mxgmv"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_mxgmv"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_aa18j")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_x2wt2")
-}],
-"loop": true,
-"name": &"pow1",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_3wve1")
-}],
-"loop": true,
-"name": &"pow2",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 0.5,
-"texture": ExtResource("3_3wve1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_nxmc6")
-}],
-"loop": true,
-"name": &"pow2-3",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_nxmc6")
-}],
-"loop": true,
-"name": &"pow3",
-"speed": 5.0
-}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nxmc6"]
 atlas = ExtResource("6_3wve1")
@@ -156,19 +104,6 @@ type_bullet = "ball_1"
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -68)
-
-[node name="SpriteTemporalBlanco" type="Sprite2D" parent="."]
-modulate = Color(0.802517, 0.772752, 0.759922, 1)
-position = Vector2(-1, -33)
-scale = Vector2(30, 94)
-texture = SubResource("ViewportTexture_mxgmv")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
-texture_filter = 1
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_mxgmv")
-animation = &"pow3"
 
 [node name="SpriteBase" type="Sprite2D" parent="."]
 position = Vector2(-17.5018, 6.00001)
