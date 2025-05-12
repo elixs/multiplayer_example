@@ -14,11 +14,14 @@ extends CharacterBody2D
 @onready var is_charging_weapon = false
 
 @onready var camera_2d: Camera2D = $Camera2D
-
 @onready var gravityArea = $GravityArea
-@onready var area: Area2D = $Area2D
+
 @onready var sprite_2d: Sprite2D = $pivot/Sprite2D
 var can_shoot = true
+var can_jump = true
+var jump_velocity = 1500
+var direction=Vector2.ZERO
+var rotation_speed= 1
 
 func setup(player_data: Statics.PlayerData):
 	label.text = player_data.name
@@ -36,13 +39,45 @@ func _physics_process(delta: float) -> void:
 			velocity += (gravity.get_global_position() - get_global_position()) * 0.4
 		
 	var initial_move_input=Vector2.ZERO
+	
 	if is_multiplayer_authority():
-		initial_move_input = Input.get_axis("move_left", "move_right")
-		var move_input = Vector2(initial_move_input,0).rotated(get_global_rotation())
-		velocity= velocity.move_toward(move_input * max_speed, acceleration * delta)
-		send_data.rpc(position, velocity)
+		if AttractedBy.is_empty():
+			# ROTACIÓN
+			var turn_input = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+			rotation += turn_input * rotation_speed * delta
+
+			# MOVIMIENTO HACIA ADELANTE/ATRÁS
+			var forward_input = Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
+			
+			if forward_input != 0:
+				# Aumentar velocidad en la dirección actual
+				var direction = Vector2.UP.rotated(rotation)
+				velocity += direction * acceleration * forward_input * delta
+			var drag = 0.99
+			# Aplicar freno por inercia
+			velocity *= drag
+			# Limitar velocidad máxima
+			if velocity.length() > max_speed:
+				velocity = velocity.normalized() * max_speed
+
+			# Mover
+			position += velocity * delta
+
+			send_data.rpc(position, velocity, sign(forward_input), rotation)
 		
+		else:
+			initial_move_input = Input.get_axis("move_left", "move_right")
+			var move_input = Vector2(initial_move_input,0).rotated(get_global_rotation())
+			direction= sign(initial_move_input)
+			velocity= velocity.move_toward(move_input * max_speed, acceleration * delta)
+			
+			send_data.rpc(position, velocity, direction)
 		
+		if Input.is_action_just_pressed("jump") and can_jump:
+			for gravity in AttractedBy:
+				var gravity_direction = (gravity.get_global_position() - get_global_position()).normalized()
+				velocity -= gravity_direction * jump_velocity
+			
 		weapon_container.look_at(get_global_mouse_position())
 		if is_charging_weapon:
 			charge_power = min(charge_power + delta ,5)
@@ -65,20 +100,32 @@ func _physics_process(delta: float) -> void:
 	if not AttractedBy.is_empty():
 		look_at(AttractedBy[0].get_global_position())
 		rotate(-PI/2)
-		#up_direction = Vector2.UP.rotated(get_global_rotation() - PI/2) 
 		up_direction = -global_transform.y
 	move_and_slide()
 	
-	if initial_move_input:
+	if direction:
 		playback.travel("walk")
-		pivot.scale.x = sign(initial_move_input)
+		pivot.scale.x = sign(direction)
 	else:
-		playback.travel("idle")
+		if is_on_floor():
+			playback.travel("idle")
+	
+	if Input.is_action_just_pressed("jump") && not AttractedBy.is_empty():
+		playback.travel("jump")
+	
+	if AttractedBy.is_empty():
+		playback.travel("fly")
 
 @rpc("unreliable_ordered")
-func send_data(pos: Vector2, vel: Vector2) -> void:
+func send_data(pos: Vector2, vel: Vector2, dir: float, rot=0.0) -> void:
 	position = lerp(position, pos, 0.3)
 	velocity = vel
+	
+	if AttractedBy.is_empty():
+		rotation = rot
+	else:
+		direction = dir
+	
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	AttractedBy.append(area)
