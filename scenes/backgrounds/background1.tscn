@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://e25nydlgje2l"]
+[gd_scene load_steps=7 format=3 uid="uid://e25nydlgje2l"]
 
 [ext_resource type="Script" uid="uid://c2nfu8du1p8gs" path="res://scripts/parallax_background.gd" id="1_cr2lm"]
+[ext_resource type="PackedScene" uid="uid://dbxdualumejet" path="res://scenes/levels/RoundManager.tscn" id="1_nmc72"]
 [ext_resource type="Texture2D" uid="uid://p680bppyepqc" path="res://assets/backgrounds/Space Background stars new.png" id="2_27yox"]
 [ext_resource type="Texture2D" uid="uid://dvpavu2ki3d22" path="res://assets/backgrounds/Space Background nebulae new.png" id="3_hc30p"]
 [ext_resource type="Texture2D" uid="uid://bokna0pumhfsu" path="res://assets/backgrounds/Space Background planets new.png" id="4_lmu5l"]
@@ -9,6 +10,8 @@
 [node name="Level1" type="Node2D"]
 position = Vector2(41, 82)
 scale = Vector2(3, 3)
+
+[node name="RoundManager" parent="." instance=ExtResource("1_nmc72")]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 offset = Vector2(620, 360)
