@@ -13,6 +13,12 @@ extends CharacterBody2D
 @onready var charge_power: float = 0
 @onready var is_charging_weapon = false
 
+#sound effects
+@onready var shoot_charge_sound: AudioStreamPlayer2D = $ShootChargeSound
+@onready var gun_shot_sound: AudioStreamPlayer2D = $GunShotSound
+@onready var jump_sound: AudioStreamPlayer2D = $JumpSound
+@onready var walking_sound: AudioStreamPlayer2D = $WalkingSound
+
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var gravityArea = $GravityArea
 
@@ -33,7 +39,6 @@ func setup(player_data: Statics.PlayerData):
 var AttractedBy = []
 
 func _physics_process(delta: float) -> void:
-	
 	for gravity in AttractedBy:
 		if not is_on_floor():
 			velocity += (gravity.get_global_position() - get_global_position()) * 0.4
@@ -85,9 +90,12 @@ func _physics_process(delta: float) -> void:
 				weapon.overcharge()
 		if Input.is_action_just_pressed('fire') and can_shoot:
 			#weapon.shoot.rpc()
+			shoot_charge_sound.play()
 			weapon.begin_charge()
 			is_charging_weapon = true
 		if Input.is_action_just_released('fire') and can_shoot and is_charging_weapon:
+			shoot_charge_sound.stop()
+			gun_shot_sound.play()
 			weapon.shoot.rpc(min(charge_power,2))
 			shoot_timer.start()
 			can_shoot = false
@@ -111,6 +119,7 @@ func _physics_process(delta: float) -> void:
 			playback.travel("idle")
 	
 	if Input.is_action_just_pressed("jump") && not AttractedBy.is_empty():
+		jump_sound.play()
 		playback.travel("jump")
 	
 	if AttractedBy.is_empty():
@@ -135,3 +144,6 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 
 func on_shoot_timer_timeout() -> void:
 	can_shoot = true
+	
+func play_step() -> void:
+	walking_sound.play()
