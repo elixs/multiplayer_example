@@ -1,10 +1,14 @@
-[gd_scene load_steps=27 format=3 uid="uid://cl3yb3i1s8ujy"]
+[gd_scene load_steps=31 format=3 uid="uid://cl3yb3i1s8ujy"]
 
 [ext_resource type="Texture2D" uid="uid://dxt3lpctm3ytt" path="res://assets/players/2 Owlet_Monster/Owlet_Monster_Walk_6.png" id="1_4p73j"]
 [ext_resource type="Script" uid="uid://dctdav0gsoopg" path="res://scenes/players/player.gd" id="1_d33cm"]
 [ext_resource type="Texture2D" uid="uid://bu54y2q1u683r" path="res://assets/players/2 Owlet_Monster/Owlet_Monster_Idle_4.png" id="3_811ll"]
 [ext_resource type="PackedScene" uid="uid://07ag0qlqh4jq" path="res://scenes/weapons/abstract_weapon.tscn" id="4_edvpf"]
 [ext_resource type="Texture2D" uid="uid://furmcueelj1c" path="res://assets/players/2 Owlet_Monster/Owlet_Monster_Jump_8.png" id="4_olb2f"]
+[ext_resource type="AudioStream" uid="uid://d3mxhvesygom2" path="res://assets/SoundFx/ShootCharge.mp3" id="6_sguum"]
+[ext_resource type="AudioStream" uid="uid://kcu55q1rhq0i" path="res://assets/SoundFx/gun-shot-56254.mp3" id="7_jwv1m"]
+[ext_resource type="AudioStream" uid="uid://b3dj8flvi1nlf" path="res://assets/SoundFx/jump.mp3" id="8_phaeh"]
+[ext_resource type="AudioStream" uid="uid://sxp4gqqe7gbl" path="res://assets/SoundFx/walk.mp3" id="9_yl2j2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 radius = 22.0
@@ -218,7 +222,7 @@ tracks/0/path = NodePath("pivot/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.833333, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
@@ -246,6 +250,26 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [6]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"play_step"
+}, {
+"args": [],
+"method": &"play_step"
+}, {
+"args": [],
+"method": &"play_step"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sweqy"]
@@ -361,6 +385,23 @@ rotation_smoothing_enabled = true
 [node name="shootTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="ShootChargeSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_sguum")
+pitch_scale = 0.77
+attenuation = -2.0
+
+[node name="GunShotSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_jwv1m")
+volume_db = -2.945
+pitch_scale = 0.7
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_phaeh")
+pitch_scale = 0.93
+
+[node name="WalkingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_yl2j2")
 
 [connection signal="area_entered" from="GravityArea" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="GravityArea" to="." method="_on_area_2d_area_exited"]
