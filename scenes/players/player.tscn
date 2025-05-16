@@ -355,9 +355,9 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -22.0
-offset_top = -35.0
+offset_top = -60.0
 offset_right = 22.0
-offset_bottom = -12.0
+offset_bottom = -37.0
 text = "name"
 horizontal_alignment = 1
 
