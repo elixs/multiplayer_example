@@ -22,8 +22,7 @@ func _process(delta: float) -> void:
 	if 	round_manager.waiting_for_start:
 		if Input.is_action_just_pressed('fire') and multiplayer.get_unique_id() == 1:
 			round_manager.waiting_for_start = false
-			spawn_players.rpc()
-			round_manager.start_round.rpc()
+			round_manager.start_building_fase.rpc()
 			
 
 			
@@ -67,6 +66,7 @@ func _on_round_manager_ending_round() -> void:
 
 func _on_round_manager_initiate_round() -> void:
 	round_manager.waiting_for_start = false
+	spawn_players.rpc()
 
 func _on_round_manager_round_timeout() -> void:
 	round_manager.end_round("¡El tiempo se ha agotado!")

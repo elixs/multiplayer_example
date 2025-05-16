@@ -22,7 +22,7 @@ func _process(_delta):
 		if is_multiplayer_authority():
 			round_message.text = "Presiona clic izquierdo para iniciar la ronda"
 			if Input.is_action_just_pressed("fire"):
-				start_round.rpc()  
+				start_building_fase.rpc()
 		else:
 			round_message.text = "Esperando a que el host inicie la ronda"
 		
@@ -73,3 +73,19 @@ func end_round(message: String):
 func center_message():
 	var screen_size = get_viewport().get_visible_rect().size
 	round_message.set_position(screen_size / 2 - round_message.get_size() / 2)
+	
+@rpc("authority", "call_local")
+func start_building_fase():
+	round_message.text = "Fase de Construccion"
+	await get_tree().create_timer(3.0).timeout
+	end_builiding_fase.rpc()
+	
+@rpc("authority", "call_local")
+func end_builiding_fase():
+	round_message.text = "iniciando ronda en 3"
+	await get_tree().create_timer(1.0).timeout
+	round_message.text = "iniciando ronda en 2"
+	await get_tree().create_timer(1.0).timeout
+	round_message.text = "iniciando ronda en 1"
+	await get_tree().create_timer(1.0).timeout
+	start_round.rpc()
