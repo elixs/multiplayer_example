@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbxdualumejet"]
+[gd_scene load_steps=3 format=3 uid="uid://dbxdualumejet"]
 
 [ext_resource type="Script" uid="uid://dpng3i7c3x485" path="res://scenes/levels/round_manager.gd" id="1_enb7h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_enb7h"]
 
 [node name="RoundManager" type="CanvasLayer"]
 script = ExtResource("1_enb7h")
@@ -14,6 +16,8 @@ horizontal_alignment = 1
 [node name="TimerLabel" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_enb7h")
 horizontal_alignment = 1
+uppercase = true
 
 [node name="RoundTimer" type="Timer" parent="."]

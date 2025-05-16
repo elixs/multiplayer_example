@@ -48,7 +48,7 @@ func _on_round_timer_tick():
 		emit_signal("round_timeout")
 		
 func update_timer_label():
-	timer_label.text = str(int(time_remaining)) + "s"
+	timer_label.text = str(int(time_remaining))
 	# Centrar el label si lo necesitas manualmente:
 	var screen_size = get_viewport().get_visible_rect().size
 	timer_label.set_position(Vector2(

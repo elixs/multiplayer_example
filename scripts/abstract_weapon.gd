@@ -6,7 +6,7 @@ var bullet_path:String
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback = animation_tree["parameters/playback"]
 @onready var bullet_force = 0
-@onready var is_overcharged = false
+@export var is_overcharged = false
 @onready var overcharge_sprite = $overcharge_sprite
 
 @rpc("authority","call_local","reliable")
