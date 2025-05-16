@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var health = 100
+@export var health = 2
 @export var jump_charges = 2
 @export var max_speed = 300
 @export var acceleration = 5000
@@ -28,7 +28,7 @@ var can_shoot = true
 var can_jump = true
 var jump_velocity = 1500
 var direction=Vector2.ZERO
-var rotation_speed= 1
+var rotation_speed= 2
 
 func setup(player_data: Statics.PlayerData):
 	label.text = player_data.name
