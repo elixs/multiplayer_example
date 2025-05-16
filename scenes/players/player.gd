@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var health = 100
+@export var jump_charges = 2
 @export var max_speed = 300
 @export var acceleration = 5000
 @onready var animation_tree: AnimationTree = $AnimationTree
@@ -52,7 +53,7 @@ func _physics_process(delta: float) -> void:
 			rotation += turn_input * rotation_speed * delta
 
 			# MOVIMIENTO HACIA ADELANTE/ATRÁS
-			var forward_input = Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
+			var forward_input = Input.get_action_strength("jump") * 0.1
 			
 			if forward_input != 0:
 				# Aumentar velocidad en la dirección actual
@@ -75,13 +76,19 @@ func _physics_process(delta: float) -> void:
 			var move_input = Vector2(initial_move_input,0).rotated(get_global_rotation())
 			direction= sign(initial_move_input)
 			velocity= velocity.move_toward(move_input * max_speed, acceleration * delta)
-			
+			if is_on_floor():
+				jump_charges = 2
+				can_jump = true
 			send_data.rpc(position, velocity, direction)
 		
 		if Input.is_action_just_pressed("jump") and can_jump:
 			for gravity in AttractedBy:
 				var gravity_direction = (gravity.get_global_position() - get_global_position()).normalized()
 				velocity -= gravity_direction * jump_velocity
+				jump_charges -= 1
+				if jump_charges == 0:
+					can_jump = false
+					AttractedBy = []
 			
 		weapon_container.look_at(get_global_mouse_position())
 		if is_charging_weapon:
