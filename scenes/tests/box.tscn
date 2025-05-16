@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://667kltyshjtf"]
+
+[ext_resource type="Texture2D" uid="uid://k5qweiewnf45" path="res://assets/structures/pixil-frame-0.png" id="1_e7v03"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6f3pe"]
+
+[node name="Box" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." groups=["pullable"]]
+position = Vector2(594, 217)
+linear_velocity = Vector2(-100, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("1_e7v03")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_6f3pe")
