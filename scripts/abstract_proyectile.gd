@@ -10,6 +10,7 @@ var dir:float
 var animation:AnimatedSprite2D
 var is_destroyed_timer: float
 @onready var despawn_timer = 20
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
 	global_position = pos_spawn
@@ -30,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	#print(despawn_timer)
 	if despawn_timer < 0 and is_multiplayer_authority():
 		explode.rpc()
-	$AnimatedSprite2D.rotation = lerp($AnimatedSprite2D.rotation,$".".linear_velocity.angle(),0.8)
+	sprite.rotation = lerp(sprite.rotation,$".".linear_velocity.angle(),0.8)
 	
 	if not is_destroyed_timer < -0.5:
 		#print('Explosion timer +=' + str(delta) )

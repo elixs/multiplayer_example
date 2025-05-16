@@ -133,7 +133,7 @@ properties/2/path = NodePath(".:linear_damp")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="abstract_proyectile" type="RigidBody2D"]
+[node name="abstract_proyectile" type="RigidBody2D" groups=["pullable"]]
 self_modulate = Color(1, 0, 0, 1)
 collision_layer = 2
 contact_monitor = true

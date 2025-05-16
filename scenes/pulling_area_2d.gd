@@ -13,11 +13,14 @@ func _on_body_entered(body):
 		pull(body)
 
 func pull(target):
-	if not target.has_node("Sprite2D"):
-		print("not pullable")
-		return
+	#
+	#if not target.has_node("Sprite2D"):
+	#	print("not pullable")
+	#	return
 	print("pullable")
 	var sprite = target.get_node("Sprite2D")
+	if !sprite:
+		sprite = target.get_node("AnimatedSprite2D")
 	var duplicated=sprite.duplicate()
 	
 	add_child(duplicated)
