@@ -10,6 +10,9 @@ signal round_timeout
 @onready var round_timer = $RoundTimer
 var time_remaining = 0.0
 @export var round_time:int
+@export var building_player_scene: PackedScene
+@export var object_placeholder_scene: PackedScene
+var active_builders = 0
 
 func _ready():
 	round_timer.wait_time = 1.0
@@ -76,10 +79,28 @@ func center_message():
 	
 @rpc("authority", "call_local")
 func start_building_fase():
-	round_message.text = "Fase de Construccion"
-	await get_tree().create_timer(3.0).timeout
-	end_builiding_fase.rpc()
-	
+	round_message.text = "Fase de Construcción"
+	center_message()
+	await get_tree().create_timer(2.0).timeout
+	if is_multiplayer_authority():
+		spawn_building_players.rpc()
+
+@rpc("authority", "call_local")
+func spawn_building_players():
+	active_builders = Game.players.size()
+	for i in Game.players.size():
+		var builder = building_player_scene.instantiate()
+		builder.object_scene = object_placeholder_scene
+		builder.name = "Builder" + str(i)
+		builder.global_position = Vector2(100 + i * 100, 200) 
+		add_child(builder)
+		
+func notify_building_done():
+	active_builders -= 1
+	if active_builders <= 0:
+		end_builiding_fase.rpc()
+		
+		
 @rpc("authority", "call_local")
 func end_builiding_fase():
 	round_message.text = "iniciando ronda en 3"

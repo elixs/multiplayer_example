@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://k1jpyuj8o8lx"]
+
+[ext_resource type="Script" uid="uid://ge2acip23ib6" path="res://scenes/players/building_player.gd" id="1_tmbbv"]
+[ext_resource type="Texture2D" uid="uid://iv28xl8xy7dx" path="res://assets/players/2 Owlet_Monster/Owlet_Monster.png" id="3_xkmxx"]
+
+[node name="BuildingPlayer" type="Node2D"]
+script = ExtResource("1_tmbbv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_xkmxx")
+
+[node name="ObjectPreview" type="Node2D" parent="."]
