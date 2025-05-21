@@ -41,7 +41,7 @@ func place_object():
 
 	var final_object = object_scene.instantiate()
 	final_object.global_position = global_position
-	get_tree().get_root().add_child(final_object)
+	get_parent().get_parent().add_child(final_object)
 
 	if get_parent().has_method("notify_building_done"):
 		get_parent().notify_building_done()
