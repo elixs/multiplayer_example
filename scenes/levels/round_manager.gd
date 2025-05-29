@@ -3,7 +3,7 @@ extends CanvasLayer
 signal initiate_round
 signal ending_round
 signal round_timeout
-
+signal initiate_contruction
 enum Estado {
 	ESPERANDO,
 	CONSTRUCCION,
@@ -50,8 +50,10 @@ func cambiar_fase(nuevo_estado: Estado):
 			round_message.visible = true
 			center_message()
 			await get_tree().create_timer(2.0).timeout
+			emit_signal("initiate_contruction")
 			if is_multiplayer_authority():
 				spawn_building_players.rpc()
+			
 		Estado.JUGANDO:
 			round_message.visible = false
 			if is_multiplayer_authority():
@@ -74,11 +76,14 @@ func spawn_building_players():
 		builder.object_scene = object_placeholder_scene
 		builder.name = "Builder" + str(i)
 		builder.global_position = Vector2(100 + i * 100, 200)
-		add_child(builder)
+		builder.round_manager = self
+		get_parent().get_node("BuildingPlayers").add_child(builder)
 		builder.setup(player_data)
 		
 func notify_building_done():
 	active_builders -= 1
+	print("Building done por un builder, Builders restantes : " + str(active_builders))
+
 	if active_builders <= 0:
 		end_builiding_fase.rpc()
 

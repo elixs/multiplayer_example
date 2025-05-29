@@ -12,6 +12,11 @@
 script = ExtResource("1_72e8q")
 player_scene = ExtResource("1_s3esy")
 
+[node name="ConstructionCamera" type="Camera2D" parent="."]
+position = Vector2(648, 365)
+enabled = false
+zoom = Vector2(0.2, 0.2)
+
 [node name="background1" parent="." instance=ExtResource("3_0rdsr")]
 position = Vector2(70, 293)
 scale = Vector2(5.76139, 0.221901)
@@ -69,6 +74,9 @@ round_time = 30
 [node name="black_hole" parent="." instance=ExtResource("6_ygxny")]
 position = Vector2(1265, 863)
 
+[node name="BuildingPlayers" type="Node2D" parent="."]
+
 [connection signal="ending_round" from="RoundManager" to="." method="_on_round_manager_ending_round"]
+[connection signal="initiate_contruction" from="RoundManager" to="." method="_on_round_manager_start_building_phase"]
 [connection signal="initiate_round" from="RoundManager" to="." method="_on_round_manager_initiate_round"]
 [connection signal="round_timeout" from="RoundManager" to="." method="_on_round_manager_round_timeout"]

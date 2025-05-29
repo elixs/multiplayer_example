@@ -50,8 +50,13 @@ func _on_round_manager_ending_round() -> void:
 	round_manager.cambiar_fase(round_manager.Estado.ESPERANDO)
 
 func _on_round_manager_initiate_round() -> void:
+	$ConstructionCamera.enabled = false
 	if is_multiplayer_authority():
 		spawn_players.rpc()
 
 func _on_round_manager_round_timeout() -> void:
 	round_manager.end_round("¡El tiempo se ha agotado!")
+
+func _on_round_manager_start_building_phase():
+	$ConstructionCamera.enabled = true
+	$ConstructionCamera.global_position = Vector2(0, 0)
