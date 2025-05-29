@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2ocrful656ns"]
 
-[ext_resource type="PackedScene" uid="uid://plklscu8ad42" path="res://scenes/black_hole.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://667kltyshjtf" path="res://scenes/tests/box.tscn" id="2_ia1lp"]
+[ext_resource type="PackedScene" uid="uid://ha4qgwi3cy3p" path="res://scenes/mass_relay.tscn" id="2_sasra"]
 
 [node name="test scene" type="Node2D"]
 
-[node name="black_hole" parent="." instance=ExtResource("1_ia1lp")]
-position = Vector2(274, 238)
+[node name="Box" parent="." groups=["pullable", "throwable"] instance=ExtResource("2_ia1lp")]
 
-[node name="Box" parent="." groups=["pullable"] instance=ExtResource("2_ia1lp")]
+[node name="mass_relay" parent="." instance=ExtResource("2_sasra")]
+position = Vector2(287, 176)

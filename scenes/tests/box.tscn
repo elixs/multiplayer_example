@@ -6,7 +6,7 @@
 
 [node name="Box" type="Node2D"]
 
-[node name="RigidBody2D" type="RigidBody2D" parent="." groups=["pullable"]]
+[node name="RigidBody2D" type="RigidBody2D" parent="." groups=["pullable", "throwable"]]
 position = Vector2(594, 217)
 linear_velocity = Vector2(-100, 0)
 
