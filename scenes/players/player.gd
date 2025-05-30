@@ -31,7 +31,7 @@ var jump_velocity = 1500
 var direction= Vector2.ZERO
 var rotation_speed= 2
 var spawn_point = Vector2.ZERO
-
+signal player_death
 func setup(player_data: Statics.PlayerData):
 	label.text = player_data.name
 	name = str(player_data.id)
@@ -156,7 +156,7 @@ func on_shoot_timer_timeout() -> void:
 func play_step() -> void:
 	walking_sound.play()
 
-@rpc("authority")
+@rpc("call_remote", "any_peer")
 func recieve_damage():
 	if health == 2:
 		health = 1
@@ -165,4 +165,5 @@ func recieve_damage():
 		position = spawn_point
 		health = 2
 		shield.visible = true
+		emit_signal("player_death")
 		queue_free()
