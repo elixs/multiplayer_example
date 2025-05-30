@@ -16,6 +16,16 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("fire"):
 			round_manager.start_building_fase.rpc()
 
+@rpc("authority","call_local")
+func check_round_state():
+	var resultado = get_winner()
+	print("se hace check de estado ronda : " + str(resultado))
+	if str(resultado) == 'Empate':
+		#queda mas de un jugador
+		pass
+	else:
+		round_manager.end_round("¡Fin de la ronda!")
+	
 func get_winner() -> String:
 	var alive_players = []
 	for player_node in players.get_children():
@@ -39,8 +49,14 @@ func spawn_players():
 		player_instance.setup(player_data)
 		player_instance.global_position = planets.get_child(i).get_child(4).global_position
 		player_instance.spawn_point = planets.get_child(i).get_child(4).global_position
+		player_instance.connect("player_death", _on_player_death)
 
+func _on_player_death():
+	print("ha muerto un jugador")
+	round_manager.end_round("¡Fin de la ronda!")
 
+	#check_round_state.rpc()
+	
 func _on_round_manager_ending_round() -> void:
 	var winner = get_winner()
 	if winner != 'Empate':
