@@ -333,7 +333,7 @@ properties/1/replication_mode = 2
 radius = 40.0
 height = 118.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Damageable"]]
 script = ExtResource("1_d33cm")
 
 [node name="pivot" type="Node2D" parent="."]
@@ -344,7 +344,7 @@ scale = Vector2(3, 3)
 texture = ExtResource("1_4p73j")
 hframes = 4
 
-[node name="Pixil-frame-0(1)" type="Sprite2D" parent="pivot/Sprite2D"]
+[node name="Shield" type="Sprite2D" parent="pivot/Sprite2D" groups=["Damageable"]]
 position = Vector2(-1, 0.333333)
 texture = ExtResource("3_es4m5")
 

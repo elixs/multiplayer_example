@@ -6,6 +6,7 @@ extends Node2D
 @onready var markers: Node2D = $Markers
 @onready var round_manager: CanvasLayer = $RoundManager
 
+
 func _ready() -> void:
 	round_manager.waiting_for_start = true
 	round_manager.set_multiplayer_authority(1)
@@ -51,8 +52,21 @@ func spawn_players():
 		players.add_child(player_instance)
 		player_instance.setup(player_data)
 		player_instance.global_position = markers.get_child(i).global_position
-	
-	
+
+@rpc("authority")
+func request_respawn(peer_id):
+	respawn_player(peer_id)
+
+func respawn_player(peer_id):
+	for i in Game.players.size():
+		if Game.players[i].id == peer_id:
+			var player_data = Game.players[i]
+			var player_node = players.get_node(str(peer_id))
+			player_node.global_position = markers.get_child(i).global_position
+			player_node.reset_parameters.rpc_id(peer_id)
+			player_node.set_shield_visible.rpc(true)
+			break
+
 func _on_round_manager_ending_round() -> void:
 	var winner = get_winner() 
 	if winner != 'Empate':

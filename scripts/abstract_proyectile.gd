@@ -40,6 +40,8 @@ func _physics_process(delta: float) -> void:
 		if is_destroyed_timer > destroy_time:
 			queue_free()
 func _on_body_entered(body):
+	if body.is_in_group("Damageable"):
+		body.recieve_damage()
 	if is_multiplayer_authority():
 		explode.rpc()
 	else:

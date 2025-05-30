@@ -13,6 +13,7 @@ extends CharacterBody2D
 @onready var shoot_timer: Timer = $shootTimer
 @onready var charge_power: float = 0
 @onready var is_charging_weapon = false
+@onready var shield: Sprite2D = $pivot/Sprite2D/Shield
 
 #sound effects
 @onready var shoot_charge_sound: AudioStreamPlayer2D = $ShootChargeSound
@@ -141,7 +142,6 @@ func send_data(pos: Vector2, vel: Vector2, dir: float, rot=0.0) -> void:
 		rotation = rot
 	else:
 		direction = dir
-	
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	AttractedBy.append(area)
@@ -154,3 +154,23 @@ func on_shoot_timer_timeout() -> void:
 	
 func play_step() -> void:
 	walking_sound.play()
+	
+
+@rpc("any_peer", "call_local")
+func reset_parameters():
+	health = 2
+	velocity = Vector2.ZERO
+
+@rpc("authority", "call_local")
+func set_shield_visible(visible: bool):
+	shield.visible = visible
+
+func recieve_damage():
+	if health == 2:
+		health = 1
+		shield.visible = false
+	else:
+		if is_multiplayer_authority():
+			get_node("/root/MainGame").respawn_player(get_multiplayer_authority())
+		else:
+			get_node("/root/MainGame").request_respawn.rpc_id(1, get_multiplayer_authority())
