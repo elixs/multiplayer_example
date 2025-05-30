@@ -80,4 +80,4 @@ func _on_round_manager_round_timeout() -> void:
 
 func _on_round_manager_start_building_phase():
 	$ConstructionCamera.enabled = true
-	$ConstructionCamera.global_position = Vector2(0, 0)
+	#$ConstructionCamera.global_position = Vector2(0, 0)

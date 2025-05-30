@@ -333,7 +333,7 @@ properties/1/replication_mode = 2
 radius = 40.0
 height = 118.0
 
-[node name="Player" type="CharacterBody2D" groups=["Damageable", "Player"]]
+[node name="Player" type="CharacterBody2D" groups=["Damageable", "Player", "throwable"]]
 script = ExtResource("1_d33cm")
 
 [node name="pivot" type="Node2D" parent="."]
@@ -387,7 +387,7 @@ shape = SubResource("CapsuleShape2D_edvpf")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 ignore_rotation = false
-zoom = Vector2(0.45, 0.45)
+zoom = Vector2(0.2, 0.2)
 rotation_smoothing_enabled = true
 
 [node name="shootTimer" type="Timer" parent="."]

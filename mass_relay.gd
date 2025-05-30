@@ -25,8 +25,8 @@ func throw(target):
 	#print("Después de mover (1 frame): ", target.global_position)
 
 	var launch_direction = -global_transform.y.normalized()
-	var force = 1000
-	timer.start(0.7)
+	var force = 100000
+	timer.start(0.3)
 	await timer.timeout
 	if target.has_method("apply_central_impulse"):
 		target.apply_central_impulse(launch_direction * force)
