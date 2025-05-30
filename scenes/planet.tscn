@@ -1,8 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqxus3thqimav"]
+[gd_scene load_steps=7 format=3 uid="uid://dqxus3thqimav"]
 
 [ext_resource type="Texture2D" uid="uid://c6xfnmqsvhdfy" path="res://assets/planets/earth.png" id="1_h8ms6"]
+[ext_resource type="Texture2D" uid="uid://g8pvexalmse" path="res://assets/Bubbles/Atmosphere.png" id="2_h8ms6"]
 
 [sub_resource type="GDScript" id="GDScript_cktii"]
+script/source = "extends StaticBody2D
+@export var health = 3
+var alive = true
+
+@rpc(\"authority\", \"call_local\", \"reliable\")
+func recieve_damage():
+	health -= 1
+	if health == 0:
+		self.explode()
+
+func explode():
+	alive = false
+	send_data.rpc(alive)
+	queue_free()
+
+@rpc(\"authority\")
+func send_data(state: bool) -> void:
+	state = alive
+	
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0k1rn"]
 radius = 102.0
@@ -12,7 +33,7 @@ radius = 102.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_48b8c"]
 radius = 245.615
 
-[node name="Planet" type="StaticBody2D"]
+[node name="Planet" type="StaticBody2D" groups=["Damageable"]]
 scale = Vector2(2, 2)
 collision_layer = 3
 collision_mask = 3

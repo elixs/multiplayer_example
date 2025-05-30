@@ -14,7 +14,7 @@ func shoot(charge_power):
 	playback.travel("idle")
 	var bullet:proyectile = bullet_scene.instantiate() 
 	overcharge_sprite.visible = false
-
+	bullet.set_multiplayer_authority(multiplayer.get_unique_id())
 	bullet.pos_spawn = $Marker2D.global_position
 	#print(get_parent().rotation)
 	bullet.rotacion_spawn = get_parent().global_rotation
@@ -26,6 +26,7 @@ func shoot(charge_power):
 		bullet.zona_colision.scale = scala
 	is_overcharged = false
 
+@rpc("authority","call_local")
 func begin_charge():
 	playback.travel("charge")
 func overcharge():

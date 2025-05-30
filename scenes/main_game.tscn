@@ -1,16 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://c818bfdxycp45"]
+[gd_scene load_steps=7 format=3 uid="uid://c818bfdxycp45"]
 
 [ext_resource type="Script" uid="uid://dx4gk8na2q2bx" path="res://scenes/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://cl3yb3i1s8ujy" path="res://scenes/players/player.tscn" id="1_s3esy"]
 [ext_resource type="PackedScene" uid="uid://6ax8cqpub6pr" path="res://scenes/backgrounds/level1.tscn" id="3_0rdsr"]
 [ext_resource type="PackedScene" uid="uid://dqxus3thqimav" path="res://scenes/planet.tscn" id="3_d2op2"]
 [ext_resource type="PackedScene" uid="uid://dbxdualumejet" path="res://scenes/levels/RoundManager.tscn" id="5_ipu61"]
-[ext_resource type="Texture2D" uid="uid://g8pvexalmse" path="res://assets/Bubbles/Atmosphere.png" id="5_wi4c7"]
-[ext_resource type="PackedScene" uid="uid://plklscu8ad42" path="res://scenes/black_hole.tscn" id="6_ygxny"]
+[ext_resource type="PackedScene" uid="uid://4sskgfn6nl4j" path="res://scenes/black_hole.tscn" id="6_ygxny"]
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_72e8q")
 player_scene = ExtResource("1_s3esy")
+
+[node name="ConstructionCamera" type="Camera2D" parent="."]
+position = Vector2(648, 365)
+enabled = false
+zoom = Vector2(0.2, 0.2)
 
 [node name="background1" parent="." instance=ExtResource("3_0rdsr")]
 position = Vector2(70, 293)
@@ -19,49 +23,29 @@ scale = Vector2(5.76139, 0.221901)
 [node name="Players" type="Node2D" parent="."]
 
 [node name="Markers" type="Node2D" parent="."]
-position = Vector2(-208, 31)
 
-[node name="Marker2D" type="Marker2D" parent="Markers"]
-position = Vector2(289, 340)
+[node name="SpawnPoint" type="Marker2D" parent="Markers"]
+position = Vector2(195, 526)
 
-[node name="Marker2D2" type="Marker2D" parent="Markers"]
-position = Vector2(1132, 70)
+[node name="SpawnPoint2" type="Marker2D" parent="Markers"]
+position = Vector2(1305, 309)
 
-[node name="Marker2D3" type="Marker2D" parent="Markers"]
-position = Vector2(2007, 673)
+[node name="Planets" type="Node2D" parent="."]
 
-[node name="Planet" parent="." instance=ExtResource("3_d2op2")]
+[node name="Planet" parent="Planets" instance=ExtResource("3_d2op2")]
 position = Vector2(334, 793)
 collision_layer = 1
 collision_mask = 1
 
-[node name="Atmosphere" type="Sprite2D" parent="Planet"]
-self_modulate = Color(1, 1, 1, 0.0784314)
-position = Vector2(7, 4.5)
-scale = Vector2(14.14, 13.32)
-texture = ExtResource("5_wi4c7")
-
-[node name="Planet2" parent="." instance=ExtResource("3_d2op2")]
-position = Vector2(2113, 740)
+[node name="Planet2" parent="Planets" instance=ExtResource("3_d2op2")]
+position = Vector2(1291, 8)
 collision_layer = 1
 collision_mask = 1
-
-[node name="Atmosphere2" type="Sprite2D" parent="Planet2"]
-self_modulate = Color(1, 1, 1, 0.0784314)
-position = Vector2(-409, -386)
-scale = Vector2(13.6, 13.06)
-texture = ExtResource("5_wi4c7")
 
 [node name="Planet3" parent="." instance=ExtResource("3_d2op2")]
-position = Vector2(1280, -43)
+position = Vector2(2223, 733)
 collision_layer = 1
 collision_mask = 1
-
-[node name="Atmosphere" type="Sprite2D" parent="Planet3"]
-self_modulate = Color(1, 1, 1, 0.0784314)
-position = Vector2(417, 397.5)
-scale = Vector2(13.98, 13.04)
-texture = ExtResource("5_wi4c7")
 
 [node name="RoundManager" parent="." instance=ExtResource("5_ipu61")]
 round_time = 30
@@ -69,6 +53,9 @@ round_time = 30
 [node name="black_hole" parent="." instance=ExtResource("6_ygxny")]
 position = Vector2(1265, 863)
 
+[node name="BuildingPlayers" type="Node2D" parent="."]
+
 [connection signal="ending_round" from="RoundManager" to="." method="_on_round_manager_ending_round"]
+[connection signal="initiate_contruction" from="RoundManager" to="." method="_on_round_manager_start_building_phase"]
 [connection signal="initiate_round" from="RoundManager" to="." method="_on_round_manager_initiate_round"]
 [connection signal="round_timeout" from="RoundManager" to="." method="_on_round_manager_round_timeout"]

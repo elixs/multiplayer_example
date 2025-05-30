@@ -1,6 +1,6 @@
 class_name proyectile
 extends RigidBody2D
-@export var speed = 100
+@export var speed = 0
 @export var destroy_time = 0.8
 
 var zona_colision:CollisionShape2D
@@ -40,6 +40,9 @@ func _physics_process(delta: float) -> void:
 		if is_destroyed_timer > destroy_time:
 			queue_free()
 func _on_body_entered(body):
+	if body.is_in_group("Damageable"):
+		if body.get_multiplayer_authority() == get_multiplayer_authority():
+			body.recieve_damage.rpc()
 	if is_multiplayer_authority():
 		explode.rpc()
 	else:
