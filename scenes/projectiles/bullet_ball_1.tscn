@@ -138,6 +138,7 @@ properties/2/replication_mode = 0
 
 [node name="bullet_ball_1" type="RigidBody2D" groups=["pullable", "throwable"]]
 self_modulate = Color(1, 0, 0, 1)
+scale = Vector2(3.005, 3.005)
 collision_layer = 2
 mass = 10.0
 gravity_scale = 3.0
@@ -148,12 +149,14 @@ speed = 300
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(17, 9)
+scale = Vector2(2.98, 2.98)
 sprite_frames = SubResource("SpriteFrames_c6uyj")
 autoplay = "default"
 frame_progress = 0.617071
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(21, 9)
+scale = Vector2(6.3, 6.3)
 shape = SubResource("CircleShape2D_4psn1")
 debug_color = Color(0.996078, 0, 0, 0.419608)
 

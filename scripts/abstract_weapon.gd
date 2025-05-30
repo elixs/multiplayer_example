@@ -18,7 +18,7 @@ func shoot(charge_power):
 	bullet.pos_spawn = $Marker2D.global_position
 	#print(get_parent().rotation)
 	bullet.rotacion_spawn = get_parent().global_rotation
-	bullet.speed = charge_power * bullet.speed
+	bullet.speed = charge_power * bullet.speed * 2+1000
 	get_parent().get_parent().get_parent().add_child(bullet,true)
 	if is_overcharged:
 		var scala = Vector2(3.0,3.0)

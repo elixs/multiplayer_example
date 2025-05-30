@@ -14,7 +14,7 @@ func _on_body_entered(body):
 
 func throw(target):
 	animator.pause()
-	 	target.linear_velocity = Vector2.ZERO  # Detiene movimiento si tiene
+	target.linear_velocity = Vector2.ZERO  # Detiene movimiento si tiene
 
 	# Reubica el objeto al centro del Mass Relay
 	print("Antes de mover: ", target.global_position)
