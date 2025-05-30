@@ -13,6 +13,7 @@ extends CharacterBody2D
 @onready var shoot_timer: Timer = $shootTimer
 @onready var charge_power: float = 0
 @onready var is_charging_weapon = false
+@onready var shield: Sprite2D = $pivot/Sprite2D/Shield
 
 #sound effects
 @onready var shoot_charge_sound: AudioStreamPlayer2D = $ShootChargeSound
@@ -27,8 +28,9 @@ extends CharacterBody2D
 var can_shoot = true
 var can_jump = true
 var jump_velocity = 1500
-var direction=Vector2.ZERO
+var direction= Vector2.ZERO
 var rotation_speed= 2
+var spawn_point = Vector2.ZERO
 
 func setup(player_data: Statics.PlayerData):
 	label.text = player_data.name
@@ -141,7 +143,6 @@ func send_data(pos: Vector2, vel: Vector2, dir: float, rot=0.0) -> void:
 		rotation = rot
 	else:
 		direction = dir
-	
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	AttractedBy.append(area)
@@ -154,3 +155,13 @@ func on_shoot_timer_timeout() -> void:
 	
 func play_step() -> void:
 	walking_sound.play()
+
+@rpc("reliable")
+func recieve_damage():
+	if health == 2:
+		health = 1
+		shield.visible = false
+	else:
+		position = spawn_point
+		health = 2
+		shield.visible = true

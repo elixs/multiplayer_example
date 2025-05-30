@@ -31,6 +31,7 @@ window/stretch/mode="canvas_items"
 
 pullable=""
 throwable=""
+Damageable=""
 
 [input]
 

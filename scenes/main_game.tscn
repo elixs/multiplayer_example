@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c818bfdxycp45"]
+[gd_scene load_steps=7 format=3 uid="uid://c818bfdxycp45"]
 
 [ext_resource type="Script" uid="uid://dx4gk8na2q2bx" path="res://scenes/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://cl3yb3i1s8ujy" path="res://scenes/players/player.tscn" id="1_s3esy"]
@@ -23,50 +23,30 @@ scale = Vector2(5.76139, 0.221901)
 
 [node name="Players" type="Node2D" parent="."]
 
-[node name="Markers" type="Node2D" parent="."]
-position = Vector2(-208, 31)
+[node name="Planets" type="Node2D" parent="."]
 
-[node name="Marker2D" type="Marker2D" parent="Markers"]
-position = Vector2(289, 340)
-
-[node name="Marker2D2" type="Marker2D" parent="Markers"]
-position = Vector2(1132, 70)
-
-[node name="Marker2D3" type="Marker2D" parent="Markers"]
-position = Vector2(2007, 673)
-
-[node name="Planet" parent="." instance=ExtResource("3_d2op2")]
+[node name="Planet" parent="Planets" instance=ExtResource("3_d2op2")]
 position = Vector2(334, 793)
 collision_layer = 1
 collision_mask = 1
 
-[node name="Atmosphere" type="Sprite2D" parent="Planet"]
-self_modulate = Color(1, 1, 1, 0.0784314)
-position = Vector2(7, 4.5)
-scale = Vector2(14.14, 13.32)
-texture = ExtResource("5_wi4c7")
+[node name="SpawnPoint" type="Marker2D" parent="Planets/Planet"]
+position = Vector2(-69.5, -133.5)
+scale = Vector2(0.5, 0.5)
 
-[node name="Planet2" parent="." instance=ExtResource("3_d2op2")]
-position = Vector2(2113, 740)
+[node name="Planet2" parent="Planets" instance=ExtResource("3_d2op2")]
+position = Vector2(1291, 8)
 collision_layer = 1
 collision_mask = 1
 
-[node name="Atmosphere2" type="Sprite2D" parent="Planet2"]
-self_modulate = Color(1, 1, 1, 0.0784314)
-position = Vector2(-409, -386)
-scale = Vector2(13.6, 13.06)
-texture = ExtResource("5_wi4c7")
+[node name="SpawnPoint" type="Marker2D" parent="Planets/Planet2"]
+position = Vector2(7, 150.5)
+scale = Vector2(0.5, 0.5)
 
 [node name="Planet3" parent="." instance=ExtResource("3_d2op2")]
-position = Vector2(1280, -43)
+position = Vector2(2223, 733)
 collision_layer = 1
 collision_mask = 1
-
-[node name="Atmosphere" type="Sprite2D" parent="Planet3"]
-self_modulate = Color(1, 1, 1, 0.0784314)
-position = Vector2(417, 397.5)
-scale = Vector2(13.98, 13.04)
-texture = ExtResource("5_wi4c7")
 
 [node name="RoundManager" parent="." instance=ExtResource("5_ipu61")]
 round_time = 30

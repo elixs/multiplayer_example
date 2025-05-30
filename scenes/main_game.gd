@@ -2,9 +2,10 @@ extends Node2D
 
 @export var player_scene: PackedScene
 
+@onready var planets: Node2D = $Planets
 @onready var players: Node2D = $Players
-@onready var markers: Node2D = $Markers
 @onready var round_manager: CanvasLayer = $RoundManager
+
 
 func _ready() -> void:
 	round_manager.set_multiplayer_authority(1)
@@ -36,7 +37,9 @@ func spawn_players():
 		var player_instance = player_scene.instantiate()
 		players.add_child(player_instance)
 		player_instance.setup(player_data)
-		player_instance.global_position = markers.get_child(i).global_position
+		player_instance.global_position = planets.get_child(i).get_child(4).global_position
+		player_instance.spawn_point = planets.get_child(i).get_child(4).global_position
+
 
 func _on_round_manager_ending_round() -> void:
 	var winner = get_winner()
