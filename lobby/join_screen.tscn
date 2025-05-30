@@ -1,64 +1,134 @@
-[gd_scene load_steps=8 format=3 uid="uid://cf8ype3b0y31w"]
+[gd_scene load_steps=31 format=3 uid="uid://cf8ype3b0y31w"]
 
 [ext_resource type="PackedScene" uid="uid://cgsspji18smle" path="res://lobby/lobby_screen.tscn" id="1_xldsp"]
 [ext_resource type="Script" uid="uid://cr2abnsynvkkq" path="res://lobby/join_screen.gd" id="2_0bjwb"]
 [ext_resource type="Theme" uid="uid://bwgdrcgopd0s1" path="res://lobby/lobby_theme.tres" id="3_i53lg"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="4_q5f0x"]
+[ext_resource type="FontFile" uid="uid://dai11yn6nevgs" path="res://assets/Fonts/Daydream.ttf" id="3_r5vx3"]
+[ext_resource type="FontFile" uid="uid://csd4tux61jwnx" path="res://assets/Fonts/CutePixel.ttf" id="4_yxbwv"]
+[ext_resource type="Texture2D" uid="uid://ccvwnlyqguuql" path="res://assets/players/2 Owlet_Monster/Owlet_Monster_Run_6.png" id="6_1bvia"]
+[ext_resource type="Texture2D" uid="uid://d3g7gypsa3u2x" path="res://assets/players/2 Owlet_Monster/Owlet_Monster_Death_8.png" id="7_1bvia"]
+[ext_resource type="Texture2D" uid="uid://b737tbhp8fx7e" path="res://assets/backgrounds/Space Background (1).png" id="7_yxbwv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwecp"]
+atlas = ExtResource("6_1bvia")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn5pl"]
+atlas = ExtResource("6_1bvia")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1xf7"]
+atlas = ExtResource("6_1bvia")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xs76s"]
+atlas = ExtResource("6_1bvia")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t55sc"]
+atlas = ExtResource("6_1bvia")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxg5i"]
+atlas = ExtResource("6_1bvia")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2sbxx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwecp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qn5pl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1xf7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xs76s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t55sc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxg5i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sbxx"]
+atlas = ExtResource("7_1bvia")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sk0sm"]
+atlas = ExtResource("7_1bvia")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76xgp"]
+atlas = ExtResource("7_1bvia")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3bhq"]
+atlas = ExtResource("7_1bvia")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7h02n"]
+atlas = ExtResource("7_1bvia")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knrlq"]
+atlas = ExtResource("7_1bvia")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qeilo"]
+atlas = ExtResource("7_1bvia")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pojuc"]
+atlas = ExtResource("7_1bvia")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_06rsi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sbxx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sk0sm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76xgp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3bhq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7h02n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knrlq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qeilo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pojuc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="Animation" id="Animation_c2ij0"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MessageContainer/JoiningServer/VBoxContainer/LoadingIcon:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MessageContainer/JoiningServer/VBoxContainer/LoadingIcon:pivot_offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(64, 64)]
-}
 
 [sub_resource type="Animation" id="Animation_34y7y"]
 resource_name = "loading"
 loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MessageContainer/JoiningServer/VBoxContainer/LoadingIcon:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 6.28319]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MessageContainer/JoiningServer/VBoxContainer/LoadingIcon:pivot_offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(64, 64)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kd86l"]
 _data = {
@@ -66,10 +136,51 @@ _data = {
 &"loading": SubResource("Animation_34y7y")
 }
 
+[sub_resource type="Animation" id="Animation_p8ri8"]
+resource_name = "idle"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.105, 1.105)]
+}
+
+[sub_resource type="Animation" id="Animation_5klac"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lsdqh"]
+_data = {
+&"RESET": SubResource("Animation_5klac"),
+&"idle": SubResource("Animation_p8ri8")
+}
+
 [node name="JoinScreen" instance=ExtResource("1_xldsp")]
 script = ExtResource("2_0bjwb")
 
 [node name="Label" parent="MarginContainer2/VBoxContainer/Panel" index="0"]
+theme_override_constants/line_spacing = 0
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("3_r5vx3")
 text = "Join"
 
 [node name="Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer" type="MarginContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" index="0"]
@@ -86,12 +197,17 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_yxbwv")
+theme_override_font_sizes/font_size = 50
 text = "Player"
 
 [node name="PlayerName" type="LineEdit" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer/HBoxContainer" index="1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_yxbwv")
 alignment = 1
 max_length = 14
 
@@ -101,18 +217,26 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer/HBoxContainer2" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_yxbwv")
+theme_override_font_sizes/font_size = 50
 text = "IP"
 
 [node name="IP" type="LineEdit" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer/HBoxContainer2" index="1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_yxbwv")
 placeholder_text = "127.0.0.1"
 alignment = 1
 
 [node name="JoinButton" type="Button" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="2"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_yxbwv")
+theme_override_font_sizes/font_size = 70
 text = "Join"
 
 [node name="ErrorLabel" type="Label" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="3"]
@@ -162,18 +286,29 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/MessageContainer/JoiningServer/VBoxContainer" index="0"]
 layout_mode = 2
-text = "Joinning server"
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_yxbwv")
+theme_override_font_sizes/font_size = 70
+text = "Joining server"
 horizontal_alignment = 1
 
-[node name="LoadingIcon" type="TextureRect" parent="CanvasLayer/MessageContainer/JoiningServer/VBoxContainer" index="1"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MessageContainer/JoiningServer/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(10, 150)
 layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("4_q5f0x")
-stretch_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/MessageContainer/JoiningServer/VBoxContainer/HBoxContainer" index="0"]
+position = Vector2(206.5, 70)
+scale = Vector2(3.21875, 3.21875)
+sprite_frames = SubResource("SpriteFrames_2sbxx")
+autoplay = "default"
+frame_progress = 0.184804
 
 [node name="CancelButton" type="Button" parent="CanvasLayer/MessageContainer/JoiningServer/VBoxContainer" index="2"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_yxbwv")
+theme_override_font_sizes/font_size = 70
 text = "Cancel"
 
 [node name="ConnectionFailed" type="MarginContainer" parent="CanvasLayer/MessageContainer" index="1"]
@@ -192,18 +327,40 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/MessageContainer/ConnectionFailed/VBoxContainer" index="0"]
 layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_yxbwv")
+theme_override_font_sizes/font_size = 70
 text = "Connection failed!"
 horizontal_alignment = 1
 
-[node name="LoadingIcon" type="TextureRect" parent="CanvasLayer/MessageContainer/ConnectionFailed/VBoxContainer" index="1"]
-modulate = Color(1, 0, 0, 1)
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MessageContainer/ConnectionFailed/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(100, 150)
 layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("4_q5f0x")
-stretch_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/MessageContainer/ConnectionFailed/VBoxContainer/HBoxContainer" index="0"]
+position = Vector2(229.5, 35.5)
+scale = Vector2(3.3125, 3.3125)
+sprite_frames = SubResource("SpriteFrames_06rsi")
+autoplay = "default"
+frame_progress = 0.38941
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" index="1"]
 libraries = {
 &"": SubResource("AnimationLibrary_kd86l")
 }
 autoplay = "loading"
+
+[node name="TextureRect" type="TextureRect" parent="." index="3"]
+z_index = -1
+texture_filter = 1
+offset_right = 1280.0
+offset_bottom = 720.0
+pivot_offset = Vector2(640, 360)
+mouse_filter = 2
+texture = ExtResource("7_yxbwv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_lsdqh")
+}
+autoplay = "idle"

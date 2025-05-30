@@ -1,12 +1,59 @@
-[gd_scene load_steps=3 format=3 uid="uid://bb87qnq3164s5"]
+[gd_scene load_steps=9 format=3 uid="uid://bb87qnq3164s5"]
 
 [ext_resource type="PackedScene" uid="uid://cgsspji18smle" path="res://lobby/lobby_screen.tscn" id="1_uvmm6"]
 [ext_resource type="Script" uid="uid://layh08o4sto4" path="res://lobby/host_screen.gd" id="2_l54gy"]
+[ext_resource type="FontFile" uid="uid://dai11yn6nevgs" path="res://assets/Fonts/Daydream.ttf" id="3_l36ea"]
+[ext_resource type="FontFile" uid="uid://csd4tux61jwnx" path="res://assets/Fonts/CutePixel.ttf" id="4_2ob3k"]
+[ext_resource type="Texture2D" uid="uid://b737tbhp8fx7e" path="res://assets/backgrounds/Space Background (1).png" id="5_5plha"]
+
+[sub_resource type="Animation" id="Animation_p8ri8"]
+resource_name = "idle"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.105, 1.105)]
+}
+
+[sub_resource type="Animation" id="Animation_5klac"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lsdqh"]
+_data = {
+&"RESET": SubResource("Animation_5klac"),
+&"idle": SubResource("Animation_p8ri8")
+}
 
 [node name="HostScreen" instance=ExtResource("1_uvmm6")]
 script = ExtResource("2_l54gy")
 
 [node name="Label" parent="MarginContainer2/VBoxContainer/Panel" index="0"]
+offset_left = -216.0
+offset_right = 215.0
+offset_bottom = 44.0
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("3_l36ea")
+theme_override_font_sizes/font_size = 75
 text = "Host"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="0"]
@@ -28,17 +75,25 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_2ob3k")
+theme_override_font_sizes/font_size = 50
 text = "Player"
 
 [node name="PlayerName" type="LineEdit" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer/HBoxContainer" index="1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_2ob3k")
 alignment = 1
 
 [node name="HostButton" type="Button" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="1"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("4_2ob3k")
+theme_override_font_sizes/font_size = 70
 text = "Host
 "
 
@@ -53,3 +108,18 @@ horizontal_alignment = 1
 [node name="ErrorTimer" type="Timer" parent="." index="1"]
 wait_time = 3.0
 one_shot = true
+
+[node name="TextureRect" type="TextureRect" parent="." index="2"]
+z_index = -1
+texture_filter = 1
+offset_right = 1280.0
+offset_bottom = 720.0
+pivot_offset = Vector2(640, 360)
+mouse_filter = 2
+texture = ExtResource("5_5plha")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_lsdqh")
+}
+autoplay = "idle"

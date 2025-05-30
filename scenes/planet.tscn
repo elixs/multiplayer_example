@@ -26,7 +26,7 @@ texture = ExtResource("1_h8ms6")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0k1rn")
 one_way_collision_margin = 0.0
-debug_color = Color(0.970829, 0.130904, 0.284285, 0.42)
+debug_color = Color(0.97, 0.1261, 0.280815, 0.0666667)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 7
@@ -40,4 +40,4 @@ script = SubResource("GDScript_h8ms6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_48b8c")
-debug_color = Color(0.846677, 0.345821, 0.400118, 0.42)
+debug_color = Color(0.85, 0.3485, 0.407008, 0.0901961)
