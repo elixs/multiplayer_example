@@ -28,8 +28,9 @@ extends CharacterBody2D
 var can_shoot = true
 var can_jump = true
 var jump_velocity = 1500
-var direction=Vector2.ZERO
+var direction= Vector2.ZERO
 var rotation_speed= 2
+var spawn_point = Vector2.ZERO
 
 func setup(player_data: Statics.PlayerData):
 	label.text = player_data.name
@@ -154,23 +155,13 @@ func on_shoot_timer_timeout() -> void:
 	
 func play_step() -> void:
 	walking_sound.play()
-	
 
-@rpc("any_peer", "call_local")
-func reset_parameters():
-	health = 2
-	velocity = Vector2.ZERO
-
-@rpc("authority", "call_local")
-func set_shield_visible(visible: bool):
-	shield.visible = visible
-
+@rpc("reliable")
 func recieve_damage():
 	if health == 2:
 		health = 1
 		shield.visible = false
 	else:
-		if is_multiplayer_authority():
-			get_node("/root/MainGame").respawn_player(get_multiplayer_authority())
-		else:
-			get_node("/root/MainGame").request_respawn.rpc_id(1, get_multiplayer_authority())
+		position = spawn_point
+		health = 2
+		shield.visible = true
