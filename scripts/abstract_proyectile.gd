@@ -41,7 +41,8 @@ func _physics_process(delta: float) -> void:
 			queue_free()
 func _on_body_entered(body):
 	if body.is_in_group("Damageable"):
-		body.recieve_damage()
+		if body.get_multiplayer_authority() == get_multiplayer_authority():
+			body.recieve_damage.rpc()
 	if is_multiplayer_authority():
 		explode.rpc()
 	else:

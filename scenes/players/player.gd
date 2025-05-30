@@ -156,8 +156,9 @@ func on_shoot_timer_timeout() -> void:
 func play_step() -> void:
 	walking_sound.play()
 
-@rpc("call_remote", "any_peer")
+@rpc("call_local", "authority","reliable")
 func recieve_damage():
+	print("recibo daño")
 	if health == 2:
 		health = 1
 		shield.visible = false
