@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var player_scene: PackedScene
+@onready var markers: Node2D = $Markers
 
 @onready var planets: Node2D = $Planets
 @onready var players: Node2D = $Players
@@ -29,7 +30,8 @@ func check_round_state():
 func get_winner() -> String:
 	var alive_players = []
 	for player_node in players.get_children():
-		alive_players.append(player_node)
+		if player_node.is_in_group("Player"):
+			alive_players.append(player_node)
 	if alive_players.size() == 1:
 		return alive_players[0].name
 	elif alive_players.size() > 1:
@@ -47,8 +49,8 @@ func spawn_players():
 		var player_instance = player_scene.instantiate()
 		players.add_child(player_instance)
 		player_instance.setup(player_data)
-		player_instance.global_position = planets.get_child(i).get_child(4).global_position
-		player_instance.spawn_point = planets.get_child(i).get_child(4).global_position
+		player_instance.global_position = markers.get_child(i).global_position
+		player_instance.spawn_point = markers.get_child(i).global_position
 		player_instance.connect("player_death", _on_player_death)
 
 func _on_player_death():

@@ -333,7 +333,7 @@ properties/1/replication_mode = 2
 radius = 40.0
 height = 118.0
 
-[node name="Player" type="CharacterBody2D" groups=["Damageable"]]
+[node name="Player" type="CharacterBody2D" groups=["Damageable", "Player"]]
 script = ExtResource("1_d33cm")
 
 [node name="pivot" type="Node2D" parent="."]
