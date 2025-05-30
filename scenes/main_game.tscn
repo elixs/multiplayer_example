@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://6ax8cqpub6pr" path="res://scenes/backgrounds/level1.tscn" id="3_0rdsr"]
 [ext_resource type="PackedScene" uid="uid://dqxus3thqimav" path="res://scenes/planet.tscn" id="3_d2op2"]
 [ext_resource type="PackedScene" uid="uid://dbxdualumejet" path="res://scenes/levels/RoundManager.tscn" id="5_ipu61"]
-[ext_resource type="Texture2D" uid="uid://g8pvexalmse" path="res://assets/Bubbles/Atmosphere.png" id="5_wi4c7"]
 [ext_resource type="PackedScene" uid="uid://4sskgfn6nl4j" path="res://scenes/black_hole.tscn" id="6_ygxny"]
 
 [node name="MainGame" type="Node2D"]
