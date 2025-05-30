@@ -66,3 +66,4 @@ libraries = {
 autoplay = "rotate"
 
 [node name="Timer" type="Timer" parent="Area2D"]
+one_shot = true
