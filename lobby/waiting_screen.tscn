@@ -1,14 +1,107 @@
-[gd_scene load_steps=5 format=3 uid="uid://byny6bp0olu78"]
+[gd_scene load_steps=17 format=3 uid="uid://byny6bp0olu78"]
 
 [ext_resource type="PackedScene" uid="uid://cgsspji18smle" path="res://lobby/lobby_screen.tscn" id="1_1g6tu"]
 [ext_resource type="Script" uid="uid://d1urh7pr0l6lh" path="res://lobby/waiting_screen.gd" id="2_a2sqk"]
 [ext_resource type="PackedScene" uid="uid://iobnvr8f3tkm" path="res://lobby/lobby_player.tscn" id="2_wjc1o"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="3_0nkhr"]
+[ext_resource type="FontFile" uid="uid://dai11yn6nevgs" path="res://assets/Fonts/Daydream.ttf" id="3_ssaso"]
+[ext_resource type="Texture2D" uid="uid://c36dwq6x6af84" path="res://assets/players/2 Owlet_Monster/Owlet_Monster_Walk+Attack_6.png" id="5_iaq1a"]
+[ext_resource type="Texture2D" uid="uid://b737tbhp8fx7e" path="res://assets/backgrounds/Space Background (1).png" id="6_itdcl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibwqf"]
+atlas = ExtResource("5_iaq1a")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dh5rl"]
+atlas = ExtResource("5_iaq1a")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iult6"]
+atlas = ExtResource("5_iaq1a")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqkq6"]
+atlas = ExtResource("5_iaq1a")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6ft6"]
+atlas = ExtResource("5_iaq1a")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_st4ej"]
+atlas = ExtResource("5_iaq1a")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ppyuv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibwqf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dh5rl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iult6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqkq6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6ft6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_st4ej")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_5klac"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_p8ri8"]
+resource_name = "idle"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.105, 1.105)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lsdqh"]
+_data = {
+&"RESET": SubResource("Animation_5klac"),
+&"idle": SubResource("Animation_p8ri8")
+}
 
 [node name="WaitingScreen" instance=ExtResource("1_1g6tu")]
 script = ExtResource("2_a2sqk")
 
 [node name="Label" parent="MarginContainer2/VBoxContainer/Panel" index="0"]
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("3_ssaso")
+theme_override_font_sizes/font_size = 75
 text = "Lobby"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="0"]
@@ -83,12 +176,17 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_type_variation = &"Zero"
 
-[node name="PlayerTexture" type="TextureRect" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="0"]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="0"]
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("3_0nkhr")
-stretch_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+position = Vector2(136, 49)
+scale = Vector2(3.84375, 3.84375)
+sprite_frames = SubResource("SpriteFrames_ppyuv")
+autoplay = "default"
+frame = 5
+frame_progress = 1.0
 
 [node name="PlayerName" type="Label" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="1"]
 unique_name_in_owner = true
@@ -178,3 +276,19 @@ horizontal_alignment = 1
 
 [node name="StartTimer" type="Timer" parent="." index="2"]
 wait_time = 3.0
+
+[node name="TextureRect" type="TextureRect" parent="." index="3"]
+z_index = -1
+texture_filter = 1
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+pivot_offset = Vector2(640, 360)
+mouse_filter = 2
+texture = ExtResource("6_itdcl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_lsdqh")
+}
+autoplay = "idle"

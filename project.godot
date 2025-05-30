@@ -32,6 +32,10 @@ window/stretch/mode="canvas_items"
 pullable=""
 throwable=""
 
+[gui]
+
+theme/custom_font="uid://csd4tux61jwnx"
+
 [input]
 
 test={
