@@ -184,12 +184,15 @@ func update_timer_label():
 	))
 
 func end_round(message: String):
+	round_timer.stop()
 	round_message.text = message
 	round_message.visible = true
 	center_message()
 	await get_tree().create_timer(3.0).timeout
 	round_message.visible = false
 	emit_signal("ending_round")
+	time_remaining = round_time
+	update_timer_label()
 
 func center_message():
 	var screen_size = get_viewport().get_visible_rect().size
