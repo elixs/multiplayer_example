@@ -71,6 +71,7 @@ func cambiar_fase(nuevo_estado: Estado):
 			emit_signal("initiate_contruction")
 			if multiplayer.get_unique_id() == 1:
 				mostrar_ui_seleccion()
+				objetos_seleccionados = {}
 				await esperar_seleccion_objetos()
 				spawn_building_players.rpc(objetos_seleccionados)
 			else:
