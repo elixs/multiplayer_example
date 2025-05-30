@@ -1,6 +1,6 @@
 class_name proyectile
 extends RigidBody2D
-@export var speed = 100
+@export var speed = 0
 @export var destroy_time = 0.8
 
 var zona_colision:CollisionShape2D

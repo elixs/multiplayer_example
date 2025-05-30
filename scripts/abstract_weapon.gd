@@ -26,6 +26,7 @@ func shoot(charge_power):
 		bullet.zona_colision.scale = scala
 	is_overcharged = false
 
+@rpc("authority","call_local")
 func begin_charge():
 	playback.travel("charge")
 func overcharge():

@@ -98,7 +98,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed('fire') and can_shoot:
 			#weapon.shoot.rpc()
 			shoot_charge_sound.play()
-			weapon.begin_charge()
+			weapon.begin_charge.rpc()
 			is_charging_weapon = true
 		if Input.is_action_just_released('fire') and can_shoot and is_charging_weapon:
 			shoot_charge_sound.stop()
