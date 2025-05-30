@@ -17,6 +17,7 @@ func explode():
 	send_data.rpc(alive)
 	queue_free()
 
+@rpc(\"authority\")
 func send_data(state: bool) -> void:
 	state = alive
 	

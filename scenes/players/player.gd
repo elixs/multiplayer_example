@@ -156,7 +156,7 @@ func on_shoot_timer_timeout() -> void:
 func play_step() -> void:
 	walking_sound.play()
 
-@rpc("reliable")
+@rpc("authority")
 func recieve_damage():
 	if health == 2:
 		health = 1
@@ -165,3 +165,4 @@ func recieve_damage():
 		position = spawn_point
 		health = 2
 		shield.visible = true
+		queue_free()
