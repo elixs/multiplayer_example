@@ -31,6 +31,7 @@ var jump_velocity = 1500
 var direction= Vector2.ZERO
 var rotation_speed= 2
 var spawn_point = Vector2.ZERO
+var target_zoom := Vector2(0.5,0.5)
 signal player_death
 func setup(player_data: Statics.PlayerData):
 	label.text = player_data.name
@@ -49,6 +50,7 @@ func _physics_process(delta: float) -> void:
 	var initial_move_input=Vector2.ZERO
 	
 	if is_multiplayer_authority():
+		camera_2d.zoom = camera_2d.zoom.lerp(target_zoom, 5 * delta)
 		if AttractedBy.is_empty():
 			# ROTACIÓN
 			var turn_input = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -111,9 +113,6 @@ func _physics_process(delta: float) -> void:
 			charge_power = 0.2
 			is_charging_weapon = false
 
-
-
-
 	if not AttractedBy.is_empty():
 		look_at(AttractedBy[0].get_global_position())
 		rotate(-PI/2)
@@ -133,6 +132,21 @@ func _physics_process(delta: float) -> void:
 	
 	if AttractedBy.is_empty():
 		playback.travel("fly")
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_multiplayer_authority():
+		return
+
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			target_zoom *= Vector2(0.9, 0.9)
+		elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			target_zoom *= Vector2(1.1, 1.1)
+		# Limitar el zoom entre 0.5x y 3x
+		target_zoom.x = clamp(target_zoom.x, 0.2, 2.0)
+		target_zoom.y = clamp(target_zoom.y, 0.2, 2.0)
+	
 
 @rpc("unreliable_ordered")
 func send_data(pos: Vector2, vel: Vector2, dir: float, rot=0.0) -> void:
