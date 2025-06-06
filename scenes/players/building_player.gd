@@ -39,19 +39,30 @@ func setup(player_data: Statics.PlayerData):
 
 @rpc("authority", "call_local")
 func place_object():
+	if multiplayer.get_unique_id() == 1 :
+		is_active = false
+
+		var final_object = object_scene.instantiate()
+		final_object.global_position = global_position
+		get_parent().get_parent().add_child(final_object)
+
+		if round_manager != null:
+			round_manager.notify_building_done()
+			
+		recieve_place_object.rpc(final_object.global_position)
+		queue_free()
+		
+@rpc("any_peer", "call_remote")
+func recieve_place_object(pos:Vector2):
+	print("se llama recieve place desde :" + str(multiplayer.get_unique_id()))
 	is_active = false
 
 	var final_object = object_scene.instantiate()
-	final_object.global_position = global_position
+	final_object.global_position = pos
 	get_parent().get_parent().add_child(final_object)
 
-	if round_manager != null:
-		round_manager.notify_building_done()
-
-
-
 	queue_free()
-
+	
 func set_object_opacity(node: Node, alpha: float) -> void:
 	if node is CanvasItem:
 		node.modulate.a = alpha

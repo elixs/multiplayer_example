@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqxus3thqimav"]
+[gd_scene load_steps=6 format=3 uid="uid://dqxus3thqimav"]
 
 [ext_resource type="Texture2D" uid="uid://c6xfnmqsvhdfy" path="res://assets/planets/earth.png" id="1_h8ms6"]
 [ext_resource type="Texture2D" uid="uid://g8pvexalmse" path="res://assets/Bubbles/Atmosphere.png" id="2_h8ms6"]
@@ -10,6 +10,7 @@ var alive = true
 
 @rpc(\"authority\", \"call_local\", \"reliable\")
 func recieve_damage():
+	print(\"planeta recibio damage desde health : \" +  str(health))
 	health -= 1
 	if health == 0:
 		self.explode()
@@ -27,8 +28,6 @@ func send_data(state: bool) -> void:
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0k1rn"]
 radius = 102.0
-
-[sub_resource type="GDScript" id="GDScript_h8ms6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_48b8c"]
 radius = 245.615
@@ -56,7 +55,6 @@ gravity_space_override = 3
 gravity_point = true
 gravity_point_center = Vector2(0, 0)
 gravity_direction = Vector2(0, 0)
-script = SubResource("GDScript_h8ms6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_48b8c")
