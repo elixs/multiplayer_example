@@ -138,7 +138,6 @@ properties/2/replication_mode = 0
 
 [node name="bullet_ball_1" type="RigidBody2D" groups=["pullable", "throwable"]]
 self_modulate = Color(1, 0, 0, 1)
-scale = Vector2(3.005, 3.005)
 collision_layer = 2
 mass = 10.0
 gravity_scale = 3.0
