@@ -8,4 +8,4 @@
 [node name="Box" parent="." groups=["pullable", "throwable"] instance=ExtResource("2_ia1lp")]
 
 [node name="mass_relay" parent="." instance=ExtResource("2_sasra")]
-position = Vector2(287, 176)
+position = Vector2(879, 301)

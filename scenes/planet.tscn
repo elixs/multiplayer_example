@@ -1,17 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqxus3thqimav"]
+[gd_scene load_steps=8 format=3 uid="uid://dqxus3thqimav"]
 
 [ext_resource type="Texture2D" uid="uid://c6xfnmqsvhdfy" path="res://assets/planets/earth.png" id="1_h8ms6"]
+[ext_resource type="Texture2D" uid="uid://6lehvlocbvti" path="res://assets/planets/22152631.png" id="2_0k1rn"]
 [ext_resource type="Texture2D" uid="uid://g8pvexalmse" path="res://assets/Bubbles/Atmosphere.png" id="2_h8ms6"]
+[ext_resource type="Texture2D" uid="uid://b4knpnwvtukg5" path="res://assets/planets/22152632.png" id="3_48b8c"]
 
 [sub_resource type="GDScript" id="GDScript_cktii"]
 script/source = "extends StaticBody2D
 @export var health = 3
 var alive = true
+@onready var crack1: Sprite2D = $Sprite2D2
+@onready var crack2: Sprite2D = $Sprite2D3
+
+
 
 @rpc(\"authority\", \"call_local\", \"reliable\")
 func recieve_damage():
 	print(\"planeta recibio damage desde health : \" +  str(health))
+	vibrate_planet()
 	health -= 1
+	if health == 2:
+		fade_in_crack1(crack1)
+	if health == 1:
+		fade_in_crack2(crack2)
 	if health == 0:
 		self.explode()
 
@@ -24,6 +35,31 @@ func explode():
 func send_data(state: bool) -> void:
 	state = alive
 	
+func fade_in_crack1(crack_node: Sprite2D):
+	crack_node.visible = true
+	crack_node.modulate.a = 0.0  # alpha inicial
+	var tween = get_tree().create_tween()
+	tween.tween_property(crack_node, \"modulate:a\", 0.5, 0.2) 
+
+func fade_in_crack2(crack_node: Sprite2D):
+	crack_node.visible = true
+	crack_node.modulate.a = 0.0  # alpha inicial
+	var tween = get_tree().create_tween()
+	tween.tween_property(crack_node, \"modulate:a\", 0.4, 0.2)
+	
+
+func vibrate_planet():
+	var tween = get_tree().create_tween()
+	var original_pos = position
+	var intensity = 8
+	var speed = 0.05
+
+	# Serie de pequeños movimientos
+	tween.tween_property(self, \"position\", original_pos + Vector2(-intensity, 0), speed)
+	tween.tween_property(self, \"position\", original_pos + Vector2(intensity, 0), speed)
+	tween.tween_property(self, \"position\", original_pos + Vector2(0, -intensity), speed)
+	tween.tween_property(self, \"position\", original_pos + Vector2(0, intensity), speed)
+	tween.tween_property(self, \"position\", original_pos, speed)
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0k1rn"]
@@ -42,6 +78,22 @@ script = SubResource("GDScript_cktii")
 show_behind_parent = true
 scale = Vector2(2, 2)
 texture = ExtResource("1_h8ms6")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.521569)
+texture_filter = 1
+position = Vector2(-5.5, -2.38419e-07)
+rotation = 0.313608
+scale = Vector2(0.345163, 0.345163)
+texture = ExtResource("2_0k1rn")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.827451)
+position = Vector2(1.5, 3.5)
+scale = Vector2(0.339635, 0.339635)
+texture = ExtResource("3_48b8c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0k1rn")
