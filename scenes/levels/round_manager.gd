@@ -57,6 +57,7 @@ func cambiar_fase(nuevo_estado: Estado):
 			round_message.visible = true
 			center_message()
 			await get_tree().create_timer(2.0).timeout
+			round_message.visible = false
 			emit_signal("initiate_contruction")
 			if multiplayer.get_unique_id() == 1:
 				mostrar_ui_seleccion()
@@ -140,7 +141,8 @@ func notify_building_done():
 		end_builiding_fase.rpc()
 
 @rpc("authority", "call_local")
-func end_builiding_fase():
+func end_builiding_fase():			
+	round_message.visible = true
 	round_message.text = "iniciando ronda en 3"
 	await get_tree().create_timer(1.0).timeout
 	round_message.text = "iniciando ronda en 2"

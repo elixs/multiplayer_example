@@ -2,9 +2,8 @@ extends CanvasLayer
 
 signal object_selected(objeto: String)
 
-@onready var button_planeta = $MarginContainer/VBoxContainer/HBoxContainer/ButtonPlaneta
-@onready var button_agujero = $MarginContainer/VBoxContainer/HBoxContainer/ButtonAgujero
-
+@onready var button_planeta = $CenterContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/ButtonPlaneta
+@onready var button_agujero = $CenterContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/ButtonAgujero
 func _ready():
 	button_planeta.pressed.connect(_on_planeta_pressed)
 	button_agujero.pressed.connect(_on_agujero_pressed)

@@ -11,26 +11,41 @@ region = Rect2(0, 0, 205.811, 200)
 [node name="ObjectSelectionUi" type="CanvasLayer"]
 script = ExtResource("1_wtk65")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+offset_bottom = -3.0
+grow_horizontal = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="Panel" type="Panel" parent="CenterContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+offset_left = -230.0
+offset_top = -114.0
+offset_right = 231.0
+offset_bottom = 114.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Elige un objeto"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ButtonPlaneta" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ButtonPlaneta" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Planeta"
 icon = ExtResource("1_o1rmh")
 
-[node name="ButtonAgujero" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ButtonAgujero" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Agujero Negro"
 icon = SubResource("AtlasTexture_346vm")
