@@ -15,6 +15,7 @@ func _ready():
 		object_preview.add_child(placed_object)
 		placed_object.visible = true
 		set_object_opacity(placed_object, 0.5) 
+		await get_tree().process_frame
 
 func _process(_delta):
 	if is_active and is_multiplayer_authority():
