@@ -37,15 +37,15 @@ layout_mode = 2
 layout_mode = 2
 text = "Elige un objeto"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="ButtonsContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ButtonPlaneta" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ButtonPlaneta" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/ButtonsContainer"]
 layout_mode = 2
 text = "Planeta"
 icon = ExtResource("1_o1rmh")
 
-[node name="ButtonAgujero" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ButtonAgujero" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer/ButtonsContainer"]
 layout_mode = 2
 text = "Agujero Negro"
 icon = SubResource("AtlasTexture_346vm")
