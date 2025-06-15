@@ -24,18 +24,15 @@ var time_remaining = 0.0
 var estado_actual: Estado = Estado.ESPERANDO
 var active_builders = 0
 @onready var selection_ui = $ObjectSelectionUI
-@onready var button_planeta = $ObjectSelectionUI/MarginContainer/VBoxContainer/HBoxContainer/ButtonPlaneta
-@onready var button_agujero = $ObjectSelectionUI/MarginContainer/VBoxContainer/HBoxContainer/ButtonAgujero
 @onready var objetos_seleccionados = {}
 
 func _ready():
 	round_timer.wait_time = 1.0
 	round_timer.one_shot = false
 	round_timer.timeout.connect(_on_round_timer_tick)
-	button_planeta.pressed.connect(seleccionar_objeto_planeta)
-	button_agujero.pressed.connect(seleccionar_objeto_agujero)
-	selection_ui.visible = false
-	set_multiplayer_authority(1)
+	selection_ui.object_selected.connect(enviar_seleccion)
+	set_multiplayer_authority(1)	
+
 
 func _process(_delta):
 	if estado_actual == Estado.ESPERANDO:
@@ -48,14 +45,6 @@ func _process(_delta):
 			round_message.text = "Esperando a que el host inicie la ronda"
 		center_message()
 		
-func seleccionar_objeto_planeta():
-	selection_ui.visible = false
-	enviar_seleccion("Planeta")
-
-func seleccionar_objeto_agujero():
-	selection_ui.visible = false
-	enviar_seleccion("Agujero Negro")
-	
 func cambiar_fase(nuevo_estado: Estado):
 	estado_actual = nuevo_estado
 	
@@ -68,6 +57,7 @@ func cambiar_fase(nuevo_estado: Estado):
 			round_message.visible = true
 			center_message()
 			await get_tree().create_timer(2.0).timeout
+			round_message.visible = false
 			emit_signal("initiate_contruction")
 			if multiplayer.get_unique_id() == 1:
 				mostrar_ui_seleccion()
@@ -87,18 +77,15 @@ func cambiar_fase(nuevo_estado: Estado):
 	center_message()
 	
 func mostrar_ui_seleccion():
-	selection_ui.visible = true
+	selection_ui.show_ui()
 
 @rpc("any_peer", "call_remote")
-func recibir_seleccion(player_id: int, objeto: String):
-	print("objetos seleccionados antes de ingresar cambio")
-	print(objetos_seleccionados)
-	objetos_seleccionados[player_id] = objeto
-	print("Jugador %d seleccionó: %s" % [player_id, objeto])
+func recibir_seleccion(player_id: int, objeto_data: Dictionary):
+	objetos_seleccionados[player_id] = objeto_data
+	print("Jugador %d seleccionó: %s" % [player_id, objeto_data.get("name", "Desconocido")])
 	print("estado actual objetos seleccionados: ")
 	print(objetos_seleccionados)
 
-	
 func esperar_seleccion_objetos():
 		for player_data in Game.players:
 			if not objetos_seleccionados.has(player_data.id):
@@ -106,18 +93,16 @@ func esperar_seleccion_objetos():
 		while objetos_seleccionados.values().has(null):
 			await get_tree().process_frame
 		
-
-
-func enviar_seleccion(objeto: String):
+func enviar_seleccion(objeto_data: Dictionary):
 	var player_id = multiplayer.get_unique_id()
 	if is_multiplayer_authority():
-		# Host local
-		player_id = 1  # O usa un método para obtener ID correcto
-		recibir_seleccion(player_id,objeto)
-		print("Servidor selecciono de : ", player_id, "con objeto: ", objeto)
+		player_id = 1
+		recibir_seleccion(player_id, objeto_data)
+		print("Servidor selecciono de : ", player_id, "con objeto: ", objeto_data)
 	else:
-		recibir_seleccion.rpc(player_id, objeto)
-		print("Enviando selección de: ", player_id, "con objeto: ", objeto)
+		recibir_seleccion.rpc(player_id, objeto_data)
+		print("Enviando selección de: ", player_id, "con objeto: ", objeto_data)
+
 	
 @rpc("authority", "call_local")
 func start_building_fase():
@@ -131,13 +116,17 @@ func spawn_building_players(objetos_seleccionados_temp):
 		var player_data = Game.players[i]
 		var builder = building_player_scene.instantiate()
 		var player_id = Game.players[i].id
-		match objetos_seleccionados_temp[player_id]:
-			"Planeta":
-				builder.object_scene = planeta_scene
-			"Agujero Negro":
-				builder.object_scene = agujero_negro_scene
-			_:
+		var obj_data = objetos_seleccionados_temp.get(player_id, {})
+		var scene_path = obj_data.get("scene_path", "")
+		if scene_path != "":
+			var loaded_scene = load(scene_path)
+			if loaded_scene is PackedScene:
+				builder.object_scene = loaded_scene
+			else:
+				print("⚠️ Error: Escena no válida cargada desde path:", scene_path)
 				builder.object_scene = object_placeholder_scene
+		else:
+			builder.object_scene = object_placeholder_scene
 		builder.name = "Builder" + str(i)
 		builder.global_position = Vector2(100 + i * 100, 200)
 		builder.round_manager = self
@@ -151,7 +140,8 @@ func notify_building_done():
 		end_builiding_fase.rpc()
 
 @rpc("authority", "call_local")
-func end_builiding_fase():
+func end_builiding_fase():			
+	round_message.visible = true
 	round_message.text = "iniciando ronda en 3"
 	await get_tree().create_timer(1.0).timeout
 	round_message.text = "iniciando ronda en 2"
