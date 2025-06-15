@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var max_speed = 300
 @export var acceleration = 5000
 @onready var animation_tree: AnimationTree = $AnimationTree
-@onready var playback = animation_tree["parameters/playback"]
+@onready var playback = animation_tree["parameters/Movement/playback"]
 @onready var label: Label = $Label
 @onready var pivot: Node2D = $pivot
 @onready var weapon_container = $WeaponContainer
@@ -14,6 +14,7 @@ extends CharacterBody2D
 @onready var charge_power: float = 0
 @onready var is_charging_weapon = false
 @onready var shield: Sprite2D = $pivot/Sprite2D/Shield
+@onready var parry_collision: CollisionShape2D = $ParryCollision
 
 #sound effects
 @onready var shoot_charge_sound: AudioStreamPlayer2D = $ShootChargeSound
@@ -27,6 +28,7 @@ extends CharacterBody2D
 @onready var sprite_2d: Sprite2D = $pivot/Sprite2D
 var can_shoot = true
 var can_jump = true
+var can_parry = true
 var jump_velocity = 1500
 var direction= Vector2.ZERO
 var rotation_speed= 2
@@ -112,6 +114,10 @@ func _physics_process(delta: float) -> void:
 			can_shoot = false
 			charge_power = 0.2
 			is_charging_weapon = false
+		
+		if Input.is_action_just_pressed('right_click') and can_parry:
+			animation_tree["parameters/parry/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+			
 
 	if not AttractedBy.is_empty():
 		look_at(AttractedBy[0].get_global_position())
