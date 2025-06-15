@@ -1,18 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8adktcjmef2l"]
+[gd_scene load_steps=5 format=3 uid="uid://b8adktcjmef2l"]
 
 [ext_resource type="Texture2D" uid="uid://c6xfnmqsvhdfy" path="res://assets/planets/earth.png" id="1_o1rmh"]
+[ext_resource type="Script" uid="uid://cyabs00rjqpme" path="res://scenes/object_selection_ui.gd" id="1_wtk65"]
 [ext_resource type="Texture2D" uid="uid://7sd2a8rhhvhw" path="res://assets/structures/black_hole.png" id="2_wtk65"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_346vm"]
 atlas = ExtResource("2_wtk65")
 region = Rect2(0, 0, 205.811, 200)
 
-[node name="ObjectSelectionUi" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="ObjectSelectionUi" type="CanvasLayer"]
+script = ExtResource("1_wtk65")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 

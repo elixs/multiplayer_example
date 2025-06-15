@@ -24,18 +24,15 @@ var time_remaining = 0.0
 var estado_actual: Estado = Estado.ESPERANDO
 var active_builders = 0
 @onready var selection_ui = $ObjectSelectionUI
-@onready var button_planeta = $ObjectSelectionUI/MarginContainer/VBoxContainer/HBoxContainer/ButtonPlaneta
-@onready var button_agujero = $ObjectSelectionUI/MarginContainer/VBoxContainer/HBoxContainer/ButtonAgujero
 @onready var objetos_seleccionados = {}
 
 func _ready():
 	round_timer.wait_time = 1.0
 	round_timer.one_shot = false
 	round_timer.timeout.connect(_on_round_timer_tick)
-	button_planeta.pressed.connect(seleccionar_objeto_planeta)
-	button_agujero.pressed.connect(seleccionar_objeto_agujero)
-	selection_ui.visible = false
-	set_multiplayer_authority(1)
+	selection_ui.object_selected.connect(enviar_seleccion)
+	set_multiplayer_authority(1)	
+
 
 func _process(_delta):
 	if estado_actual == Estado.ESPERANDO:
@@ -48,14 +45,6 @@ func _process(_delta):
 			round_message.text = "Esperando a que el host inicie la ronda"
 		center_message()
 		
-func seleccionar_objeto_planeta():
-	selection_ui.visible = false
-	enviar_seleccion("Planeta")
-
-func seleccionar_objeto_agujero():
-	selection_ui.visible = false
-	enviar_seleccion("Agujero Negro")
-	
 func cambiar_fase(nuevo_estado: Estado):
 	estado_actual = nuevo_estado
 	
@@ -87,7 +76,7 @@ func cambiar_fase(nuevo_estado: Estado):
 	center_message()
 	
 func mostrar_ui_seleccion():
-	selection_ui.visible = true
+	selection_ui.show_ui()
 
 @rpc("any_peer", "call_remote")
 func recibir_seleccion(player_id: int, objeto: String):
