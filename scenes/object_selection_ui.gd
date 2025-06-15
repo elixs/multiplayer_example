@@ -6,9 +6,21 @@ signal object_selected(objeto: String)
 
 # Lista de objetos disponibles
 var available_objects = [
-	{ "name": "Planeta", "texture": preload("res://assets/planets/earth.png") },
-	{ "name": "Agujero Negro", "texture": preload("res://assets/structures/Template_Sprite_black_hole_128.png") },
-	{ "name": "mass_relay", "texture": preload("res://assets/structures/mass_relay.png") },
+	{
+		"name": "Planeta",
+		"texture": preload("res://assets/planets/earth.png"),
+		"scene_path": "res://scenes/planet.tscn"
+	},
+	{
+		"name": "Agujero Negro",
+		"texture": preload("res://assets/structures/Template_Sprite_black_hole_128.png"),
+		"scene_path": "res://scenes/black_hole.tscn"
+	},
+	{
+		"name": "mass_relay",
+		"texture": preload("res://assets/structures/mass_relay.png"),
+		"scene_path": "res://scenes/mass_relay.tscn"
+	}
 ]
 func _ready():
 	visible = false
@@ -24,15 +36,15 @@ func show_ui():
 
 	for obj in selected:
 		var button = Button.new()
-		button.text = ""  # Sin texto, solo imagen
+		button.text = ""
 		button.icon = obj["texture"]
 		button.expand_icon = true
 		button.custom_minimum_size = Vector2(96, 96)
-		button.connect("pressed", Callable(self, "_on_object_pressed").bind(obj["name"]))
+		button.connect("pressed", Callable(self, "_on_object_pressed").bind(obj))
 		buttons_container.add_child(button)
 
-func _on_object_pressed(objeto: String):
-	emit_signal("object_selected", objeto)
+func _on_object_pressed(obj):
+	emit_signal("object_selected", obj)
 	visible = false
 
 func _clear_buttons():
