@@ -15,6 +15,8 @@ extends CharacterBody2D
 @onready var is_charging_weapon = false
 @onready var shield: Sprite2D = $pivot/Sprite2D/Shield
 @onready var parry_collision: CollisionShape2D = $ParryCollision
+@onready var parry_timer: Timer = $parryTimer
+@onready var bat: Sprite2D = $pivot/BatParry
 
 #sound effects
 @onready var shoot_charge_sound: AudioStreamPlayer2D = $ShootChargeSound
@@ -116,7 +118,10 @@ func _physics_process(delta: float) -> void:
 			is_charging_weapon = false
 		
 		if Input.is_action_just_pressed('right_click') and can_parry:
+			can_parry = false
+			parry_timer.start()
 			animation_tree["parameters/parry/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+			
 			
 
 	if not AttractedBy.is_empty():
@@ -188,3 +193,13 @@ func recieve_damage():
 		shield.visible = true
 		emit_signal("player_death")
 		queue_free()
+
+func _ready():
+	parry_timer.timeout.connect(_on_parry_timer_timeout)
+	
+func _on_parry_timer_timeout():
+	can_parry = true
+	var tween = create_tween()
+	tween.tween_property(bat, "modulate",Color(2,2,2), 0.1)
+	tween.tween_property(bat, "modulate",Color(1,1,1), 0.05)
+	
