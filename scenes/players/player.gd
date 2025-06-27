@@ -14,7 +14,7 @@ extends CharacterBody2D
 @onready var charge_power: float = 0
 @onready var is_charging_weapon = false
 @onready var shield: Sprite2D = $pivot/Sprite2D/Shield
-@onready var parry_collision: CollisionShape2D = $ParryCollision
+@onready var parry_area: Area2D = $ParryArea
 @onready var parry_timer: Timer = $parryTimer
 @onready var bat: Sprite2D = $pivot/BatParry
 
@@ -31,6 +31,7 @@ extends CharacterBody2D
 var can_shoot = true
 var can_jump = true
 var can_parry = true
+var parry_vel = 5000
 var jump_velocity = 1500
 var direction= Vector2.ZERO
 var rotation_speed= 2
@@ -121,6 +122,14 @@ func _physics_process(delta: float) -> void:
 			can_parry = false
 			parry_timer.start()
 			animation_tree["parameters/parry/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+			if (parry_area.has_overlapping_bodies()):
+				for i in parry_area.get_overlapping_bodies():
+					if i.is_in_group("throwable"):
+						i.linear_velocity = Vector2(0,0)
+						Debug.log(global_position.distance_to(i.get_global_position()))
+						parry_vel = inverse_lerp(0,1,global_position.distance_to(i.get_global_position()))*50
+						Debug.log(parry_vel)
+						i.apply_central_impulse(Vector2(parry_vel,0).rotated(weapon_container.get_global_rotation()))
 			
 			
 

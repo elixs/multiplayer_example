@@ -108,7 +108,7 @@ script = ExtResource("1_x2wt2")
 type_bullet = "ball_1"
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(0, -68)
+position = Vector2(0, -77.5)
 
 [node name="SpriteBase" type="Sprite2D" parent="."]
 position = Vector2(-17.5018, 6.00001)
