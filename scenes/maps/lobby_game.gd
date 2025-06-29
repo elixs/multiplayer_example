@@ -16,6 +16,6 @@ func spawn_players():
 		var player_data = Game.players[i]
 		var player_instance = player_scene.instantiate()
 		players.add_child(player_instance)
-		player_instance.setup(player_data)
+		player_instance.setup(player_data,true)
 		player_instance.global_position = markers.get_child(i).global_position
 		player_instance.spawn_point = markers.get_child(i).global_position
