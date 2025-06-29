@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8nq8jxr77xh8"]
+[gd_scene load_steps=8 format=3 uid="uid://b8nq8jxr77xh8"]
 
 [ext_resource type="Script" uid="uid://dt4ga1n6q7wax" path="res://scenes/maps/lobby_game.gd" id="1_lxn8l"]
 [ext_resource type="PackedScene" uid="uid://cl3yb3i1s8ujy" path="res://scenes/players/player.tscn" id="2_ovglq"]
 [ext_resource type="PackedScene" uid="uid://6ax8cqpub6pr" path="res://scenes/backgrounds/level1.tscn" id="3_bx2u6"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="3_dthre"]
 [ext_resource type="PackedScene" uid="uid://dqxus3thqimav" path="res://scenes/planet.tscn" id="4_rutjd"]
+[ext_resource type="Script" uid="uid://d0m50rq0pyvpy" path="res://scenes/maps/instructions_panel.gd" id="5_dthre"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xidox"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dtet3"]
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_lxn8l")
@@ -13,32 +17,36 @@ player_scene = ExtResource("2_ovglq")
 [node name="OuterWall" type="Node2D" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="OuterWall"]
+modulate = Color(1, 0, 0, 1)
+use_parent_material = true
 position = Vector2(5347, 3004)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="OuterWall/StaticBody2D"]
-position = Vector2(-5334, -3000)
+modulate = Color(1, 0, 0.882353, 0.368627)
+position = Vector2(-5332.16, -3000)
+scale = Vector2(1.00115, 1)
 build_mode = 1
 polygon = PackedVector2Array(5334, 1, 5334, 3000, 0, 2999, 0, 0)
 
-[node name="Sprite2D4" type="Sprite2D" parent="OuterWall/StaticBody2D/CollisionPolygon2D"]
-position = Vector2(2661.5, -88)
-scale = Vector2(42.2109, 1.20313)
-texture = ExtResource("3_dthre")
+[node name="LeftWall" type="Sprite2D" parent="OuterWall/StaticBody2D/CollisionPolygon2D"]
+position = Vector2(-1343.79, 1502)
+scale = Vector2(2681.92, 3012)
+texture = SubResource("PlaceholderTexture2D_xidox")
 
-[node name="Sprite2D3" type="Sprite2D" parent="OuterWall/StaticBody2D/CollisionPolygon2D"]
-position = Vector2(-75, 1568)
-scale = Vector2(0.890625, 24.5156)
-texture = ExtResource("3_dthre")
+[node name="UpWall" type="Sprite2D" parent="OuterWall/StaticBody2D/CollisionPolygon2D"]
+position = Vector2(2660.5, -1127.5)
+scale = Vector2(10647, 2249)
+texture = SubResource("PlaceholderTexture2D_xidox")
 
-[node name="Sprite2D2" type="Sprite2D" parent="OuterWall/StaticBody2D/CollisionPolygon2D"]
-position = Vector2(2796, 3065)
-scale = Vector2(43.625, 1.15625)
-texture = ExtResource("3_dthre")
+[node name="DownWall" type="Sprite2D" parent="OuterWall/StaticBody2D/CollisionPolygon2D"]
+position = Vector2(2654, 4146)
+scale = Vector2(10688, 2274)
+texture = SubResource("PlaceholderTexture2D_dtet3")
 
-[node name="Sprite2D" type="Sprite2D" parent="OuterWall/StaticBody2D/CollisionPolygon2D"]
-position = Vector2(5370, 1500)
-scale = Vector2(0.4375, 24.4375)
-texture = ExtResource("3_dthre")
+[node name="Right Wall" type="Sprite2D" parent="OuterWall/StaticBody2D/CollisionPolygon2D"]
+position = Vector2(6642.04, 1503.5)
+scale = Vector2(2683.92, 3011)
+texture = SubResource("PlaceholderTexture2D_xidox")
 
 [node name="ConstructionCamera" type="Camera2D" parent="."]
 position = Vector2(2680, 1504)
@@ -78,3 +86,45 @@ position = Vector2(4005, 1481)
 scale = Vector2(4, 4)
 collision_layer = 1
 collision_mask = 1
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InstructionsPanel" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("5_dthre")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InstructionsPanel"]
+layout_direction = 3
+layout_mode = 0
+offset_left = 2.0
+offset_top = 54.0
+offset_right = 158.0
+offset_bottom = 158.0
+
+[node name="Controles" type="Label" parent="UI/InstructionsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Controles"
+
+[node name="Label2" type="Label" parent="UI/InstructionsPanel/VBoxContainer"]
+layout_mode = 2
+text = "WASD - Moverse"
+
+[node name="Label3" type="Label" parent="UI/InstructionsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Clicik Izquierdo - Disparo"
+
+[node name="Label4" type="Label" parent="UI/InstructionsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Click derecho - Parry"
+
+[node name="Button" type="Button" parent="UI/InstructionsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Iniciar Partida"
+
+[connection signal="pressed" from="UI/InstructionsPanel/VBoxContainer/Button" to="UI/InstructionsPanel" method="_on_button_pressed"]
