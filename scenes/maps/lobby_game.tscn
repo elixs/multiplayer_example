@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8nq8jxr77xh8"]
+[gd_scene load_steps=9 format=3 uid="uid://b8nq8jxr77xh8"]
 
 [ext_resource type="Script" uid="uid://dt4ga1n6q7wax" path="res://scenes/maps/lobby_game.gd" id="1_lxn8l"]
 [ext_resource type="PackedScene" uid="uid://cl3yb3i1s8ujy" path="res://scenes/players/player.tscn" id="2_ovglq"]
 [ext_resource type="PackedScene" uid="uid://6ax8cqpub6pr" path="res://scenes/backgrounds/level1.tscn" id="3_bx2u6"]
 [ext_resource type="PackedScene" uid="uid://dqxus3thqimav" path="res://scenes/planet.tscn" id="4_rutjd"]
 [ext_resource type="Script" uid="uid://d0m50rq0pyvpy" path="res://scenes/maps/instructions_panel.gd" id="5_dthre"]
+[ext_resource type="PackedScene" uid="uid://cxxqdv0ft5ngp" path="res://ui/controlsUI.tscn" id="6_dtet3"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xidox"]
 
@@ -64,20 +65,20 @@ scale = Vector2(5.76139, 0.221901)
 [node name="Markers" type="Node2D" parent="."]
 
 [node name="SpawnPoint" type="Marker2D" parent="Markers"]
-position = Vector2(1600, 1728)
+position = Vector2(4007, 961)
 
 [node name="SpawnPoint2" type="Marker2D" parent="Markers"]
-position = Vector2(1637, 1163)
+position = Vector2(3998, 1962)
 
 [node name="Planets" type="Node2D" parent="."]
 
 [node name="Planet" parent="Planets" instance=ExtResource("4_rutjd")]
-position = Vector2(1630, 867)
+position = Vector2(1810, 812)
 collision_layer = 1
 collision_mask = 1
 
 [node name="Planet2" parent="Planets" instance=ExtResource("4_rutjd")]
-position = Vector2(1603, 2014)
+position = Vector2(1826, 2092)
 collision_layer = 1
 collision_mask = 1
 
@@ -86,6 +87,7 @@ position = Vector2(4005, 1481)
 scale = Vector2(4, 4)
 collision_layer = 1
 collision_mask = 1
+health = -10
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -126,5 +128,18 @@ text = "Click derecho - Parry"
 [node name="Button" type="Button" parent="UI/InstructionsPanel/VBoxContainer"]
 layout_mode = 2
 text = "Iniciar Partida"
+
+[node name="UIOverlay2" parent="." instance=ExtResource("6_dtet3")]
+offset_left = 4088.0
+offset_top = 2252.0
+offset_right = 4093.0
+offset_bottom = 2252.0
+rotation = 3.14159
+
+[node name="UIOverlay" parent="." instance=ExtResource("6_dtet3")]
+offset_left = 3906.0
+offset_top = 714.0
+offset_right = 3907.0
+offset_bottom = 714.0
 
 [connection signal="pressed" from="UI/InstructionsPanel/VBoxContainer/Button" to="UI/InstructionsPanel" method="_on_button_pressed"]
