@@ -1,20 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://nae1e43vi6e0"]
+[gd_scene load_steps=3 format=3 uid="uid://nae1e43vi6e0"]
 
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="1_g0prp"]
 [ext_resource type="Script" uid="uid://c53evd1b2brxy" path="res://scenes/structures/damageable_block.gd" id="1_ykj2n"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ykj2n"]
-size = Vector2(123, 123)
+[ext_resource type="Texture2D" uid="uid://cenuy5agfuliq" path="res://assets/structures/asteroid_1.png" id="2_ykj2n"]
 
 [node name="DamageableBlock" type="RigidBody2D" groups=["Damageable", "throwable"]]
-light_mask = 7
-visibility_layer = 7
+light_mask = 5
+visibility_layer = 5
 mass = 0.5
+gravity_scale = 1.2
 script = ExtResource("1_ykj2n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_g0prp")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ykj2n")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -0.5)
-shape = SubResource("RectangleShape2D_ykj2n")
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(0.5, 0.5)
+polygon = PackedVector2Array(22, 96, 38, 52, 54, 34, 66, 30, 74, 2, 94, -20, 96, -34, 58, -44, 40, -22, 26, -34, -6, -50, -22, -46, -50, -38, -58, -4, -44, 52, -24, 60, -14, 80, 10, 96)

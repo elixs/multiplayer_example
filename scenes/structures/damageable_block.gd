@@ -8,8 +8,6 @@ var alive := true
 func _ready():
 	if not affected_by_gravity:
 		gravity_scale = 0
-	else:
-		gravity_scale = 1
 
 @rpc("authority", "call_local", "reliable")
 func recieve_damage():

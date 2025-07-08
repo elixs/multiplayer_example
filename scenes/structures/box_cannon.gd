@@ -28,6 +28,16 @@ func fire_box():
 	box.set_multiplayer_authority(authority_peer)
 	get_tree().current_scene.add_child(box)
 
+	var random_scale = randf_range(1.0, 1.5)
+
+	# Escala visual
+	if box.has_node("Sprite2D"):
+		box.get_node("Sprite2D").scale = box.get_node("Sprite2D").scale * random_scale
+
+	# Escala colisión (solo funciona si es shape tipo Rectangle, Circle, etc.)
+	if box.has_node("CollisionShape2D"):
+		box.get_node("CollisionShape2D").scale = box.get_node("Sprite2D").scale * random_scale
+
 	if box is RigidBody2D:
 		var direction = Vector2.RIGHT.rotated(global_rotation)
 		box.linear_velocity = direction * fire_speed
