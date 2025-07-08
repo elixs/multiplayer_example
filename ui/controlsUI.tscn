@@ -18,6 +18,7 @@ scale = Vector2(2.5, 2.5)
 
 [node name="Control" type="Panel" parent="."]
 self_modulate = Color(0.847474, 0.847474, 0.847474, 1)
+layout_mode = 0
 offset_right = 111.0
 offset_bottom = 100.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3fwyd")
@@ -121,6 +122,7 @@ stretch_mode = 4
 
 [node name="Panel4" type="Panel" parent="Control/HBoxContainer2/TextureRect"]
 show_behind_parent = true
+layout_mode = 0
 offset_left = 9.0
 offset_top = 1.0
 offset_right = 23.0
@@ -129,6 +131,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0ryor")
 
 [node name="Panel3" type="Panel" parent="Control/HBoxContainer2/TextureRect"]
 show_behind_parent = true
+layout_mode = 0
 offset_left = 6.0
 offset_top = 3.0
 offset_right = 26.0
@@ -137,6 +140,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0ryor")
 
 [node name="Panel2" type="Panel" parent="Control/HBoxContainer2/TextureRect"]
 show_behind_parent = true
+layout_mode = 0
 offset_left = 4.0
 offset_top = 5.0
 offset_right = 28.0

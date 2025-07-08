@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dqxus3thqimav" path="res://scenes/planet.tscn" id="3_d2op2"]
 [ext_resource type="PackedScene" uid="uid://dbxdualumejet" path="res://scenes/levels/RoundManager.tscn" id="5_ipu61"]
 [ext_resource type="PackedScene" uid="uid://4sskgfn6nl4j" path="res://scenes/black_hole.tscn" id="6_ygxny"]
-[ext_resource type="PackedScene" path="res://scenes/mass_relay.tscn" id="7_wi4c7"]
+[ext_resource type="PackedScene" uid="uid://cv87gkjx5kmcg" path="res://scenes/mass_relay.tscn" id="7_wi4c7"]
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_72e8q")
