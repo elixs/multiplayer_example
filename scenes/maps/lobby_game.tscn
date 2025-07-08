@@ -78,18 +78,19 @@ position = Vector2(3998, 1962)
 position = Vector2(1810, 812)
 collision_layer = 1
 collision_mask = 1
+respawnable = true
 
 [node name="Planet2" parent="Planets" instance=ExtResource("4_rutjd")]
 position = Vector2(1826, 2092)
 collision_layer = 1
 collision_mask = 1
+respawnable = true
 
 [node name="Planet3" parent="Planets" instance=ExtResource("4_rutjd")]
 position = Vector2(4005, 1481)
 scale = Vector2(4, 4)
 collision_layer = 1
 collision_mask = 1
-health = -10
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -157,8 +158,8 @@ affected_by_gravity = false
 infinite_health = true
 
 [node name="BoxCannon" parent="." instance=ExtResource("8_o6kxt")]
-position = Vector2(2298, 1456)
-rotation = 4.71239
+position = Vector2(2334, 107)
+rotation = 1.5708
 fire_interval = 10.0
 
 [connection signal="pressed" from="UI/InstructionsPanel/VBoxContainer/Button" to="UI/InstructionsPanel" method="_on_button_pressed"]
