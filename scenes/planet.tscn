@@ -11,11 +11,32 @@ script/source = "extends StaticBody2D
 @export var health := 3
 @export var respawnable := false  # NUEVO: permite respawn
 var alive := true
-
+@onready var sprite_base: Sprite2D = $Sprite2D
 @onready var crack1: Sprite2D = $Sprite2D2
 @onready var crack2: Sprite2D = $Sprite2D3
 @onready var body_collision: CollisionShape2D = $CollisionShape2D
 @onready var area_collision: CollisionShape2D = $Area2D/CollisionShape2D
+var sprite_index := -1  
+var planet_sprite_paths := [
+	\"res://assets/planets/earth.png\",
+	\"res://assets/planets/2275770583.png\",
+]
+func _ready():
+	if self.get_multiplayer_authority() == 1:
+		if sprite_index == -1:
+			sprite_index = randi_range(0, planet_sprite_paths.size() - 1)
+		set_planet_sprite.rpc(sprite_index)
+
+@rpc(\"authority\", \"call_local\")
+func set_planet_sprite(index: int):
+	if index >= 0 and index < planet_sprite_paths.size():
+		var texture = load(planet_sprite_paths[index])
+		if texture is Texture2D:
+			sprite_base.texture = texture
+		else:
+			push_warning(\"No se pudo cargar la textura en: \" + planet_sprite_paths[index])
+	else:
+		push_warning(\"Índice fuera de rango: \" + str(index))
 
 @rpc(\"authority\", \"call_local\", \"reliable\")
 func recieve_damage():

@@ -15,9 +15,9 @@ func _ready():
 
 func _fire_loop():
 	await get_tree().create_timer(fire_interval).timeout
-	fire_box()
+	fire_box.rpc()
 	_fire_loop()
-
+@rpc("authority","call_local")
 func fire_box():
 	var box = box_scene.instantiate()
 
