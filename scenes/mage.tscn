@@ -319,12 +319,14 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="Mage" type="CharacterBody2D"]
+y_sort_enabled = true
 motion_mode = 1
 script = ExtResource("1_yb71v")
 bullet_scene = ExtResource("2_nc4w5")
 metadata/_custom_type_script = "uid://c3g0gk37yr2r2"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 rotation = 0.00226489
 texture = ExtResource("2_t2cfv")
 hframes = 3

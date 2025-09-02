@@ -290,6 +290,7 @@ states/run/position = Vector2(529, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_3v2ag"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_jej6c"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_f1ej7")]
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_layer = 2
 collision_mask = 0
 motion_mode = 1
