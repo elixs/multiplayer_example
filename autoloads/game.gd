@@ -23,9 +23,10 @@ var change_window_scale : bool = true :
 		elif last_value != value:
 			_update_window_scale()
 
-var _is_window_small: bool = false
-var _initial_window_scale_mode: Window.ContentScaleMode
-var _initial_window_scale_aspect: Window.ContentScaleAspect
+var dung: int 
+var _is_window_small = false
+var _initial_window_scale_mode
+var _initial_window_scale_aspect
 
 @onready var player_id: Label = %PlayerId
 
@@ -177,3 +178,21 @@ func _handle_node_added(node: Node) -> void:
 		# Scene has been changed
 		change_window_scale = node is MainMenu or node is LobbyHostScreen or \
 			node is LobbyJoinScreen or node is LobbyWaitingScreen or node is Credits
+
+
+func set_player_dung(id:int,value:int) -> void:
+	multicast_set_player_coins.rpc(id,value)
+	
+func set_current_player_dung(value:int) -> void:
+	multicast_set_player_coins.rpc(get_current_player().id,value)
+
+@rpc("any_peer","call_local", "reliable")
+func multicast_set_player_coins(id: int, value:int) -> void:
+	var player_data = get_player(id)
+	player_data.dung = value
+
+func get_player_dung(id:int) -> int:
+	return get_player(id).dung
+
+func get_current_player_dung() -> int:
+	return get_current_player().dung

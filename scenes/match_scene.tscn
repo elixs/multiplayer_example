@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://7j8hlacdxmhh"]
+
+[ext_resource type="Script" uid="uid://cbkp0elilkb4b" path="res://scenes/main.gd" id="1_dscic"]
+[ext_resource type="PackedScene" uid="uid://v4pvpglqhhnt" path="res://scenes/map.tscn" id="2_jr368"]
+[ext_resource type="PackedScene" uid="uid://d2ijtieumyhof" path="res://scenes/player.tscn" id="2_xr2dr"]
+[ext_resource type="PackedScene" uid="uid://d0udwekt8pmqj" path="res://scenes/ball.tscn" id="3_nk4te"]
+[ext_resource type="PackedScene" uid="uid://dwnxodiquq63m" path="res://gameplay/big_resource.tscn" id="4_on7a6"]
+[ext_resource type="PackedScene" uid="uid://b3olmi8rsmadn" path="res://scenes/ShopScreen.tscn" id="5_gpudj"]
+[ext_resource type="PackedScene" uid="uid://cmelluavc7yg6" path="res://scenes/end_screen.tscn" id="6_hid0r"]
+[ext_resource type="Script" uid="uid://ba07fntbvwu7m" path="res://scenes/match_controller.gd" id="6_k0j1d"]
+[ext_resource type="Script" uid="uid://dndd6xwc8o8m4" path="res://scenes/end_screen.gd" id="7_on7a6"]
+
+[node name="MatchScene" type="Node2D" unique_id=1397281341]
+y_sort_enabled = true
+script = ExtResource("1_dscic")
+player_scene = ExtResource("2_xr2dr")
+ball_scene = ExtResource("3_nk4te")
+big_resource = ExtResource("4_on7a6")
+
+[node name="World" type="Node2D" parent="." unique_id=1056030059]
+y_sort_enabled = true
+
+[node name="Players" type="Node2D" parent="World" unique_id=30488549]
+y_sort_enabled = true
+
+[node name="Map" parent="World" unique_id=778570579 instance=ExtResource("2_jr368")]
+y_sort_enabled = true
+
+[node name="Players" type="Node2D" parent="." unique_id=121598]
+y_sort_enabled = true
+
+[node name="Balls" type="Node2D" parent="." unique_id=1140088959]
+y_sort_enabled = true
+
+[node name="PlayerSpawnPoints" type="Node2D" parent="." unique_id=1077289756]
+
+[node name="Marker2D" type="Marker2D" parent="PlayerSpawnPoints" unique_id=636684676]
+position = Vector2(1856, 674)
+
+[node name="Marker2D2" type="Marker2D" parent="PlayerSpawnPoints" unique_id=502491012]
+position = Vector2(891, 1449)
+
+[node name="Marker2D3" type="Marker2D" parent="PlayerSpawnPoints" unique_id=1220999234]
+position = Vector2(2962, 1506)
+
+[node name="BallSpawnPoints" type="Node2D" parent="." unique_id=750208946]
+
+[node name="Marker2D" type="Marker2D" parent="BallSpawnPoints" unique_id=1961993550]
+position = Vector2(1856, 366)
+
+[node name="Marker2D2" type="Marker2D" parent="BallSpawnPoints" unique_id=1793407543]
+position = Vector2(1247, 1449)
+
+[node name="Marker2D3" type="Marker2D" parent="BallSpawnPoints" unique_id=832383799]
+position = Vector2(2589, 1506)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1777450631]
+process_mode = 3
+
+[node name="ShopScreen" parent="UI" unique_id=1658476554 instance=ExtResource("5_gpudj")]
+process_mode = 3
+
+[node name="TimerLabel" type="Label" parent="UI" unique_id=84982122]
+process_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 2
+
+[node name="EndScreen" parent="UI" unique_id=1388846591 instance=ExtResource("6_hid0r")]
+script = ExtResource("7_on7a6")
+
+[node name="Timers" type="Node" parent="." unique_id=770002393]
+
+[node name="RoundTimer" type="Timer" parent="Timers" unique_id=954822435]
+wait_time = 60.0
+one_shot = true
+
+[node name="ShopTimer" type="Timer" parent="Timers" unique_id=1704158372]
+process_mode = 2
+wait_time = 20.0
+one_shot = true
+
+[node name="MatchTimer" type="Timer" parent="Timers" unique_id=1978069221]
+wait_time = 219.0
+one_shot = true
+
+[node name="MatchController" type="Node" parent="." unique_id=1530699601]
+process_mode = 3
+script = ExtResource("6_k0j1d")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=9923813]
+_spawnable_scenes = PackedStringArray("uid://dwnxodiquq63m", "uid://q0keb73ua61k")
+spawn_path = NodePath(".")

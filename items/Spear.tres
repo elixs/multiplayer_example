@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cb3cw5riphjx7"]
+
+[ext_resource type="Texture2D" uid="uid://brmdvyfdggcrh" path="res://assets/shop assets/spear.png" id="1_n750c"]
+[ext_resource type="Script" uid="uid://dbyecwbfuftuy" path="res://items/item_data.gd" id="1_teler"]
+
+[resource]
+script = ExtResource("1_teler")
+display_name = "Spear"
+description = "Sharp enough to make beetles nervous. Deals 5 damage"
+image = ExtResource("1_n750c")
+price = 4
+metadata/_custom_type_script = "uid://dbyecwbfuftuy"

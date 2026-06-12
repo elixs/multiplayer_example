@@ -1,0 +1,12 @@
+[gd_resource type="Resource" format=3 uid="uid://blueioml5nfol"]
+
+[ext_resource type="Texture2D" uid="uid://2ltbk72w7l3b" path="res://assets/shop assets/sprite 2.png" id="1_powpv"]
+[ext_resource type="Script" uid="uid://c2t00sjrd4ug1" path="res://items/ladybug.gd" id="2_powpv"]
+
+[resource]
+script = ExtResource("2_powpv")
+display_name = "Ladybug perk"
+description = "Ladybug luck keeps your shell together. +10% max health."
+image = ExtResource("1_powpv")
+price = 6
+metadata/_custom_type_script = "uid://dbyecwbfuftuy"

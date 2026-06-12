@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://cskisnb8ahv2l"]
+
+[ext_resource type="Texture2D" uid="uid://dk3ccxe7wrkyb" path="res://assets/shop assets/lightHelmet.png" id="1_nc3en"]
+[ext_resource type="Script" uid="uid://drowvmyufx28s" path="res://items/armor.gd" id="2_nc3en"]
+
+[resource]
+script = ExtResource("2_nc3en")
+armor = 2
+display_name = "Light helmet"
+description = "Protects your head without ruining your speed. +2 defense."
+image = ExtResource("1_nc3en")
+price = 4
+metadata/_custom_type_script = "uid://dbyecwbfuftuy"

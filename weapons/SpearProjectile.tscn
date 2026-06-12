@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://fja3u8rkhq8s"]
+
+[ext_resource type="Script" uid="uid://betdjv44g2qtq" path="res://weapons/projectile.gd" id="1_enfed"]
+[ext_resource type="Texture2D" uid="uid://brmdvyfdggcrh" path="res://assets/shop assets/spear.png" id="2_dh47r"]
+[ext_resource type="Script" uid="uid://bdhvqyy2d5ivq" path="res://components/hitbox_component.gd" id="3_6r1td"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xuifw"]
+radius = 2.8284273
+height = 24.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ns54y"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cus6t"]
+size = Vector2(11, 8)
+
+[node name="SpearProjectile" type="Area2D" unique_id=1349324402]
+scale = Vector2(3, 3)
+collision_layer = 5
+collision_mask = 3
+script = ExtResource("1_enfed")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1864048418]
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_xuifw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=653511704]
+texture_filter = 1
+rotation = 0.7853982
+texture = ExtResource("2_dh47r")
+
+[node name="ProjectileSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=304005535]
+replication_config = SubResource("SceneReplicationConfig_ns54y")
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=539680452]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("3_6r1td")
+metadata/_custom_type_script = "uid://bdhvqyy2d5ivq"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1753507216]
+position = Vector2(6.8333335, 1.1920929e-07)
+shape = SubResource("RectangleShape2D_cus6t")

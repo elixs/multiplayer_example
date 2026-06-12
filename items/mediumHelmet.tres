@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://pnokseyy5xod"]
+
+[ext_resource type="Texture2D" uid="uid://b7fojjwey0df7" path="res://assets/shop assets/mediumHelmet.png" id="1_7trtq"]
+[ext_resource type="Script" uid="uid://drowvmyufx28s" path="res://items/armor.gd" id="2_7trtq"]
+
+[resource]
+script = ExtResource("2_7trtq")
+armor = 4
+display_name = "Medium helmet"
+description = "Enough armor to survive bad decisions. +4 defense."
+image = ExtResource("1_7trtq")
+price = 8
+metadata/_custom_type_script = "uid://dbyecwbfuftuy"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://34p1i82q4iwu"]
+
+[ext_resource type="Script" uid="uid://dbyecwbfuftuy" path="res://items/item_data.gd" id="1_5hxqp"]
+[ext_resource type="Texture2D" uid="uid://d214bgrswpk6s" path="res://assets/shop assets/crossbow.png" id="1_exp30"]
+
+[resource]
+script = ExtResource("1_5hxqp")
+display_name = "Crossbow"
+description = "Shoot first. Roll dung later. +10 damage."
+image = ExtResource("1_exp30")
+metadata/_custom_type_script = "uid://dbyecwbfuftuy"

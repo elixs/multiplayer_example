@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://d0udwekt8pmqj"]
+
+[ext_resource type="Script" uid="uid://chlo6ylsbqml7" path="res://scenes/ball.gd" id="1_cxlvu"]
+[ext_resource type="Shader" uid="uid://bq76el8joqeu4" path="res://scenes/ball.gdshader" id="2_f7cbr"]
+[ext_resource type="Texture2D" uid="uid://dyvk4msonthvg" path="res://assets/ball assets/DungBall_texture.png" id="3_4dx81"]
+[ext_resource type="Texture2D" uid="uid://cf7jw1y68qjlp" path="res://assets/ball assets/DungBall_outline.png" id="3_eew57"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eew57"]
+shader = ExtResource("2_f7cbr")
+shader_parameter/radius = 0.49
+shader_parameter/roll_speed = 2.0
+shader_parameter/edge_warp_reduction = 0.6
+shader_parameter/outline_texture = ExtResource("3_eew57")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cxlvu"]
+radius = 200.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f7cbr"]
+radius = 100.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cxlvu"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4dx81"]
+radius = 109.0
+
+[node name="Dung_Ball" type="AnimatableBody2D" unique_id=2079618351]
+collision_mask = 5
+script = ExtResource("1_cxlvu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1302526253]
+y_sort_enabled = true
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_eew57")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_4dx81")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=871529693]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=891151119]
+shape = SubResource("CircleShape2D_cxlvu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1098988610]
+shape = SubResource("CircleShape2D_f7cbr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=733379433]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=38171601]
+replication_config = SubResource("SceneReplicationConfig_cxlvu")
+
+[node name="Barrier" type="Area2D" parent="." unique_id=17926899]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier" unique_id=750003497]
+shape = SubResource("CircleShape2D_4dx81")

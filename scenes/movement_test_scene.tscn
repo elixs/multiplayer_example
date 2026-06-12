@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dqs8us2wqh5n2"]
+
+[ext_resource type="Script" uid="uid://cbkp0elilkb4b" path="res://scenes/main.gd" id="1_x0wtk"]
+[ext_resource type="PackedScene" uid="uid://d2ijtieumyhof" path="res://scenes/player.tscn" id="2_bivqf"]
+[ext_resource type="PackedScene" uid="uid://d0udwekt8pmqj" path="res://scenes/ball.tscn" id="3_wdo1p"]
+
+[node name="Movement_Test_Scene" type="Node2D" unique_id=203207620]
+script = ExtResource("1_x0wtk")
+player_scene = ExtResource("2_bivqf")
+ball_scene = ExtResource("3_wdo1p")
+
+[node name="PlayerSpawnPoints" type="Node2D" parent="." unique_id=123489686]
+
+[node name="Marker2D" type="Marker2D" parent="PlayerSpawnPoints" unique_id=1940135851]
+position = Vector2(500, 100)
+
+[node name="Marker2D2" type="Marker2D" parent="PlayerSpawnPoints" unique_id=12547452]
+position = Vector2(500, 300)
+
+[node name="Marker2D3" type="Marker2D" parent="PlayerSpawnPoints" unique_id=2120072984]
+position = Vector2(500, 500)
+
+[node name="Players" type="Node2D" parent="." unique_id=2042522851]
+
+[node name="Balls" type="Node2D" parent="." unique_id=993237546]
+
+[node name="BallSpawnPoints" type="Node2D" parent="." unique_id=773961649]
+
+[node name="Marker2D" type="Marker2D" parent="BallSpawnPoints" unique_id=1675337643]
+position = Vector2(700, 100)
+
+[node name="Marker2D2" type="Marker2D" parent="BallSpawnPoints" unique_id=1588498528]
+position = Vector2(300, 300)
+
+[node name="Marker2D3" type="Marker2D" parent="BallSpawnPoints" unique_id=789013333]
+position = Vector2(700, 500)

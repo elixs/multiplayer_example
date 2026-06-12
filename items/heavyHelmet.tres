@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://m06ix6j1cfsh"]
+
+[ext_resource type="Texture2D" uid="uid://ovqgee4mynf5" path="res://assets/shop assets/heavyHelmet.png" id="1_dptyn"]
+[ext_resource type="Script" uid="uid://drowvmyufx28s" path="res://items/armor.gd" id="2_dptyn"]
+
+[resource]
+script = ExtResource("2_dptyn")
+armor = 6
+display_name = "Heavy helmet"
+description = "Makes your head harder and your thoughts slower. +6 defense"
+image = ExtResource("1_dptyn")
+price = 12
+metadata/_custom_type_script = "uid://dbyecwbfuftuy"

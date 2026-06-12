@@ -1,0 +1,12 @@
+[gd_resource type="Resource" format=3 uid="uid://dckkdatinmnxt"]
+
+[ext_resource type="Texture2D" uid="uid://crdqqg6r4xgej" path="res://assets/shop assets/sprite 1.png" id="1_kfavx"]
+[ext_resource type="Script" uid="uid://durpdtrjp2y1n" path="res://items/dragonfly.gd" id="2_kfavx"]
+
+[resource]
+script = ExtResource("2_kfavx")
+speed = 1.2
+display_name = "Dragonfly perk"
+description = "\"Your beetle body channels the power of the dragonfly. +20% movement speed.\""
+image = ExtResource("1_kfavx")
+metadata/_custom_type_script = "uid://dbyecwbfuftuy"

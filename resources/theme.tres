@@ -1,0 +1,12 @@
+[gd_resource type="Theme" format=3 uid="uid://86edik8i4neo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tekt2"]
+bg_color = Color(0.1254902, 0.10980392, 0.07450981, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d4nwg"]
+bg_color = Color(0.48199728, 0.6760634, 0.32997873, 1)
+
+[resource]
+HealthBar/base_type = &"ProgressBar"
+HealthBar/styles/background = SubResource("StyleBoxFlat_tekt2")
+HealthBar/styles/fill = SubResource("StyleBoxFlat_d4nwg")

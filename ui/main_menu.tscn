@@ -2,58 +2,83 @@
 
 [ext_resource type="Theme" uid="uid://bwgdrcgopd0s1" path="res://lobby/lobby_theme.tres" id="1_3qnx1"]
 [ext_resource type="Script" uid="uid://cnbk17iq1x68f" path="res://ui/main_menu.gd" id="2_p6ygj"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_xllby"]
+[ext_resource type="Texture2D" uid="uid://br64ccwuru1mm" path="res://assets/orig.png" id="3_rmr83"]
+[ext_resource type="Texture2D" uid="uid://b3rtcjkhitfq0" path="res://assets/UI Assets/logo.png" id="4_8uxxo"]
 
-[node name="MainMenu" type="Control" unique_id=90432305]
+[node name="MainMenu" type="Control" unique_id=582390036]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("1_3qnx1")
 script = ExtResource("2_p6ygj")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=953531144]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2012180044]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 140.0
-offset_top = -160.0
-offset_right = 640.0
-offset_bottom = 220.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_rmr83")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2109258779]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer" unique_id=929965828]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer" unique_id=476227112]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer" unique_id=2083100208]
+visible = false
+layout_mode = 2
+texture = ExtResource("4_8uxxo")
+expand_mode = 1
+
+[node name="Logo" type="Sprite2D" parent="MarginContainer/MarginContainer" unique_id=1030626923]
+position = Vector2(72, 82)
+scale = Vector2(0.26659897, 0.2574844)
+texture = ExtResource("4_8uxxo")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer" unique_id=757843779]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="Host" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=923655091]
+[node name="Host" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=163287319]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Host"
 
-[node name="Join" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=771461010]
+[node name="Join" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=1047364454]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Join"
 
-[node name="Credits" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=1427127326]
+[node name="Credits" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=811020762]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Credits"
 
-[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=1446357876]
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=1867731348]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
 
-[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=95552055]
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1894893124]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -67,26 +92,6 @@ offset_bottom = 256.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer2" unique_id=389958185]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2" unique_id=2127826636]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
-texture = ExtResource("2_xllby")
-
-[node name="MarginContainer3" type="MarginContainer" parent="." unique_id=658664263]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -417.5
-offset_top = -360.0
-offset_right = 417.5
-offset_bottom = -112.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="MarginContainer3" unique_id=1435848050]
-layout_mode = 2
-theme_type_variation = &"Title"
-text = "Multiplayer Example"

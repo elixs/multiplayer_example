@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://bikog6ra2oipn"]
+
+[ext_resource type="Texture2D" uid="uid://bq04qnpsexewh" path="res://assets/shop assets/sprite 3.png" id="1_74khd"]
+[ext_resource type="Script" uid="uid://dpg7eles806mg" path="res://items/bee.gd" id="2_74khd"]
+
+[resource]
+script = ExtResource("2_74khd")
+dash = 100
+display_name = "Bee perk"
+description = "Your beetle body hums with aggressive bee energy. +100 dash."
+image = ExtResource("1_74khd")
+price = 8
+metadata/_custom_type_script = "uid://dbyecwbfuftuy"

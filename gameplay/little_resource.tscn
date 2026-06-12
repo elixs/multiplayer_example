@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://q0keb73ua61k"]
+
+[ext_resource type="Texture2D" uid="uid://c774sjevbcio1" path="res://assets/map assets/little resource.png" id="1_a40iv"]
+[ext_resource type="Script" uid="uid://dnwn1ig6n1s4g" path="res://gameplay/little_resource.gd" id="1_inx35"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rirk1"]
+size = Vector2(54, 30)
+
+[node name="Little_resource" type="Area2D" unique_id=503063623]
+script = ExtResource("1_inx35")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=521430674]
+texture_filter = 1
+scale = Vector2(3.529, 4)
+texture = ExtResource("1_a40iv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1661051677]
+shape = SubResource("RectangleShape2D_rirk1")
+debug_color = Color(0.062396772, 0.58474565, 0.34379852, 0.41960785)

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://b528aiaihjxiq"]
+
+[ext_resource type="Texture2D" uid="uid://d1ytodn0gtvr8" path="res://assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Plant.png" id="1_avsvi"]
+[ext_resource type="Shader" uid="uid://dvfvpcrg6xe6a" path="res://scenes/tree.gdshader" id="1_vplca"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_viusy"]
+shader = ExtResource("1_vplca")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.05
+shader_parameter/maxStrength = 0.006000000285
+shader_parameter/strengthScale = 109.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = 0.0
+shader_parameter/heightOffset = 0.0
+shader_parameter/offset = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_avsvi"]
+radius = 7.566373
+
+[node name="Tree" type="Node2D" unique_id=1532459446]
+scale = Vector2(3, 3)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1025314838]
+texture_filter = 1
+material = SubResource("ShaderMaterial_viusy")
+position = Vector2(0, -55)
+texture = ExtResource("1_avsvi")
+region_enabled = true
+region_rect = Rect2(148.65892, 9.506666, 119.2169, 152.99501)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=936131374]
+position = Vector2(0, -55)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1038733135]
+position = Vector2(-1, 60)
+shape = SubResource("CircleShape2D_avsvi")
+debug_color = Color(0.9042785, 0.30573782, 0.04575184, 0.41960785)
