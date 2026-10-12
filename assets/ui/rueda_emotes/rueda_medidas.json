@@ -1,0 +1,163 @@
+{
+ "canvas_px": 1220,
+ "center_px": [
+  610.0,
+  610.0
+ ],
+ "inner_radius_px": 250,
+ "outer_radius_px": 600,
+ "icon_radius_px": 425.0,
+ "segment_0": "centred at the top, then clockwise",
+ "wheels": {
+  "4": [
+   {
+    "segment": 0,
+    "angle_deg_clockwise_from_top": 0.0,
+    "icon_center_px": [
+     610.0,
+     185.0
+    ]
+   },
+   {
+    "segment": 1,
+    "angle_deg_clockwise_from_top": 90.0,
+    "icon_center_px": [
+     1035.0,
+     610.0
+    ]
+   },
+   {
+    "segment": 2,
+    "angle_deg_clockwise_from_top": 180.0,
+    "icon_center_px": [
+     610.0,
+     1035.0
+    ]
+   },
+   {
+    "segment": 3,
+    "angle_deg_clockwise_from_top": 270.0,
+    "icon_center_px": [
+     185.0,
+     610.0
+    ]
+   }
+  ],
+  "6": [
+   {
+    "segment": 0,
+    "angle_deg_clockwise_from_top": 0.0,
+    "icon_center_px": [
+     610.0,
+     185.0
+    ]
+   },
+   {
+    "segment": 1,
+    "angle_deg_clockwise_from_top": 60.0,
+    "icon_center_px": [
+     978.1,
+     397.5
+    ]
+   },
+   {
+    "segment": 2,
+    "angle_deg_clockwise_from_top": 120.0,
+    "icon_center_px": [
+     978.1,
+     822.5
+    ]
+   },
+   {
+    "segment": 3,
+    "angle_deg_clockwise_from_top": 180.0,
+    "icon_center_px": [
+     610.0,
+     1035.0
+    ]
+   },
+   {
+    "segment": 4,
+    "angle_deg_clockwise_from_top": 240.0,
+    "icon_center_px": [
+     241.9,
+     822.5
+    ]
+   },
+   {
+    "segment": 5,
+    "angle_deg_clockwise_from_top": 300.0,
+    "icon_center_px": [
+     241.9,
+     397.5
+    ]
+   }
+  ],
+  "8": [
+   {
+    "segment": 0,
+    "angle_deg_clockwise_from_top": 0.0,
+    "icon_center_px": [
+     610.0,
+     185.0
+    ]
+   },
+   {
+    "segment": 1,
+    "angle_deg_clockwise_from_top": 45.0,
+    "icon_center_px": [
+     910.5,
+     309.5
+    ]
+   },
+   {
+    "segment": 2,
+    "angle_deg_clockwise_from_top": 90.0,
+    "icon_center_px": [
+     1035.0,
+     610.0
+    ]
+   },
+   {
+    "segment": 3,
+    "angle_deg_clockwise_from_top": 135.0,
+    "icon_center_px": [
+     910.5,
+     910.5
+    ]
+   },
+   {
+    "segment": 4,
+    "angle_deg_clockwise_from_top": 180.0,
+    "icon_center_px": [
+     610.0,
+     1035.0
+    ]
+   },
+   {
+    "segment": 5,
+    "angle_deg_clockwise_from_top": 225.0,
+    "icon_center_px": [
+     309.5,
+     910.5
+    ]
+   },
+   {
+    "segment": 6,
+    "angle_deg_clockwise_from_top": 270.0,
+    "icon_center_px": [
+     185.0,
+     610.0
+    ]
+   },
+   {
+    "segment": 7,
+    "angle_deg_clockwise_from_top": 315.0,
+    "icon_center_px": [
+     309.5,
+     309.5
+    ]
+   }
+  ]
+ }
+}
