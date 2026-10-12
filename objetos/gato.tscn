@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://7am66ghqrttv" path="res://objetos/input_synchronizer.tscn" id="2_nxguc"]
 [ext_resource type="PackedScene" uid="uid://bmng82ys0g0x7" path="res://models/GatoV5_Bone.glb" id="3_5vjbb"]
 [ext_resource type="PackedScene" uid="uid://di6skkic6oys7" path="res://hud/hud.tscn" id="4_a86pc"]
+[ext_resource type="Resource" uid="uid://0jt1wniw86x3" path="res://ui/emotes/emotes_base.tres" id="5_emotes"]
+[ext_resource type="PackedScene" path="res://ui/emotes/rueda_emotes.tscn" id="6_rueda"]
+[ext_resource type="PackedScene" path="res://ui/emotes/burbuja_emote.tscn" id="7_burbuja"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_57qmd"]
 size = Vector3(2.176, 0.17325294, 4.199)
@@ -131,6 +134,7 @@ camera_max_pitch = null
 spring_min_pitch = null
 spring_max_pitch = null
 is_emoteando = null
+emotes = ExtResource("5_emotes")
 blend_speed = null
 Arriba = NodePath("ArribaDe")
 
@@ -210,9 +214,15 @@ parameters/Accion/blend_amount = 0.0
 parameters/RotandoR/add_amount = 0.0
 parameters/RotandoL/add_amount = 0.0
 
+[node name="BurbujaEmote" parent="." instance=ExtResource("7_burbuja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
+
 [node name="InGameUI" type="CanvasLayer" parent="." unique_id=619116339]
 
 [node name="HUD" parent="InGameUI" unique_id=1513608797 node_paths=PackedStringArray("jugador") instance=ExtResource("4_a86pc")]
+jugador = NodePath("../..")
+
+[node name="RuedaEmotes" parent="InGameUI" node_paths=PackedStringArray("jugador") instance=ExtResource("6_rueda")]
 jugador = NodePath("../..")
 
 [editable path="GatoV5_Bone"]
