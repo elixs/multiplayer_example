@@ -6,6 +6,7 @@ extends Node3D
 
 
 func _ready() -> void:
+	TagGame.game_over.connect(_on_game_over)
 	for i: int in Game.instance.players.size():
 		var player_data: Statics.PlayerData = Game.instance.players[i]
 		var player_inst: Player = player_scene.instantiate()
@@ -17,3 +18,7 @@ func _ready() -> void:
 		
 	if multiplayer.is_server():
 		TagGame.start_game()
+
+
+func _on_game_over(_winner_id: int) -> void:
+	get_tree().change_scene_to_file("res://ui/game_over.tscn")

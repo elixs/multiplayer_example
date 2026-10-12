@@ -99,6 +99,12 @@ const ANIM_JUMP_LAND: StringName = \
 const ANIM_CLIMB: StringName = \
 	&"ClimbUp_1m"
 
+const ANIM_DANCE: StringName = \
+	&"UAL1_Standard_RM/Dance"
+
+const ANIM_DEATH: StringName = \
+	&"UAL1_Standard_RM/Death01"
+
 
 # ------------------------------------------------------------
 # Slide animations
@@ -169,6 +175,9 @@ var climb_cooldown: float = 0.0
 
 var role: Statics.Role = Statics.Role.NONE
 
+# Pose de cierre: sin física ni cámara, solo la animación del podio.
+var podium_mode: bool = false
+
 var _player_name: String = ""
 var _tag_timer_label: Label
 
@@ -183,6 +192,13 @@ var _slide_exit_playing: bool = false
 # ============================================================
 
 func _ready() -> void:
+	if podium_mode:
+		set_physics_process(false)
+		set_process(false)
+		set_process_input(false)
+		camera_3d.current = false
+		return
+
 	process_priority = 1
 
 	spring_arm.add_excluded_object(get_rid())
@@ -1693,3 +1709,32 @@ func send_data(
 
 	if just_jumped:
 		_remote_just_jumped = true
+
+
+# ============================================================
+# Podium
+# ============================================================
+
+func present_on_podium(player_name: String, is_winner: bool) -> void:
+	var body_shape: CollisionShape3D = get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if body_shape:
+		body_shape.disabled = true
+
+	label_3d.text = player_name
+	label_3d.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	label_3d.modulate = Color(1.0, 0.86, 0.35) if is_winner else Color(0.78, 0.8, 0.84)
+	label_3d.font_size = 48
+
+	climb_anim_player.stop()
+	animation_player.stop()
+	anim_player.play(ANIM_DANCE if is_winner else ANIM_DEATH)
+
+	if not is_winner and not anim_player.animation_finished.is_connected(_hold_defeat_pose):
+		anim_player.animation_finished.connect(_hold_defeat_pose)
+
+
+func _hold_defeat_pose(anim_name: StringName) -> void:
+	if anim_name != ANIM_DEATH:
+		return
+	anim_player.seek(anim_player.current_animation_length, true)
+	anim_player.pause()

@@ -9,6 +9,7 @@ const TAG_COOLDOWN: float = 1.0
 const SYNC_INTERVAL: float = 1.0
 
 var it_player_id: int = -1
+var match_winner_id: int = -1
 var time_left: float = 0.0
 var game_active: bool = false
 var alive_player_ids: Array = []
@@ -38,6 +39,7 @@ func _physics_process(delta: float) -> void:
 func start_game() -> void:
 	if not multiplayer.is_server():
 		return
+	match_winner_id = -1
 	alive_player_ids.clear()
 	for p: Statics.PlayerData in Game.instance.players:
 		alive_player_ids.append(p.id)
@@ -127,4 +129,6 @@ func _on_explode(player_id: int) -> void:
 
 @rpc("authority", "call_local", "reliable")
 func _on_game_over(winner_id: int) -> void:
+	match_winner_id = winner_id
+	game_active = false
 	game_over.emit(winner_id)
