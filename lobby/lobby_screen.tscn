@@ -1,6 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://cgsspji18smle"]
+[gd_scene load_steps=8 format=3 uid="uid://cgsspji18smle"]
 
-[ext_resource type="Theme" uid="uid://bwgdrcgopd0s1" path="res://lobby/lobby_theme.tres" id="1_0ce57"]
+[ext_resource type="Theme" uid="uid://c1h8f62iw8uqo" path="res://ui/Theme/panacats_theme.tres" id="1_0ce57"]
+[ext_resource type="Texture2D" uid="uid://c8vdkh32bgul" path="res://assets/ui/lobby_y_botones/btn_volver.png" id="2_volver"]
+[ext_resource type="PackedScene" path="res://ui/puntero_foco.tscn" id="3_puntero"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_marco"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7058824, 0.3490196, 0.1843137, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_volver_normal"]
+texture = ExtResource("2_volver")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_volver_realce"]
+texture = ExtResource("2_volver")
+modulate_color = Color(1.1, 1.06, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_volver_presionado"]
+texture = ExtResource("2_volver")
+modulate_color = Color(0.88, 0.84, 0.8, 1)
 
 [node name="LobbyScreen" type="Control"]
 layout_mode = 3
@@ -10,6 +31,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_0ce57")
+
+[node name="Fondo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.9647059, 0.9411765, 0.8941176, 1)
+
+[node name="Marco" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 14.0
+offset_right = -18.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_marco")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -28,6 +73,7 @@ theme_type_variation = &"Zero"
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
+theme_type_variation = &"Zero"
 
 [node name="Label" type="Label" parent="MarginContainer2/VBoxContainer/Panel"]
 layout_mode = 1
@@ -36,31 +82,35 @@ anchor_left = 0.5
 anchor_top = 0.9
 anchor_right = 0.5
 anchor_bottom = 0.9
-offset_left = -104.5
-offset_top = -88.0
-offset_right = 104.5
+offset_left = -320.0
+offset_top = -96.0
+offset_right = 320.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 10
 size_flags_stretch_ratio = 0.5
-theme_type_variation = &"Title"
-text = "Screen"
+theme_type_variation = &"Titulo"
+text = "Pantalla"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BackButton" type="Button" parent="MarginContainer2/VBoxContainer/Panel"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.9
 anchor_right = 0.5
 anchor_bottom = 0.9
-offset_left = -314.0
-offset_top = -68.0
-offset_right = -250.0
-offset_bottom = -4.0
-text = "く"
+offset_left = -404.0
+offset_top = -84.0
+offset_right = -340.0
+offset_bottom = -20.0
+theme_override_styles/hover = SubResource("StyleBoxTexture_volver_realce")
+theme_override_styles/normal = SubResource("StyleBoxTexture_volver_normal")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_volver_presionado")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
@@ -84,3 +134,7 @@ offset_bottom = 290.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="Puntero" parent="." instance=ExtResource("3_puntero")]
+layout_mode = 0
+lado = 1

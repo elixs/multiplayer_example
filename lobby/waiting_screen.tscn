@@ -3,28 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://cgsspji18smle" path="res://lobby/lobby_screen.tscn" id="1_1g6tu"]
 [ext_resource type="Script" uid="uid://d1urh7pr0l6lh" path="res://lobby/waiting_screen.gd" id="2_a2sqk"]
 [ext_resource type="PackedScene" uid="uid://iobnvr8f3tkm" path="res://lobby/lobby_player.tscn" id="2_wjc1o"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="3_0nkhr"]
-[ext_resource type="Texture2D" uid="uid://c5bpse006v17q" path="res://Texturas/Madera.jpg" id="3_ssaso"]
+[ext_resource type="Texture2D" uid="uid://be776ycomji1w" path="res://assets/ui/menus/gato_naranjo.png" id="3_0nkhr"]
 
 [node name="WaitingScreen" unique_id=2002899651 instance=ExtResource("1_1g6tu")]
 script = ExtResource("2_a2sqk")
 
-[node name="PanelContainer" type="PanelContainer" parent="." index="0" unique_id=267675849]
-custom_minimum_size = Vector2(0, 24.795)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="PanelContainer" index="0" unique_id=1506924122]
-propagate_maximum_size = true
-layout_mode = 2
-texture = ExtResource("3_ssaso")
-
 [node name="Label" parent="MarginContainer2/VBoxContainer/Panel" index="0"]
-text = "Lobby"
+text = "Sala de espera"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="0"]
 custom_minimum_size = Vector2(629, 375)
@@ -71,7 +56,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Wating for players ..."
+text = "Esperando jugadores..."
 horizontal_alignment = 1
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2" type="PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="1" unique_id=314556896]
@@ -89,7 +74,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer" type="MarginContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2" index="0" unique_id=222645287]
-custom_minimum_size = Vector2(0, 375)
+custom_minimum_size = Vector2(0, 260)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer" index="0" unique_id=900880533]
@@ -109,7 +94,7 @@ stretch_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Player"
+text = "Jugador"
 horizontal_alignment = 1
 
 [node name="RoleButton" type="Button" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="2" unique_id=1115661849]
@@ -154,7 +139,7 @@ theme_type_variation = &"Zero"
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
-text = "Ready"
+text = "Listo"
 
 [node name="GameStartContainer" type="PanelContainer" parent="." index="2" unique_id=1508174686]
 unique_name_in_owner = true
@@ -182,7 +167,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="GameStartContainer/MarginContainer/VBoxContainer" index="0" unique_id=89099161]
 layout_mode = 2
-text = "Game starting"
+text = "La jornada empieza en"
 horizontal_alignment = 1
 
 [node name="GameStartCounter" type="Label" parent="GameStartContainer/MarginContainer/VBoxContainer" index="1" unique_id=1900143055]

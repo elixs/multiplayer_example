@@ -7,7 +7,6 @@ extends Control
 @onready var credits: Button = %Credits
 @onready var quit: Button = %Quit
 
-
 func _ready() -> void:
 	if Game.instance.multiplayer_test:
 		get_tree().change_scene_to_file("res://lobby/lobby_test.tscn")

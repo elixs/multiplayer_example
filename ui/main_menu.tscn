@@ -1,108 +1,371 @@
-[gd_scene format=3 uid="uid://buxla4a3c3k2"]
+[gd_scene load_steps=23 format=3 uid="uid://buxla4a3c3k2"]
 
-[ext_resource type="Theme" uid="uid://bwgdrcgopd0s1" path="res://lobby/lobby_theme.tres" id="1_3qnx1"]
+[ext_resource type="Theme" uid="uid://c1h8f62iw8uqo" path="res://ui/Theme/panacats_theme.tres" id="1_tema"]
 [ext_resource type="Script" uid="uid://cnbk17iq1x68f" path="res://ui/main_menu.gd" id="2_p6ygj"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_xllby"]
-[ext_resource type="Texture2D" uid="uid://c5bpse006v17q" path="res://Texturas/Madera.jpg" id="3_rmr83"]
+[ext_resource type="Texture2D" uid="uid://bu2piqot0yey6" path="res://assets/ui/menus/logo_panacats.png" id="3_logo"]
+[ext_resource type="Texture2D" uid="uid://c7awa44jdvo7l" path="res://assets/ui/menus/horno_letrero.png" id="4_horno"]
+[ext_resource type="Texture2D" uid="uid://bt64kt1ru53c5" path="res://assets/ui/menus/letrero_colgante.png" id="5_letrero"]
+[ext_resource type="Texture2D" uid="uid://cp6rv3iw8iip1" path="res://assets/ui/menus/boton_largo_chef_principal.png" id="6_chef"]
+[ext_resource type="Texture2D" uid="uid://dnrdpmyoiv5l2" path="res://assets/ui/menus/boton_largo_pan.png" id="7_pan"]
+[ext_resource type="Texture2D" uid="uid://bapcidi0jy4gd" path="res://assets/ui/menus/boton_largo_gatos.png" id="8_gatos"]
+[ext_resource type="Texture2D" uid="uid://dkebtennmsxnj" path="res://assets/ui/menus/boton_largo_salir.png" id="9_salir"]
+[ext_resource type="Texture2D" uid="uid://bnro02kcfy1e4" path="res://assets/ui/ilustraciones/fondo_menu_principal.png" id="10_fondo"]
+[ext_resource type="Texture2D" uid="uid://bo4ibxgrt47pc" path="res://assets/ui/hud/flecha_arriba.png" id="11_arriba"]
+[ext_resource type="Texture2D" uid="uid://cim7od87jqfmh" path="res://assets/ui/hud/flecha_abajo.png" id="12_abajo"]
+[ext_resource type="Texture2D" uid="uid://dri0a4ew2ry07" path="res://assets/ui/hud/tecla_espacio.png" id="13_espacio"]
+[ext_resource type="PackedScene" path="res://ui/puntero_foco.tscn" id="14_puntero"]
 
-[node name="MainMenu" type="Control" unique_id=90432305]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_marco"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7058824, 0.3490196, 0.1843137, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_chef_normal"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("6_chef")
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_chef_realce"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("6_chef")
+modulate_color = Color(1.3, 1.17, 1.06, 1)
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_chef_presionado"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("6_chef")
+modulate_color = Color(0.86, 0.81, 0.78, 1)
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pan_normal"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("7_pan")
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pan_realce"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("7_pan")
+modulate_color = Color(1.1, 1.06, 1, 1)
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pan_presionado"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("7_pan")
+modulate_color = Color(0.88, 0.84, 0.8, 1)
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gatos_normal"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("8_gatos")
+modulate_color = Color(1.194, 1.24, 1.305, 1)
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gatos_realce"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("8_gatos")
+modulate_color = Color(1.313, 1.314, 1.305, 1)
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gatos_presionado"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("8_gatos")
+modulate_color = Color(1.051, 1.042, 1.044, 1)
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_salir_normal"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("9_salir")
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_salir_realce"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("9_salir")
+modulate_color = Color(1.1, 1.06, 1, 1)
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_salir_presionado"]
+content_margin_left = 116.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+texture = ExtResource("9_salir")
+modulate_color = Color(0.88, 0.84, 0.8, 1)
+texture_margin_left = 94.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 24.0
+
+[node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_3qnx1")
+theme = ExtResource("1_tema")
 script = ExtResource("2_p6ygj")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1594803153]
-custom_minimum_size = Vector2(0, 24.795)
+[node name="Fondo" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("10_fondo")
+expand_mode = 1
+stretch_mode = 6
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer" unique_id=1473590344]
-propagate_maximum_size = true
-layout_mode = 2
-texture = ExtResource("3_rmr83")
-
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=953531144]
+[node name="Marco" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 140.0
-offset_top = -160.0
-offset_right = 640.0
-offset_bottom = 220.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 14.0
+offset_right = -18.0
+offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_marco")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer" unique_id=929965828]
-custom_minimum_size = Vector2(300, 0)
+[node name="Columna" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.640625
+anchor_top = 0.5
+anchor_right = 0.9765625
+anchor_bottom = 0.5
+offset_top = -340.0
+offset_bottom = 340.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Kicker" type="Label" parent="Columna"]
+layout_mode = 2
+theme_type_variation = &"Kicker"
+text = "P R O Y E C T O   E C L I P S E   P R E S E N T A"
+
+[node name="Logo" type="TextureRect" parent="Columna"]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+texture = ExtResource("3_logo")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Subtitulo" type="Label" parent="Columna"]
+layout_mode = 2
+theme_type_variation = &"Subtitulo"
+text = "¡Los gatos se hicieron cargo de la panadería!"
+
+[node name="EspacioArriba" type="Control" parent="Columna"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Botones" type="VBoxContainer" parent="Columna"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Host" type="Button" parent="Columna/Botones"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 78)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.972549, 0.9254902, 1)
+theme_override_colors/font_focus_color = Color(1, 0.972549, 0.9254902, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.972549, 0.9254902, 1)
+theme_override_styles/hover = SubResource("StyleBoxTexture_chef_realce")
+theme_override_styles/normal = SubResource("StyleBoxTexture_chef_normal")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_chef_presionado")
+text = "Abrir panadería"
+alignment = 0
+
+[node name="Join" type="Button" parent="Columna/Botones"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 78)
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_pan_realce")
+theme_override_styles/normal = SubResource("StyleBoxTexture_pan_normal")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pan_presionado")
+text = "Unirse a una partida"
+alignment = 0
+
+[node name="Credits" type="Button" parent="Columna/Botones"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 78)
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_gatos_realce")
+theme_override_styles/normal = SubResource("StyleBoxTexture_gatos_normal")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_gatos_presionado")
+text = "Créditos"
+alignment = 0
+
+[node name="Quit" type="Button" parent="Columna/Botones"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 78)
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_salir_realce")
+theme_override_styles/normal = SubResource("StyleBoxTexture_salir_normal")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_salir_presionado")
+text = "Salir"
+alignment = 0
+
+[node name="EspacioAbajo" type="Control" parent="Columna"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Controles" type="HBoxContainer" parent="Columna"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/separation = 7
 
-[node name="Host" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=923655091]
-unique_name_in_owner = true
+[node name="FlechaArriba" type="TextureRect" parent="Columna/Controles"]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-text = "Host"
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("11_arriba")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Join" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=771461010]
-unique_name_in_owner = true
+[node name="FlechaAbajo" type="TextureRect" parent="Columna/Controles"]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-text = "Join"
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("12_abajo")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Credits" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=1427127326]
-unique_name_in_owner = true
+[node name="Moverse" type="Label" parent="Columna/Controles"]
 layout_mode = 2
-text = "Credits"
+size_flags_vertical = 4
+theme_type_variation = &"Pista"
+text = "Moverse"
 
-[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer2" unique_id=1446357876]
-unique_name_in_owner = true
+[node name="Separador" type="Control" parent="Columna/Controles"]
+custom_minimum_size = Vector2(14, 0)
 layout_mode = 2
-text = "Quit"
+mouse_filter = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=95552055]
+[node name="Espacio" type="Control" parent="Columna/Controles"]
+custom_minimum_size = Vector2(88, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Tecla" type="TextureRect" parent="Columna/Controles/Espacio"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -490.0
-offset_top = -160.0
-offset_right = -34.0
-offset_bottom = 256.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_espacio")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer2" unique_id=389958185]
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-texture = ExtResource("2_xllby")
-
-[node name="MarginContainer3" type="MarginContainer" parent="." unique_id=658664263]
+[node name="Texto" type="Label" parent="Columna/Controles/Espacio"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -155.0
-offset_top = -327.0
-offset_right = 253.0
-offset_bottom = -143.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"Pista"
+theme_override_font_sizes/font_size = 13
+text = "Espacio"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer3" unique_id=1435848050]
+[node name="Seleccionar" type="Label" parent="Columna/Controles"]
 layout_mode = 2
-theme_type_variation = &"Title"
-theme_override_colors/font_color = Color(0.14044744, 0.14044744, 0.14044744, 1)
-text = "Panacats"
+size_flags_vertical = 4
+theme_type_variation = &"Pista"
+text = "Seleccionar"
+
+[node name="Pie" type="Label" parent="Columna"]
+layout_mode = 2
+theme_type_variation = &"Kicker"
+text = "v0.1 · CC5409 · Godot 4.7"
+horizontal_alignment = 1
+
+[node name="Puntero" parent="." instance=ExtResource("14_puntero")]
+layout_mode = 0

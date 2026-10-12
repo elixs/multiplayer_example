@@ -7,15 +7,20 @@
 script = ExtResource("2_hvxmk")
 
 [node name="Label" parent="MarginContainer2/VBoxContainer/Panel" index="0"]
-text = "Credits"
+text = "Créditos"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="0"]
-theme_type_variation = &"Zero"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" index="0"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[center]
-[b]Lobby[/b]
-Elías Zelada
-[/center]"
+fit_content = true
+scroll_active = false
+text = "[center][b]PROYECTO ECLIPSE[/b]
+Matías Galindo  ·  Magdalena Paredes  ·  Pablo Reyes
+
+[b]CC5409 Taller de Videojuegos Multijugador[/b]
+Profesor: Elías Zelada  ·  Ayudante: Diego Soto
+
+[b]Base de lobby y red[/b]
+Elías Zelada[/center]"
