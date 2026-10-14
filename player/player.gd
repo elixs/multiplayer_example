@@ -91,7 +91,7 @@ const ANIM_JUMP_START: StringName = \
 	&"UAL1_Standard_RM/Jump_Start"
 
 const ANIM_JUMP_LOOP: StringName = \
-	&"UAL1_Standard_RM/Jump_Loop"
+	&"UAL1_Standard_RM/Jump"
 
 const ANIM_JUMP_LAND: StringName = \
 	&"UAL1_Standard_RM/Jump_Land"

@@ -1,7 +1,7 @@
 class_name GameOverScreen
 extends Node3D
 
-const PLAYER_SCENE: PackedScene = preload("res://test/player.tscn")
+const PLAYER_SCENE: PackedScene = preload("res://scenes/match/player/player.tscn")
 const FACING_CAMERA: float = PI
 
 @onready var players_root: Node3D = $Players
