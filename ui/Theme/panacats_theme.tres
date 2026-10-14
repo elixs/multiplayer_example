@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://c5d0lif7c8yd" path="res://assets/ui/lobby_y_botones/campo_codigo_sala.png" id="12_campo"]
 [ext_resource type="FontFile" uid="uid://ci8gyrddk4jqd" path="res://assets/ui/fuentes/Nunito-ExtraBold.ttf" id="13_nunito_negrita"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sin_foco"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_boton_principal_realce"]
 content_margin_left = 32.0
 content_margin_top = 18.0
@@ -92,7 +94,8 @@ texture_margin_top = 26.0
 texture_margin_right = 26.0
 texture_margin_bottom = 26.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sin_foco"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oscurecer"]
+bg_color = Color(0.09, 0.07, 0.06, 0.82)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_campo_foco"]
 content_margin_left = 20.0
@@ -100,11 +103,11 @@ content_margin_top = 10.0
 content_margin_right = 20.0
 content_margin_bottom = 14.0
 texture = ExtResource("12_campo")
-modulate_color = Color(1.06, 1.03, 1, 1)
 texture_margin_left = 14.0
 texture_margin_top = 12.0
 texture_margin_right = 14.0
 texture_margin_bottom = 16.0
+modulate_color = Color(1.06, 1.03, 1, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_campo"]
 content_margin_left = 20.0
@@ -116,9 +119,6 @@ texture_margin_left = 14.0
 texture_margin_top = 12.0
 texture_margin_right = 14.0
 texture_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oscurecer"]
-bg_color = Color(0.09, 0.07, 0.06, 0.82)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
 content_margin_left = 28.0
@@ -159,17 +159,17 @@ Button/styles/normal = SubResource("StyleBoxTexture_boton_normal")
 Button/styles/pressed = SubResource("StyleBoxTexture_boton_presionado")
 Darker/base_type = &"Panel"
 Darker/styles/panel = SubResource("StyleBoxFlat_oscurecer")
+HBoxContainer/constants/separation = 18
 Kicker/base_type = &"Label"
 Kicker/colors/font_color = Color(0.5490196, 0.4392157, 0.3607843, 1)
 Kicker/font_sizes/font_size = 15
 Kicker/fonts/font = ExtResource("3_pixelify")
 Label/colors/font_color = Color(0.2901961, 0.1960784, 0.1490196, 1)
-HBoxContainer/constants/separation = 18
+LineEdit/colors/caret_color = Color(0.7058824, 0.3490196, 0.1843137, 1)
 LineEdit/colors/font_color = Color(0.2901961, 0.1960784, 0.1490196, 1)
 LineEdit/colors/font_placeholder_color = Color(0.5490196, 0.4392157, 0.3607843, 1)
 LineEdit/colors/font_selected_color = Color(0.2901961, 0.1960784, 0.1490196, 1)
 LineEdit/colors/selection_color = Color(0.9490196, 0.7647059, 0.3568627, 0.55)
-LineEdit/colors/caret_color = Color(0.7058824, 0.3490196, 0.1843137, 1)
 LineEdit/styles/focus = SubResource("StyleBoxTexture_campo_foco")
 LineEdit/styles/normal = SubResource("StyleBoxTexture_campo")
 LineEdit/styles/read_only = SubResource("StyleBoxTexture_campo")
@@ -185,8 +185,8 @@ Panel/styles/panel = SubResource("StyleBoxTexture_panel")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_panel")
 Pista/base_type = &"Label"
 Pista/colors/font_color = Color(0.2901961, 0.1960784, 0.1490196, 1)
-Pista/fonts/font = ExtResource("3_pixelify")
 Pista/font_sizes/font_size = 17
+Pista/fonts/font = ExtResource("3_pixelify")
 RichTextLabel/colors/default_color = Color(0.2901961, 0.1960784, 0.1490196, 1)
 RichTextLabel/fonts/bold_font = ExtResource("13_nunito_negrita")
 Separator/constants/separation = 12
@@ -196,7 +196,6 @@ Subtitulo/base_type = &"Label"
 Subtitulo/colors/font_color = Color(0.7058824, 0.3490196, 0.1843137, 1)
 Subtitulo/font_sizes/font_size = 21
 Subtitulo/fonts/font = ExtResource("2_nunito_cursiva")
-VBoxContainer/constants/separation = 14
 Tight/base_type = &"MarginContainer"
 Tight/constants/margin_bottom = 16
 Tight/constants/margin_left = 16
@@ -209,6 +208,7 @@ Titulo/base_type = &"Label"
 Titulo/colors/font_color = Color(0.7058824, 0.3490196, 0.1843137, 1)
 Titulo/font_sizes/font_size = 64
 Titulo/fonts/font = ExtResource("4_marcellus")
+VBoxContainer/constants/separation = 14
 Zero/base_type = &"Control"
 Zero/constants/margin_bottom = 0
 Zero/constants/margin_left = 0

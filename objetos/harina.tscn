@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dgiiykt7iitta"]
+
+[ext_resource type="PackedScene" uid="uid://l2af6dmxdm7e" path="res://objetos/ingrediente_base.tscn" id="1_7w6gu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4qvn5"]
+
+[node name="RigidBody3D" unique_id=344026824 instance=ExtResource("1_7w6gu")]
+
+[node name="MeshInstance3D" parent="." index="0" unique_id=2021670818]
+transform = Transform3D(0.1, 0, 0, 0, 0.3, 0, 0, 0, 0.2, 0, 0, 0)
+material_overlay = SubResource("StandardMaterial3D_4qvn5")
+
+[node name="CollisionShape3D" parent="." index="1" unique_id=502487091]
+transform = Transform3D(0.1, 0, 0, 0, 0.3, 0, 0, 0, 0.2, 0, 0, 0)

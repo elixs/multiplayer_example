@@ -40,6 +40,10 @@ window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[global_group]
+
+tomable="objetos que el personaje puede tener en mano, debe ser rigid body"
+
 [gui]
 
 theme/custom="res://ui/Theme/panacats_theme.tres"

@@ -50,6 +50,14 @@ var curAnim: int = IDLE
 @onready var personaje_Arriba: Player
 @export var Arriba: Area3D
 
+# variables para tomar objetos
+@export var distancia_de_agarre: float = 3.0 # la misma que el rayo
+@onready var shape_cast: ShapeCast3D = $SpringArm3D/Camera3D/GrabArea
+@onready var nodo_agarre: Marker3D = $SpringArm3D/Camera3D/GrabArea/GrabTarget
+# tambien se usa camera_3d
+
+var objeto_en_mano: RigidBody3D = null
+
 func _ready() -> void:
 	sync_timer.timeout.connect(_on_sync_timeout)
 
@@ -78,6 +86,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		lanzar_emote(&"hola")
 	if event.is_action_pressed("Idle2") and not is_emoteando:
 		lanzar_emote(&"no")
+	
+	# tomar objetos
+	if event.is_action_pressed("E_Interactuar"):
+		if objeto_en_mano:
+			soltar_objeto()
+		else:
+			tomar_objeto()
+		
 		
 	var mouse_motion: InputEventMouseMotion = event as InputEventMouseMotion
 	if mouse_motion:
@@ -134,6 +150,21 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity()*delta
 	animation_player.speed_scale = max(int(speed * 1), 1)
+	
+	if not objeto_en_mano and shape_cast.is_colliding():
+		for i in range(shape_cast.is_colliding()):
+			var collider = shape_cast.get_collider(i)
+			if collider is RigidBody3D and collider.is_in_group("tomable"):
+				collider.is_hovered = true
+				break
+	
+	if objeto_en_mano:
+		var target_pos = nodo_agarre.global_position
+		var current_pos = objeto_en_mano.global_position
+		var direction = current_pos.direction_to(target_pos)
+		var distance = current_pos.distance_to(target_pos)
+		
+		objeto_en_mano.linear_velocity = direction * distance * 15.0
 	
 	if not is_emoteando or not siendocargado:
 		
@@ -282,3 +313,15 @@ func _sync(pos: Vector3, vel: Vector3) -> void:
 func _sync2(rot:Vector3) -> void:
 	spring_arm_3d.rotation = spring_arm_3d.rotation.lerp(rot, 1)
 	
+# funciones auxiliares tomar objetos
+func tomar_objeto() -> void:
+	if shape_cast.is_colliding():
+		for i in range(shape_cast.get_collision_count()):
+			var collider = shape_cast.get_collider(i)
+			if collider is RigidBody3D and collider.is_in_group("tomable"):
+				objeto_en_mano = collider
+				# quizas aca haya que agregar cosas de tipo gravedad, o deshabilitar el collision shape
+
+func soltar_objeto() -> void:
+	if objeto_en_mano:
+		objeto_en_mano = null

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ckh2cr1osfjv8"]
+
+[ext_resource type="PackedScene" uid="uid://dtyaejpfjc5qh" path="res://objetos/Box.tscn" id="1_7euff"]
+[ext_resource type="Script" uid="uid://ecyob61eosu1" path="res://objetos/estante.gd" id="2_tlkn5"]
+
+[node name="Caja_Interactuable" unique_id=1986920888 instance=ExtResource("1_7euff")]
+script = ExtResource("2_tlkn5")
+tipo_de_ingrediente = null
