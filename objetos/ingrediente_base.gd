@@ -1,35 +1,81 @@
 class_name Ingrediente
 extends RigidBody3D
 
-var is_hovered = false
-var was_hovered = false
+var is_hovered: bool = false
+var was_hovered: bool = false
+var held_by: int = 0
 
 @onready var mesh: MeshInstance3D = $MeshInstance3D
-#var original_material: StandardMaterial3D
-#var highlight_material: StandardMaterial3D
+#@onready var synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
-# Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-	#original_material = StandardMaterial3D.new()
-	#original_material.albedo_color = Color(0.8, 0.2, 0.2)
-	#
-	#highlight_material = original_material.duplicate()
-	#highlight_material.emission_enabled = true
-	#highlight_material.emission = Color(0.2, 0.5, 1.0)
-	#highlight_material.emission_energy_multiplier = 1.0
-#
-	#mesh.material_override = original_material
+func _ready() -> void:
+	set_multiplayer_authority(1)
+	
+	if not is_multiplayer_authority():
+		freeze = true
 
 func _physics_process(delta: float) -> void:
+	
+	if not is_multiplayer_authority():
+		return
+		
+	if held_by != 0:
+		return
+	
 	if is_hovered and not was_hovered:
-		
-		#mesh.material_override = highlight_material
-		
 		var fuerza_salto = Vector3.UP * 2.5 * mass
 		apply_central_impulse(fuerza_salto)
 		
-	#elif not is_hovered and was_hovered:
-		#mesh.material_override = original_material
-		
 	was_hovered = is_hovered
 	is_hovered = false
+
+@rpc("any_peer", "call_local", "reliable")
+func request_tomar(player_id: int) -> void:
+	
+	if not is_multiplayer_authority():
+		return
+	
+	if held_by != 0:
+		return
+		
+	held_by = player_id
+	freeze = true
+	
+	rpc("sync_tomar", player_id)
+	
+@rpc("any_peer", "call_local", "reliable")
+func sync_tomar(player_id: int) -> void:
+	held_by = player_id
+	
+	if not is_multiplayer_authority():
+		freeze = true
+
+@rpc("any_peer", "call_local", "reliable")
+func request_soltar(throw_velocity: Vector3 = Vector3.ZERO) -> void:
+	
+	if not is_multiplayer_authority():
+		return
+		
+	held_by = 0
+	freeze = false
+	
+	if throw_velocity != Vector3.ZERO:
+		linear_velocity = throw_velocity
+	
+	rpc("sync_soltar", throw_velocity)
+	
+@rpc("any_peer", "call_local", "reliable")
+func sync_soltar(throw_velocity: Vector3 = Vector3.ZERO) -> void:
+	held_by = 0
+	if not is_multiplayer_authority():
+		freeze = false
+		#if throw_velocity != Vector3.ZERO:
+			#linear_velocity = throw_velocity
+			
+@rpc("any_peer", "call_local", "unreliable")
+func update_held_position(pos: Vector3, rot: Vector3) -> void:
+	if not is_multiplayer_authority():
+		return
+	
+	global_position = pos
+	global_rotation = rot

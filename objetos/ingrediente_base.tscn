@@ -11,6 +11,14 @@
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hny1d"]
 points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ngaf5"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="IngredienteBase" type="RigidBody3D" unique_id=344026824 groups=["tomable"]]
 script = ExtResource("1_ngaf5")
 
@@ -21,3 +29,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ngaf5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=502487091]
 shape = SubResource("ConvexPolygonShape3D_hny1d")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1916311882]
+replication_config = SubResource("SceneReplicationConfig_ngaf5")

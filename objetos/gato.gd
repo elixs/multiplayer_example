@@ -51,7 +51,6 @@ var curAnim: int = IDLE
 @export var Arriba: Area3D
 
 # variables para tomar objetos
-@export var distancia_de_agarre: float = 3.0 # la misma que el rayo
 @onready var shape_cast: ShapeCast3D = $SpringArm3D/Camera3D/GrabArea
 @onready var nodo_agarre: Marker3D = $SpringArm3D/Camera3D/GrabArea/GrabTarget
 # tambien se usa camera_3d
@@ -152,19 +151,17 @@ func _physics_process(delta: float) -> void:
 	animation_player.speed_scale = max(int(speed * 1), 1)
 	
 	if not objeto_en_mano and shape_cast.is_colliding():
-		for i in range(shape_cast.is_colliding()):
+		for i in range(shape_cast.get_collision_count()):
 			var collider = shape_cast.get_collider(i)
-			if collider is RigidBody3D and collider.is_in_group("tomable"):
+			if collider is Ingrediente and collider.is_in_group("tomable") and collider.held_by == 0:
 				collider.is_hovered = true
 				break
-	
+				
 	if objeto_en_mano:
 		var target_pos = nodo_agarre.global_position
-		var current_pos = objeto_en_mano.global_position
-		var direction = current_pos.direction_to(target_pos)
-		var distance = current_pos.distance_to(target_pos)
+		var target_rot = nodo_agarre.global_rotation
 		
-		objeto_en_mano.linear_velocity = direction * distance * 15.0
+		objeto_en_mano.rpc_id(1, "update_held_position", target_pos, target_rot)
 	
 	if not is_emoteando or not siendocargado:
 		
@@ -318,10 +315,16 @@ func tomar_objeto() -> void:
 	if shape_cast.is_colliding():
 		for i in range(shape_cast.get_collision_count()):
 			var collider = shape_cast.get_collider(i)
-			if collider is RigidBody3D and collider.is_in_group("tomable"):
+			if collider is RigidBody3D and collider.is_in_group("tomable") and collider.held_by == 0:
 				objeto_en_mano = collider
-				# quizas aca haya que agregar cosas de tipo gravedad, o deshabilitar el collision shape
+				collider.rpc_id(1, "request_tomar", multiplayer.get_unique_id())
+				break
 
 func soltar_objeto() -> void:
+	
 	if objeto_en_mano:
+		var throw_velocity = -global_transform.basis.z * 5.0
+		var obj = objeto_en_mano
 		objeto_en_mano = null
+		
+		obj.rpc_id(1, "request_soltar", throw_velocity)
