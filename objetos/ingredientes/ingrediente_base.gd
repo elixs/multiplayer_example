@@ -93,7 +93,6 @@ func sync_soltar(player_id: int, throw_velocity: Vector3 = Vector3.ZERO) -> void
 func update_held_position(pos: Vector3, rot: Vector3) -> void:
 	if not is_multiplayer_authority():
 		return
-	print(held_by)
 	global_position = pos
 	global_rotation = rot
 

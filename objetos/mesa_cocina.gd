@@ -8,6 +8,17 @@ var ingredientes: Array[Ingrediente]
 var max_ingredientes = 2
 var nodos_pos: Array[Marker3D]
 var nom_ingredientes: Array[String]
+var recibe_ingredientes: bool = true
+var dummy_ing = preload("res://objetos/ingredientes/dummy_ing.tscn") as PackedScene
+
+# quizas seria bueno hacer un tipo receta y manejar los pasos (recetas desbloqueadas)
+# desde el game manager
+# key: String, val: PackedScene (ingrediente para que se pueda tomar)
+# el string es la concatenacion con + de los nombres de los ingredientes en orden alfabetico
+var pasos: Dictionary = {
+	"agua+harina": preload("res://objetos/ingredientes/amasado_crudo.tscn") as PackedScene,
+	"amasado_crudo": dummy_ing
+}
 
 func _ready() -> void:
 	super()
@@ -17,7 +28,11 @@ func _ready() -> void:
 # con q se dejan los ingredientes en la mesa
 @rpc("any_peer", "call_local", "reliable")
 func _execute_interaction_q() -> void:
+	#calcular lo necesario
 	print("ejecutando interaccion q")
+	if not recibe_ingredientes:
+		return
+	
 	if not multiplayer.is_server():
 		print("no tenia la autoridad")
 		return
@@ -29,19 +44,22 @@ func _execute_interaction_q() -> void:
 		print("objeto o player no encontrado")
 		return
 	
-	if len(ingredientes) == max_ingredientes:
+	if len(ingredientes) >= max_ingredientes:
 		return
 	
 	var obj: Ingrediente = player.objeto_en_mano
 	if obj.nombre_ingrediente in nom_ingredientes:
 		return
 	
+	var index_actual = len(ingredientes)
 	var pos = nodos_pos[len(ingredientes)].global_position
 	
 	print("Servidor: cediendo objeto de ", player.name)
+	# actualizar objetos
 	_ceder_objeto_localmente(player, obj, pos)
 	print("cediendo en clientes")
-	rpc("_sync_deposito", obj.get_path(), pos, len(ingredientes) - 1, player.name)
+	# sincronizar
+	rpc("_sync_deposito", obj.get_path(), pos, index_actual, player.name)
 	
 func _ceder_objeto_localmente(player: Player, obj: Ingrediente, pos: Vector3) -> void:
 	print("cediendo objeto localmente desde", player.get_instance_id())
@@ -72,3 +90,59 @@ func _get_player_by_peer_id(peer_id: int) -> Player:
 		if p.get_multiplayer_authority() == peer_id:
 			return p
 	return null
+
+# con e se cocina y se toma el resultado
+@rpc("any_peer", "call_local", "reliable")
+func _execute_interaction() -> void:
+	if not is_multiplayer_authority():
+		return
+	
+	var next = _buscar_en_pasos()
+	# si hay paso que hacer, hacerlo
+	if next != dummy_ing:
+		# borrar ingredientes
+		recibe_ingredientes = false
+		
+		var rutas_a_borrar: Array = []
+		for i in range(ingredientes.size()):
+			var ing = ingredientes[0]
+			rutas_a_borrar.append(ing.get_path())
+			ingredientes.remove_at(0)
+		# spawnear el siguiente
+		var nombre_unico = "Ingrediente_" + str(Time.get_ticks_msec())
+		
+		_procesar_cocina_en_todos.rpc(rutas_a_borrar, next.resource_path, nombre_unico)
+		
+	else:
+		print("next == dummy")
+	
+# llamar solo si hay ingredientes en la mesa
+func _buscar_en_pasos() -> PackedScene:
+	nom_ingredientes.sort()
+	var packed_noms = PackedStringArray(nom_ingredientes)
+	var llave = "+".join(packed_noms)
+	print("llave: ", llave)
+	if llave in pasos.keys():
+		return pasos[llave]
+	return dummy_ing
+
+
+@rpc("authority", "call_local", "reliable")
+func _procesar_cocina_en_todos(rutas_a_borrar: Array, scene_path: String, nombre_unico: String) -> void:
+	# 1. Borrar los ingredientes en cada máquina (servidor y clientes)
+	for ruta in rutas_a_borrar:
+		print("ruta a borrar: ", ruta)
+		var nodo_a_borrar = get_node_or_null(ruta)
+		if nodo_a_borrar:
+			print("Eliminando ingrediente visualmente: ", ruta)
+			nodo_a_borrar.queue_free()
+
+	# 2. Spawnear el nuevo ingrediente resultante en cada máquina
+	var scene = load(scene_path) as PackedScene
+	if scene:
+		var nuevo_ingrediente: Ingrediente = scene.instantiate()
+		print("Spawneando resultado: ", nuevo_ingrediente.nombre_ingrediente)
+		nuevo_ingrediente.name = nombre_unico
+		add_child(nuevo_ingrediente)
+		nuevo_ingrediente.freeze = true
+		nuevo_ingrediente.global_position = nodo_ing_1.global_position
