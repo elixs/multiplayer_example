@@ -47,7 +47,7 @@ func _on_body_entered(body: Node3D) -> void:
 	if player:
 		players.push_back(player)
 		
-		if player.get_multiplayer_authority() == multiplayer.get_unique_id():
+		if player.get_multiplayer_authority() == multiplayer.get_unique_id() and player.posicion_actual == player.Posicion.ARRIBA_DE:
 			label.show()
 			
 		
