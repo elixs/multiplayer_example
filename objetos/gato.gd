@@ -55,7 +55,7 @@ var curAnim: int = IDLE
 @onready var nodo_agarre: Marker3D = $SpringArm3D/Camera3D/GrabArea/GrabTarget
 # tambien se usa camera_3d
 
-var objeto_en_mano: RigidBody3D = null
+var objeto_en_mano: Ingrediente = null
 
 func _ready() -> void:
 	sync_timer.timeout.connect(_on_sync_timeout)
@@ -317,7 +317,7 @@ func tomar_objeto() -> void:
 			var collider = shape_cast.get_collider(i)
 			if collider is RigidBody3D and collider.is_in_group("tomable") and collider.held_by == 0:
 				objeto_en_mano = collider
-				collider.rpc_id(1, "request_tomar", multiplayer.get_unique_id())
+				collider.rpc_id(1, "request_tomar", multiplayer.get_unique_id()) # TODO: creo que esto deberia ir antes de la linea de arriba
 				break
 
 func soltar_objeto() -> void:

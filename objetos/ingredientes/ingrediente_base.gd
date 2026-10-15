@@ -5,6 +5,7 @@ var is_hovered: bool = false
 var was_hovered: bool = false
 var held_by: int = 0
 
+@export var nombre_ingrediente: String = "placeholder"
 @onready var mesh: MeshInstance3D = $MeshInstance3D
 #@onready var synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
@@ -69,9 +70,7 @@ func sync_soltar(throw_velocity: Vector3 = Vector3.ZERO) -> void:
 	held_by = 0
 	if not is_multiplayer_authority():
 		freeze = false
-		#if throw_velocity != Vector3.ZERO:
-			#linear_velocity = throw_velocity
-			
+
 @rpc("any_peer", "call_local", "unreliable")
 func update_held_position(pos: Vector3, rot: Vector3) -> void:
 	if not is_multiplayer_authority():
@@ -79,3 +78,30 @@ func update_held_position(pos: Vector3, rot: Vector3) -> void:
 	
 	global_position = pos
 	global_rotation = rot
+
+@rpc("any_peer", "call_local", "unreliable")
+func request_ceder(player: Player, pos: Vector3) -> void:
+	
+	if not is_multiplayer_authority():
+		return
+		
+	if held_by == 0:
+		return
+	
+	# eliminarme de player
+	player.objeto_en_mano = null
+	held_by = -1
+	# posicionarme
+	global_position = pos
+	freeze = true
+	
+	# actualizar al resto
+	rpc("sync_ceder", pos)
+	
+@rpc("any_peer", "call_local", "reliable")
+func sync_ceder(pos: Vector3) -> void:
+	held_by = -1
+	global_position = pos
+	
+	if not is_multiplayer_authority():
+		freeze = true
