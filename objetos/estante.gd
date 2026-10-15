@@ -2,34 +2,33 @@ class_name Estante
 extends ObjetoInteractuable
 
 @export var tipo_de_ingrediente: PackedScene 
-
+@onready var nodo_spawn: Marker3D = $SpawnPoint
+@onready var spawner_ingrediente: MultiplayerSpawner = $IngredientSpawner
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super() 
-	# Declarar el tipo de objeto
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
-
-func _execute_interaction() -> void:
-	super()
-	
-	var id_jugador_solicito = multiplayer.get_remote_sender_id()
-	_entregar_ingrediente_rpc(id_jugador_solicito)
 
 @rpc("any_peer", "call_local", "reliable")
-func _entregar_ingrediente_rpc(id_solicitante: int) -> void:
-	var jugador_solicitante = _buscar_jugador(id_solicitante)
+func _execute_interaction() -> void:
+	if not is_multiplayer_authority():
+		return
 	
-	if jugador_solicitante:
-		var nuevo_ingrediente = tipo_de_ingrediente.instantiate()
-		jugador_solicitante.add_child(nuevo_ingrediente)
-		nuevo_ingrediente.position = Vector3(0, 1.5, -0.5)
+	if not tipo_de_ingrediente:
+		return
+		
+	var nombre_unico = "Ingrediente_" + str(Time.get_ticks_msec())
 	
-func _buscar_jugador(id: int) -> Player:
-	for nodo in get_tree().get_nodes_in_group("player"):
-		if nodo is Player and nodo.get_multiplayer_authority() == id:
-			return nodo
-	return null
+	_spawn_ingrediente_localmente(nodo_spawn.global_position, nombre_unico)
+	
+	_comunicar_spawn_a_clientes.rpc(nodo_spawn.global_position, nombre_unico)
+
+@rpc("authority", "call_remote", "reliable")
+func _comunicar_spawn_a_clientes(posicion_global: Vector3, nombre_nodo: String) -> void:
+	_spawn_ingrediente_localmente(posicion_global, nombre_nodo)
+
+func _spawn_ingrediente_localmente(posicion_global: Vector3, nombre_nodo: String) -> void:
+	var nuevo_ingrediente = tipo_de_ingrediente.instantiate()
+	nuevo_ingrediente.name = nombre_nodo
+	add_child(nuevo_ingrediente)
+	nuevo_ingrediente.global_position = posicion_global
 	
