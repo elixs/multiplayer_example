@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://boluj44ie7tx6" path="res://objetos/Faro.tscn" id="5_0ckwa"]
 [ext_resource type="PackedScene" uid="uid://dtyaejpfjc5qh" path="res://objetos/Box.tscn" id="6_b1h8k"]
 [ext_resource type="Script" uid="uid://b8a60luep3vjk" path="res://scripts/GameManager.gd" id="7_60hjd"]
+[ext_resource type="PackedScene" uid="uid://ckh2cr1osfjv8" path="res://objetos/estante.tscn" id="8_uwlw6"]
+[ext_resource type="PackedScene" uid="uid://dgiiykt7iitta" path="res://objetos/ingredientes/harina.tscn" id="9_xjfos"]
+[ext_resource type="PackedScene" uid="uid://dk6x7tr4xdi5p" path="res://objetos/ingredientes/agua.tscn" id="10_xjfos"]
+[ext_resource type="PackedScene" uid="uid://cmr7ditqitybl" path="res://objetos/mesa_cocina.tscn" id="11_pg8uc"]
 
 [sub_resource type="Environment" id="Environment_g4v7s"]
 background_mode = 1
@@ -67,3 +71,26 @@ spawn_path = NodePath("../Players")
 
 [node name="Data" type="Node" parent="." unique_id=822487180]
 script = ExtResource("7_60hjd")
+
+[node name="EstanteHarina" parent="." unique_id=1909886683 instance=ExtResource("8_uwlw6")]
+transform = Transform3D(0.12772404, 0, -0.9918097, 0, 1, 0, 0.9918097, 0, 0.12772404, -0.8785291, 0.16227627, -2.63627)
+tipo_de_ingrediente = ExtResource("9_xjfos")
+
+[node name="LabelHarina" type="Label3D" parent="EstanteHarina" unique_id=1520773207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5366214, 0)
+text = "Harina"
+
+[node name="EstanteAgua" parent="." unique_id=880641062 instance=ExtResource("8_uwlw6")]
+transform = Transform3D(0.12772404, 0, -0.9918097, 0, 1, 0, 0.9918097, 0, 0.12772404, -1.8703387, 0.16227627, -2.5085459)
+tipo_de_ingrediente = ExtResource("10_xjfos")
+
+[node name="LabelAgua" type="Label3D" parent="EstanteAgua" unique_id=1067687970]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49672794, 0)
+text = "Agua"
+
+[node name="MesaCocina" parent="." unique_id=523979813 instance=ExtResource("11_pg8uc")]
+transform = Transform3D(0.12772404, 0, -0.9918097, 0, 1, 0, 0.9918097, 0, 0.12772404, -2.693969, 0.16227627, -2.40248)
+
+[node name="LabelMesa" type="Label3D" parent="MesaCocina" unique_id=895834363]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55237234, 0)
+text = "Mesa"

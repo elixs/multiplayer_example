@@ -50,6 +50,13 @@ var curAnim: int = IDLE
 @onready var personaje_Arriba: Player
 @export var Arriba: Area3D
 
+# variables para tomar objetos
+@onready var shape_cast: ShapeCast3D = $SpringArm3D/Camera3D/GrabArea
+@onready var nodo_agarre: Marker3D = $SpringArm3D/Camera3D/GrabArea/GrabTarget
+# tambien se usa camera_3d
+
+var objeto_en_mano: Ingrediente = null
+
 func _ready() -> void:
 	sync_timer.timeout.connect(_on_sync_timeout)
 
@@ -78,6 +85,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		lanzar_emote(&"hola")
 	if event.is_action_pressed("Idle2") and not is_emoteando:
 		lanzar_emote(&"no")
+	
+	# tomar objetos
+	if event.is_action_pressed("E_Interactuar"):
+		if objeto_en_mano:
+			soltar_objeto()
+		else:
+			tomar_objeto()
+		
 		
 	var mouse_motion: InputEventMouseMotion = event as InputEventMouseMotion
 	if mouse_motion:
@@ -134,6 +149,19 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity()*delta
 	animation_player.speed_scale = max(int(speed * 1), 1)
+	
+	if not objeto_en_mano and shape_cast.is_colliding():
+		for i in range(shape_cast.get_collision_count()):
+			var collider = shape_cast.get_collider(i)
+			if collider is Ingrediente and collider.is_in_group("tomable") and collider.held_by == 0:
+				collider.is_hovered = true
+				break
+				
+	if objeto_en_mano:
+		var target_pos = nodo_agarre.global_position
+		var target_rot = nodo_agarre.global_rotation
+		
+		objeto_en_mano.rpc_id(1, "update_held_position", target_pos, target_rot)
 	
 	if not is_emoteando or not siendocargado:
 		
@@ -282,3 +310,30 @@ func _sync(pos: Vector3, vel: Vector3) -> void:
 func _sync2(rot:Vector3) -> void:
 	spring_arm_3d.rotation = spring_arm_3d.rotation.lerp(rot, 1)
 	
+# funciones auxiliares tomar objetos
+func tomar_objeto() -> void:
+	if shape_cast.is_colliding():
+		for i in range(shape_cast.get_collision_count()):
+			var collider = shape_cast.get_collider(i)
+			if collider is RigidBody3D and collider.is_in_group("tomable") and collider.held_by == 0:
+				collider.rpc_id(1, "request_tomar", multiplayer.get_unique_id())
+				break
+
+func soltar_objeto() -> void:
+	print("soltando objeto")
+	if objeto_en_mano:
+		print("objeto en mano se puede soltar")
+		var throw_velocity = -global_transform.basis.z * 5.0
+		var obj = objeto_en_mano
+		objeto_en_mano = null
+		if objeto_en_mano:
+			print("objeto no se solto en player")
+		
+		obj.rpc_id(1, "request_soltar", multiplayer.get_unique_id(), throw_velocity)
+
+func ceder_objeto(pos: Vector3) -> void:
+	
+	if objeto_en_mano:
+		var obj = objeto_en_mano
+		objeto_en_mano = null
+		obj.soltar_en(pos)

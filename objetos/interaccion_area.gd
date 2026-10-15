@@ -2,6 +2,7 @@ class_name InteraccionArea
 extends Area3D
 
 signal interact
+signal interact_q
 #signal players_nearby
 
 @export var meshInstance: MeshInstance3D
@@ -23,12 +24,22 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("E_Interactuar"):
+		print("e se apreto")
 		for player: Player in players:
 			if player.get_multiplayer_authority() == multiplayer.get_unique_id():
 				interact.emit()
+				print("se emitio la señal desde ", player.get_instance_id())
 				player.trigger_emotiza.rpc(duracion_animacion)
-				pass
+				return
 
+	if event.is_action_pressed("Q_Interactuar"):
+		print("q se apreto")
+		for player in players:
+			if player.get_multiplayer_authority() == multiplayer.get_unique_id():
+				interact_q.emit()
+				print("se emitio la señal desde ", player.get_instance_id())
+				player.trigger_emotiza.rpc(duracion_animacion)
+				return
 
 
 func _on_body_entered(body: Node3D) -> void:

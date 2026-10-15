@@ -7,10 +7,18 @@ extends Node3D
 
 func _ready() -> void:
 	interaccion_area.interact.connect(_request_interaction)
+	interaccion_area.interact_q.connect(_request_interaction_q)
 	
 func _request_interaction() -> void:
 	_execute_interaction.rpc_id(1)
 
 @rpc("any_peer", "call_local", "reliable")
 func _execute_interaction() -> void:
+	pass
+
+func _request_interaction_q() -> void:
+	_execute_interaction_q.rpc_id(1)
+	
+@rpc("any_peer", "call_local", "reliable")
+func _execute_interaction_q() -> void:
 	pass
