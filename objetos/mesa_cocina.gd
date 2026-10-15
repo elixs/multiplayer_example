@@ -15,16 +15,52 @@ func _ready() -> void:
 
 # con q se dejan los ingredientes en la mesa
 @rpc("any_peer", "call_local", "reliable")
-func _execute_interaction_q(player: Player) -> void:
-	if not is_multiplayer_authority():
+func _execute_interaction_q() -> void:
+	print("ejecutando interaccion q")
+	if not multiplayer.is_server():
+		print("no tenia la autoridad")
 		return
 	
+	var sender_id = multiplayer.get_remote_sender_id()
+	var player = _get_player_by_peer_id(sender_id)
+	
+	if player == null or not player.objeto_en_mano:
+		print("objeto o player no encontrado")
+		return
 	if len(ingredientes) == max_ingredientes:
 		return
+	var pos = nodos_pos[len(ingredientes)].global_position
+	var obj: Ingrediente = player.objeto_en_mano
 	
-	if player.objeto_en_mano:
-		var pos = nodos_pos[len(ingredientes)].global_position
-		var obj: Ingrediente = player.objeto_en_mano
-		player.objeto_en_mano.request_ceder(player, pos)
-		ingredientes.push_back(obj)
+	print("Servidor: cediendo objeto de ", player.name)
+	_ceder_objeto_localmente(player, obj, pos)
+	print("cediendo en clientes")
+	rpc("_sync_deposito", obj.get_path(), pos, len(ingredientes) - 1, player.name)
 	
+func _ceder_objeto_localmente(player: Player, obj: Ingrediente, pos: Vector3) -> void:
+	print("cediendo objeto localmente desde", player.get_instance_id())
+	
+	player.ceder_objeto(pos)
+	ingredientes.push_back(obj)
+	print("ya cedido")
+		
+@rpc("authority", "call_remote", "reliable")
+func _sync_deposito(obj_path: NodePath, pos: Vector3, index: int, player_name: String) -> void:
+	var obj = get_node_or_null(obj_path)
+	if obj and obj is Ingrediente:
+		obj.held_by = -1
+		obj.global_position = pos
+		obj.freeze = true
+		if index >= len(ingredientes):
+			ingredientes.resize(index + 1)
+		ingredientes[index] = obj
+	
+	var p = get_node_or_null("../Players/" + player_name)
+	if p and "objeto_en_mano" in p:
+		p.objeto_en_mano = null
+	
+func _get_player_by_peer_id(peer_id: int) -> Player:
+	for p in get_tree().get_nodes_in_group("players"):
+		if p.get_multiplayer_authority() == peer_id:
+			return p
+	return null

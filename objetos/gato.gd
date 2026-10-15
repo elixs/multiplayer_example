@@ -316,8 +316,7 @@ func tomar_objeto() -> void:
 		for i in range(shape_cast.get_collision_count()):
 			var collider = shape_cast.get_collider(i)
 			if collider is RigidBody3D and collider.is_in_group("tomable") and collider.held_by == 0:
-				objeto_en_mano = collider
-				collider.rpc_id(1, "request_tomar", multiplayer.get_unique_id()) # TODO: creo que esto deberia ir antes de la linea de arriba
+				collider.rpc_id(1, "request_tomar", multiplayer.get_unique_id())
 				break
 
 func soltar_objeto() -> void:
@@ -328,3 +327,10 @@ func soltar_objeto() -> void:
 		objeto_en_mano = null
 		
 		obj.rpc_id(1, "request_soltar", throw_velocity)
+
+func ceder_objeto(pos: Vector3) -> void:
+	
+	if objeto_en_mano:
+		var obj = objeto_en_mano
+		objeto_en_mano = null
+		obj.soltar_en(pos)

@@ -43,6 +43,7 @@ window/stretch/aspect="expand"
 [global_group]
 
 tomable="objetos que el personaje puede tener en mano, debe ser rigid body"
+players=""
 
 [gui]
 

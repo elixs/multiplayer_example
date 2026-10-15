@@ -16,9 +16,9 @@ func _request_interaction() -> void:
 func _execute_interaction() -> void:
 	pass
 
-func _request_interaction_q(player: Player) -> void:
-	_execute_interaction_q.rpc_id(1, player)
+func _request_interaction_q() -> void:
+	_execute_interaction_q.rpc_id(1)
 	
 @rpc("any_peer", "call_local", "reliable")
-func _execute_interaction_q(player: Player) -> void:
+func _execute_interaction_q() -> void:
 	pass

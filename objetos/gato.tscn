@@ -124,7 +124,7 @@ nodes/RotandoL/node = SubResource("AnimationNodeAdd2_a86pc")
 nodes/RotandoL/position = Vector2(-620, -100)
 node_connections = [&"output", 0, &"Idle2", &"Walk", 0, &"RotandoL", &"Walk", 1, &"Animation 2", &"Idle1", 0, &"Accion", &"Idle1", 1, &"Animation 3", &"Idle2", 0, &"Idle1", &"Idle2", 1, &"Animation 4", &"Run", 0, &"Walk", &"Run", 1, &"Animation", &"Accion", 0, &"Run", &"Accion", 1, &"StateMachine", &"RotandoR", 0, &"Idle", &"RotandoR", 1, &"Animation 5", &"RotandoL", 0, &"RotandoR", &"RotandoL", 1, &"Animation 6"]
 
-[node name="Gato" type="CharacterBody3D" unique_id=620659913 node_paths=PackedStringArray("Arriba")]
+[node name="Gato" type="CharacterBody3D" unique_id=620659913 node_paths=PackedStringArray("Arriba") groups=["players"]]
 transform = Transform3D(0.155, 0, 0, 0, 0.155, 0, 0, 0, 0.155, 0, 0, 0)
 script = ExtResource("1_jmo73")
 emotes = ExtResource("5_emotes")
@@ -166,10 +166,10 @@ replication_config = SubResource("SceneReplicationConfig_nxguc")
 [node name="GatoV5_Bone" parent="." unique_id=596813472 instance=ExtResource("3_5vjbb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="Esqueleto" parent="GatoV5_Bone" index="0" unique_id=382688476]
+[node name="Esqueleto" parent="GatoV5_Bone" index="0" unique_id=1870934040]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.023801684, 0.49323237, -0.00069081783)
 
-[node name="Skeleton3D" parent="GatoV5_Bone/Esqueleto" index="0" unique_id=1317461924]
+[node name="Skeleton3D" parent="GatoV5_Bone/Esqueleto" index="0" unique_id=691071402]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -1.1712862, 0, -5.122274e-08)
 bones/0/position = Vector3(-0.26720694, 0.06961281, 0.047438677)
 bones/0/rotation = Quaternion(-0.0411427, 0.06844771, -0.74695843, 0.6600571)
@@ -191,7 +191,7 @@ bones/28/rotation = Quaternion(0.56518203, 0.58557755, -0.54899293, 0.19046022)
 bones/29/rotation = Quaternion(0.050415188, -0.09814801, 0.17652057, 0.9780929)
 bones/30/rotation = Quaternion(-0.2157936, 8.922985e-08, -0.03458854, 0.9758262)
 
-[node name="Label3D" type="Label3D" parent="GatoV5_Bone/Esqueleto/Skeleton3D/Cube" parent_id_path=PackedInt32Array(596813472, 737615611) index="0" unique_id=282183671]
+[node name="Label3D" type="Label3D" parent="GatoV5_Bone/Esqueleto/Skeleton3D/Cube" parent_id_path=PackedInt32Array(596813472, 2039175052) index="0" unique_id=282183671]
 transform = Transform3D(2.7599998, 0, -1.4210855e-14, 0, 2.7599998, 0, 1.4210855e-14, 0, 2.7599998, 3.8063977, 2.936767, 0.117203265)
 visible = false
 billboard = 2

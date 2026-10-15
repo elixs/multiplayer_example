@@ -42,11 +42,20 @@ func request_tomar(player_id: int) -> void:
 	held_by = player_id
 	freeze = true
 	
+	var player = _get_player_by_peer_id(player_id) # (Asegúrate de tener esta función auxiliar en el ingrediente o accesible)
+	if player:
+		player.objeto_en_mano = self
+	
+	
 	rpc("sync_tomar", player_id)
 	
 @rpc("any_peer", "call_local", "reliable")
 func sync_tomar(player_id: int) -> void:
 	held_by = player_id
+	
+	var player = _get_player_by_peer_id(player_id)
+	if player:
+		player.objeto_en_mano = self
 	
 	if not is_multiplayer_authority():
 		freeze = true
@@ -79,29 +88,13 @@ func update_held_position(pos: Vector3, rot: Vector3) -> void:
 	global_position = pos
 	global_rotation = rot
 
-@rpc("any_peer", "call_local", "unreliable")
-func request_ceder(player: Player, pos: Vector3) -> void:
-	
-	if not is_multiplayer_authority():
-		return
-		
-	if held_by == 0:
-		return
-	
-	# eliminarme de player
-	player.objeto_en_mano = null
+func soltar_en(pos: Vector3) -> void:
 	held_by = -1
-	# posicionarme
 	global_position = pos
 	freeze = true
-	
-	# actualizar al resto
-	rpc("sync_ceder", pos)
-	
-@rpc("any_peer", "call_local", "reliable")
-func sync_ceder(pos: Vector3) -> void:
-	held_by = -1
-	global_position = pos
-	
-	if not is_multiplayer_authority():
-		freeze = true
+
+func _get_player_by_peer_id(peer_id: int) -> Player:
+	for p in get_tree().get_nodes_in_group("players"):
+		if p.get_multiplayer_authority() == peer_id:
+			return p
+	return null
