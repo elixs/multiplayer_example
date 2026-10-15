@@ -320,13 +320,16 @@ func tomar_objeto() -> void:
 				break
 
 func soltar_objeto() -> void:
-	
+	print("soltando objeto")
 	if objeto_en_mano:
+		print("objeto en mano se puede soltar")
 		var throw_velocity = -global_transform.basis.z * 5.0
 		var obj = objeto_en_mano
 		objeto_en_mano = null
+		if objeto_en_mano:
+			print("objeto no se solto en player")
 		
-		obj.rpc_id(1, "request_soltar", throw_velocity)
+		obj.rpc_id(1, "request_soltar", multiplayer.get_unique_id(), throw_velocity)
 
 func ceder_objeto(pos: Vector3) -> void:
 	

@@ -61,30 +61,39 @@ func sync_tomar(player_id: int) -> void:
 		freeze = true
 
 @rpc("any_peer", "call_local", "reliable")
-func request_soltar(throw_velocity: Vector3 = Vector3.ZERO) -> void:
+func request_soltar(player_id: int, throw_velocity: Vector3 = Vector3.ZERO) -> void:
 	
+	print("se solicita soltar un objeto")
 	if not is_multiplayer_authority():
 		return
-		
+	
+	var player = _get_player_by_peer_id(player_id)
+	if player:
+		player.objeto_en_mano = null
+	
 	held_by = 0
 	freeze = false
 	
 	if throw_velocity != Vector3.ZERO:
 		linear_velocity = throw_velocity
 	
-	rpc("sync_soltar", throw_velocity)
+	rpc("sync_soltar", player_id, throw_velocity)
 	
 @rpc("any_peer", "call_local", "reliable")
-func sync_soltar(throw_velocity: Vector3 = Vector3.ZERO) -> void:
+func sync_soltar(player_id: int, throw_velocity: Vector3 = Vector3.ZERO) -> void:
+	print("se sincroniza el soltar")
+	var player = _get_player_by_peer_id(player_id)
+	if player:
+		player.objeto_en_mano = null
 	held_by = 0
-	if not is_multiplayer_authority():
-		freeze = false
+	#if not is_multiplayer_authority():
+	freeze = false
 
 @rpc("any_peer", "call_local", "unreliable")
 func update_held_position(pos: Vector3, rot: Vector3) -> void:
 	if not is_multiplayer_authority():
 		return
-	
+	print(held_by)
 	global_position = pos
 	global_rotation = rot
 
