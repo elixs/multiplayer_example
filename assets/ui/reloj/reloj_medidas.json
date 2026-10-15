@@ -1,0 +1,35 @@
+{
+ "esfera": "reloj_esfera.png",
+ "esfera_size": [
+  331,
+  327
+ ],
+ "centro_giro_en_esfera": [
+  164.6,
+  164.6
+ ],
+ "aguja": "reloj_aguja.png",
+ "aguja_size": [
+  14,
+  119
+ ],
+ "aguja_pivot": [
+  7.0,
+  114.0
+ ],
+ "centro": "reloj_centro.png",
+ "centro_size": [
+  43,
+  43
+ ],
+ "division_dia_noche_grados": [
+  65.8,
+  241.7
+ ],
+ "nota": "grados en sentido horario desde las 12; la aguja apunta a las 12 con rotacion 0",
+ "jornada_sugerida": {
+  "inicio_grados": -118.3,
+  "fin_grados": 65.8,
+  "nota": "de la division izquierda (amanecer) pasando por el sol hasta la division derecha (anochecer)"
+ }
+}

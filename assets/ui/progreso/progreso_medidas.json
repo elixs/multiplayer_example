@@ -1,0 +1,176 @@
+{
+ "barra_simple": {
+  "fondo": "barra_simple_fondo.png",
+  "relleno": "barra_simple_relleno.png",
+  "texture_progress_offset": [
+   6,
+   7
+  ],
+  "fondo_size": [
+   279,
+   43
+  ],
+  "relleno_size": [
+   268,
+   30
+  ],
+  "fill_mode": "FILL_LEFT_TO_RIGHT"
+ },
+ "barra_meta_dia": {
+  "fondo": "barra_meta_dia_fondo.png",
+  "relleno": "barra_meta_dia_relleno.png",
+  "texture_progress_offset": [
+   41,
+   100
+  ],
+  "fondo_size": [
+   604,
+   169
+  ],
+  "relleno_size": [
+   518,
+   40
+  ],
+  "fill_mode": "FILL_LEFT_TO_RIGHT"
+ },
+ "barra_cansancio": {
+  "fondo": "barra_cansancio_fondo.png",
+  "relleno": "barra_cansancio_relleno.png",
+  "texture_progress_offset": [
+   113,
+   28
+  ],
+  "fondo_size": [
+   579,
+   99
+  ],
+  "relleno_size": [
+   437,
+   44
+  ],
+  "fill_mode": "FILL_LEFT_TO_RIGHT"
+ },
+ "ticket_rollo": {
+  "fondo": "ticket_rollo_fondo.png",
+  "relleno": "ticket_rollo_relleno.png",
+  "texture_progress_offset": [
+   32,
+   395
+  ],
+  "fondo_size": [
+   305,
+   635
+  ],
+  "relleno_size": [
+   238,
+   34
+  ],
+  "fill_mode": "FILL_LEFT_TO_RIGHT"
+ },
+ "ticket_torta": {
+  "fondo": "ticket_torta_fondo.png",
+  "relleno": "ticket_torta_relleno.png",
+  "texture_progress_offset": [
+   34,
+   395
+  ],
+  "fondo_size": [
+   308,
+   635
+  ],
+  "relleno_size": [
+   241,
+   34
+  ],
+  "fill_mode": "FILL_LEFT_TO_RIGHT"
+ },
+ "ticket_croissant_urgente": {
+  "fondo": "ticket_croissant_urgente_fondo.png",
+  "relleno": "ticket_croissant_urgente_relleno.png",
+  "texture_progress_offset": [
+   34,
+   395
+  ],
+  "fondo_size": [
+   345,
+   635
+  ],
+  "relleno_size": [
+   244,
+   34
+  ],
+  "fill_mode": "FILL_LEFT_TO_RIGHT"
+ },
+ "anillo_progreso": {
+  "fondo": "anillo_progreso_fondo.png",
+  "relleno": "anillo_progreso_relleno.png",
+  "texture_progress_offset": [
+   9,
+   10
+  ],
+  "fondo_size": [
+   273,
+   272
+  ],
+  "relleno_size": [
+   255,
+   254
+  ],
+  "fill_mode": "FILL_CLOCKWISE (radial)"
+ },
+ "_tintes_sugeridos": {
+  "verde": "#7FAE6F",
+  "amarillo": "#F7BA3C",
+  "rojo": "#C8673F"
+ },
+ "ticket_vacio": {
+  "fondo": "ticket_vacio_fondo.png",
+  "relleno": "ticket_vacio_relleno.png",
+  "texture_progress_offset": [
+   32,
+   395
+  ],
+  "fondo_size": [
+   305,
+   635
+  ],
+  "relleno_size": [
+   238,
+   34
+  ],
+  "fill_mode": "FILL_LEFT_TO_RIGHT",
+  "icono_receta_centro": [
+   150.0,
+   153.5
+  ],
+  "icono_receta_tamano_max": [
+   178,
+   159
+  ]
+ },
+ "ticket_vacio_urgente": {
+  "fondo": "ticket_vacio_urgente_fondo.png",
+  "relleno": "ticket_vacio_urgente_relleno.png",
+  "texture_progress_offset": [
+   34,
+   395
+  ],
+  "fondo_size": [
+   345,
+   635
+  ],
+  "relleno_size": [
+   244,
+   34
+  ],
+  "fill_mode": "FILL_LEFT_TO_RIGHT",
+  "icono_receta_centro": [
+   158.0,
+   153.5
+  ],
+  "icono_receta_tamano_max": [
+   188,
+   159
+  ]
+ }
+}

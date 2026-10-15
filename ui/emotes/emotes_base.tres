@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="EmoteSet" format=3 uid="uid://0jt1wniw86x3"]
+
+[ext_resource type="Script" uid="uid://bl1xan1d3q2qe" path="res://ui/emotes/emote_set.gd" id="1_set"]
+[ext_resource type="Script" uid="uid://bcqlx3yto3k1n" path="res://ui/emotes/emote_def.gd" id="2_def"]
+[ext_resource type="Texture2D" uid="uid://dqr56aw1mnl8g" path="res://assets/ui/rueda_emotes/emotes/emote_hola.png" id="3_hola"]
+[ext_resource type="Texture2D" uid="uid://blitwshi4qie5" path="res://assets/ui/rueda_emotes/emotes/emote_ven.png" id="4_ven"]
+[ext_resource type="Texture2D" uid="uid://c8remwo71y4n0" path="res://assets/ui/rueda_emotes/emotes/emote_listo.png" id="5_listo"]
+[ext_resource type="Texture2D" uid="uid://xr6pr5m1hhor" path="res://assets/ui/rueda_emotes/emotes/emote_espera.png" id="6_espera"]
+[ext_resource type="Texture2D" uid="uid://bgdxxc5ajqcxr" path="res://assets/ui/rueda_emotes/emotes/emote_ayuda.png" id="7_ayuda"]
+[ext_resource type="Texture2D" uid="uid://do4cwon8gjlsx" path="res://assets/ui/rueda_emotes/emotes/emote_no.png" id="8_no"]
+
+[sub_resource type="Resource" id="Resource_hola"]
+script = ExtResource("2_def")
+id = &"hola"
+nombre = "Hola"
+icono = ExtResource("3_hola")
+animacion_oneshot = &"Idle1"
+animacion_duracion = 4.5
+
+[sub_resource type="Resource" id="Resource_ven"]
+script = ExtResource("2_def")
+id = &"ven"
+nombre = "¡Ven aquí!"
+icono = ExtResource("4_ven")
+
+[sub_resource type="Resource" id="Resource_listo"]
+script = ExtResource("2_def")
+id = &"listo"
+nombre = "¡Listo!"
+icono = ExtResource("5_listo")
+
+[sub_resource type="Resource" id="Resource_espera"]
+script = ExtResource("2_def")
+id = &"espera"
+nombre = "Espera"
+icono = ExtResource("6_espera")
+
+[sub_resource type="Resource" id="Resource_ayuda"]
+script = ExtResource("2_def")
+id = &"ayuda"
+nombre = "¡Ayuda!"
+icono = ExtResource("7_ayuda")
+
+[sub_resource type="Resource" id="Resource_no"]
+script = ExtResource("2_def")
+id = &"no"
+nombre = "No"
+icono = ExtResource("8_no")
+animacion_oneshot = &"Idle2"
+animacion_duracion = 3.5
+
+[resource]
+script = ExtResource("1_set")
+emotes = Array[ExtResource("2_def")]([SubResource("Resource_hola"), SubResource("Resource_ven"), SubResource("Resource_listo"), SubResource("Resource_espera"), SubResource("Resource_ayuda"), SubResource("Resource_no")])

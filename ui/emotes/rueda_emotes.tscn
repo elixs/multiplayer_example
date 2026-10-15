@@ -1,0 +1,101 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://dv2pqwcfbm40n" path="res://ui/emotes/rueda_emotes.gd" id="1_rueda"]
+[ext_resource type="Texture2D" uid="uid://bjwwudgd1erk1" path="res://assets/ui/rueda_emotes/centro_gato.png" id="2_centro"]
+[ext_resource type="Texture2D" uid="uid://u36f3xg1tdko" path="res://assets/ui/rueda_emotes/puntero_patita.png" id="3_puntero"]
+[ext_resource type="FontFile" uid="uid://cafc73bcytsxl" path="res://assets/ui/fuentes/PixelifySans-SemiBold.ttf" id="4_fuente"]
+
+[node name="RuedaEmotes" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_rueda")
+
+[node name="Rueda" type="Control" parent="."]
+unique_name_in_owner = true
+texture_filter = 4
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -610.0
+offset_top = -610.0
+offset_right = 610.0
+offset_bottom = 610.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset = Vector2(610, 610)
+mouse_filter = 2
+
+[node name="Base" type="TextureRect" parent="Rueda"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1220.0
+offset_bottom = 1220.0
+mouse_filter = 2
+
+[node name="Resaltado" type="TextureRect" parent="Rueda"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 1220.0
+offset_bottom = 1220.0
+mouse_filter = 2
+
+[node name="Iconos" type="Control" parent="Rueda"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1220.0
+offset_bottom = 1220.0
+mouse_filter = 2
+
+[node name="Centro" type="TextureRect" parent="Rueda"]
+layout_mode = 0
+offset_left = 375.0
+offset_top = 338.0
+offset_right = 846.0
+offset_bottom = 850.0
+mouse_filter = 2
+texture = ExtResource("2_centro")
+
+[node name="Etiqueta" type="Label" parent="Rueda"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 440.0
+offset_top = 530.0
+offset_right = 780.0
+offset_bottom = 690.0
+theme_override_colors/font_color = Color(0.2901961, 0.1960784, 0.1490196, 1)
+theme_override_fonts/font = ExtResource("4_fuente")
+theme_override_font_sizes/font_size = 56
+text = "Emotes"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="PunteroPivote" type="Control" parent="Rueda"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 610.0
+offset_top = 610.0
+offset_right = 610.0
+offset_bottom = 610.0
+mouse_filter = 2
+
+[node name="Puntero" type="TextureRect" parent="Rueda/PunteroPivote"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -96.0
+offset_top = -880.0
+offset_right = 97.0
+offset_bottom = -563.0
+mouse_filter = 2
+texture = ExtResource("3_puntero")

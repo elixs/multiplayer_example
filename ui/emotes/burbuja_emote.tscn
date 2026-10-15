@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://0141v2cx6u3b" path="res://ui/emotes/burbuja_emote.gd" id="1_burbuja"]
+[ext_resource type="Texture2D" uid="uid://0ki2uvi0y0u5" path="res://assets/ui/rueda_emotes/emotes/burbuja_crema.png" id="2_fondo"]
+
+[node name="BurbujaEmote" type="Node3D"]
+script = ExtResource("1_burbuja")
+
+[node name="Fondo" type="Sprite3D" parent="."]
+pixel_size = 0.0045
+billboard = 1
+texture = ExtResource("2_fondo")
+
+[node name="Icono" type="Sprite3D" parent="."]
+render_priority = 1
+pixel_size = 0.0045
+billboard = 1

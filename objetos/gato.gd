@@ -11,6 +11,8 @@ extends CharacterBody3D
 @export var spring_max_pitch: float = 50
 
 @export var is_emoteando: bool = false
+# Los emotes que puede lanzar este gato. Los usan la rueda y los atajos K y L.
+@export var emotes: EmoteSet
 signal tiempo_trabajando(tiempo: int)
 
 @onready var animation_player: AnimationPlayer = $GatoV5_Bone/AnimationPlayer
@@ -34,6 +36,8 @@ var curAnim: int = IDLE
 
 @onready var spring_arm_3d: SpringArm3D = $SpringArm3D
 @onready var camera_3d: Camera3D = $SpringArm3D/Camera3D
+
+@onready var burbuja_emote: BurbujaEmote = $BurbujaEmote
 
 @onready var input_synchronizer: InputSynchronizer = $InputSynchronizer
 @onready var sync_timer: Timer = $SyncTimer
@@ -71,9 +75,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	#K y L botones
 	if event.is_action_pressed("Idle1") and not is_emoteando:
-		trigger_emotiza1.rpc()
+		lanzar_emote(&"hola")
 	if event.is_action_pressed("Idle2") and not is_emoteando:
-		trigger_emotiza2.rpc()
+		lanzar_emote(&"no")
 		
 	var mouse_motion: InputEventMouseMotion = event as InputEventMouseMotion
 	if mouse_motion:
@@ -188,32 +192,53 @@ func _ajustar_camara(largo: float, alto:float) -> void:
 	spring_arm_3d.spring_length += largo
 	spring_arm_3d.position.y += alto
 	
+# Punto de entrada único para lanzar un emote. Lo usan la rueda y los atajos K y L.
+func lanzar_emote(id: StringName) -> void:
+	if not is_multiplayer_authority():
+		return
+	mostrar_emote.rpc(id)
+
+# Muestra el emote en todas las máquinas: la burbuja sobre la cabeza siempre, y la
+# animación del gato solo si el emote trae una.
+@rpc("any_peer","call_local","reliable")
+func mostrar_emote(id: StringName) -> void:
+	# Solo el dueño del gato decide qué emote lanza. En la llamada local el emisor es
+	# 0, porque no vino de la red.
+	var emisor: int = multiplayer.get_remote_sender_id()
+	if emisor != 0 and emisor != get_multiplayer_authority():
+		return
+	if emotes == null:
+		return
+	var emote: EmoteDef = emotes.buscar_por_id(id)
+	if emote == null:
+		return
+	burbuja_emote.mostrar(emote.icono, emote.duracion_burbuja)
+	if emote.tiene_animacion():
+		_reproducir_emote_animado(emote.animacion_oneshot, emote.animacion_duracion)
+
 @rpc("any_peer","call_local","reliable")
 func trigger_emotiza1() -> void:
-	if is_emoteando:
-		return
 	emotiza1()
 	
 func emotiza1() -> void:
-	is_emoteando = true
-	_ajustar_camara(4,-1)
-	animation_tree.set("parameters/Idle1/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-	await get_tree().create_timer(4.5).timeout
-	_ajustar_camara(-4,1)
-	is_emoteando = false
+	_reproducir_emote_animado(&"Idle1", 4.5)
 
 @rpc("any_peer","call_local","reliable")
 func trigger_emotiza2() -> void:
-	if is_emoteando:
-		return
 	emotiza2()
 	
 func emotiza2() -> void:
-	is_emoteando = true
+	_reproducir_emote_animado(&"Idle2", 3.5)
 
+# Dispara el OneShot del AnimationTree que corresponde al emote. Mientras dura, el
+# gato queda quieto y la cámara se aleja un poco para que se vea entero.
+func _reproducir_emote_animado(nodo_oneshot: StringName, duracion: float) -> void:
+	if is_emoteando:
+		return
+	is_emoteando = true
 	_ajustar_camara(4,-1)
-	animation_tree.set("parameters/Idle2/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-	await get_tree().create_timer(3.5).timeout
+	animation_tree.set("parameters/%s/request" % nodo_oneshot, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	await get_tree().create_timer(duracion).timeout
 	_ajustar_camara(-4,1)
 	is_emoteando = false
 
