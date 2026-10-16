@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dgiiykt7iitta" path="res://objetos/ingredientes/harina.tscn" id="9_xjfos"]
 [ext_resource type="PackedScene" uid="uid://dk6x7tr4xdi5p" path="res://objetos/ingredientes/agua.tscn" id="10_xjfos"]
 [ext_resource type="PackedScene" uid="uid://cmr7ditqitybl" path="res://objetos/mesa_cocina.tscn" id="11_pg8uc"]
+[ext_resource type="PackedScene" uid="uid://cnjflu5k247wb" path="res://objetos/ingredientes/levadura.tscn" id="12_1wwit"]
 
 [sub_resource type="Environment" id="Environment_g4v7s"]
 background_mode = 1
@@ -33,7 +34,7 @@ light_indirect_energy = 0.536
 shadow_enabled = true
 
 [node name="StaticBody3D" parent="." unique_id=766345700 instance=ExtResource("2_sqgaj")]
-transform = Transform3D(0.98919237, 0, 0, 0, 0.98919237, 0, 0, 0, 0.98919237, 0, 0, 0)
+transform = Transform3D(0.98919237, 0, 0, 0, 0.98919237, 0, 0, 0, 0.98919237, -1.1508926, 0.07195616, -0.0012292862)
 
 [node name="SpawnPoints" type="Node3D" parent="." unique_id=1844476207]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20533323, 0)
@@ -73,7 +74,7 @@ spawn_path = NodePath("../Players")
 script = ExtResource("7_60hjd")
 
 [node name="EstanteHarina" parent="." unique_id=1909886683 instance=ExtResource("8_uwlw6")]
-transform = Transform3D(0.12772404, 0, -0.9918097, 0, 1, 0, 0.9918097, 0, 0.12772404, -0.8785291, 0.16227627, -2.63627)
+transform = Transform3D(-0.6533298, 0, -0.75707334, 0, 1, 0, 0.75707334, 0, -0.6533298, 2.867281, 0.23423243, -2.6382468)
 tipo_de_ingrediente = ExtResource("9_xjfos")
 
 [node name="LabelHarina" type="Label3D" parent="EstanteHarina" unique_id=1520773207]
@@ -81,7 +82,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5366214, 0)
 text = "Harina"
 
 [node name="EstanteAgua" parent="." unique_id=880641062 instance=ExtResource("8_uwlw6")]
-transform = Transform3D(0.12772404, 0, -0.9918097, 0, 1, 0, 0.9918097, 0, 0.12772404, -1.8703387, 0.16227627, -2.5085459)
+transform = Transform3D(-0.66209406, 0, -0.74942064, 0, 1, 0, 0.74942064, 0, -0.66209406, 2.6083825, 0.23423243, -4.1924)
 tipo_de_ingrediente = ExtResource("10_xjfos")
 
 [node name="LabelAgua" type="Label3D" parent="EstanteAgua" unique_id=1067687970]
@@ -89,8 +90,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49672794, 0)
 text = "Agua"
 
 [node name="MesaCocina" parent="." unique_id=523979813 instance=ExtResource("11_pg8uc")]
-transform = Transform3D(0.12772404, 0, -0.9918097, 0, 1, 0, 0.9918097, 0, 0.12772404, -2.693969, 0.16227627, -2.40248)
+transform = Transform3D(-0.6533298, 0, -0.75707334, 0, 1, 0, 0.75707334, 0, -0.6533298, 1.2681776, 0.23423243, -3.4370272)
 
 [node name="LabelMesa" type="Label3D" parent="MesaCocina" unique_id=895834363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55237234, 0)
 text = "Mesa"
+
+[node name="EstanteLevadura" parent="." unique_id=1710524392 instance=ExtResource("8_uwlw6")]
+transform = Transform3D(0.72044104, 0, 0.6935161, 0, 1, 0, -0.6935161, 0, 0.72044104, 0.910537, 0.29050314, -1.5289538)
+tipo_de_ingrediente = ExtResource("12_1wwit")
+
+[node name="LabelLevadura" type="Label3D" parent="EstanteLevadura" unique_id=2105004130]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4684385, 0)
+text = "Levadura"

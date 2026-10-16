@@ -4,9 +4,10 @@ extends ObjetoInteractuable
 @onready var area_interaccion: CollisionShape3D = $Interaccion_area/CollisionShape3D2
 @onready var nodo_ing_1: Marker3D = $Ingrediente1
 @onready var nodo_ing_2: Marker3D = $Ingrediente2
+@onready var nodo_ing_3: Marker3D = $Ingrediente3
 @onready var nodo_listo: Marker3D = $IngredienteListo
 var ingredientes: Array[Ingrediente]
-var max_ingredientes = 2
+var max_ingredientes = 3
 var nodos_pos: Array[Marker3D]
 var nom_ingredientes: Array[String]
 var recibe_ingredientes: bool = true
@@ -18,13 +19,16 @@ var dummy_ing = preload("res://objetos/ingredientes/dummy_ing.tscn") as PackedSc
 # el string es la concatenacion con + de los nombres de los ingredientes en orden alfabetico
 var pasos: Dictionary = {
 	"agua+harina": preload("res://objetos/ingredientes/amasado_crudo.tscn") as PackedScene,
-	"amasado_crudo": dummy_ing
+	"amasado_crudo": dummy_ing,
+	"agua+harina+levadura": preload("res://objetos/ingredientes/masa_madre_cruda.tscn") as PackedScene,
+	"masa_madre_cruda": dummy_ing
 }
 
 func _ready() -> void:
 	super()
 	nodos_pos.push_back(nodo_ing_1)
 	nodos_pos.push_back(nodo_ing_2)
+	nodos_pos.push_back(nodo_ing_3)
 
 # con q se dejan los ingredientes en la mesa
 @rpc("any_peer", "call_local", "reliable")

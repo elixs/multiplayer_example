@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c461ukqsmxp66"]
+
+[ext_resource type="PackedScene" uid="uid://l2af6dmxdm7e" path="res://objetos/ingredientes/ingrediente_base.tscn" id="1_qow2o"]
+[ext_resource type="Texture2D" uid="uid://bir2ala4lefku" path="res://Texturas/masa_cruda.jpg" id="2_xom5w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0lbor"]
+albedo_texture = ExtResource("2_xom5w")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ayiuj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ppp1j"]
+
+[node name="MasaMadreCruda" unique_id=344026824 instance=ExtResource("1_qow2o")]
+nombre_ingrediente = "masa_madre_cruda"
+
+[node name="MeshInstance3D" parent="." index="0" unique_id=2021670818]
+transform = Transform3D(0.3, 0, 0, 0, -1.3113417e-08, -0.3, 0, 0.3, -1.3113417e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_0lbor")
+mesh = SubResource("CapsuleMesh_ayiuj")
+
+[node name="CollisionShape3D" parent="." index="1" unique_id=502487091]
+transform = Transform3D(0.3, 0, 0, 0, -1.3113417e-08, -0.3, 0, 0.3, -1.3113417e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_ppp1j")
