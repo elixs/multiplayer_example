@@ -73,8 +73,8 @@ func _al_cambiar_el_avance(monedas: int, meta: int) -> void:
 	barra_meta.value = clampf(float(monedas) / float(meta) * 100.0, 0.0, 100.0)
 
 # El HUD se esconde igual que con la tienda, porque el panel de cierre tapa todo.
-func _al_terminar_el_dia(numero_de_dia: int, monedas: int, clientes: int, panes: int, meta: int) -> void:
-	cierre.mostrar(numero_de_dia, monedas, clientes, panes, meta)
+func _al_terminar_el_dia(numero_de_dia: int, monedas: int, clientes: int, panes: int, perdidos: int, meta: int) -> void:
+	cierre.mostrar(numero_de_dia, monedas, clientes, panes, perdidos, meta)
 	_cambiar_marca_de_interfaz(true)
 	hud.hide()
 

@@ -21,6 +21,7 @@ signal continuado
 @export var dibujo_monedas: Texture2D
 @export var dibujo_clientes: Texture2D
 @export var dibujo_panes: Texture2D
+@export var dibujo_clientes_perdidos: Texture2D
 
 @onready var titulo: Label = %Titulo
 @onready var meta_mostrada: Label = %Meta
@@ -44,7 +45,7 @@ func _unhandled_input(_evento: InputEvent) -> void:
 
 # Muestra el resumen de la jornada. La meta es el dinero que había que juntar, y de
 # compararla con lo ganado salen las estrellas y el sello.
-func mostrar(numero_de_dia: int, monedas: int, clientes: int, panes: int, meta: int) -> void:
+func mostrar(numero_de_dia: int, monedas: int, clientes: int, panes: int, perdidos: int, meta: int) -> void:
 	titulo.text = "Día %d" % numero_de_dia
 	meta_mostrada.text = "Meta del día: %d" % meta
 	var ganadas: int = _estrellas_ganadas(monedas, meta)
@@ -56,6 +57,7 @@ func mostrar(numero_de_dia: int, monedas: int, clientes: int, panes: int, meta: 
 	lineas[0].mostrar(dibujo_monedas, "Monedas del día", monedas)
 	lineas[1].mostrar(dibujo_clientes, "Clientes atendidos", clientes)
 	lineas[2].mostrar(dibujo_panes, "Panes entregados", panes)
+	lineas[3].mostrar(dibujo_clientes_perdidos, "Clientes que se fueron", perdidos)
 	show()
 	boton_seguir.grab_focus()
 
