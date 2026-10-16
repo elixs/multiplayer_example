@@ -96,8 +96,9 @@ func update_held_position(pos: Vector3, rot: Vector3) -> void:
 	if held_by <= 0:
 		return
 	
-	global_position = pos
-	global_rotation = rot
+	global_position = lerp(global_position, pos, 0.05)
+	#global_rotation = lerp(global_position, pos, 0.01)
+	#global_rotation = rot
 
 func soltar_en(pos: Vector3) -> void:
 	held_by = -1
