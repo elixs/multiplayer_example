@@ -8,7 +8,9 @@ albedo_texture = ExtResource("2_hc5de")
 
 [sub_resource type="SphereMesh" id="SphereMesh_yfy57"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ml6b3"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y5kkv"]
+radius = 0.061035156
+height = 0.16644287
 
 [node name="IngredienteBase" unique_id=344026824 instance=ExtResource("1_sq57i")]
 nombre_ingrediente = "pan_amasado"
@@ -19,8 +21,8 @@ material_override = SubResource("StandardMaterial3D_jlsev")
 mesh = SubResource("SphereMesh_yfy57")
 
 [node name="CollisionShape3D" parent="." index="1" unique_id=502487091]
-transform = Transform3D(0.15, 0, 0, 0, 0.1, 0, 0, 0, 0.15, 0, 0, 0)
-shape = SubResource("SphereShape3D_ml6b3")
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.0070495605, -0.0029512125, 0)
+shape = SubResource("CapsuleShape3D_y5kkv")
 
 [node name="Label3D" parent="." index="3" unique_id=859107585]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41922808, 0)
