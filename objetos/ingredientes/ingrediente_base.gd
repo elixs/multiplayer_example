@@ -86,21 +86,24 @@ func sync_soltar(player_id: int, throw_velocity: Vector3 = Vector3.ZERO) -> void
 	if player:
 		player.objeto_en_mano = null
 	held_by = 0
-	#if not is_multiplayer_authority():
 	freeze = false
 
 @rpc("any_peer", "call_local", "unreliable")
 func update_held_position(pos: Vector3, rot: Vector3) -> void:
 	if not is_multiplayer_authority():
 		return
-	print(held_by)
-	global_position = pos
-	global_rotation = rot
+		
+	if held_by <= 0:
+		return
+	
+	global_position = lerp(global_position, pos, 0.05)
+	#global_rotation = lerp(global_position, pos, 0.01)
+	#global_rotation = rot
 
 func soltar_en(pos: Vector3) -> void:
 	held_by = -1
-	global_position = pos
 	freeze = true
+	global_position = pos
 
 func _get_player_by_peer_id(peer_id: int) -> Player:
 	for p in get_tree().get_nodes_in_group("players"):

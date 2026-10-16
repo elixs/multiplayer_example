@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://l2af6dmxdm7e" path="res://objetos/ingredientes/ingrediente_base.tscn" id="1_7w6gu"]
 [ext_resource type="Texture2D" uid="uid://dey7mgyty4gk0" path="res://Texturas/icono-trigo.png" id="2_31qwt"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_31qwt"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cgjoe"]
 albedo_texture = ExtResource("2_31qwt")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4qvn5"]
@@ -13,7 +13,7 @@ nombre_ingrediente = "harina"
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=2021670818]
 transform = Transform3D(0.1, 0, 0, 0, 0.3, 0, 0, 0, 0.2, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_31qwt")
+material_override = SubResource("StandardMaterial3D_cgjoe")
 material_overlay = SubResource("StandardMaterial3D_4qvn5")
 
 [node name="CollisionShape3D" parent="." index="1" unique_id=502487091]

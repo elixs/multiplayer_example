@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cg82inusq5glt"]
+
+[ext_resource type="PackedScene" uid="uid://l2af6dmxdm7e" path="res://objetos/ingredientes/ingrediente_base.tscn" id="1_l2gaj"]
+
+[node name="IngredienteBase" unique_id=344026824 instance=ExtResource("1_l2gaj")]
+
+[node name="MeshInstance3D" parent="." index="0" unique_id=2021670818]
+visible = false
