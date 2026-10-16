@@ -1,0 +1,219 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcjcd0f6oeuhv"]
+
+[ext_resource type="Script" uid="uid://borh14f6ae5si" path="res://ui/recetas/carta_receta.gd" id="1_carta"]
+[ext_resource type="Texture2D" uid="uid://c2jfvk44xrfgf" path="res://assets/ui/tienda_y_cierre/carta_receta_vacia.png" id="2_fondo"]
+[ext_resource type="Texture2D" uid="uid://cx2chsw23am7g" path="res://assets/ui/tienda_y_cierre/carta_bloqueada_vacia.png" id="3_bloqueada"]
+[ext_resource type="Texture2D" uid="uid://b0xpsdrp33t3t" path="res://assets/ui/tienda_y_cierre/insignia_comprada.png" id="4_insignia"]
+[ext_resource type="Texture2D" uid="uid://4uir5r4kcmiu" path="res://assets/ui/tienda_y_cierre/simbolo_mas.png" id="5_mas"]
+[ext_resource type="Texture2D" uid="uid://ix0senu65f5y" path="res://assets/ui/tienda_y_cierre/simbolo_igual.png" id="6_igual"]
+[ext_resource type="FontFile" uid="uid://byr023ifvd2p1" path="res://assets/ui/fuentes/Marcellus-Regular.ttf" id="7_marcellus"]
+[ext_resource type="Texture2D" uid="uid://cojdud4rb8hqt" path="res://assets/ui/hud/cliente_feliz.png" id="8_cliente"]
+[ext_resource type="Texture2D" uid="uid://dpq5ydoypf1yb" path="res://assets/ui/menus/icono_moneda.png" id="9_moneda"]
+[ext_resource type="Texture2D" uid="uid://bfp6h5i866cuy" path="res://assets/ui/tienda_y_cierre/etiqueta_precio_crema.png" id="10_etiqueta"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sin_fondo"]
+
+[node name="CartaReceta" type="Control"]
+custom_minimum_size = Vector2(248, 400)
+offset_right = 248.0
+offset_bottom = 400.0
+script = ExtResource("1_carta")
+simbolo_mas = ExtResource("5_mas")
+simbolo_igual = ExtResource("6_igual")
+
+[node name="Fondo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_fondo")
+expand_mode = 1
+
+[node name="Ventana" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1365132
+anchor_top = 0.0846939
+anchor_right = 0.8634868
+anchor_bottom = 0.5265306
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Nombre" type="Label" parent="Ventana"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_top = 0.0138568
+anchor_bottom = 0.1847575
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("7_marcellus")
+text = "Pan amasado"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Resultado" type="TextureRect" parent="Ventana"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0678733
+anchor_top = 0.1986143
+anchor_right = 0.9321267
+anchor_bottom = 0.7228637
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Formula" type="HBoxContainer" parent="Ventana"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0271493
+anchor_top = 0.7413395
+anchor_right = 0.9728507
+anchor_bottom = 0.9630485
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="IconoCliente" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1447368
+anchor_top = 0.5908163
+anchor_right = 0.2763158
+anchor_bottom = 0.7010204
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_cliente")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MonedaVenta" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2631579
+anchor_top = 0.6193878
+anchor_right = 0.3486842
+anchor_bottom = 0.672449
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_moneda")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PrecioVenta" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3552632
+anchor_top = 0.5806122
+anchor_right = 0.8634868
+anchor_bottom = 0.7112245
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"Numero"
+text = "$10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Etiqueta" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2261514
+anchor_top = 0.7683673
+anchor_right = 0.7080592
+anchor_bottom = 0.9163265
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("10_etiqueta")
+expand_mode = 1
+
+[node name="MonedaCompra" type="TextureRect" parent="Etiqueta"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37
+anchor_top = 0.27
+anchor_right = 0.515
+anchor_bottom = 0.73
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_moneda")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PrecioCompra" type="Label" parent="Etiqueta"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.515
+anchor_top = 0.15
+anchor_right = 0.955
+anchor_bottom = 0.85
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"Numero"
+theme_override_font_sizes/font_size = 22
+text = "$150"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bloqueo" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_bloqueada")
+expand_mode = 1
+
+[node name="Insignia" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0986842
+anchor_top = 0.7632653
+anchor_right = 0.9013158
+anchor_bottom = 0.9204082
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_insignia")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Boton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_sin_fondo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sin_fondo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sin_fondo")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_sin_fondo")
