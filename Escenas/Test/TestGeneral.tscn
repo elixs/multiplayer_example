@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dgiiykt7iitta" path="res://objetos/ingredientes/harina.tscn" id="9_xjfos"]
 [ext_resource type="PackedScene" uid="uid://dk6x7tr4xdi5p" path="res://objetos/ingredientes/agua.tscn" id="10_xjfos"]
 [ext_resource type="PackedScene" uid="uid://cmr7ditqitybl" path="res://objetos/mesa_cocina.tscn" id="11_pg8uc"]
+[ext_resource type="PackedScene" uid="uid://c1ii0yoyavka" path="res://objetos/NPC/Recepcion.tscn" id="12_1wwit"]
 
 [sub_resource type="Environment" id="Environment_g4v7s"]
 background_mode = 1
@@ -94,3 +95,6 @@ transform = Transform3D(0.12772404, 0, -0.9918097, 0, 1, 0, 0.9918097, 0, 0.1277
 [node name="LabelMesa" type="Label3D" parent="MesaCocina" unique_id=895834363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55237234, 0)
 text = "Mesa"
+
+[node name="Recepcion" parent="." unique_id=223453735 instance=ExtResource("12_1wwit")]
+transform = Transform3D(0.3106091, 0, 0.95053786, 0, 1, 0, -0.95053786, 0, 0.3106091, -5.028069, 0.39564037, -2.0019925)
