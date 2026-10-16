@@ -1,19 +1,5 @@
 extends InteraccionArea
 
-
-#signal interact
-#signal interact_q
-#signal players_nearby
-
-#@export var meshInstance: MeshInstance3D
-#@export var label: Label3D
-#@export var Objeto_Interactuable: ObjetoInteractuable
-#@export var duracion_animacion = 0
-
-
-#var players: Array[Player]
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	duracion_animacion = Objeto_Interactuable.tiempo_accion
 	if label:
@@ -24,7 +10,6 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("E_Interactuar"):
-		print("e se apreto")
 		for player: Player in players:
 			if player.get_multiplayer_authority() == multiplayer.get_unique_id() and player.posicion_actual == player.Posicion.ARRIBA_DE:
 				interact.emit()
@@ -33,7 +18,6 @@ func _input(event: InputEvent) -> void:
 				return
 
 	if event.is_action_pressed("Q_Interactuar"):
-		print("q se apreto")
 		for player in players:
 			if player.get_multiplayer_authority() == multiplayer.get_unique_id() and player.posicion_actual == player.Posicion.ARRIBA_DE:
 				interact_q.emit()
@@ -61,3 +45,11 @@ func _on_body_exited(body: Node3D) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+func activar_interaccion(estado: bool) -> void:
+	set_deferred("monitoring", estado)
+	
+	if not estado:
+		if label: 
+			label.hide()
+		players.clear()
