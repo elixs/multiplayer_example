@@ -22,3 +22,9 @@ func _request_interaction_q() -> void:
 @rpc("any_peer", "call_local", "reliable")
 func _execute_interaction_q() -> void:
 	pass
+
+## Lo que dice el cartel que ve el jugador parado al lado. Cada objeto lo cambia por lo
+## que de verdad puede hacer ahí en ese momento, que no es lo mismo en la mesa que en el
+## horno ni con las manos llenas que vacías.
+func texto_de_ayuda(_jugador: Player) -> String:
+	return "Presionar E"

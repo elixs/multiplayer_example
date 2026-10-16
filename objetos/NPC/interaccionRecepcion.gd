@@ -1,28 +1,28 @@
 extends InteraccionArea
 
 func _ready() -> void:
-	duracion_animacion = Objeto_Interactuable.tiempo_accion
-	if label:
-		label.hide()
+	super._ready()
 
-	body_entered.connect(_on_body_entered)
-	body_exited.connect(_on_body_exited)
-
+# El cliente se atiende desde arriba de otro gato, así que acá no se mira quién está
+# tocando el área sino quién está en la lista del puesto. La tecla se marca como usada
+# para que el gato no suelte de paso el pan que lleva en la mano.
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("E_Interactuar"):
 		for player: Player in players:
 			if player.get_multiplayer_authority() == multiplayer.get_unique_id():
+				if not manda_sobre(player):
+					return
+				get_viewport().set_input_as_handled()
 				interact.emit()
-				print("se emitio la señal desde arriba de ", player.get_instance_id())
-				#player.trigger_emotiza.rpc(duracion_animacion)
 				return
 
 	if event.is_action_pressed("Q_Interactuar"):
 		for player in players:
 			if player.get_multiplayer_authority() == multiplayer.get_unique_id():
+				if not manda_sobre(player):
+					return
+				get_viewport().set_input_as_handled()
 				interact_q.emit()
-				print("se emitio la señal desde arriba de ", player.get_instance_id())
-				#player.trigger_emotiza.rpc(duracion_animacion)
 				return
 
 
@@ -42,10 +42,6 @@ func _on_body_exited(body: Node3D) -> void:
 		if player.get_multiplayer_authority() == multiplayer.get_unique_id():
 			label.hide()
 			
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
 func activar_interaccion(estado: bool) -> void:
 	set_deferred("monitoring", estado)
 	

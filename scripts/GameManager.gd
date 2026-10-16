@@ -3,7 +3,7 @@ extends Node
 
 static var instance: GameManager
 
-@export var game_time: int = 120
+@export var game_time: int = 240
 @export var dinero_recaudado: int = 0
 
 signal timer_updated(new_time: int)

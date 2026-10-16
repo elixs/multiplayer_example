@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://dthx1em20r6f"]
+
+[ext_resource type="Script" uid="uid://btkfsdp86sg8m" path="res://ui/pedidos/globo_pedido.gd" id="1_globo"]
+[ext_resource type="Texture2D" uid="uid://b1wdigq7hs4r6" path="res://assets/ui/menus/globo_dialogo.png" id="2_fondo"]
+[ext_resource type="Texture2D" uid="uid://c8pesskrfpkvj" path="res://assets/ui/progreso/barra_simple_fondo.png" id="3_barra_fondo"]
+[ext_resource type="Texture2D" uid="uid://dr6xwbclkifqa" path="res://assets/ui/progreso/barra_simple_relleno.png" id="4_barra_relleno"]
+[ext_resource type="Texture2D" uid="uid://c51p6ygdd56vj" path="res://assets/ui/hud/cliente_esperando.png" id="5_esperando"]
+[ext_resource type="Texture2D" uid="uid://dehf2p83quqpr" path="res://assets/ui/hud/cliente_enojado.png" id="6_enojado"]
+[ext_resource type="Texture2D" uid="uid://cojdud4rb8hqt" path="res://assets/ui/hud/cliente_feliz.png" id="7_feliz"]
+
+[node name="GloboPedido" type="Node3D"]
+script = ExtResource("1_globo")
+dibujo_esperando = ExtResource("5_esperando")
+dibujo_enojado = ExtResource("6_enojado")
+dibujo_feliz = ExtResource("7_feliz")
+
+[node name="Fondo" type="Sprite3D" parent="."]
+pixel_size = 0.0035
+texture_filter = 4
+texture = ExtResource("2_fondo")
+
+[node name="Reaccion" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0, 0.01)
+pixel_size = 0.0016
+texture_filter = 4
+render_priority = 2
+texture = ExtResource("5_esperando")
+
+[node name="Dibujo" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0.01)
+pixel_size = 0.0008
+texture_filter = 4
+render_priority = 2
+
+[node name="Interrogacion" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0.01)
+pixel_size = 0.0022
+texture_filter = 4
+render_priority = 2
+modulate = Color(0.2901961, 0.1960784, 0.1490196, 1)
+text = "?"
+font_size = 128
+outline_size = 0
+
+[node name="Paciencia" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37, 0)
+
+[node name="Fondo" type="Sprite3D" parent="Paciencia"]
+pixel_size = 0.0022
+texture_filter = 4
+texture = ExtResource("3_barra_fondo")
+
+[node name="Pivote" type="Node3D" parent="Paciencia"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2948, 0, 0.005)
+
+[node name="Relleno" type="Sprite3D" parent="Paciencia/Pivote"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2948, 0, 0)
+pixel_size = 0.0022
+texture_filter = 4
+render_priority = 2
+modulate = Color(0.43137255, 0.56078434, 0.33333334, 1)
+texture = ExtResource("4_barra_relleno")

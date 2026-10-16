@@ -7,8 +7,8 @@ var dummy_ing = preload("res://objetos/ingredientes/dummy_ing.tscn") as PackedSc
 var pasos: Dictionary = {
 	"amasado_crudo": preload("res://objetos/ingredientes/amasado.tscn") as PackedScene,
 	"masa_madre_cruda": preload("res://objetos/ingredientes/masa_madre.tscn") as PackedScene,
-	"masa_madre": dummy_ing,
-	"amasado": dummy_ing
+	"pan_masa_madre": dummy_ing,
+	"pan_amasado": dummy_ing
 }
 
 @rpc("any_peer", "call_local", "reliable")
@@ -115,6 +115,16 @@ func _execute_interaction() -> void:
 		ing_a_recuperar.request_tomar.rpc_id(1, sender_id)
 
 	
+func texto_de_ayuda(jugador: Player) -> String:
+	if ingrediente == null:
+		if jugador.objeto_en_mano:
+			return "Presionar Q para meter al horno"
+		return "Horno"
+	if pasos.get(ingrediente.nombre_ingrediente, dummy_ing) != dummy_ing:
+		return "Presionar E para hornear"
+	return "Presionar E para sacar"
+
+
 # llamar solo si hay ingredientes en la mesa
 func _buscar_en_pasos() -> PackedScene:
 	var llave = ingrediente.nombre_ingrediente

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://xand64yanv2c"]
+[gd_scene load_steps=13 format=3 uid="uid://xand64yanv2c"]
 
 [ext_resource type="Script" uid="uid://gbbkjxk6mjm6" path="res://ui/cierre/cierre_de_dia.gd" id="1_cierre"]
 [ext_resource type="PackedScene" path="res://ui/cierre/fila_estadistica.tscn" id="2_fila"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dpq5ydoypf1yb" path="res://assets/ui/menus/icono_moneda.png" id="8_moneda"]
 [ext_resource type="Texture2D" uid="uid://cojdud4rb8hqt" path="res://assets/ui/hud/cliente_feliz.png" id="9_cliente"]
 [ext_resource type="Texture2D" uid="uid://cg5cedhqumo0n" path="res://assets/ui/menus/icono_pan_amasado.png" id="10_pan"]
+[ext_resource type="Texture2D" uid="uid://dehf2p83quqpr" path="res://assets/ui/hud/cliente_enojado.png" id="11_enojado"]
 
 [node name="CierreDeDia" type="Control"]
 layout_mode = 3
@@ -26,6 +27,7 @@ dibujo_sello_fracaso = ExtResource("7_fracaso")
 dibujo_monedas = ExtResource("8_moneda")
 dibujo_clientes = ExtResource("9_cliente")
 dibujo_panes = ExtResource("10_pan")
+dibujo_clientes_perdidos = ExtResource("11_enojado")
 
 [node name="Oscurecer" type="Panel" parent="."]
 layout_mode = 1
@@ -54,7 +56,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 offset_left = 299.0
-offset_top = 60.0
+offset_top = 48.0
 offset_right = -299.0
 offset_bottom = 126.0
 grow_horizontal = 2
@@ -91,8 +93,8 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
-offset_top = 130.0
-offset_bottom = 158.0
+offset_top = 116.0
+offset_bottom = 144.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_type_variation = &"Pista"
@@ -105,13 +107,13 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
-offset_left = 130.0
-offset_top = 166.0
-offset_right = -130.0
-offset_bottom = 484.0
+offset_left = 185.0
+offset_top = 150.0
+offset_right = -185.0
+offset_bottom = 496.0
 grow_horizontal = 2
 mouse_filter = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 10
 
 [node name="Monedas" parent="Marco/Filas" instance=ExtResource("2_fila")]
 layout_mode = 2
@@ -120,6 +122,9 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Panes" parent="Marco/Filas" instance=ExtResource("2_fila")]
+layout_mode = 2
+
+[node name="Perdidos" parent="Marco/Filas" instance=ExtResource("2_fila")]
 layout_mode = 2
 
 [node name="BotonSeguir" type="Button" parent="Marco"]

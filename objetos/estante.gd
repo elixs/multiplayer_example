@@ -8,6 +8,10 @@ extends ObjetoInteractuable
 func _ready() -> void:
 	super() 
 
+func texto_de_ayuda(_jugador: Player) -> String:
+	return "Presionar E para tomar"
+
+
 @rpc("any_peer", "call_local", "reliable")
 func _execute_interaction() -> void:
 	print("ejecutando interaccion e")

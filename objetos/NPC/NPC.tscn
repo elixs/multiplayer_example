@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://uhxpnost87cc" path="res://objetos/NPC/npc.gd" id="1_3as64"]
 [ext_resource type="Script" uid="uid://kipgdvofwfov" path="res://objetos/NPC/interaccionRecepcion.gd" id="2_bjo4k"]
+[ext_resource type="PackedScene" uid="uid://dthx1em20r6f" path="res://ui/pedidos/globo_pedido.tscn" id="3_globo"]
+[ext_resource type="FontFile" uid="uid://c036f4b7ps2mt" path="res://assets/ui/fuentes/Jersey25-Regular.ttf" id="9_fuente"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s2vrj"]
 size = Vector3(1, 1.8686523, 1.6444092)
@@ -33,8 +35,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09790039, 0.7911167)
 shape = SubResource("BoxShape3D_s2vrj")
 
 [node name="Label3D" type="Label3D" parent="Interaccion_area" unique_id=1680290701]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2981556, 0.7389072)
-text = "Press E"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0.7389072)
+pixel_size = 0.0022
+texture_filter = 4
+modulate = Color(1, 0.972549, 0.9254902, 1)
+outline_modulate = Color(0.2901961, 0.1960784, 0.1490196, 1)
+text = "Presionar E"
+font = ExtResource("9_fuente")
+font_size = 64
+outline_size = 18
 
 [node name="modelo" type="Node3D" parent="." unique_id=887362425]
 
@@ -49,5 +58,5 @@ transform = Transform3D(0.18035, 0, 0, 0, 0.16446093, 0, 0, 0, 0.2804947, 0, 0.3
 material_override = SubResource("StandardMaterial3D_57qmd")
 mesh = SubResource("PrismMesh_g4v7s")
 
-[node name="LabelPedido" type="Label3D" parent="." unique_id=509324144]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97613704, 0)
+[node name="GloboPedido" parent="." instance=ExtResource("3_globo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)

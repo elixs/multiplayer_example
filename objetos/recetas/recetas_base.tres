@@ -24,7 +24,7 @@ nombre = "Pan masa madre"
 ingredientes = Array[String](["agua", "harina", "levadura"])
 icono = ExtResource("3_7pt7k")
 precio_venta = 25
-precio_compra = 150
+precio_compra = 100
 segundos_preparacion = 5.0
 
 [resource]

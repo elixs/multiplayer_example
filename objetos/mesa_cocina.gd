@@ -13,6 +13,17 @@ var nom_ingredientes: Array[String]
 var recibe_ingredientes: bool = true
 var dummy_ing = preload("res://objetos/ingredientes/dummy_ing.tscn") as PackedScene
 
+# Cuánto dura el aviso de receta bloqueada sobre la mesa antes de volver al texto normal.
+const SEGUNDOS_DE_AVISO: float = 2.0
+
+# El texto que trae la etiqueta de la mesa en la escena, para poder devolverlo después
+# de un aviso sin escribirlo a mano en dos lugares.
+var _texto_de_la_etiqueta: String = ""
+
+# Cuántos avisos se han mostrado. Si llega uno nuevo antes de que termine el anterior,
+# solo el último devuelve la etiqueta a su texto normal.
+var _avisos_mostrados: int = 0
+
 # quizas seria bueno hacer un tipo receta y manejar los pasos (recetas desbloqueadas)
 # desde el game manager
 # key: String, val: PackedScene (ingrediente para que se pueda tomar)
@@ -26,6 +37,8 @@ var pasos: Dictionary = {
 
 func _ready() -> void:
 	super()
+	if interaccion_area.label:
+		_texto_de_la_etiqueta = interaccion_area.label.text
 	nodos_pos.push_back(nodo_ing_1)
 	nodos_pos.push_back(nodo_ing_2)
 	nodos_pos.push_back(nodo_ing_3)
@@ -110,6 +123,14 @@ func _execute_interaction() -> void:
 	var next = _buscar_en_pasos()
 	# si hay paso que hacer, hacerlo
 	if next != null and next != dummy_ing:
+		# La panadería solo prepara lo que ya compró en la tienda.
+		var bloqueada: RecetaDef = _receta_sin_comprar()
+		if bloqueada != null:
+			var id_del_que_apreto: int = multiplayer.get_remote_sender_id()
+			if id_del_que_apreto == 0:
+				id_del_que_apreto = 1
+			_avisar_receta_bloqueada.rpc_id(id_del_que_apreto, bloqueada.nombre)
+			return
 		print("existe siguiente paso")
 		# borrar ingredientes
 		recibe_ingredientes = false
@@ -155,15 +176,61 @@ func _execute_interaction() -> void:
 		ing_a_recuperar.request_tomar.rpc_id(1, sender_id)
 		
 	
+# Qué receta falta comprar para poder preparar lo que hay sobre la mesa. Devuelve null
+# cuando la receta ya está desbloqueada y también cuando la combinación no corresponde a
+# ninguna receta, porque esos casos los sigue resolviendo la lista de pasos de la mesa.
+func _receta_sin_comprar() -> RecetaDef:
+	if Recetario.instance == null or Recetario.instance.recetas == null:
+		return null
+	if Recetario.instance.buscar_desbloqueada(nom_ingredientes) != null:
+		return null
+	return Recetario.instance.recetas.buscar_por_ingredientes(nom_ingredientes)
+
+
+# Le avisa al jugador que apretó que esa receta todavía tiene candado. Va solo a su
+# máquina porque la etiqueta de la mesa la ve únicamente quien está parado al lado.
+@rpc("authority", "reliable")
+func _avisar_receta_bloqueada(nombre_receta: String) -> void:
+	var etiqueta: Label3D = interaccion_area.label
+	if etiqueta == null:
+		return
+	_avisos_mostrados += 1
+	var este_aviso: int = _avisos_mostrados
+	etiqueta.text = "Falta comprar
+" + nombre_receta
+	await get_tree().create_timer(SEGUNDOS_DE_AVISO).timeout
+	if este_aviso == _avisos_mostrados and is_instance_valid(etiqueta):
+		etiqueta.text = _texto_de_la_etiqueta
+
+
 # llamar solo si hay ingredientes en la mesa
 func _buscar_en_pasos() -> PackedScene:
-	nom_ingredientes.sort()
-	var packed_noms = PackedStringArray(nom_ingredientes)
-	var llave = "+".join(packed_noms)
+	var llave: String = _llave_de_la_mesa()
 	print("llave: ", llave)
 	if llave in pasos.keys():
 		return pasos[llave]
 	return dummy_ing
+
+
+# Los nombres de lo que hay sobre la mesa, ordenados y unidos con +, que es la forma en
+# que están escritas las llaves de la lista de pasos.
+func _llave_de_la_mesa() -> String:
+	nom_ingredientes.sort()
+	return "+".join(PackedStringArray(nom_ingredientes))
+
+
+func texto_de_ayuda(jugador: Player) -> String:
+	var lineas: Array[String] = []
+	if jugador.objeto_en_mano and recibe_ingredientes and ingredientes.size() < max_ingredientes:
+		lineas.push_back("Presionar Q para dejar")
+	if pasos.get(_llave_de_la_mesa(), dummy_ing) != dummy_ing:
+		lineas.push_back("Presionar E para preparar")
+	elif ingredientes.size() > 0:
+		lineas.push_back("Presionar E para tomar")
+	if lineas.is_empty():
+		return "Mesa de preparación"
+	return "
+".join(PackedStringArray(lineas))
 
 
 @rpc("authority", "call_local", "reliable")

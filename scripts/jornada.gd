@@ -16,13 +16,13 @@ static var instance: Jornada
 
 ## Cuánto dura un día en segundos. Es un número de relleno hasta que el equipo decida
 ## la dificultad.
-@export var duracion_del_dia: int = 120
+@export var duracion_del_dia: int = 240
 
 ## Cuántas monedas hay que juntar para cumplir el día. También es de relleno.
-@export var meta_de_monedas: int = 300
+@export var meta_de_monedas: int = 50
 
 ## Se emite en todas las máquinas cuando termina el día, con las cifras ya calculadas.
-signal dia_terminado(numero_de_dia: int, monedas: int, clientes: int, panes: int, meta: int)
+signal dia_terminado(numero_de_dia: int, monedas: int, clientes: int, panes: int, perdidos: int, meta: int)
 
 ## Se emite cada vez que cambia lo juntado, para que el HUD mueva su barra de meta.
 signal avance_cambiado(monedas: int, meta: int)
@@ -34,6 +34,7 @@ var numero_de_dia: int = 1
 var _caja_al_empezar: int = 0
 var _clientes_atendidos: int = 0
 var _panes_entregados: int = 0
+var _clientes_perdidos: int = 0
 var _dia_cerrado: bool = false
 
 
@@ -66,15 +67,25 @@ func panes_entregados() -> int:
 	return _panes_entregados
 
 
+## Cuántos clientes se fueron sin que los atendieran.
+func clientes_perdidos() -> int:
+	return _clientes_perdidos
+
+
 ## Lo llama quien atienda a un cliente. Cualquiera puede avisar, el servidor lleva la
 ## cuenta de verdad y la reparte.
 func anotar_cliente_atendido() -> void:
-	_anotar.rpc(1, 0)
+	_anotar.rpc(1, 0, 0)
 
 
 ## Lo llama quien entregue un pan.
 func anotar_pan_entregado() -> void:
-	_anotar.rpc(0, 1)
+	_anotar.rpc(0, 1, 0)
+
+
+## Lo llama el puesto cuando un cliente se cansa de esperar y se va.
+func anotar_cliente_perdido() -> void:
+	_anotar.rpc(0, 0, 1)
 
 
 ## Lo llama la interfaz cuando el jugador aprieta seguir en la pantalla de cierre.
@@ -90,16 +101,17 @@ func _conectar_game_manager() -> void:
 
 
 @rpc("any_peer", "call_local", "reliable")
-func _anotar(clientes: int, panes: int) -> void:
+func _anotar(clientes: int, panes: int, perdidos: int) -> void:
 	if not multiplayer.is_server():
 		return
-	_sumar.rpc(clientes, panes)
+	_sumar.rpc(clientes, panes, perdidos)
 
 
 @rpc("authority", "call_local", "reliable")
-func _sumar(clientes: int, panes: int) -> void:
+func _sumar(clientes: int, panes: int, perdidos: int) -> void:
 	_clientes_atendidos += clientes
 	_panes_entregados += panes
+	_clientes_perdidos += perdidos
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -118,6 +130,7 @@ func _empezar_dia(numero: int) -> void:
 	numero_de_dia = numero
 	_clientes_atendidos = 0
 	_panes_entregados = 0
+	_clientes_perdidos = 0
 	_dia_cerrado = false
 	if GameManager.instance:
 		_caja_al_empezar = GameManager.instance.dinero_recaudado
@@ -129,13 +142,13 @@ func _al_cambiar_el_reloj(segundos_restantes: int) -> void:
 		return
 	if not multiplayer.is_server():
 		return
-	_cerrar_dia.rpc(numero_de_dia, monedas_del_dia(), _clientes_atendidos, _panes_entregados)
+	_cerrar_dia.rpc(numero_de_dia, monedas_del_dia(), _clientes_atendidos, _panes_entregados, _clientes_perdidos)
 
 
 @rpc("authority", "call_local", "reliable")
-func _cerrar_dia(numero: int, monedas: int, clientes: int, panes: int) -> void:
+func _cerrar_dia(numero: int, monedas: int, clientes: int, panes: int, perdidos: int) -> void:
 	_dia_cerrado = true
-	dia_terminado.emit(numero, monedas, clientes, panes, meta_de_monedas)
+	dia_terminado.emit(numero, monedas, clientes, panes, perdidos, meta_de_monedas)
 
 
 func _al_cambiar_la_caja(_cantidad: int) -> void:
