@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="RecetaSet" format=3 uid="uid://gqh5g0mrf20v"]
+
+[ext_resource type="Script" uid="uid://cifwth3hip8su" path="res://objetos/recetas/receta_def.gd" id="1_j85sn"]
+[ext_resource type="Texture2D" uid="uid://cg5cedhqumo0n" path="res://assets/ui/menus/icono_pan_amasado.png" id="2_uigxb"]
+[ext_resource type="Texture2D" uid="uid://djng6wwrr8wy2" path="res://assets/ui/menus/icono_pan_masa_madre.png" id="3_7pt7k"]
+[ext_resource type="Script" uid="uid://gn6ny7iolnex" path="res://objetos/recetas/receta_set.gd" id="4_q6kq6"]
+[ext_resource type="Texture2D" uid="uid://kg8edok2vnqs" path="res://assets/ui/hud/ing_harina.png" id="5_harina"]
+[ext_resource type="Texture2D" uid="uid://l2xgxwlcx5ap" path="res://assets/ui/hud/ing_agua.png" id="6_agua"]
+[ext_resource type="Texture2D" uid="uid://dkuc0soo23708" path="res://assets/ui/hud/ing_levadura.png" id="7_levadura"]
+
+[sub_resource type="Resource" id="Resource_oh3hi"]
+script = ExtResource("1_j85sn")
+id = &"pan_amasado"
+nombre = "Pan amasado"
+ingredientes = Array[String](["agua", "harina"])
+icono = ExtResource("2_uigxb")
+precio_venta = 10
+disponible_al_inicio = true
+
+[sub_resource type="Resource" id="Resource_r1rmp"]
+script = ExtResource("1_j85sn")
+id = &"pan_masa_madre"
+nombre = "Pan masa madre"
+ingredientes = Array[String](["agua", "harina", "levadura"])
+icono = ExtResource("3_7pt7k")
+precio_venta = 25
+precio_compra = 150
+segundos_preparacion = 5.0
+
+[resource]
+script = ExtResource("4_q6kq6")
+recetas = Array[ExtResource("1_j85sn")]([SubResource("Resource_oh3hi"), SubResource("Resource_r1rmp")])
+iconos_ingredientes = Dictionary[String, Texture2D]({
+"agua": ExtResource("6_agua"),
+"harina": ExtResource("5_harina"),
+"levadura": ExtResource("7_levadura")
+})
