@@ -32,6 +32,7 @@ func _execute_interaction_q() -> void:
 		return
 	
 	var obj: Ingrediente = player.objeto_en_mano
+	obj.freeze = true
 	
 	var pos = nodo_ing.global_position
 	
@@ -44,7 +45,6 @@ func _execute_interaction_q() -> void:
 	
 func _ceder_objeto_localmente(player: Player, obj: Ingrediente, pos: Vector3) -> void:
 	print("cediendo objeto localmente desde", player.get_instance_id())
-	
 	player.ceder_objeto(pos)
 	ingrediente = obj
 	print("ya cedido")
