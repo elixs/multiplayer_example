@@ -7,8 +7,8 @@ var dummy_ing = preload("res://objetos/ingredientes/dummy_ing.tscn") as PackedSc
 var pasos: Dictionary = {
 	"amasado_crudo": preload("res://objetos/ingredientes/amasado.tscn") as PackedScene,
 	"masa_madre_cruda": preload("res://objetos/ingredientes/masa_madre.tscn") as PackedScene,
-	"masa_madre": dummy_ing,
-	"amasado": dummy_ing
+	"pan_masa_madre": dummy_ing,
+	"pan_amasado": dummy_ing
 }
 
 @rpc("any_peer", "call_local", "reliable")
