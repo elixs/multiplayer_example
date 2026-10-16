@@ -9,8 +9,9 @@ size = Vector3(5.708252, 0.79992676, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
 size = Vector3(5.708, 0.7296201, 1)
 
-[node name="Recepcion" type="Node3D" unique_id=223453735]
+[node name="Recepcion" type="Node3D" unique_id=223453735 node_paths=PackedStringArray("puestos_clientes")]
 script = ExtResource("1_g71f1")
+puestos_clientes = [NodePath("Npc"), NodePath("Npc2"), NodePath("Npc3")]
 metadata/_custom_type_script = "uid://cyxp5com8l0p"
 
 [node name="Npc" parent="." unique_id=870382099 instance=ExtResource("2_185hp")]
