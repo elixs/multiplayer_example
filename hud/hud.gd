@@ -8,8 +8,12 @@ extends Control
 ## El panel de la tienda que abre el botón del toldo. Vive fuera del HUD porque tapa
 ## la pantalla entera, así que se enlaza desde la escena del gato.
 @export var tienda: Tienda
+## El panel que resume la jornada cuando se acaba el día. También vive fuera del HUD
+## porque tapa la pantalla entera.
+@export var cierre: CierreDeDia
 @onready var barra_trabajo: TextureProgressBar = %BarraTrabajo
 @onready var boton_tienda: Button = %BotonTienda
+@onready var barra_meta: TextureProgressBar = %BarraMeta
 
 func _ready() -> void:
 	if GameManager.instance:
@@ -22,6 +26,7 @@ func _ready() -> void:
 		hud.hide()
 		barra_trabajo.visible = false
 	_preparar_tienda()
+	_preparar_jornada()
 	
 # El botón solo aparece si la escena trae una tienda enlazada. Mientras está abierta el
 # gato deja de caminar, porque el jugador está mirando el panel y no la cocina.
@@ -42,6 +47,42 @@ func _abrir_tienda() -> void:
 func _al_cerrar_tienda() -> void:
 	_cambiar_marca_de_interfaz(false)
 	hud.visible = is_multiplayer_authority()
+
+# La jornada avisa cuándo se acaba el día y cuánto se lleva juntado. El HUD solo
+# muestra: no decide cuándo termina ni cuánto falta.
+#
+# Cada gato de la partida trae su propio HUD, también los de los demás jugadores. Solo
+# el del jugador de esta máquina escucha a la jornada, porque si no se abriría un panel
+# de cierre por gato y habría que cerrarlos todos de a uno.
+func _preparar_jornada() -> void:
+	if not is_multiplayer_authority():
+		return
+	if Jornada.instance == null:
+		return
+	Jornada.instance.avance_cambiado.connect(_al_cambiar_el_avance)
+	_al_cambiar_el_avance(Jornada.instance.monedas_del_dia(), Jornada.instance.meta_de_monedas)
+	if cierre == null:
+		return
+	Jornada.instance.dia_terminado.connect(_al_terminar_el_dia)
+	cierre.continuado.connect(_al_empezar_otro_dia)
+
+func _al_cambiar_el_avance(monedas: int, meta: int) -> void:
+	if meta <= 0:
+		barra_meta.value = 0.0
+		return
+	barra_meta.value = clampf(float(monedas) / float(meta) * 100.0, 0.0, 100.0)
+
+# El HUD se esconde igual que con la tienda, porque el panel de cierre tapa todo.
+func _al_terminar_el_dia(numero_de_dia: int, monedas: int, clientes: int, panes: int, meta: int) -> void:
+	cierre.mostrar(numero_de_dia, monedas, clientes, panes, meta)
+	_cambiar_marca_de_interfaz(true)
+	hud.hide()
+
+func _al_empezar_otro_dia() -> void:
+	_cambiar_marca_de_interfaz(false)
+	hud.visible = is_multiplayer_authority()
+	if Jornada.instance:
+		Jornada.instance.pedir_siguiente_dia()
 
 func _cambiar_marca_de_interfaz(abierta: bool) -> void:
 	if jugador and jugador.input_synchronizer:

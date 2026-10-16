@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://tyv2sasxe5jq"]
+
+[ext_resource type="Script" uid="uid://dsq5fwgt0ln73" path="res://scripts/jornada.gd" id="1_jornada"]
+
+[node name="Jornada" type="Node"]
+script = ExtResource("1_jornada")
