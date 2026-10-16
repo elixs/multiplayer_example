@@ -4,20 +4,12 @@ extends Control
 
 
 @onready var mostradorDinero: Label = %Dinero
-@onready var tiempo: Label = %Tiempo
-@onready var aguja: TextureRect = %Aguja
 @export var jugador: Player
+## El panel de la tienda que abre el botón del toldo. Vive fuera del HUD porque tapa
+## la pantalla entera, así que se enlaza desde la escena del gato.
+@export var tienda: Tienda
 @onready var barra_trabajo: TextureProgressBar = %BarraTrabajo
-
-# Grados que recorre la aguja del reloj a lo largo de una jornada: parte en el
-# amanecer, pasa por el sol y termina en el anochecer. Salen de reloj_medidas.json.
-const RELOJ_AMANECER: float = -118.3
-const RELOJ_ANOCHECER: float = 65.8
-
-# El reloj del GameManager ya viene corriendo cuando aparece el HUD, así que la
-# duración de la jornada se toma del primer valor que llega.
-var _tiempo_total: int = 0
-
+@onready var boton_tienda: Button = %BotonTienda
 
 func _ready() -> void:
 	if GameManager.instance:
@@ -29,13 +21,38 @@ func _ready() -> void:
 	if not is_multiplayer_authority():
 		hud.hide()
 		barra_trabajo.visible = false
+	_preparar_tienda()
 	
+# El botón solo aparece si la escena trae una tienda enlazada. Mientras está abierta el
+# gato deja de caminar, porque el jugador está mirando el panel y no la cocina.
+func _preparar_tienda() -> void:
+	boton_tienda.visible = tienda != null
+	if tienda == null:
+		return
+	boton_tienda.pressed.connect(_abrir_tienda)
+	tienda.cerrada.connect(_al_cerrar_tienda)
+
+# El HUD se esconde entero mientras dura la tienda. El panel lo tapaba a medias y el
+# reloj quedaba cortado por el borde, y además la tienda ya muestra el dinero.
+func _abrir_tienda() -> void:
+	tienda.abrir()
+	_cambiar_marca_de_interfaz(true)
+	hud.hide()
+
+func _al_cerrar_tienda() -> void:
+	_cambiar_marca_de_interfaz(false)
+	hud.visible = is_multiplayer_authority()
+
+func _cambiar_marca_de_interfaz(abierta: bool) -> void:
+	if jugador and jugador.input_synchronizer:
+		jugador.input_synchronizer.interfaz_abierta = abierta
+
 func _conectar_game_manager() -> void:
 	var gm:GameManager = GameManager.instance
-	gm.timer_updated.connect(_on_tiempo_actualizado)
 	gm.money_updated.connect(_on_dinero_actualizado)
-	jugador.tiempo_trabajando.connect(_trabajando)
-	_on_tiempo_actualizado(gm.game_time)
+	# La barra de trabajo depende del gato. Sin gato asignado el resto del HUD igual sirve.
+	if jugador:
+		jugador.tiempo_trabajando.connect(_trabajando)
 	_on_dinero_actualizado(gm.dinero_recaudado)
 
 func _trabajando(tiempo:int) -> void:
@@ -57,17 +74,5 @@ func _trabajando(tiempo:int) -> void:
 	barra_trabajo.visible = false
 	barra_trabajo.value = 0
 
-func _on_tiempo_actualizado(_nuevo_tiempo:int) -> void:
-	var minutos : int = int(float(_nuevo_tiempo) / 60)
-	var segundos : int = _nuevo_tiempo % 60
-	tiempo.text = "%02d:%02d" % [minutos, segundos]
-	_mover_aguja(_nuevo_tiempo)
-	
-func _mover_aguja(restante: int) -> void:
-	if _tiempo_total <= 0:
-		_tiempo_total = maxi(restante, 1)
-	var avance: float = clampf(1.0 - float(restante) / float(_tiempo_total), 0.0, 1.0)
-	aguja.rotation_degrees = lerpf(RELOJ_AMANECER, RELOJ_ANOCHECER, avance)
-	
 func _on_dinero_actualizado(nuevo_dinero:int) -> void:
 	mostradorDinero.text = "%d" % nuevo_dinero

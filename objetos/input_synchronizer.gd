@@ -12,10 +12,17 @@ extends MultiplayerSynchronizer
 @export var correr: bool = false
 @export var move_speed: float = 1
 
+## Mientras hay un panel de interfaz abierto el gato deja de leer el teclado, para que
+## no camine a ciegas mientras el jugador está mirando la pantalla.
+var interfaz_abierta: bool = false
+
 
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
+		return
+	if interfaz_abierta:
+		move_input = Vector2.ZERO
 		return
 	move_input = Input.get_vector("move_left", "move_right", "move_forward","move_backward")
 	if Input.is_action_just_pressed("correr"):
