@@ -175,7 +175,6 @@ var climb_cooldown: float = 0.0
 
 var role: Statics.Role = Statics.Role.NONE
 
-# Pose de cierre: sin física ni cámara, solo la animación del podio.
 var podium_mode: bool = false
 
 var _player_name: String = ""
@@ -1712,7 +1711,7 @@ func send_data(
 
 
 # ============================================================
-# Podium
+# Podio
 # ============================================================
 
 func present_on_podium(player_name: String, is_winner: bool) -> void:

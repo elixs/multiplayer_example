@@ -51,7 +51,6 @@ func _winner_transform() -> Transform3D:
 
 
 func _loser_transform(index: int, _total: int) -> Transform3D:
-	# A los costados del ganador, para que nadie quede tapado detrás.
 	var slots: Array[Vector3] = [
 		Vector3(-1.9, 0.0, -0.15),
 		Vector3(1.9, 0.0, -0.15),
