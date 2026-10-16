@@ -19,7 +19,6 @@ var _gestor: GameManager
 var _hud: Control
 var _tienda: Tienda
 var _restante: int = SEGUNDOS_DE_JORNADA
-var _dinero: int = DINERO_INICIAL
 
 
 func _ready() -> void:
@@ -36,7 +35,6 @@ func _ready() -> void:
 	_hud.tienda = _tienda
 	add_child(_hud)
 	add_child(_tienda)
-	_tienda.compra_pedida.connect(_al_pedir_compra)
 
 	var latido: Timer = Timer.new()
 	latido.wait_time = DURACION_DEL_LATIDO
@@ -44,7 +42,9 @@ func _ready() -> void:
 	latido.timeout.connect(_avanzar_la_jornada)
 	add_child(latido)
 
-	_avisar_dinero()
+	# La compra pasa por el Recetario igual que en el juego, así que acá solo hace falta
+	# darle plata a la panadería para poder probarla.
+	_gestor.añadir_dinero(DINERO_INICIAL)
 	_avisar_tiempo()
 
 
@@ -53,19 +53,6 @@ func _avanzar_la_jornada() -> void:
 	if _restante <= 0:
 		_restante = SEGUNDOS_DE_JORNADA
 	_avisar_tiempo()
-
-
-# En el juego la compra la va a confirmar el servidor. Acá se da por hecha de inmediato
-# para poder ver cómo queda la carta después de comprarla.
-func _al_pedir_compra(receta: RecetaDef) -> void:
-	_dinero = _dinero - receta.precio_compra
-	_avisar_dinero()
-	_tienda.marcar_comprada(receta.id)
-
-
-func _avisar_dinero() -> void:
-	_gestor.dinero_recaudado = _dinero
-	_gestor.money_updated.emit(_dinero)
 
 
 func _avisar_tiempo() -> void:

@@ -1,13 +1,12 @@
 class_name Tienda
 extends Control
 
-# Panel de la tienda. Muestra el recetario repartido en páginas de cartas y deja elegir
+# Panel de la tienda. Muestra el recetario repartido en páginas de cartas y deja comprar
 # las recetas que todavía no están en el menú de la panadería.
 #
-# La tienda no cobra ni desbloquea nada por su cuenta. Cuando alguien aprieta una carta
-# avisa con compra_pedida y queda esperando: el que escucha decide si la compra se hace
-# y después le avisa de vuelta con marcar_comprada. Así el panel sirve igual cuando la
-# compra la tenga que confirmar el servidor.
+# La tienda no cobra ni desbloquea nada por su cuenta. Le pide la compra al Recetario,
+# que la valida en el servidor y después avisa a todas las máquinas. Por eso el panel se
+# refresca escuchando esa confirmación y no en el momento en que alguien aprieta.
 
 ## Cuántas cartas entran en una página. Es también la cantidad de cartas que existen,
 ## porque al cambiar de página se vuelven a llenar las mismas en vez de crear otras.
@@ -16,14 +15,8 @@ const CARTAS_POR_PAGINA: int = 3
 ## Cuánto queda el globo por encima del ícono al que apunta.
 const SEPARACION_DEL_GLOBO: float = 4.0
 
-## Se emite cuando el jugador aprieta una carta que se puede comprar.
-signal compra_pedida(receta_elegida: RecetaDef)
-
 ## Se emite al cerrar el panel, para que quien lo abrió devuelva el control al juego.
 signal cerrada
-
-## El recetario completo. La tienda solo lo lee.
-@export var recetario: RecetaSet
 
 ## La escena de carta que se usa para armar la página.
 @export var escena_carta: PackedScene
@@ -37,7 +30,6 @@ signal cerrada
 @onready var nombre_del_ingrediente: Label = %NombreIngrediente
 
 var _cartas: Array[CartaReceta] = []
-var _desbloqueadas: Array[StringName] = []
 var _pagina: int = 0
 var _dinero: int = 0
 
@@ -48,6 +40,8 @@ func _ready() -> void:
 	flecha_izquierda.pressed.connect(_ir_a_pagina.bind(-1))
 	flecha_derecha.pressed.connect(_ir_a_pagina.bind(1))
 	boton_cerrar.pressed.connect(cerrar)
+	if Recetario.instance:
+		Recetario.instance.receta_comprada.connect(_al_comprarse_una_receta)
 	if GameManager.instance:
 		_conectar_game_manager()
 	else:
@@ -79,22 +73,6 @@ func cerrar() -> void:
 	cerrada.emit()
 
 
-# Deja una receta como parte del menú de la panadería. Lo llama quien haya confirmado
-# la compra, no la carta que se apretó.
-func marcar_comprada(id_receta: StringName) -> void:
-	if id_receta in _desbloqueadas:
-		return
-	_desbloqueadas.push_back(id_receta)
-	_refrescar()
-
-
-# Las recetas que ya están compradas al abrir la tienda. Sirve para cuando el panel se
-# abre con una partida ya empezada.
-func cargar_desbloqueadas(ids: Array[StringName]) -> void:
-	_desbloqueadas = ids.duplicate()
-	_refrescar()
-
-
 func _conectar_game_manager() -> void:
 	var gestor: GameManager = GameManager.instance
 	gestor.money_updated.connect(_al_cambiar_el_dinero)
@@ -104,6 +82,11 @@ func _conectar_game_manager() -> void:
 func _al_cambiar_el_dinero(cantidad: int) -> void:
 	_dinero = cantidad
 	dinero_mostrado.text = "%d" % cantidad
+	_refrescar()
+
+
+# Llega cuando el servidor confirmó una compra, sea de este jugador o de otro.
+func _al_comprarse_una_receta(_id_receta: StringName) -> void:
 	_refrescar()
 
 
@@ -125,6 +108,7 @@ func _ir_a_pagina(avance: int) -> void:
 
 
 func _refrescar() -> void:
+	var recetario: RecetaSet = _recetas()
 	if not is_inside_tree() or recetario == null:
 		return
 	_esconder_globo()
@@ -147,7 +131,7 @@ func _refrescar() -> void:
 
 
 func _estado_de(receta: RecetaDef) -> CartaReceta.Estado:
-	if receta.disponible_al_inicio or receta.id in _desbloqueadas:
+	if Recetario.instance and Recetario.instance.esta_desbloqueada(receta.id):
 		return CartaReceta.Estado.COMPRADA
 	if _dinero >= receta.precio_compra:
 		return CartaReceta.Estado.DISPONIBLE
@@ -155,9 +139,16 @@ func _estado_de(receta: RecetaDef) -> CartaReceta.Estado:
 
 
 func _cantidad_de_paginas() -> int:
+	var recetario: RecetaSet = _recetas()
 	if recetario == null or recetario.recetas.is_empty():
 		return 1
 	return ceili(float(recetario.recetas.size()) / float(CARTAS_POR_PAGINA))
+
+
+func _recetas() -> RecetaSet:
+	if Recetario.instance == null:
+		return null
+	return Recetario.instance.recetas
 
 
 # Pone el globo justo encima del ícono apuntado, con la punta mirándolo. Si el ícono
@@ -174,5 +165,8 @@ func _esconder_globo() -> void:
 	globo.hide()
 
 
+# La carta solo avisa que la eligieron. Quien decide si la compra se hace es el servidor.
 func _al_pedir_compra(receta_elegida: RecetaDef) -> void:
-	compra_pedida.emit(receta_elegida)
+	if Recetario.instance == null:
+		return
+	Recetario.instance.pedir_compra.rpc(receta_elegida.id)

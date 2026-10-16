@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://7p1sbhsrfr45"]
+
+[ext_resource type="Script" uid="uid://dr6m2say1muwp" path="res://objetos/recetas/recetario.gd" id="1_recetario"]
+[ext_resource type="Resource" uid="uid://gqh5g0mrf20v" path="res://objetos/recetas/recetas_base.tres" id="2_recetas"]
+
+[node name="Recetario" type="Node"]
+script = ExtResource("1_recetario")
+recetas = ExtResource("2_recetas")

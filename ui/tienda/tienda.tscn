@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://cn58is8kqida"]
+[gd_scene load_steps=17 format=3 uid="uid://cn58is8kqida"]
 
 [ext_resource type="Script" uid="uid://82i7aws8ivku" path="res://ui/tienda/tienda.gd" id="1_tienda"]
 [ext_resource type="PackedScene" uid="uid://bcjcd0f6oeuhv" path="res://ui/recetas/carta_receta.tscn" id="2_carta"]
-[ext_resource type="Resource" uid="uid://gqh5g0mrf20v" path="res://objetos/recetas/recetas_base.tres" id="3_recetario"]
 [ext_resource type="Texture2D" uid="uid://dcategtouhxb6" path="res://assets/ui/tienda_y_cierre/cinta_titulo.png" id="4_cinta"]
 [ext_resource type="Texture2D" uid="uid://b7solx2vt2acp" path="res://assets/ui/hud/panel_monedas.png" id="5_monedas"]
 [ext_resource type="Texture2D" uid="uid://cl1rtdg3maxjn" path="res://assets/ui/lobby_y_botones/btn_cerrar.png" id="6_cerrar"]
@@ -39,7 +38,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tienda")
-recetario = ExtResource("3_recetario")
 escena_carta = ExtResource("2_carta")
 
 [node name="Oscurecer" type="Panel" parent="."]
