@@ -32,3 +32,7 @@ shape = SubResource("ConvexPolygonShape3D_hny1d")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1916311882]
 replication_config = SubResource("SceneReplicationConfig_ngaf5")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=859107585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.931355, 0)
+text = "Presiona E para tomar"

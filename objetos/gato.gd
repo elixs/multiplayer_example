@@ -57,8 +57,8 @@ var curAnim: int = IDLE
 @onready var shape_cast: ShapeCast3D = $SpringArm3D/Camera3D/GrabArea
 @onready var nodo_agarre: Marker3D = $SpringArm3D/Camera3D/GrabArea/GrabTarget
 # tambien se usa camera_3d
-
 var objeto_en_mano: Ingrediente = null
+#var was_colliding: Ingrediente = null
 
 func _ready() -> void:
 	sync_timer.timeout.connect(_on_sync_timeout)
@@ -168,11 +168,19 @@ func comportamiento_normal(delta: float) -> void:
 		velocity += get_gravity()*delta
 	animation_player.speed_scale = max(int(speed * 1), 1)
 	
+	#if was_colliding:
+		#for i in range(shape_cast.get_collision_count()):
+			#if was_colliding == shape_cast.get_collider(i):
+				#was_colliding.label.hide()
+				#was_colliding = null
+	
 	if not objeto_en_mano and shape_cast.is_colliding():
 		for i in range(shape_cast.get_collision_count()):
-			var collider = shape_cast.get_collider(i)
+			var collider = shape_cast.get_collider(i) as Ingrediente
 			if collider is Ingrediente and collider.is_in_group("tomable") and collider.held_by == 0:
 				collider.is_hovered = true
+				#was_colliding = collider
+				#collider.label.show()
 				break
 				
 	if objeto_en_mano:

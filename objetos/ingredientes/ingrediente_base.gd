@@ -7,13 +7,17 @@ var held_by: int = 0
 
 @export var nombre_ingrediente: String = "placeholder"
 @onready var mesh: MeshInstance3D = $MeshInstance3D
-#@onready var synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
+@onready var label: Label3D = $Label3D
 
 func _ready() -> void:
 	set_multiplayer_authority(1)
 	
 	if not is_multiplayer_authority():
 		freeze = true
+	
+	if label:
+		label.hide()
+		label.text = "Presiona E\npara tomar"
 
 func _physics_process(delta: float) -> void:
 	
@@ -26,6 +30,7 @@ func _physics_process(delta: float) -> void:
 	if is_hovered and not was_hovered:
 		var fuerza_salto = Vector3.UP * 2.5 * mass
 		apply_central_impulse(fuerza_salto)
+		multiplayer.get_remote_sender_id()
 		
 	was_hovered = is_hovered
 	is_hovered = false

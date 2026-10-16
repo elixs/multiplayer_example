@@ -19,3 +19,6 @@ material_override = SubResource("StandardMaterial3D_kmnih")
 [node name="CollisionShape3D" parent="." index="1" unique_id=502487091]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.15, 0, 0, 0)
 shape = SubResource("BoxShape3D_cs4y6")
+
+[node name="Label3D" parent="." index="3" unique_id=859107585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4806199, 0)
