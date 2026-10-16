@@ -234,14 +234,8 @@ func comportamiento_arriba(delta: float) -> void:
 
 		global_position = gato_base.global_position + OFFSET_ALTURA
 		velocity = Vector3.ZERO
-
-		model.rotation.y = lerp_angle(
-			model.rotation.y,
-			spring_arm_3d.rotation.y,
-			10 * delta
-		)
-		collision_shape_3d.rotation = model.rotation
-			
+		#model.global_rotation = gato_base.model.rotation
+		
 		curAnim = IDLE
 		handle_animation(delta)
 	if input_synchronizer.jump:
@@ -256,6 +250,7 @@ func comportamiento_abajo(delta: float) -> void:
 			10 * delta
 		)
 	collision_shape_3d.rotation = model.rotation
+	gato_jinete.model.rotation = model.rotation
 	
 	if not input_synchronizer.move_input.is_zero_approx() and is_on_floor():
 		if speed < 2.4:
