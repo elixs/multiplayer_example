@@ -14,3 +14,6 @@ transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1, 0.27234453, 0.20483845, 0.0
 
 [node name="Ingrediente2" type="Marker3D" parent="." index="3" unique_id=1026136970]
 transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1, -0.24889165, 0.18761444, -0.0064585507)
+
+[node name="IngredienteListo" type="Marker3D" parent="." index="4" unique_id=72896542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07787579, 0.5234796)
