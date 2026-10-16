@@ -38,5 +38,5 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 theme_type_variation = &"Pista"
-text = "Aprieta el toldo de arriba a la izquierda para abrir la tienda. Escape la cierra."
+text = "El toldo de arriba a la izquierda abre la tienda, Escape la cierra. Al acabarse el dia aparece el resumen."
 horizontal_alignment = 1
