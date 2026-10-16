@@ -99,12 +99,15 @@ func _on_players_updated() -> void:
 	if not disconnected:
 		return
 
+	# Queda uno (o ninguno): fin de partida, aunque el que se fue no fuera "it"
+	if alive_player_ids.size() <= 1:
+		var winner: int = alive_player_ids[0] if alive_player_ids.size() == 1 else -1
+		_sync_game_active.rpc(false)
+		_on_game_over.rpc(winner)
+		return
+
+	# El que la llevaba se desconectó: se la pasamos a otro al azar
 	if it_player_id not in alive_player_ids:
-		# El que la llevaba se desconectó: se la pasamos a otro al azar
-		if alive_player_ids.size() <= 1:
-			var winner: int = alive_player_ids[0] if alive_player_ids.size() == 1 else -1
-			_on_game_over.rpc(winner)
-			return
 		_start_round()
 
 @rpc("any_peer", "call_local", "reliable")

@@ -1620,8 +1620,20 @@ func _on_player_exploded(
 
 	set_physics_process(false)
 	set_process(false)
+	set_process_input(false)
 
 	visible = false
+	collision_layer = 0
+	collision_mask = 0
+
+	var body_shape: CollisionShape3D = \
+		get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if body_shape:
+		body_shape.disabled = true
+
+	if tag_zone:
+		tag_zone.monitoring = false
+		tag_zone.monitorable = false
 
 
 # ============================================================

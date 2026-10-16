@@ -13,7 +13,7 @@ func _ready() -> void:
 		player_inst.name = str(player_data.id)
 		players.add_child(player_inst)
 		player_inst.setup(player_data)
-		var spawn_point: Node3D = spawn_points.get_child(i)
+		var spawn_point: Node3D = spawn_points.get_child(i % spawn_points.get_child_count())
 		player_inst.global_position = spawn_point.global_position
 		
 	if multiplayer.is_server():
