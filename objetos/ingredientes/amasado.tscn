@@ -11,7 +11,7 @@ albedo_texture = ExtResource("2_hc5de")
 [sub_resource type="SphereShape3D" id="SphereShape3D_ml6b3"]
 
 [node name="IngredienteBase" unique_id=344026824 instance=ExtResource("1_sq57i")]
-nombre_ingrediente = "amasado"
+nombre_ingrediente = "pan_amasado"
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=2021670818]
 transform = Transform3D(0.15, 0, 0, 0, 0.1, 0, 0, 0, 0.15, 0, 0, 0)

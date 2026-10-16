@@ -241,6 +241,6 @@ tienda = NodePath("../Tienda")
 [node name="RuedaEmotes" parent="InGameUI" unique_id=1347722817 node_paths=PackedStringArray("jugador") instance=ExtResource("6_rueda")]
 jugador = NodePath("../..")
 
-[node name="Tienda" parent="InGameUI" instance=ExtResource("8_tienda")]
+[node name="Tienda" parent="InGameUI" unique_id=424135721 instance=ExtResource("8_tienda")]
 
 [editable path="GatoV5_Bone"]
