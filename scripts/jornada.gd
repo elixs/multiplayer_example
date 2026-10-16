@@ -44,6 +44,7 @@ func _ready() -> void:
 	else:
 		queue_free()
 		return
+	multiplayer.peer_connected.connect(_on_peer_connected)
 	if GameManager.instance:
 		_conectar_game_manager()
 	else:
@@ -51,7 +52,24 @@ func _ready() -> void:
 		if GameManager.instance:
 			_conectar_game_manager()
 
+func _on_peer_connected(id: int) -> void:
+	if multiplayer.is_server():
+		_sincronizar_jornada.rpc_id(id, numero_de_dia, _caja_al_empezar, _clientes_atendidos, _panes_entregados, _clientes_perdidos, _dia_cerrado)
 
+@rpc("authority", "call_local", "reliable")
+func _sincronizar_jornada(dia: int, caja: int, clientes: int, panes: int, perdidos: int, cerrado: bool) -> void:
+	numero_de_dia = dia
+	_caja_al_empezar = caja
+	_clientes_atendidos = clientes
+	_panes_entregados = panes
+	_clientes_perdidos = perdidos
+	_dia_cerrado = cerrado
+	avance_cambiado.emit(monedas_del_dia(), meta_de_monedas)
+	
+	# Si el día ya estaba cerrado cuando el jugador entró, emitimos la señal
+	# para que su interfaz abra la pantalla de resumen.
+	if _dia_cerrado:
+		dia_terminado.emit(numero_de_dia, monedas_del_dia(), _clientes_atendidos, _panes_entregados, _clientes_perdidos, meta_de_monedas)
 ## Cuántas monedas lleva juntadas el día, descontando lo que se haya gastado.
 func monedas_del_dia() -> int:
 	if GameManager.instance == null:
