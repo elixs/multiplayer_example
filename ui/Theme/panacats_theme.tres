@@ -2,7 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://dnwl2iaqfqjln" path="res://assets/ui/fuentes/Nunito-Regular.ttf" id="1_nunito"]
 [ext_resource type="FontFile" uid="uid://m07qbf0j0xp" path="res://assets/ui/fuentes/Nunito-Italic.ttf" id="2_nunito_cursiva"]
-[ext_resource type="FontFile" uid="uid://cafc73bcytsxl" path="res://assets/ui/fuentes/PixelifySans-SemiBold.ttf" id="3_pixelify"]
+[ext_resource type="FontFile" uid="uid://c036f4b7ps2mt" path="res://assets/ui/fuentes/Jersey25-Regular.ttf" id="3_pixelify"]
 [ext_resource type="FontFile" uid="uid://byr023ifvd2p1" path="res://assets/ui/fuentes/Marcellus-Regular.ttf" id="4_marcellus"]
 [ext_resource type="Texture2D" uid="uid://dttdpi7ynf51f" path="res://assets/ui/lobby_y_botones/boton_normal.png" id="5_normal"]
 [ext_resource type="Texture2D" uid="uid://cdr5n82d28ary" path="res://assets/ui/lobby_y_botones/boton_hover.png" id="6_hover"]

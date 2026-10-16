@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=12 format=3 uid="uid://xand64yanv2c"]
 
 [ext_resource type="Script" uid="uid://gbbkjxk6mjm6" path="res://ui/cierre/cierre_de_dia.gd" id="1_cierre"]
 [ext_resource type="PackedScene" path="res://ui/cierre/fila_estadistica.tscn" id="2_fila"]

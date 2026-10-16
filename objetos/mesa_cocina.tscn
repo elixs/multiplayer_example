@@ -10,6 +10,9 @@ tiempo_accion = null
 [node name="MeshInstance3D" parent="AnimatableBody3D" parent_id_path=PackedInt32Array(765769244) index="0" unique_id=162234593]
 transform = Transform3D(0.7, 0, 0, 0, 0.33, 0, 0, 0, 0.407, 0, 0, 0)
 
+[node name="CollisionShape3D2" parent="Interaccion_area" parent_id_path=PackedInt32Array(1987325372) index="0" unique_id=737107152]
+transform = Transform3D(1.3, 0, 0, 0, 0.867, 0, 0, 0, 0.867, -0.016784668, 0.116622925, 0.0317688)
+
 [node name="Ingrediente1" type="Marker3D" parent="." index="2" unique_id=1659682518]
 transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1, 0.27234453, 0.20483845, 0.010007858)
 

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://di6skkic6oys7"]
+[gd_scene load_steps=13 format=3 uid="uid://di6skkic6oys7"]
 
 [ext_resource type="Script" uid="uid://c6jykph6llvh5" path="res://hud/hud.gd" id="1_6ca3a"]
 [ext_resource type="Theme" uid="uid://c1h8f62iw8uqo" path="res://ui/Theme/panacats_theme.tres" id="2_tema"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dr6xwbclkifqa" path="res://assets/ui/progreso/barra_simple_relleno.png" id="8_barra_relleno"]
 [ext_resource type="Texture2D" uid="uid://b3lucecawd14y" path="res://assets/ui/tienda_y_cierre/btn_tienda.png" id="10_tienda"]
 [ext_resource type="PackedScene" uid="uid://bkr3s3mb8c570" path="res://ui/reloj/reloj_jornada.tscn" id="11_reloj"]
+[ext_resource type="Texture2D" uid="uid://bcxav5qrgcxnb" path="res://assets/ui/progreso/barra_meta_dia_fondo.png" id="12_meta_fondo"]
+[ext_resource type="Texture2D" uid="uid://d0ki6anitkcbk" path="res://assets/ui/progreso/barra_meta_dia_relleno.png" id="13_meta_relleno"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tienda"]
 texture = ExtResource("10_tienda")
@@ -96,7 +98,32 @@ offset_right = 84.0
 offset_bottom = 172.0
 grow_horizontal = 2
 
-[node name="BarraTrabajo" type="TextureProgressBar" parent="." unique_id=888056012]
+[node name="PanelMeta" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -223.0
+offset_top = 84.0
+offset_right = -24.0
+offset_bottom = 140.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="BarraMeta" type="TextureProgressBar" parent="PanelMeta"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 604.0
+offset_bottom = 169.0
+scale = Vector2(0.33, 0.33)
+mouse_filter = 2
+value = 0.0
+texture_under = ExtResource("12_meta_fondo")
+texture_progress = ExtResource("13_meta_relleno")
+tint_progress = Color(0.43137255, 0.56078434, 0.33333334, 1)
+texture_progress_offset = Vector2(41, 100)
+
+[node name="BarraTrabajo" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1

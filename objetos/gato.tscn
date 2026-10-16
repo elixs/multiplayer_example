@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://et0d13beg1xs" path="res://objetos/gato.gd" id="1_jmo73"]
 [ext_resource type="PackedScene" uid="uid://7am66ghqrttv" path="res://objetos/input_synchronizer.tscn" id="2_nxguc"]
-[ext_resource type="PackedScene" uid="uid://bmng82ys0g0x7" path="res://models/GatoV5_Bone.glb" id="3_5vjbb"]
+[ext_resource type="PackedScene" uid="uid://bmng82ys0g0x7" path="res://Models/GatoV5_Bone.glb" id="3_5vjbb"]
 [ext_resource type="PackedScene" uid="uid://di6skkic6oys7" path="res://hud/hud.tscn" id="4_a86pc"]
 [ext_resource type="Resource" uid="uid://0jt1wniw86x3" path="res://ui/emotes/emotes_base.tres" id="5_emotes"]
 [ext_resource type="PackedScene" path="res://ui/emotes/rueda_emotes.tscn" id="6_rueda"]
 [ext_resource type="PackedScene" path="res://ui/emotes/burbuja_emote.tscn" id="7_burbuja"]
 [ext_resource type="PackedScene" uid="uid://cn58is8kqida" path="res://ui/tienda/tienda.tscn" id="8_tienda"]
+[ext_resource type="PackedScene" uid="uid://xand64yanv2c" path="res://ui/cierre/cierre_de_dia.tscn" id="9_cierre"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_57qmd"]
 size = Vector3(2.176, 0.17325294, 4.199)
@@ -15,7 +16,8 @@ size = Vector3(2.176, 0.17325294, 4.199)
 [sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
 size = Vector3(2.1755986, 2.6276693, 4.1993713)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_h0jhi"]
+size = Vector3(1, 1.5, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nxguc"]
 properties/0/path = NodePath("SpringArm3D:rotation")
@@ -160,7 +162,7 @@ fov = 80.0
 
 [node name="GrabArea" type="ShapeCast3D" parent="SpringArm3D/Camera3D" unique_id=738769771]
 transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0.34346008, -1.1111202)
-shape = SubResource("BoxShape3D_yf5fn")
+shape = SubResource("BoxShape3D_h0jhi")
 
 [node name="GrabTarget" type="Marker3D" parent="SpringArm3D/Camera3D/GrabArea" unique_id=491889222]
 transform = Transform3D(0.155, 0, 0, 0, 0.155, 0, 0, 0, 0.155, 0.44824743, -0.7029261, 0.32954788)
@@ -171,10 +173,10 @@ replication_config = SubResource("SceneReplicationConfig_nxguc")
 [node name="GatoV5_Bone" parent="." unique_id=596813472 instance=ExtResource("3_5vjbb")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="Esqueleto" parent="GatoV5_Bone" index="0" unique_id=1794406727]
+[node name="Esqueleto" parent="GatoV5_Bone" index="0" unique_id=1320734446]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.023801684, 0.49323237, -0.00069081783)
 
-[node name="Skeleton3D" parent="GatoV5_Bone/Esqueleto" index="0" unique_id=2050081539]
+[node name="Skeleton3D" parent="GatoV5_Bone/Esqueleto" index="0" unique_id=1771988273]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -1.1712862, 0, -5.122274e-08)
 bones/0/position = Vector3(-0.26720694, 0.06961281, 0.047438677)
 bones/0/rotation = Quaternion(-0.0411427, 0.06844771, -0.74695843, 0.6600571)
@@ -196,13 +198,13 @@ bones/28/rotation = Quaternion(0.56518203, 0.58557755, -0.54899293, 0.19046022)
 bones/29/rotation = Quaternion(0.050415188, -0.09814801, 0.17652057, 0.9780929)
 bones/30/rotation = Quaternion(-0.2157936, 8.922985e-08, -0.03458854, 0.9758262)
 
-[node name="Label3D" type="Label3D" parent="GatoV5_Bone/Esqueleto/Skeleton3D/Cube" parent_id_path=PackedInt32Array(596813472, 71063934) index="0" unique_id=282183671]
+[node name="Label3D" type="Label3D" parent="GatoV5_Bone/Esqueleto/Skeleton3D/Cube" parent_id_path=PackedInt32Array(596813472, 1476829053) index="0" unique_id=282183671]
 transform = Transform3D(2.7599998, 0, -1.4210855e-14, 0, 2.7599998, 0, 1.4210855e-14, 0, 2.7599998, 3.8063977, 2.936767, 0.117203265)
 visible = false
 billboard = 2
 text = "miau"
 
-[node name="Capa" type="Node3D" parent="GatoV5_Bone/Esqueleto/Skeleton3D/Cube" parent_id_path=PackedInt32Array(596813472, 71063934) index="1" unique_id=1954437118]
+[node name="Capa" type="Node3D" parent="GatoV5_Bone/Esqueleto/Skeleton3D/Cube" parent_id_path=PackedInt32Array(596813472, 1476829053) index="1" unique_id=1954437118]
 transform = Transform3D(-4.3711392e-08, 0, -1, 0, 1, 0, 1, 0, -4.3711392e-08, 1.1474845, 3.3067675, 0.0006908691)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GatoV5_Bone/Esqueleto/Skeleton3D/Cube/Capa" unique_id=645422256]
@@ -234,13 +236,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 
 [node name="InGameUI" type="CanvasLayer" parent="." unique_id=619116339]
 
-[node name="HUD" parent="InGameUI" unique_id=1513608797 node_paths=PackedStringArray("jugador", "tienda") instance=ExtResource("4_a86pc")]
+[node name="HUD" parent="InGameUI" unique_id=1513608797 node_paths=PackedStringArray("jugador", "tienda", "cierre") instance=ExtResource("4_a86pc")]
 jugador = NodePath("../..")
 tienda = NodePath("../Tienda")
+cierre = NodePath("../CierreDeDia")
 
 [node name="RuedaEmotes" parent="InGameUI" unique_id=1347722817 node_paths=PackedStringArray("jugador") instance=ExtResource("6_rueda")]
 jugador = NodePath("../..")
 
-[node name="Tienda" parent="InGameUI" unique_id=424135721 instance=ExtResource("8_tienda")]
+[node name="Tienda" parent="InGameUI" unique_id=1882827025 instance=ExtResource("8_tienda")]
+
+[node name="CierreDeDia" parent="InGameUI" instance=ExtResource("9_cierre")]
 
 [editable path="GatoV5_Bone"]
