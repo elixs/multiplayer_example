@@ -17,7 +17,7 @@ size = Vector3(2.176, 0.17325294, 4.199)
 size = Vector3(2.1755986, 2.6276693, 4.1993713)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h0jhi"]
-size = Vector3(1, 1.5, 1)
+size = Vector3(1.1, 1.5, 1.5)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nxguc"]
 properties/0/path = NodePath("SpringArm3D:rotation")
@@ -161,11 +161,13 @@ transform = Transform3D(6.451613, 0, 0, 0, 6.451613, 0, 0, 0, 6.451613, 0, 0, 0)
 fov = 80.0
 
 [node name="GrabArea" type="ShapeCast3D" parent="SpringArm3D/Camera3D" unique_id=738769771]
-transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0.34346008, -1.1111202)
+transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, 0, 0.25, -0.65)
 shape = SubResource("BoxShape3D_h0jhi")
+target_position = Vector3(0, -0.9, 0)
+collision_mask = 2
 
 [node name="GrabTarget" type="Marker3D" parent="SpringArm3D/Camera3D/GrabArea" unique_id=491889222]
-transform = Transform3D(0.155, 0, 0, 0, 0.155, 0, 0, 0, 0.155, 0.44824743, -0.7029261, 0.32954788)
+transform = Transform3D(0.155, 0, 0, 0, 0.155, 0, 0, 0, 0.155, 0.44824743, -0.5694143, -0.13157)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2026625554]
 replication_config = SubResource("SceneReplicationConfig_nxguc")

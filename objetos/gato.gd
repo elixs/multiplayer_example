@@ -10,6 +10,13 @@ extends CharacterBody3D
 @export var spring_min_pitch: float = -50
 @export var spring_max_pitch: float = 50
 
+# Cuánto se pueden parecer dos ingredientes en puntería antes de que se decida por el
+# más cercano. Son unos ocho grados en radianes.
+const TOLERANCIA_DE_PUNTERIA: float = 0.14
+
+## Qué tan transparente se ve el propio gato para su jugador, de 0 opaco a 1 invisible.
+@export_range(0.0, 1.0) var transparencia_del_propio_gato: float = 0.35
+
 @export var is_emoteando: bool = false
 # Los emotes que puede lanzar este gato. Los usan la rueda y los atajos K y L.
 @export var emotes: EmoteSet
@@ -58,6 +65,10 @@ var curAnim: int = IDLE
 @onready var nodo_agarre: Marker3D = $SpringArm3D/Camera3D/GrabArea/GrabTarget
 # tambien se usa camera_3d
 var objeto_en_mano: Ingrediente = null
+
+# El largo del brazo de cámara cuando el jugador camina normal. Cada vez que una
+# animación lo aleja para mostrar al gato entero, este número sirve para notarlo.
+var _largo_normal_de_camara: float = 0.0
 #var was_colliding: Ingrediente = null
 
 func _ready() -> void:
@@ -71,9 +82,63 @@ func _ready() -> void:
 	label_3d.visible = not is_multiplayer_authority()
 	#sprite_puntero.visible = is_multiplayer_authority()
 	camera_3d.current = is_multiplayer_authority()
+	_largo_normal_de_camara = spring_arm_3d.spring_length
 	if is_multiplayer_authority():
 		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		_actualizar_transparencia_propia()
 		sync_timer.start()
+
+# Mientras el jugador camina, la cámara va a pocos centímetros de la cabeza y el propio
+# gato le tapa lo que tiene delante y en el suelo, así que se vuelve translúcido. En
+# cuanto una animación aleja la cámara para mostrarlo entero, como los emotes o el
+# trabajo en la mesa, vuelve a verse con su pelaje de siempre. Esto es solo para el
+# dueño del gato: los demás lo ven entero en todo momento.
+#
+# El proyecto renderiza en Compatibility, donde la propiedad transparency de
+# GeometryInstance3D no tiene efecto, así que el alfa va en una copia del material de
+# cada superficie. La copia es solo de esta instancia y no toca el material importado.
+func _actualizar_transparencia_propia() -> void:
+	if not is_multiplayer_authority():
+		return
+	var camara_en_la_cabeza: bool = spring_arm_3d.spring_length <= _largo_normal_de_camara + 0.01
+	var translucido: bool = camara_en_la_cabeza and not is_zero_approx(transparencia_del_propio_gato)
+	var opacidad: float = 1.0 - transparencia_del_propio_gato
+	for malla: MeshInstance3D in _mallas_de(model):
+		for superficie: int in range(malla.get_surface_override_material_count()):
+			# Se saca primero la copia anterior para volver a leer el material original.
+			malla.set_surface_override_material(superficie, null)
+			if not translucido:
+				continue
+			malla.set_surface_override_material(superficie, _material_traslucido(malla.get_active_material(superficie), opacidad))
+
+
+# Las mallas del abrigo no traen material y se dibujan con el blanco por defecto, así que
+# para esas hay que crear uno. Devuelve null si el material no admite alfa de albedo.
+func _material_traslucido(original: Material, opacidad: float) -> BaseMaterial3D:
+	var traslucido: BaseMaterial3D = null
+	if original == null:
+		traslucido = StandardMaterial3D.new()
+	elif original is BaseMaterial3D:
+		traslucido = (original as BaseMaterial3D).duplicate()
+	else:
+		return null
+	traslucido.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	traslucido.albedo_color.a = opacidad
+	# El material del gato viene a dos caras, así que al bajarle el alfa también se
+	# dibujaba la cara del otro lado de la cabeza y el jugador se veía la cara a sí mismo.
+	# Dibujando solo las caras que miran a la cámara queda la silueta con su pelaje.
+	traslucido.cull_mode = BaseMaterial3D.CULL_BACK
+	return traslucido
+
+
+func _mallas_de(nodo: Node) -> Array[MeshInstance3D]:
+	var encontradas: Array[MeshInstance3D] = []
+	if nodo is MeshInstance3D:
+		encontradas.push_back(nodo as MeshInstance3D)
+	for hijo: Node in nodo.get_children():
+		encontradas.append_array(_mallas_de(hijo))
+	return encontradas
+
 
 func _on_arriba_de_body_entered(body: Node3D) -> void:
 	if body is Player and body != self:
@@ -114,8 +179,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			deg_to_rad(camera_max_pitch)
 		)
 
+# El objeto en mano se acomoda en cada cuadro dibujado y no solo en los de física. La
+# cámara gira con cada movimiento del mouse, que llegan más seguido que la física, así
+# que si el objeto se moviera solo con la física iría siempre un paso atrás de la mano y
+# se vería saltando por la pantalla. Las otras máquinas lo siguen recibiendo al ritmo de
+# la física, que para verlo de lejos alcanza y sobra.
 func _process(_delta: float) -> void:
-	pass
+	if objeto_en_mano and is_multiplayer_authority():
+		objeto_en_mano.global_position = nodo_agarre.global_position
 	
 func handle_animation(delta: float) -> void:
 	match curAnim:
@@ -174,14 +245,12 @@ func comportamiento_normal(delta: float) -> void:
 				#was_colliding.label.hide()
 				#was_colliding = null
 	
-	if not objeto_en_mano and shape_cast.is_colliding():
-		for i in range(shape_cast.get_collision_count()):
-			var collider = shape_cast.get_collider(i) as Ingrediente
-			if collider is Ingrediente and collider.is_in_group("tomable") and collider.held_by == 0:
-				collider.is_hovered = true
-				#was_colliding = collider
-				#collider.label.show()
-				break
+	# Marcar lo que el gato tiene al frente es lo que hace aparecer su cartel, así que
+	# solo lo hace el gato de esta máquina: el cartel es para su jugador.
+	if is_multiplayer_authority() and not objeto_en_mano:
+		var apuntado: Ingrediente = ingrediente_apuntado()
+		if apuntado:
+			apuntado.is_hovered = true
 				
 	if objeto_en_mano:
 		var target_pos = nodo_agarre.global_position
@@ -332,6 +401,7 @@ func rpc_sincronizar_desmonte() -> void:
 func _ajustar_camara(largo: float, alto:float) -> void:
 	spring_arm_3d.spring_length += largo
 	spring_arm_3d.position.y += alto
+	_actualizar_transparencia_propia()
 	
 # Punto de entrada único para lanzar un emote. Lo usan la rueda y los atajos K y L.
 func lanzar_emote(id: StringName) -> void:
@@ -424,19 +494,62 @@ func _sync2(rot:Vector3) -> void:
 	spring_arm_3d.rotation = spring_arm_3d.rotation.lerp(rot, 1)
 	
 # funciones auxiliares tomar objetos
+## El ingrediente que el gato tiene al frente y podría tomar, o null si no hay ninguno
+## a mano. Lo usan el cartel que aparece sobre el ingrediente y las mesas, que le ceden
+## la tecla E cuando el jugador está mirando algo que quiere levantar.
+##
+## Si hay varios al alcance gana el más cercano al gato, que es el que el jugador tiene
+## delante de los bigotes y el que espera levantar.
+func ingrediente_apuntado() -> Ingrediente:
+	if not shape_cast.is_colliding():
+		return null
+	var punta: Vector2 = _punto_de_mira()
+	var origen: Vector3 = camera_3d.project_ray_origin(punta)
+	var mirada: Vector3 = camera_3d.project_ray_normal(punta)
+	var elegido: Ingrediente = null
+	var desvio_del_elegido: float = INF
+	var distancia_del_elegido: float = INF
+	for i: int in range(shape_cast.get_collision_count()):
+		var tocado: Node = shape_cast.get_collider(i)
+		if not (tocado is Ingrediente and tocado.is_in_group("tomable")):
+			continue
+		var candidato: Ingrediente = tocado as Ingrediente
+		if candidato.held_by != 0:
+			continue
+		var hacia: Vector3 = candidato.global_position - origen
+		if hacia.is_zero_approx():
+			continue
+		var desvio: float = mirada.angle_to(hacia)
+		var distancia: float = hacia.length()
+		var apunta_mejor: bool = desvio < desvio_del_elegido - TOLERANCIA_DE_PUNTERIA
+		var apunta_igual: bool = absf(desvio - desvio_del_elegido) <= TOLERANCIA_DE_PUNTERIA
+		if elegido == null or apunta_mejor or (apunta_igual and distancia < distancia_del_elegido):
+			elegido = candidato
+			desvio_del_elegido = desvio
+			distancia_del_elegido = distancia
+	return elegido
+
+
+# Dónde está apuntando el jugador dentro de la pantalla. Con el mouse a la vista manda
+# el cursor, que es lo que el jugador siente que está apuntando. Si el juego se queda
+# con el mouse no hay cursor que seguir, así que manda el centro de la pantalla.
+func _punto_de_mira() -> Vector2:
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		return get_viewport().get_visible_rect().size * 0.5
+	return get_viewport().get_mouse_position()
+
 func tomar_objeto() -> void:
-	if shape_cast.is_colliding():
-		for i in range(shape_cast.get_collision_count()):
-			var collider = shape_cast.get_collider(i)
-			if collider is RigidBody3D and collider.is_in_group("tomable") and collider.held_by == 0:
-				collider.rpc_id(1, "request_tomar", multiplayer.get_unique_id())
-				break
+	var apuntado: Ingrediente = ingrediente_apuntado()
+	if apuntado:
+		apuntado.rpc_id(1, "request_tomar", multiplayer.get_unique_id())
 
 func soltar_objeto() -> void:
 	print("soltando objeto")
 	if objeto_en_mano:
 		print("objeto en mano se puede soltar")
-		var throw_velocity = -global_transform.basis.z * 5.0
+		# Se suelta hacia donde el jugador está mirando y con un envión corto. Antes salía
+		# disparado a cinco por el eje de la raíz del gato, que no es a donde mira.
+		var throw_velocity = -camera_3d.global_transform.basis.z * 1.5
 		var obj = objeto_en_mano
 		objeto_en_mano = null
 		if objeto_en_mano:
