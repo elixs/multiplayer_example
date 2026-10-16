@@ -16,10 +16,10 @@ static var instance: Jornada
 
 ## Cuánto dura un día en segundos. Es un número de relleno hasta que el equipo decida
 ## la dificultad.
-@export var duracion_del_dia: int = 120
+@export var duracion_del_dia: int = 240
 
 ## Cuántas monedas hay que juntar para cumplir el día. También es de relleno.
-@export var meta_de_monedas: int = 300
+@export var meta_de_monedas: int = 50
 
 ## Se emite en todas las máquinas cuando termina el día, con las cifras ya calculadas.
 signal dia_terminado(numero_de_dia: int, monedas: int, clientes: int, panes: int, perdidos: int, meta: int)
