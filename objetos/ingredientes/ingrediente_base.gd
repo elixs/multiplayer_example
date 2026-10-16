@@ -30,10 +30,15 @@ func _ready() -> void:
 # El cartel aparece mientras el gato de esta máquina tiene el ingrediente al frente.
 # Antes, además, el ingrediente pegaba un salto cada vez que alguien lo miraba, y por eso
 # la cocina parecía moverse sola.
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	if label:
 		label.visible = is_hovered and held_by == 0
 	is_hovered = false
+	if held_by != 0:
+		var player = _get_player_by_peer_id(held_by)
+		if player != null and "nodo_agarre" in player and player.nodo_agarre != null:
+			global_position = player.nodo_agarre.global_position
+			global_rotation = player.nodo_agarre.global_rotation
 
 
 # En la mano el objeto se mueve a mano, cuadro a cuadro, así que se congela en modo
@@ -46,8 +51,9 @@ func _congelar_en_la_mano() -> void:
 
 
 func _soltar_del_congelado() -> void:
-	freeze = false
 	freeze_mode = RigidBody3D.FREEZE_MODE_STATIC
+	if is_multiplayer_authority():
+		freeze = false
 
 
 func _apagar_colisiones() -> void:
@@ -62,22 +68,10 @@ func _encender_colisiones() -> void:
 @rpc("any_peer", "call_local", "reliable")
 func request_tomar(player_id: int) -> void:
 	
-	if not is_multiplayer_authority():
-		return
-	
-	if held_by != 0:
-		return
-		
-	held_by = player_id
-	_congelar_en_la_mano()
-	_apagar_colisiones()
-	
-	var player = _get_player_by_peer_id(player_id) # (Asegúrate de tener esta función auxiliar en el ingrediente o accesible)
-	if player:
-		player.objeto_en_mano = self
-	
-	
-	rpc("sync_tomar", player_id)
+	if not is_multiplayer_authority(): return
+	if held_by != 0: return
+
+	sync_tomar.rpc(player_id)
 	
 @rpc("any_peer", "call_local", "reliable")
 func sync_tomar(player_id: int) -> void:
@@ -85,6 +79,10 @@ func sync_tomar(player_id: int) -> void:
 	_congelar_en_la_mano()
 	_apagar_colisiones()
 	
+	var sync_node = get_node_or_null("MultiplayerSynchronizer")
+	if sync_node:
+		sync_node.process_mode = Node.PROCESS_MODE_DISABLED
+		
 	var player = _get_player_by_peer_id(player_id)
 	if player:
 		player.objeto_en_mano = self
@@ -97,18 +95,7 @@ func request_soltar(player_id: int, throw_velocity: Vector3 = Vector3.ZERO) -> v
 	if not is_multiplayer_authority():
 		return
 	
-	var player = _get_player_by_peer_id(player_id)
-	if player:
-		player.objeto_en_mano = null
-	
-	held_by = 0
-	_soltar_del_congelado()
-	_encender_colisiones()
-	
-	if throw_velocity != Vector3.ZERO:
-		linear_velocity = throw_velocity
-	
-	rpc("sync_soltar", player_id, throw_velocity)
+	sync_soltar.rpc(player_id, throw_velocity)
 	
 @rpc("any_peer", "call_local", "reliable")
 func sync_soltar(player_id: int, throw_velocity: Vector3 = Vector3.ZERO) -> void:
@@ -119,18 +106,21 @@ func sync_soltar(player_id: int, throw_velocity: Vector3 = Vector3.ZERO) -> void
 	held_by = 0
 	_soltar_del_congelado()
 	_encender_colisiones()
+	var sync_node = get_node_or_null("MultiplayerSynchronizer")
+	if sync_node:
+		sync_node.process_mode = Node.PROCESS_MODE_INHERIT
 
 # El objeto se pega a la mano. Antes se acercaba con un lerp de 0.05 por cuadro, así que
 # iba siempre varios pasos atrás del gato y parecía que flotaba suelto.
-@rpc("any_peer", "call_local", "unreliable")
-func update_held_position(pos: Vector3, _rot: Vector3) -> void:
-	if not is_multiplayer_authority():
-		return
+#@rpc("any_peer", "call_local", "unreliable")
+#func update_held_position(pos: Vector3, _rot: Vector3) -> void:
+	#if not is_multiplayer_authority():
+		#return
 		
-	if held_by <= 0:
-		return
+	#if held_by <= 0:
+		#return
 	
-	global_position = pos
+	#global_position = pos
 
 func soltar_en(pos: Vector3) -> void:
 	held_by = -1

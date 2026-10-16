@@ -64,6 +64,7 @@ grow_vertical = 2
 [node name="Reloj" parent="Marco" unique_id=1296582334 instance=ExtResource("10_reloj")]
 custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
+anchors_preset = 0
 offset_left = 20.0
 offset_top = 16.0
 offset_right = 124.0

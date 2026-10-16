@@ -8,6 +8,7 @@ static var instance: GameManager
 
 signal timer_updated(new_time: int)
 signal money_updated(new_cantidad: int)
+var timer: Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,13 +17,19 @@ func _ready() -> void:
 	else:
 		queue_free()
 		return
-	if multiplayer.is_server():
-		var timer: Timer = Timer.new()
-		timer.wait_time = 1.0
-		timer.autostart = true
-		timer.timeout.connect(_on_timer_timeout)
-		add_child(timer)
+
+	timer = Timer.new()
+	timer.wait_time = 1.0
+	timer.autostart = true
+	timer.timeout.connect(_on_timer_timeout)
+	add_child(timer)
  # Replace with function body.
+	multiplayer.peer_connected.connect(_on_peer_timeout)
+
+func _on_peer_timeout(id: int) -> void:
+	if multiplayer.is_server():
+		update_money_rpc.rpc_id(id, dinero_recaudado)
+		update_time_rpc.rpc_id(id, game_time)
 
 func _on_timer_timeout() -> void:
 	if not multiplayer.is_server():return

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://xand64yanv2c"]
+[gd_scene format=3 uid="uid://xand64yanv2c"]
 
 [ext_resource type="Script" uid="uid://gbbkjxk6mjm6" path="res://ui/cierre/cierre_de_dia.gd" id="1_cierre"]
 [ext_resource type="PackedScene" path="res://ui/cierre/fila_estadistica.tscn" id="2_fila"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cg5cedhqumo0n" path="res://assets/ui/menus/icono_pan_amasado.png" id="10_pan"]
 [ext_resource type="Texture2D" uid="uid://dehf2p83quqpr" path="res://assets/ui/hud/cliente_enojado.png" id="11_enojado"]
 
-[node name="CierreDeDia" type="Control"]
+[node name="CierreDeDia" type="Control" unique_id=375070609]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +29,7 @@ dibujo_clientes = ExtResource("9_cliente")
 dibujo_panes = ExtResource("10_pan")
 dibujo_clientes_perdidos = ExtResource("11_enojado")
 
-[node name="Oscurecer" type="Panel" parent="."]
+[node name="Oscurecer" type="Panel" parent="." unique_id=1629960237]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,7 +38,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"Darker"
 
-[node name="Marco" type="Panel" parent="."]
+[node name="Marco" type="Panel" parent="." unique_id=1298309738]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,7 +50,7 @@ offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Estrellas" type="HBoxContainer" parent="Marco"]
+[node name="Estrellas" type="HBoxContainer" parent="Marco" unique_id=1345979717]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -64,7 +64,7 @@ mouse_filter = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Primera" type="TextureRect" parent="Marco/Estrellas"]
+[node name="Primera" type="TextureRect" parent="Marco/Estrellas" unique_id=2002531740]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 mouse_filter = 2
@@ -72,7 +72,7 @@ texture = ExtResource("4_llena")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Segunda" type="TextureRect" parent="Marco/Estrellas"]
+[node name="Segunda" type="TextureRect" parent="Marco/Estrellas" unique_id=180514732]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 mouse_filter = 2
@@ -80,7 +80,7 @@ texture = ExtResource("4_llena")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Tercera" type="TextureRect" parent="Marco/Estrellas"]
+[node name="Tercera" type="TextureRect" parent="Marco/Estrellas" unique_id=579542524]
 custom_minimum_size = Vector2(66, 66)
 layout_mode = 2
 mouse_filter = 2
@@ -88,7 +88,7 @@ texture = ExtResource("5_vacia")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Meta" type="Label" parent="Marco"]
+[node name="Meta" type="Label" parent="Marco" unique_id=1432959701]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -96,13 +96,12 @@ anchor_right = 1.0
 offset_top = 116.0
 offset_bottom = 144.0
 grow_horizontal = 2
-mouse_filter = 2
 theme_type_variation = &"Pista"
 text = "Meta del día: 300"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Filas" type="VBoxContainer" parent="Marco"]
+[node name="Filas" type="VBoxContainer" parent="Marco" unique_id=451474438]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -115,24 +114,24 @@ grow_horizontal = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 
-[node name="Monedas" parent="Marco/Filas" instance=ExtResource("2_fila")]
+[node name="Monedas" parent="Marco/Filas" unique_id=1669174891 instance=ExtResource("2_fila")]
 layout_mode = 2
 
-[node name="Clientes" parent="Marco/Filas" instance=ExtResource("2_fila")]
+[node name="Clientes" parent="Marco/Filas" unique_id=560358207 instance=ExtResource("2_fila")]
 layout_mode = 2
 
-[node name="Panes" parent="Marco/Filas" instance=ExtResource("2_fila")]
+[node name="Panes" parent="Marco/Filas" unique_id=1937547541 instance=ExtResource("2_fila")]
 layout_mode = 2
 
-[node name="Perdidos" parent="Marco/Filas" instance=ExtResource("2_fila")]
+[node name="Perdidos" parent="Marco/Filas" unique_id=936497283 instance=ExtResource("2_fila")]
 layout_mode = 2
 
-[node name="BotonSeguir" type="Button" parent="Marco"]
+[node name="BotonSeguir" type="Button" parent="Marco" unique_id=926816971]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 305.0
 offset_top = -94.0
@@ -143,7 +142,7 @@ grow_vertical = 0
 theme_type_variation = &"BotonPrincipal"
 text = "Seguir"
 
-[node name="Sello" type="TextureRect" parent="Marco"]
+[node name="Sello" type="TextureRect" parent="Marco" unique_id=244086357]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -161,7 +160,7 @@ texture = ExtResource("6_exito")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Cinta" type="TextureRect" parent="."]
+[node name="Cinta" type="TextureRect" parent="." unique_id=1346871004]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -175,7 +174,7 @@ mouse_filter = 2
 texture = ExtResource("3_cinta")
 expand_mode = 1
 
-[node name="Titulo" type="Label" parent="Cinta"]
+[node name="Titulo" type="Label" parent="Cinta" unique_id=894812931]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -185,7 +184,6 @@ anchor_right = 0.8759
 anchor_bottom = 0.6379
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 theme_type_variation = &"Titulo"
 theme_override_colors/font_color = Color(0.9647059, 0.9411765, 0.8941176, 1)
 theme_override_font_sizes/font_size = 34
