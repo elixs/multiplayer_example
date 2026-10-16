@@ -115,6 +115,16 @@ func _execute_interaction() -> void:
 		ing_a_recuperar.request_tomar.rpc_id(1, sender_id)
 
 	
+func texto_de_ayuda(jugador: Player) -> String:
+	if ingrediente == null:
+		if jugador.objeto_en_mano:
+			return "Presionar Q para meter al horno"
+		return "Horno"
+	if pasos.get(ingrediente.nombre_ingrediente, dummy_ing) != dummy_ing:
+		return "Presionar E para hornear"
+	return "Presionar E para sacar"
+
+
 # llamar solo si hay ingredientes en la mesa
 func _buscar_en_pasos() -> PackedScene:
 	var llave = ingrediente.nombre_ingrediente

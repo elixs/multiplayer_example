@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cbdxtu7kb43ce"]
 
 [ext_resource type="PackedScene" uid="uid://da70bkb27htgh" path="res://objetos/gato.tscn" id="1_1m2tr"]
+[ext_resource type="FontFile" uid="uid://c036f4b7ps2mt" path="res://assets/ui/fuentes/Jersey25-Regular.ttf" id="20_fuente"]
 [ext_resource type="Script" uid="uid://r6jml52b7vrp" path="res://scripts/test_general(Principal_Game).gd" id="1_sqgaj"]
 [ext_resource type="PackedScene" uid="uid://upovdypmx8qk" path="res://objetos/SueloTest.tscn" id="2_sqgaj"]
 [ext_resource type="PackedScene" uid="uid://bv25gl45o5yyl" path="res://objetos/Puerta.tscn" id="4_8u7e0"]
@@ -82,6 +83,14 @@ tipo_de_ingrediente = ExtResource("9_xjfos")
 
 [node name="LabelHarina" type="Label3D" parent="EstanteHarina" unique_id=1520773207]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5366214, 0)
+pixel_size = 0.0022
+texture_filter = 4
+billboard = 1
+modulate = Color(1, 0.972549, 0.9254902, 1)
+outline_modulate = Color(0.2901961, 0.1960784, 0.1490196, 1)
+font = ExtResource("20_fuente")
+font_size = 64
+outline_size = 18
 text = "Harina"
 
 [node name="EstanteAgua" parent="." unique_id=880641062 instance=ExtResource("8_uwlw6")]
@@ -90,6 +99,14 @@ tipo_de_ingrediente = ExtResource("10_xjfos")
 
 [node name="LabelAgua" type="Label3D" parent="EstanteAgua" unique_id=1067687970]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49672794, 0)
+pixel_size = 0.0022
+texture_filter = 4
+billboard = 1
+modulate = Color(1, 0.972549, 0.9254902, 1)
+outline_modulate = Color(0.2901961, 0.1960784, 0.1490196, 1)
+font = ExtResource("20_fuente")
+font_size = 64
+outline_size = 18
 text = "Agua"
 
 [node name="MesaCocina" parent="." unique_id=523979813 instance=ExtResource("11_pg8uc")]
@@ -97,6 +114,14 @@ transform = Transform3D(-0.6533298, 0, -0.75707334, 0, 1, 0, 0.75707334, 0, -0.6
 
 [node name="LabelMesa" type="Label3D" parent="MesaCocina" unique_id=895834363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55237234, 0)
+pixel_size = 0.0022
+texture_filter = 4
+billboard = 1
+modulate = Color(1, 0.972549, 0.9254902, 1)
+outline_modulate = Color(0.2901961, 0.1960784, 0.1490196, 1)
+font = ExtResource("20_fuente")
+font_size = 64
+outline_size = 18
 text = "Mesa"
 
 [node name="Recepcion" parent="." unique_id=223453735 instance=ExtResource("12_1wwit")]
@@ -108,6 +133,14 @@ tipo_de_ingrediente = ExtResource("13_lvdra")
 
 [node name="LabelLevadura" type="Label3D" parent="EstanteLevadura" unique_id=2105004130]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4684385, 0)
+pixel_size = 0.0022
+texture_filter = 4
+billboard = 1
+modulate = Color(1, 0.972549, 0.9254902, 1)
+outline_modulate = Color(0.2901961, 0.1960784, 0.1490196, 1)
+font = ExtResource("20_fuente")
+font_size = 64
+outline_size = 18
 text = "Levadura"
 
 [node name="Horno" parent="." unique_id=357074113 instance=ExtResource("14_horno")]
@@ -115,6 +148,14 @@ transform = Transform3D(0.72044104, 0, 0.6935161, 0, 1, 0, -0.6935161, 0, 0.7204
 
 [node name="LabelHorno" type="Label3D" parent="Horno" unique_id=1030310115]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51394904, 0)
+pixel_size = 0.0022
+texture_filter = 4
+billboard = 1
+modulate = Color(1, 0.972549, 0.9254902, 1)
+outline_modulate = Color(0.2901961, 0.1960784, 0.1490196, 1)
+font = ExtResource("20_fuente")
+font_size = 64
+outline_size = 18
 text = "Horno"
 
 [node name="IngredienteBase" parent="." unique_id=344026824 instance=ExtResource("15_q71s4")]

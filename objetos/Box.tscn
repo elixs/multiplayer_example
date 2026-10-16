@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cyxp5com8l0p" path="res://objetos/box.gd" id="1_2rc46"]
 [ext_resource type="PackedScene" uid="uid://cetbu7ijb68wf" path="res://objetos/interaccion_area.tscn" id="1_13pef"]
+[ext_resource type="FontFile" uid="uid://c036f4b7ps2mt" path="res://assets/ui/fuentes/Jersey25-Regular.ttf" id="9_fuente"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2rc46"]
 vertex_color_use_as_albedo = true
@@ -38,8 +39,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.016784668, 0.116622925, 0.
 shape = SubResource("BoxShape3D_13pef")
 
 [node name="Label3D" type="Label3D" parent="Interaccion_area" unique_id=612185571]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29085267, 0)
-pixel_size = 0.004
-billboard = 1
-text = "Press E"
-font_size = 25
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+pixel_size = 0.0022
+texture_filter = 4
+modulate = Color(1, 0.972549, 0.9254902, 1)
+outline_modulate = Color(0.2901961, 0.1960784, 0.1490196, 1)
+text = "Presionar E"
+font = ExtResource("9_fuente")
+font_size = 64
+outline_size = 18
