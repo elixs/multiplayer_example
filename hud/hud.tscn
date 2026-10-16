@@ -13,15 +13,15 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tienda"]
 texture = ExtResource("10_tienda")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tienda_realce"]
-texture = ExtResource("10_tienda")
-modulate_color = Color(1.1, 1.06, 1, 1)
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tienda_presionado"]
 texture = ExtResource("10_tienda")
 modulate_color = Color(0.88, 0.84, 0.8, 1)
 
-[node name="HUD" type="Control"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tienda_realce"]
+texture = ExtResource("10_tienda")
+modulate_color = Color(1.1, 1.06, 1, 1)
+
+[node name="HUD" type="Control" unique_id=396489273]
 texture_filter = 4
 layout_mode = 3
 anchors_preset = 15
@@ -33,7 +33,7 @@ mouse_filter = 2
 theme = ExtResource("2_tema")
 script = ExtResource("1_6ca3a")
 
-[node name="BotonTienda" type="Button" parent="."]
+[node name="BotonTienda" type="Button" parent="." unique_id=1261763524]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -41,11 +41,11 @@ offset_left = 24.0
 offset_top = 18.0
 offset_right = 81.0
 offset_bottom = 78.0
-theme_override_styles/hover = SubResource("StyleBoxTexture_tienda_realce")
 theme_override_styles/normal = SubResource("StyleBoxTexture_tienda")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_tienda_presionado")
+theme_override_styles/hover = SubResource("StyleBoxTexture_tienda_realce")
 
-[node name="PanelDinero" type="Control" parent="."]
+[node name="PanelDinero" type="Control" parent="." unique_id=450330964]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -57,7 +57,7 @@ offset_bottom = 78.0
 grow_horizontal = 0
 mouse_filter = 2
 
-[node name="Fondo" type="TextureRect" parent="PanelDinero"]
+[node name="Fondo" type="TextureRect" parent="PanelDinero" unique_id=1939794094]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -69,7 +69,7 @@ texture = ExtResource("3_monedas")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Dinero" type="Label" parent="PanelDinero"]
+[node name="Dinero" type="Label" parent="PanelDinero" unique_id=324968947]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -87,7 +87,7 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Reloj" parent="." instance=ExtResource("11_reloj")]
+[node name="Reloj" parent="." unique_id=1306310557 instance=ExtResource("11_reloj")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5

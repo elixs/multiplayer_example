@@ -24,21 +24,24 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("E_Interactuar"):
-		print("e se apreto")
-		for player: Player in players:
-			if player.get_multiplayer_authority() == multiplayer.get_unique_id():
+		if not monitoring: return # Si el puesto está apagado, ignoramos
+		
+		# Le preguntamos directo a las físicas de Godot quién está tocando el área
+		for body in get_overlapping_bodies():
+			var player = body as Player
+			if player and player.get_multiplayer_authority() == multiplayer.get_unique_id():
+				get_viewport().set_input_as_handled() # ¡CLAVE! Evita que el Player ejecute soltar_objeto()
 				interact.emit()
-				print("se emitio la señal desde ", player.get_instance_id())
-				player.trigger_emotiza.rpc(duracion_animacion)
 				return
 
 	if event.is_action_pressed("Q_Interactuar"):
-		print("q se apreto")
-		for player in players:
-			if player.get_multiplayer_authority() == multiplayer.get_unique_id():
+		if not monitoring: return
+		
+		for body in get_overlapping_bodies():
+			var player = body as Player
+			if player and player.get_multiplayer_authority() == multiplayer.get_unique_id():
+				get_viewport().set_input_as_handled()
 				interact_q.emit()
-				print("se emitio la señal desde ", player.get_instance_id())
-				player.trigger_emotiza.rpc(duracion_animacion)
 				return
 
 

@@ -23,9 +23,10 @@ func _spawnear_cliente() -> void:
 	var puestos_libres = puestos_clientes.filter(func(p): return not p.ocupado)
 	
 	if puestos_libres.size() > 0:
-
+		var receta_elegida = Recetario.instance.desbloqueadas().pick_random()
 		var puesto_elegido: PuestoCliente = puestos_libres.pick_random()
-		puesto_elegido._set_ocupado_rpc.rpc(true)
+		
+		puesto_elegido.configurar_pedido_rpc.rpc(true, receta_elegida)
 		print("Servidor: NPC apareció en ", puesto_elegido.name)
 	
 	_iniciar_proximo_cliente()

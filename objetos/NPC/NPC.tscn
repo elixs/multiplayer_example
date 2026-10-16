@@ -33,7 +33,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09790039, 0.7911167)
 shape = SubResource("BoxShape3D_s2vrj")
 
 [node name="Label3D" type="Label3D" parent="Interaccion_area" unique_id=1680290701]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.87303203, 0.7389072)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2981556, 0.7389072)
 text = "Press E"
 
 [node name="modelo" type="Node3D" parent="." unique_id=887362425]
@@ -48,3 +48,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(0.18035, 0, 0, 0, 0.16446093, 0, 0, 0, 0.2804947, 0, 0.37160277, 0.41908425)
 material_override = SubResource("StandardMaterial3D_57qmd")
 mesh = SubResource("PrismMesh_g4v7s")
+
+[node name="LabelPedido" type="Label3D" parent="." unique_id=509324144]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97613704, 0)
