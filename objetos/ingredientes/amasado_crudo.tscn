@@ -21,3 +21,6 @@ mesh = SubResource("SphereMesh_i8r1x")
 [node name="CollisionShape3D" parent="." index="1" unique_id=502487091]
 transform = Transform3D(0.1, 0, 0, 0, 0.05, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("SphereShape3D_bc13o")
+
+[node name="Label3D" parent="." index="3" unique_id=859107585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42964602, 0)
