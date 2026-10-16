@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://b7uwodr0en2av"]
 
 [ext_resource type="Script" uid="uid://c1b6a8nnta05y" path="res://scripts/test_interfaz.gd" id="1_interfaz"]
 [ext_resource type="Theme" uid="uid://c1h8f62iw8uqo" path="res://ui/Theme/panacats_theme.tres" id="2_tema"]
