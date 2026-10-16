@@ -1,0 +1,239 @@
+[gd_scene load_steps=17 format=3 uid="uid://cn58is8kqida"]
+
+[ext_resource type="Script" uid="uid://82i7aws8ivku" path="res://ui/tienda/tienda.gd" id="1_tienda"]
+[ext_resource type="PackedScene" uid="uid://bcjcd0f6oeuhv" path="res://ui/recetas/carta_receta.tscn" id="2_carta"]
+[ext_resource type="Texture2D" uid="uid://dcategtouhxb6" path="res://assets/ui/tienda_y_cierre/cinta_titulo.png" id="4_cinta"]
+[ext_resource type="Texture2D" uid="uid://b7solx2vt2acp" path="res://assets/ui/hud/panel_monedas.png" id="5_monedas"]
+[ext_resource type="Texture2D" uid="uid://cl1rtdg3maxjn" path="res://assets/ui/lobby_y_botones/btn_cerrar.png" id="6_cerrar"]
+[ext_resource type="Texture2D" uid="uid://h4dxo1qu0en8" path="res://assets/ui/tienda_y_cierre/btn_flecha_izquierda.png" id="7_izquierda"]
+[ext_resource type="Texture2D" uid="uid://c265kau13fftt" path="res://assets/ui/tienda_y_cierre/btn_flecha_derecha.png" id="8_derecha"]
+[ext_resource type="Texture2D" uid="uid://c5am3e3x7nlkx" path="res://assets/ui/tienda_y_cierre/gato_pan.png" id="9_gato"]
+[ext_resource type="PackedScene" uid="uid://bkr3s3mb8c570" path="res://ui/reloj/reloj_jornada.tscn" id="10_reloj"]
+[ext_resource type="Texture2D" uid="uid://cr65iexuf208c" path="res://assets/ui/lobby_y_botones/tooltip_crema.png" id="11_globo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cerrar"]
+texture = ExtResource("6_cerrar")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cerrar_realce"]
+texture = ExtResource("6_cerrar")
+modulate_color = Color(1.1, 1.06, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cerrar_presionado"]
+texture = ExtResource("6_cerrar")
+modulate_color = Color(0.88, 0.84, 0.8, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_izquierda"]
+texture = ExtResource("7_izquierda")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_derecha"]
+texture = ExtResource("8_derecha")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sin_fondo"]
+
+[node name="Tienda" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tienda")
+escena_carta = ExtResource("2_carta")
+
+[node name="Oscurecer" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"Darker"
+
+[node name="Marco" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 110.0
+offset_top = 110.0
+offset_right = -110.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Reloj" parent="Marco" instance=ExtResource("10_reloj")]
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 124.0
+offset_bottom = 116.0
+tamano_digitos = 16
+
+[node name="GatoPan" type="TextureRect" parent="Marco"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = -100.0
+offset_right = 136.0
+offset_bottom = -18.0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("9_gato")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelMonedas" type="TextureRect" parent="Marco"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = 20.0
+offset_right = -110.0
+offset_bottom = 75.0
+grow_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("5_monedas")
+expand_mode = 1
+
+[node name="Dinero" type="Label" parent="Marco/PanelMonedas"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2911
+anchor_top = 0.2381
+anchor_right = 0.899
+anchor_bottom = 0.7738
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"Numero"
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cartas" type="HBoxContainer" parent="Marco"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = 130.0
+offset_right = -120.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 26
+alignment = 1
+
+[node name="FlechaIzquierda" type="Button" parent="Marco"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 38.0
+offset_top = 17.0
+offset_right = 94.0
+offset_bottom = 73.0
+grow_vertical = 2
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_sin_fondo")
+theme_override_styles/hover = SubResource("StyleBoxTexture_izquierda")
+theme_override_styles/normal = SubResource("StyleBoxTexture_izquierda")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_izquierda")
+
+[node name="FlechaDerecha" type="Button" parent="Marco"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = 17.0
+offset_right = -38.0
+offset_bottom = 73.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_sin_fondo")
+theme_override_styles/hover = SubResource("StyleBoxTexture_derecha")
+theme_override_styles/normal = SubResource("StyleBoxTexture_derecha")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_derecha")
+
+[node name="Cinta" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -210.0
+offset_top = 72.0
+offset_right = 210.0
+offset_bottom = 167.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("4_cinta")
+expand_mode = 1
+
+[node name="Titulo" type="Label" parent="Cinta"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1287
+anchor_top = 0.1163
+anchor_right = 0.8759
+anchor_bottom = 0.6379
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"Titulo"
+theme_override_colors/font_color = Color(0.9647059, 0.9411765, 0.8941176, 1)
+theme_override_font_sizes/font_size = 40
+text = "Tienda"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BotonCerrar" type="Button" parent="Marco"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 18.0
+offset_right = -26.0
+offset_bottom = 72.0
+grow_horizontal = 0
+theme_override_styles/hover = SubResource("StyleBoxTexture_cerrar_realce")
+theme_override_styles/normal = SubResource("StyleBoxTexture_cerrar")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_cerrar_presionado")
+
+[node name="Globo" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_right = 132.0
+offset_bottom = 50.0
+mouse_filter = 2
+texture = ExtResource("11_globo")
+expand_mode = 1
+
+[node name="NombreIngrediente" type="Label" parent="Globo"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.04
+anchor_top = 0.1036
+anchor_right = 0.96
+anchor_bottom = 0.7367
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 16
+text = "Harina"
+horizontal_alignment = 1
+vertical_alignment = 1

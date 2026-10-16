@@ -1,0 +1,189 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" uid="uid://gbbkjxk6mjm6" path="res://ui/cierre/cierre_de_dia.gd" id="1_cierre"]
+[ext_resource type="PackedScene" path="res://ui/cierre/fila_estadistica.tscn" id="2_fila"]
+[ext_resource type="Texture2D" uid="uid://dcategtouhxb6" path="res://assets/ui/tienda_y_cierre/cinta_titulo.png" id="3_cinta"]
+[ext_resource type="Texture2D" uid="uid://be5dqcec5do48" path="res://assets/ui/tienda_y_cierre/estrella_llena.png" id="4_llena"]
+[ext_resource type="Texture2D" uid="uid://ffh1y77uu82a" path="res://assets/ui/tienda_y_cierre/estrella_vacia.png" id="5_vacia"]
+[ext_resource type="Texture2D" uid="uid://b8cobeiaiywqc" path="res://assets/ui/tienda_y_cierre/sello_exito.png" id="6_exito"]
+[ext_resource type="Texture2D" uid="uid://dp1y7il4lp8yh" path="res://assets/ui/tienda_y_cierre/sello_fracaso.png" id="7_fracaso"]
+[ext_resource type="Texture2D" uid="uid://dpq5ydoypf1yb" path="res://assets/ui/menus/icono_moneda.png" id="8_moneda"]
+[ext_resource type="Texture2D" uid="uid://cojdud4rb8hqt" path="res://assets/ui/hud/cliente_feliz.png" id="9_cliente"]
+[ext_resource type="Texture2D" uid="uid://cg5cedhqumo0n" path="res://assets/ui/menus/icono_pan_amasado.png" id="10_pan"]
+
+[node name="CierreDeDia" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cierre")
+dibujo_estrella_llena = ExtResource("4_llena")
+dibujo_estrella_vacia = ExtResource("5_vacia")
+dibujo_sello_exito = ExtResource("6_exito")
+dibujo_sello_fracaso = ExtResource("7_fracaso")
+dibujo_monedas = ExtResource("8_moneda")
+dibujo_clientes = ExtResource("9_cliente")
+dibujo_panes = ExtResource("10_pan")
+
+[node name="Oscurecer" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"Darker"
+
+[node name="Marco" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 230.0
+offset_top = 90.0
+offset_right = -230.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Estrellas" type="HBoxContainer" parent="Marco"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 299.0
+offset_top = 60.0
+offset_right = -299.0
+offset_bottom = 126.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Primera" type="TextureRect" parent="Marco/Estrellas"]
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_llena")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Segunda" type="TextureRect" parent="Marco/Estrellas"]
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_llena")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tercera" type="TextureRect" parent="Marco/Estrellas"]
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_vacia")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Meta" type="Label" parent="Marco"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 130.0
+offset_bottom = 158.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_type_variation = &"Pista"
+text = "Meta del día: 300"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Filas" type="VBoxContainer" parent="Marco"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 130.0
+offset_top = 166.0
+offset_right = -130.0
+offset_bottom = 484.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="Monedas" parent="Marco/Filas" instance=ExtResource("2_fila")]
+layout_mode = 2
+
+[node name="Clientes" parent="Marco/Filas" instance=ExtResource("2_fila")]
+layout_mode = 2
+
+[node name="Panes" parent="Marco/Filas" instance=ExtResource("2_fila")]
+layout_mode = 2
+
+[node name="BotonSeguir" type="Button" parent="Marco"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 305.0
+offset_top = -94.0
+offset_right = -305.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"BotonPrincipal"
+text = "Seguir"
+
+[node name="Sello" type="TextureRect" parent="Marco"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -150.0
+offset_right = 70.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("6_exito")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Cinta" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -220.0
+offset_top = 50.0
+offset_right = 220.0
+offset_bottom = 150.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("3_cinta")
+expand_mode = 1
+
+[node name="Titulo" type="Label" parent="Cinta"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1287
+anchor_top = 0.1163
+anchor_right = 0.8759
+anchor_bottom = 0.6379
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"Titulo"
+theme_override_colors/font_color = Color(0.9647059, 0.9411765, 0.8941176, 1)
+theme_override_font_sizes/font_size = 34
+text = "Día 1"
+horizontal_alignment = 1
+vertical_alignment = 1

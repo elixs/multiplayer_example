@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7uwodr0en2av"]
+
+[ext_resource type="Script" uid="uid://c1b6a8nnta05y" path="res://scripts/test_interfaz.gd" id="1_interfaz"]
+[ext_resource type="Theme" uid="uid://c1h8f62iw8uqo" path="res://ui/Theme/panacats_theme.tres" id="2_tema"]
+
+[node name="TestInterfaz" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_tema")
+script = ExtResource("1_interfaz")
+
+[node name="Fondo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.3607843, 0.4509804, 0.282353, 1)
+
+[node name="Pista" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -340.0
+offset_top = -44.0
+offset_right = 340.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_type_variation = &"Pista"
+text = "Aprieta el toldo de arriba a la izquierda para abrir la tienda. Escape la cierra."
+horizontal_alignment = 1

@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://0jt1wniw86x3" path="res://ui/emotes/emotes_base.tres" id="5_emotes"]
 [ext_resource type="PackedScene" path="res://ui/emotes/rueda_emotes.tscn" id="6_rueda"]
 [ext_resource type="PackedScene" path="res://ui/emotes/burbuja_emote.tscn" id="7_burbuja"]
+[ext_resource type="PackedScene" uid="uid://cn58is8kqida" path="res://ui/tienda/tienda.tscn" id="8_tienda"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_57qmd"]
 size = Vector3(2.176, 0.17325294, 4.199)
@@ -233,10 +234,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
 
 [node name="InGameUI" type="CanvasLayer" parent="." unique_id=619116339]
 
-[node name="HUD" parent="InGameUI" unique_id=1513608797 node_paths=PackedStringArray("jugador") instance=ExtResource("4_a86pc")]
+[node name="HUD" parent="InGameUI" unique_id=1513608797 node_paths=PackedStringArray("jugador", "tienda") instance=ExtResource("4_a86pc")]
 jugador = NodePath("../..")
+tienda = NodePath("../Tienda")
 
 [node name="RuedaEmotes" parent="InGameUI" unique_id=1347722817 node_paths=PackedStringArray("jugador") instance=ExtResource("6_rueda")]
 jugador = NodePath("../..")
+
+[node name="Tienda" parent="InGameUI" instance=ExtResource("8_tienda")]
 
 [editable path="GatoV5_Bone"]

@@ -1,14 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://di6skkic6oys7"]
+[gd_scene load_steps=11 format=3 uid="uid://di6skkic6oys7"]
 
 [ext_resource type="Script" uid="uid://c6jykph6llvh5" path="res://hud/hud.gd" id="1_6ca3a"]
 [ext_resource type="Theme" uid="uid://c1h8f62iw8uqo" path="res://ui/Theme/panacats_theme.tres" id="2_tema"]
 [ext_resource type="Texture2D" uid="uid://b7solx2vt2acp" path="res://assets/ui/hud/panel_monedas.png" id="3_monedas"]
-[ext_resource type="Texture2D" uid="uid://d1251ntubiaii" path="res://assets/ui/reloj/reloj_esfera.png" id="4_esfera"]
-[ext_resource type="Texture2D" uid="uid://bh3rv0i0qg5rv" path="res://assets/ui/reloj/reloj_aguja.png" id="5_aguja"]
-[ext_resource type="Texture2D" uid="uid://coritpnfv1dtf" path="res://assets/ui/reloj/reloj_centro.png" id="6_centro"]
-[ext_resource type="Texture2D" uid="uid://bbrpleyjp3mib" path="res://assets/ui/menus/boton_corto_crema.png" id="9_placa"]
 [ext_resource type="Texture2D" uid="uid://c8pesskrfpkvj" path="res://assets/ui/progreso/barra_simple_fondo.png" id="7_barra_fondo"]
 [ext_resource type="Texture2D" uid="uid://dr6xwbclkifqa" path="res://assets/ui/progreso/barra_simple_relleno.png" id="8_barra_relleno"]
+[ext_resource type="Texture2D" uid="uid://b3lucecawd14y" path="res://assets/ui/tienda_y_cierre/btn_tienda.png" id="10_tienda"]
+[ext_resource type="PackedScene" uid="uid://bkr3s3mb8c570" path="res://ui/reloj/reloj_jornada.tscn" id="11_reloj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tienda"]
+texture = ExtResource("10_tienda")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tienda_realce"]
+texture = ExtResource("10_tienda")
+modulate_color = Color(1.1, 1.06, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tienda_presionado"]
+texture = ExtResource("10_tienda")
+modulate_color = Color(0.88, 0.84, 0.8, 1)
 
 [node name="HUD" type="Control"]
 texture_filter = 4
@@ -21,6 +30,18 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2_tema")
 script = ExtResource("1_6ca3a")
+
+[node name="BotonTienda" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+offset_left = 24.0
+offset_top = 18.0
+offset_right = 81.0
+offset_bottom = 78.0
+theme_override_styles/hover = SubResource("StyleBoxTexture_tienda_realce")
+theme_override_styles/normal = SubResource("StyleBoxTexture_tienda")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tienda_presionado")
 
 [node name="PanelDinero" type="Control" parent="."]
 layout_mode = 1
@@ -64,7 +85,7 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelTiempo" type="Control" parent="."]
+[node name="Reloj" parent="." instance=ExtResource("11_reloj")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -74,79 +95,6 @@ offset_top = 10.0
 offset_right = 84.0
 offset_bottom = 172.0
 grow_horizontal = 2
-mouse_filter = 2
-
-[node name="Reloj" type="Control" parent="PanelTiempo"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -165.5
-offset_right = 165.5
-offset_bottom = 327.0
-grow_horizontal = 2
-scale = Vector2(0.34, 0.34)
-pivot_offset = Vector2(165.5, 0)
-mouse_filter = 2
-
-[node name="Esfera" type="TextureRect" parent="PanelTiempo/Reloj"]
-layout_mode = 0
-offset_right = 331.0
-offset_bottom = 327.0
-mouse_filter = 2
-texture = ExtResource("4_esfera")
-
-[node name="Aguja" type="TextureRect" parent="PanelTiempo/Reloj"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 157.6
-offset_top = 50.6
-offset_right = 171.6
-offset_bottom = 169.6
-pivot_offset = Vector2(7, 114)
-mouse_filter = 2
-texture = ExtResource("5_aguja")
-
-[node name="Centro" type="TextureRect" parent="PanelTiempo/Reloj"]
-layout_mode = 0
-offset_left = 143.1
-offset_top = 143.1
-offset_right = 186.1
-offset_bottom = 186.1
-mouse_filter = 2
-texture = ExtResource("6_centro")
-
-[node name="Placa" type="TextureRect" parent="PanelTiempo"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -66.0
-offset_top = 112.0
-offset_right = 66.0
-offset_bottom = 162.0
-grow_horizontal = 2
-mouse_filter = 2
-texture = ExtResource("9_placa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Tiempo" type="Label" parent="PanelTiempo"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -66.0
-offset_top = 114.0
-offset_right = 66.0
-offset_bottom = 158.0
-grow_horizontal = 2
-theme_type_variation = &"Numero"
-theme_override_font_sizes/font_size = 26
-text = "00:00"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="BarraTrabajo" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
