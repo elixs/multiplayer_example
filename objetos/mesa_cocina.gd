@@ -140,7 +140,7 @@ func _execute_interaction() -> void:
 		# Si fue el servidor el que interactuó localmente, su ID de emisor remoto puede ser 0 o 1
 		if sender_id == 0:
 			sender_id = 1
-			
+		
 		var player = _get_player_by_peer_id(sender_id)
 		if player == null:
 			print("Jugador no encontrado para entregar el objeto.")
@@ -149,15 +149,10 @@ func _execute_interaction() -> void:
 		var ing_a_recuperar: Ingrediente = ingredientes.pop_back()
 		nom_ingredientes.erase(ing_a_recuperar.nombre_ingrediente)
 
-		# Si la mesa se quedó sin ingredientes, permitimos recibir de nuevo
-		#if ingredientes.size() == 0:
 		recibe_ingredientes = true
 
 		ing_a_recuperar.global_position = nodo_listo.global_position
 		ing_a_recuperar.request_tomar.rpc_id(1, sender_id)
-#
-		# Sincronizamos la entrega del objeto a todos los clientes
-		#_sync_recuperar.rpc(ing_a_recuperar.get_path(), player.name)
 		
 	
 # llamar solo si hay ingredientes en la mesa
@@ -196,10 +191,6 @@ func _procesar_cocina_en_todos(rutas_a_borrar: Array, scene_path: String, nombre
 	print("ingredientes en la mesa:")
 	for i in ingredientes:
 		print(i)
-		
-@rpc("authority", "call_local", "reliable")
-func _soltar_ingrediente_listo_en_todos() -> void:
-	pass
 
 @rpc("authority", "call_local", "reliable")
 func _sync_recuperar(obj_path: NodePath, player_name: String) -> void:
@@ -211,7 +202,7 @@ func _sync_recuperar(obj_path: NodePath, player_name: String) -> void:
 		if obj.get_parent() == self:
 			remove_child(obj)
 			# Lo volvemos a poner en la escena principal (o donde vivan los objetos sueltos)
-			#get_tree().current_scene.add_child(obj)
+			get_tree().current_scene.add_child(obj)
 			
 		# Restauramos sus físicas para que el shape_cast o la interacción normal del jugador lo detecte/pueda tomar
 		obj.freeze = false

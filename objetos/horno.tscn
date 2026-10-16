@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://wpbny152rtsb"]
+
+[ext_resource type="PackedScene" uid="uid://dtyaejpfjc5qh" path="res://objetos/Box.tscn" id="1_obf72"]
+[ext_resource type="Script" uid="uid://bxhsn2y3rkao5" path="res://objetos/horno.gd" id="2_i3468"]
+
+[node name="Caja_Interactuable" unique_id=1986920888 instance=ExtResource("1_obf72")]
+script = ExtResource("2_i3468")
+
+[node name="Ingrediente" type="Marker3D" parent="." index="2" unique_id=1500070912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2766474, 0)
