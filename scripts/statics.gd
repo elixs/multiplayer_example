@@ -4,32 +4,7 @@ extends Node
 
 const MAX_CLIENTS: int = 3
 const PORT: int = 5409 # Number between 1024 and 65535.
-
-## Mapas jugables. El índice se guarda en Game.selected_map_index.
-const MAPS: Array[Dictionary] = [
-	{
-		"id": "playground",
-		"name": "Playground",
-		"path": "res://scenes/match/levels/playground.tscn",
-	},
-	{
-		"id": "arena",
-		"name": "Arena",
-		"path": "res://scenes/match/match.tscn",
-	},
-]
-
-
-static func get_map_name(index: int) -> String:
-	if index < 0 or index >= MAPS.size():
-		return "Desconocido"
-	return str(MAPS[index]["name"])
-
-
-static func get_map_path(index: int) -> String:
-	if index < 0 or index >= MAPS.size():
-		return str(MAPS[0]["path"])
-	return str(MAPS[index]["path"])
+const ARENA_SCENE_PATH: String = "res://scenes/match/match.tscn"
 
 
 enum Role {

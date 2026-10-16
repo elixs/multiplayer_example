@@ -4,7 +4,6 @@ extends Node
 signal players_updated
 signal player_updated(id: int)
 signal vote_updated(id: int)
-signal map_updated(index: int)
 
 static var instance: Game
 
@@ -18,7 +17,6 @@ static var instance: Game
 @export var main_scene: PackedScene
 
 var players: Array[Statics.PlayerData] = []
-var selected_map_index: int = 0
 var change_window_scale : bool = true :
 	set(value):
 		var last_value: bool = change_window_scale
@@ -93,28 +91,6 @@ func get_player(id: int) -> Statics.PlayerData:
 
 func get_current_player() -> Statics.PlayerData:
 	return get_player(multiplayer.get_unique_id())
-
-
-func get_selected_map_scene() -> PackedScene:
-	var path: String = Statics.get_map_path(selected_map_index)
-	var scene: PackedScene = load(path) as PackedScene
-	if scene == null:
-		return main_scene
-	return scene
-
-
-@rpc("authority", "call_local", "reliable")
-func set_selected_map(index: int) -> void:
-	if index < 0 or index >= Statics.MAPS.size():
-		return
-	selected_map_index = index
-	map_updated.emit(selected_map_index)
-
-
-func request_set_map(index: int) -> void:
-	if not multiplayer.is_server():
-		return
-	set_selected_map.rpc(index)
 
 
 @rpc("reliable")
