@@ -242,7 +242,8 @@ func _ready() -> void:
 		if id == get_multiplayer_authority():
 			Debug.log("¡Usaste tu vida extra!", 4.0)
 		)
-
+	add_to_group("players")
+	
 func setup(player_data: Statics.PlayerData) -> void:
 	_player_name = player_data.name
 	role = player_data.role
@@ -1630,6 +1631,15 @@ func _on_player_exploded(
 		tag_zone.monitoring = false
 		tag_zone.monitorable = false
 
+	# Modo espectador: solo en la pantalla del que murió
+	if is_multiplayer_authority():
+		grapple.cancel()
+		if slide.active:
+			slide.stop()
+		var crosshair := get_node_or_null("Crosshair")
+		if crosshair:
+			crosshair.queue_free()
+		add_child(SpectatorCamera.new())
 
 # ============================================================
 # Role Label
